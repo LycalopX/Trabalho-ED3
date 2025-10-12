@@ -1,6 +1,12 @@
 #ifndef ARQUIVOS_H
 #define ARQUIVOS_H
 
+// Estrutura para representar uma busca
+typedef struct {
+    char *campo;
+    char *valor;
+} Busca;
+
 // Cabeçalho do arquivo de dados 'pessoa.bin'
 typedef struct
 {

@@ -1,10 +1,7 @@
 #ifndef F4_H
 #define F4_H
 
-typedef struct {
-    char *campo;
-    char *valor;
-} Busca;
+#include "../arquivos.h"
 
 /**
  * @brief Cria uma estrutura de busca com o campo e valor especificados.

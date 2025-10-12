@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../arquivos.h" // Corrigido para refletir a estrutura de pastas
 
+// Cabeçalhos
 /**
  * @brief Lê o registro de cabeçalho do arquivo de dados.
  * @param fp Ponteiro para o arquivo de dados.
@@ -40,6 +41,30 @@ int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
  */
 int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
 
+// Indices
+/**
+ * @brief Lê um registro de índice do arquivo.
+ * @param fp Ponteiro para o arquivo de índice.
+ * @param reg_out Endereço de um ponteiro que receberá a struct alocada com os dados.
+ * @return Retorna 0 em caso de sucesso, 1 em caso de erro (fim de arquivo, falha de memória, etc).
+ */
+int le_registro_indice(FILE *fp, RegistroIndice **reg_out);
+
+/**
+ * @brief Libera a memória alocada para um registro de índice.
+ * @param reg Ponteiro para o registro a ser destruído.
+ */
+void destroi_registro_indice(RegistroIndice *reg);
+
+/**
+ * @brief Lê um registro de índice do arquivo.
+ * @param fp Ponteiro para o arquivo de índice.
+ * @param reg_out Endereço de um ponteiro que receberá a struct alocada com os dados.
+ * @return Retorna 0 em caso de sucesso, 1 em caso de erro (fim de arquivo, falha de memória, etc).
+ */
+RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros);
+
+// Registros
 /**
  * @brief Lê um registro de dados do arquivo.
  * @param fp Ponteiro para o arquivo de dados.
@@ -69,6 +94,7 @@ int escreve_registro_pessoa(FILE* fp, RegistroPessoa* reg);
  */
 int imprime_registro_pessoa(RegistroPessoa* reg);
 
+// Correção
 /**
  * @brief Lê um arquivo binário e imprime na tela uma representação de seu conteúdo.
  * Utilizada para verificação e comparação de arquivos nos testes automatizados (run.codes).

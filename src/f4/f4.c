@@ -44,9 +44,14 @@ Busca *cria_busca(char *campo, char *valor) {
 
 Busca *scanf_busca() {
     char input[100];
-    scanf("%s", input);
+    fscanf(stdin, "%99s", input);
     char *campo = strtok(input, "=");
     char *valor = strtok(NULL, "=");
+    // Verifica se a entrada era válida (tinha '=')
+    if (campo == NULL || valor == NULL) {
+        return NULL;
+    }
+
     return cria_busca(campo, valor);
 }
 
@@ -58,6 +63,22 @@ void destroi_busca(Busca *busca) {
     }
 }
 
+// FUNCIONALIDADE 4
+// Retorna 1 se o campo for valido e 0 se inválido
+int campo_valido(char *campo) {
+    if (strcmp(campo, "idPessoa") == 0) {
+        return 1;
+    } else if (strcmp(campo, "idadePessoa") == 0) {
+        return 1;
+    } else if (strcmp(campo, "nomePessoa") == 0) {
+        return 1;
+    } else if (strcmp(campo, "nomeUsuario") == 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 // Procura registros no arquivo de dados usando o índice ou busca linear e exibe na tela
 void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas) 
 {
@@ -66,11 +87,13 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
     if (fp == NULL) 
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        return;
     }
     CabecalhoPessoa *cab = malloc(sizeof(CabecalhoPessoa));
     if (le_cabecalho_pessoa(fp, cab) != 0) 
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        free(cab);
         fclose(fp);
         return;
     }
@@ -80,22 +103,67 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
     if (fpIndice == NULL) 
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        free(cab);
+        fclose(fp);
+        return;
+    }
+    RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab->quantidadePessoas);
+    if (indice == NULL)
+    {
+        printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        free(cab);
+        fclose(fp);
+        fclose(fpIndice);
+        return;
     }
 
     // Carrega os campos desejados
-
     Busca **buscasArray = malloc(sizeof(Busca*) * buscas);
     if (buscasArray == NULL)
     {
         printf(FALHA_AO_ALOCAR);
         fclose(fp);
         fclose(fpIndice);
+        for(int i = 0; i < cab->quantidadePessoas; i++) 
+        {
+            destroi_registro_indice(indice[i]);
+        }
+        free(indice);
+        free(cab);
         return;
     }
 
     for (int i = 0; i < buscas; i++) 
     {
+        printf("%d ", i + 1);
         buscasArray[i] = scanf_busca();
+
+        if(buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo)) // Busca inválida
+        {
+            // Buscas
+            if(buscasArray[i] != NULL) 
+            {
+                destroi_busca(buscasArray[i]);
+            }
+            for (int j = 0; j < i; j++) 
+            {
+                destroi_busca(buscasArray[j]);
+            }
+            free(buscasArray);
+            // Índice
+            for(int j = 0; j < cab->quantidadePessoas; j++) 
+            {
+                destroi_registro_indice(indice[j]);
+            }
+            free(indice);
+            free(cab);
+            // Arquivos
+            fclose(fp);
+            fclose(fpIndice);
+
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
+            return;
+        }
     }
     
     // Realiza as buscas
@@ -107,67 +175,111 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
         if(strcmp(b->campo, "idPessoa") == 0) 
         {
             int idBusca = atoi(b->valor);
-            // Offset do registro pelo idPessoa
-            // Exibir o registro encontrado ou mensagem de não encontrado
+            // Busca binária no índice
+            int left = 0;
+            int right = cab->quantidadePessoas - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (indice[mid]->idPessoa == idBusca) {
+                    fseek(fp, indice[mid]->byteOffset, SEEK_SET);
+                    RegistroPessoa *reg = NULL;
+                    if (le_registro_pessoa(fp, &reg) == 0) {
+                        imprime_registro_pessoa(reg);
+                        destroi_registro(reg);
+                    }
+                    break;
+                } else if (indice[mid]->idPessoa < idBusca) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
         } 
         else // Busca linear
         {
             int registrosLidos = 0;
-            while(registrosLidos < cab->quantidadePessoas) 
+            if(strcmp(b->campo, "idadePessoa") == 0) 
             {
-                RegistroPessoa *reg = NULL;
-                if (le_registro_pessoa(fp, &reg) != 0) // Registro removido ou erro
-                { 
-                    continue;
-                }
-                registrosLidos++;
-
-                int match = 0;
-                if (strcmp(b->campo, "nomePessoa") == 0 && reg->tamanhoNomePessoa > 0) 
+                int idadeBusca = atoi(b->valor);
+                // Percorrer todos os registros e exibir os que tiverem idadePessoa igual a idadeBusca
+                while(registrosLidos < cab->quantidadePessoas) 
                 {
-                    char nomePessoa[reg->tamanhoNomePessoa + 1];
-                    memcpy(nomePessoa, reg->nomePessoa, reg->tamanhoNomePessoa);
-                    nomePessoa[reg->tamanhoNomePessoa] = '\0'; // Null-terminate
-                    remover_aspas_extremas(b->valor);
-                    if (strcmp(nomePessoa, b->valor) == 0) 
-                    {
-                        match = 1;
+                    RegistroPessoa *reg = NULL;
+                    if (le_registro_pessoa(fp, &reg) != 0) // Registro removido 
+                    { 
+                        continue;
                     }
-                } 
-                else if (strcmp(b->campo, "idadePessoa") == 0) 
-                {
-                    int idadeBusca = atoi(b->valor);
-                    if (reg->idadePessoa == idadeBusca) 
-                    {
-                        match = 1;
-                    }
-                } 
-                else if (strcmp(b->campo, "nomeUsuario") == 0 && reg->tamanhoNomeUsuario > 0) 
-                {
-                    char nomeUsuario[reg->tamanhoNomeUsuario + 1];
-                    memcpy(nomeUsuario, reg->nomeUsuario, reg->tamanhoNomeUsuario);
-                    nomeUsuario[reg->tamanhoNomeUsuario] = '\0'; // Null-terminate
-                    remover_aspas_extremas(b->valor);
-                    if (strcmp(nomeUsuario, b->valor) == 0) 
-                    {
-                        match = 1;
-                    }
-                }
 
-                if (match) 
-                {
-                    imprime_registro_pessoa(reg);
-                    printf("\n");
+                    registrosLidos++;
+                    if(reg->idadePessoa == idadeBusca) // Encontrou
+                    {
+                        imprime_registro_pessoa(reg);
+                    }
+                    destroi_registro(reg); // Destruir registro alocado
                 }
+            } 
+            else if(strcmp(b->campo, "nomePessoa") == 0) 
+            {
+                char *nomeBusca = b->valor;
+                // Percorrer todos os registros e exibir os que tiverem nomePessoa igual a nomeBusca
+                while(registrosLidos < cab->quantidadePessoas) 
+                {
+                    RegistroPessoa *reg = NULL;
+                    if (le_registro_pessoa(fp, &reg) != 0) // Registro removido 
+                    { 
+                        continue;
+                    }
 
-                // Limpeza
-                
+                    registrosLidos++;
+                    if(reg->tamanhoNomePessoa == strlen(nomeBusca) && strncmp(reg->nomePessoa, nomeBusca, reg->tamanhoNomePessoa) == 0) // Encontrou
+                    {
+                        imprime_registro_pessoa(reg);
+                    }
+                    destroi_registro(reg); // Destruir registro alocado
+                }
+            } 
+            else if(strcmp(b->campo, "nomeUsuario") == 0) 
+            {
+                char *usuarioBusca = b->valor;
+                // Percorrer todos os registros e exibir os que tiverem nomeUsuario igual a usuarioBusca
+
+                while(registrosLidos < cab->quantidadePessoas) 
+                {
+                    RegistroPessoa *reg = NULL;
+                    if (le_registro_pessoa(fp, &reg) != 0) // Registro removido 
+                    { 
+                        continue;
+                    }
+
+                    registrosLidos++;
+                    if(reg->tamanhoNomeUsuario == strlen(usuarioBusca) && strncmp(reg->nomeUsuario, usuarioBusca, reg->tamanhoNomeUsuario) == 0) // Encontrou
+                    {
+                        imprime_registro_pessoa(reg);
+                    }
+                    destroi_registro(reg); // Destruir registro alocado
+                }
             }
-            // Buscar os registros com o mesmo valor linearmente e exibir
         } 
+
+        // Retorna o cursor para o início dos registros
+        fseek(fp, 17, SEEK_SET); // 17 é o tamanho do cabeçalho
     }
 
     // Limpeza
+    for (int i = 0; i < buscas; i++) 
+    {
+        destroi_busca(buscasArray[i]);
+    }
+
+    for(int i = 0; i < cab->quantidadePessoas; i++) 
+    {
+        destroi_registro_indice(indice[i]);
+    }
+
+    free(buscasArray);
+    free(indice);
+    free(cab);
+
     fclose(fp);
     fclose(fpIndice);
 }

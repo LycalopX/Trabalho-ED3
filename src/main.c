@@ -12,6 +12,7 @@
 #include "f1/f1.h"
 #include "f2/f2.h"
 #include "f3/f3.h"
+#include "f4/f4.h"
 
 void binarioNaTela(char *nomeArquivoBinario);
 void scan_quote_string(char *str);

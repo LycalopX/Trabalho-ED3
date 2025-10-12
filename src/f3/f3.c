@@ -27,6 +27,12 @@ void funcionalidade3(char *nomeArquivo)
     }
 
     int numRegistros = cab->quantidadePessoas;
+    if(numRegistros == 0) {
+        printf("Registro inexistente.\n");
+        free(cab);
+        fclose(fp);
+        return;
+    }
 
     // Lê e exibe os registros
     RegistroPessoa **reg = malloc(sizeof(RegistroPessoa *));

@@ -254,3 +254,68 @@ void scan_quote_string(char *str)
         strcpy(str, "");
     }
 }
+
+// Lê um registro de dados do arquivo. Retorna 1 em caso de erro ou fim de arquivo.
+int le_registro_indice(FILE *fp, RegistroIndice **reg_out)
+{
+    RegistroIndice *reg = malloc(sizeof(RegistroIndice));
+    if (reg == NULL)
+        return 1;
+
+    if (fread(&reg->idPessoa, sizeof(int), 1, fp) == 0)
+    {
+        free(reg);
+        return 1;
+    }
+
+    if (fread(&reg->byteOffset, sizeof(long long), 1, fp) == 0)
+    {
+        // Se o ficheiro acabar inesperadamente aqui (muito raro, mas possível)
+        free(reg);
+        return 1;
+    }
+
+    *reg_out = reg;
+    return 0;
+}
+
+// Libera a memória alocada para um registro de índice.
+void destroi_registro_indice(RegistroIndice *reg)
+{
+    if (reg == NULL)
+        return;
+
+    free(reg);
+}
+
+// Carrega todo o índice na memória, retornando um array dinâmico de ponteiros para os registros.
+RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros) {
+    if (fp == NULL) {
+        return NULL;
+    }
+
+    CabecalhoIndice cab;
+    if (le_cabecalho_indice(fp, &cab) != 0) {
+        return NULL;
+    }
+
+    // Move o cursor para o início dos registros
+    //fseek(fp, 12, SEEK_SET);
+
+    // Aloca um array dinâmico para armazenar os ponteiros dos registros
+    RegistroIndice **registros = malloc(numeroRegistros * sizeof(RegistroIndice *));
+
+    for(int i = 0; i < numeroRegistros; i++) {
+        registros[i] = malloc(sizeof(RegistroIndice));
+        if(le_registro_indice(fp, &registros[i]) != 0) {
+            // Em caso de erro, libera a memória alocada até o momento e retorna NULL
+            for(int j = 0; j <= i; j++) {
+                free(registros[j]);
+            }
+            free(registros);
+            return NULL;
+        }
+    }
+
+    return registros;
+}
