@@ -79,4 +79,20 @@ void binarioNaTela(char *nomeArquivoBinario);
  */
 void scan_quote_string(char *str);
 
+
+/**
+ * @brief Lê um arquivo binário de dados (pessoa.bin) e imprime seu conteúdo
+ * de forma estruturada e legível, campo por campo.
+ * @param nomeArquivoDados O nome do arquivo a ser lido e impresso.
+ */
+void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados);
+
+/**
+ * @brief Lê um arquivo binário de índice (indexaPessoa.bin) e imprime seu
+ * conteúdo de forma estruturada e legível, campo por campo.
+ * @param nomeArquivoIndice O nome do arquivo a ser lido e impresso.
+ */
+void debug_imprime_arquivo_indice(const char *nomeArquivoIndice);
+
+
 #endif
