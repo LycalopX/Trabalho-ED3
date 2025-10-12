@@ -184,6 +184,7 @@ void funcionalidade2(char *nomeArquivoCSV, char *nomeArquivoDados, char *nomeArq
         // Atualiza o byteOffset manualmente para o próximo registro.
         byteOffset += reg_pessoa.tamanhoRegistro;
 
+        reg_pessoa.tamanhoRegistro -= sizeof(int) + sizeof(char); // Ajusta tamanhoRegistro para não contar os campos de controle.
         // Escreve o registro de pessoa completo no ficheiro de dados.
         escreve_registro_pessoa(fp_data, &reg_pessoa);
 
@@ -212,19 +213,31 @@ void funcionalidade2(char *nomeArquivoCSV, char *nomeArquivoDados, char *nomeArq
     data_header.status = '1';
     index_header.status = '1';
 
-    // Reescreve os cabeçalhos atualizados nos ficheiros.
     escreve_cabecalho_pessoa(fp_data, &data_header);
-    escreve_cabecalho_indice(fp_index, &index_header);
 
-    // Exibe os ficheiros binários gerados na tela, conforme a especificação.
+    // Fecha o arquivo de índice para garantir que todos os registros sejam salvos.
+    fclose(fp_index);
+
+    // Reabre o arquivo no modo 'rb+' para poder sobrescrever o cabeçalho com segurança. (estava dando errado sem fazer isso)
+    fp_index = fopen(caminhoIndice, "rb+"); 
+    if (fp_index != NULL) {
+        escreve_cabecalho_indice(fp_index, &index_header);
+        fclose(fp_index);
+    }
+
+    // mesma coisa para o fp_data
+    fclose(fp_data);
+
+    fp_data = fopen(caminhoDados, "rb+"); 
+    if (fp_data != NULL) {
+        escreve_cabecalho_pessoa(fp_data, &data_header);
+        fclose(fp_data);
+    }
+
     binarioNaTela(caminhoDados);
     binarioNaTela(caminhoIndice);
 
-    // Fecha todos os ficheiros.
+    // Fecha os arquivos restantes.
     fclose(fp_csv);
-    fclose(fp_data);
-    fclose(fp_index);
-
-    // Liberta a memória alocada para o array de índice.
     free(regs_index);
 }

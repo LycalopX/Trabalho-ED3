@@ -237,26 +237,26 @@ void scan_quote_string(char *str)
 void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados) {
     FILE *fp = fopen(nomeArquivoDados, "rb");
     if (fp == NULL) {
-        printf("DEBUG ERRO: Nao foi possivel abrir %s\\n", nomeArquivoDados);
+        printf("DEBUG ERRO: Nao foi possivel abrir %s\n", nomeArquivoDados);
         return;
     }
 
-    printf("--- [DEBUG] Conteudo de %s ---\\n", nomeArquivoDados);
+    printf("--- [DEBUG] Conteudo de %s ---\n", nomeArquivoDados);
 
     // 1. Lendo e Imprimindo o Cabeçalho
     CabecalhoPessoa cab;
     if (le_cabecalho_pessoa(fp, &cab) != 0) {
-        printf("Falha ao ler o cabecalho.\\n");
+        printf("Falha ao ler o cabecalho.\n");
         fclose(fp);
         return;
     }
 
-    printf("CABECALHO:\\n");
-    printf("  status: '%c'\\n", cab.status);
-    printf("  quantidadePessoas: %d\\n", cab.quantidadePessoas);
-    printf("  quantidadeRemovidos: %d\\n", cab.quantidadeRemovidos);
-    printf("  proxByteOffset: %lld\\n", cab.proxByteOffset);
-    printf("------------------------------------\\n");
+    printf("CABECALHO:\n");
+    printf("  status: '%c'\n", cab.status);
+    printf("  quantidadePessoas: %d\n", cab.quantidadePessoas);
+    printf("  quantidadeRemovidos: %d\n", cab.quantidadeRemovidos);
+    printf("  proxByteOffset: %lld\n", cab.proxByteOffset);
+    printf("------------------------------------\n");
 
     // 2. Lendo e Imprimindo os Registros de Dados
     int i = 0;
@@ -269,11 +269,11 @@ void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados) {
             break;
         }
 
-        printf("REGISTRO [%d] @ byte-offset %lld\\n", i, byteOffsetAtual);
-        printf("  removido: '%c'\\n", reg->removido);
-        printf("  tamanhoRegistro: %d\\n", reg->tamanhoRegistro);
-        printf("  idPessoa: %d\\n", reg->idPessoa);
-        printf("  idadePessoa: %d\\n", reg->idadePessoa);
+        printf("REGISTRO [%d] @ byte-offset %lld\n", i, byteOffsetAtual);
+        printf("  removido: '%c'\n", reg->removido);
+        printf("  tamanhoRegistro: %d\n", reg->tamanhoRegistro);
+        printf("  idPessoa: %d\n", reg->idPessoa);
+        printf("  idadePessoa: %d\n", reg->idadePessoa);
 
         printf("  nomePessoa (%d): ", reg->tamanhoNomePessoa);
         if (reg->nomePessoa != NULL) {
@@ -281,7 +281,7 @@ void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados) {
         } else {
             printf("NULL");
         }
-        printf("\\n");
+        printf("\n");
 
         printf("  nomeUsuario (%d): ", reg->tamanhoNomeUsuario);
         if (reg->nomeUsuario != NULL) {
@@ -289,7 +289,7 @@ void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados) {
         } else {
             printf("NULL");
         }
-        printf("\\n---\\n");
+        printf("\n---\n");
         
         // Libera a memória alocada por le_registro_pessoa
         if (reg->nomePessoa != NULL) free(reg->nomePessoa);
@@ -300,30 +300,30 @@ void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados) {
     }
 
     fclose(fp);
-    printf("--- [FIM DEBUG] de %s ---\\n\\n", nomeArquivoDados);
+    printf("--- [FIM DEBUG] de %s ---\n\n", nomeArquivoDados);
 }
 
 
 void debug_imprime_arquivo_indice(const char *nomeArquivoIndice) {
     FILE *fp = fopen(nomeArquivoIndice, "rb");
     if (fp == NULL) {
-        printf("DEBUG ERRO: Nao foi possivel abrir %s\\n", nomeArquivoIndice);
+        printf("DEBUG ERRO: Nao foi possivel abrir %s\n", nomeArquivoIndice);
         return;
     }
     
-    printf("--- [DEBUG] Conteudo de %s ---\\n", nomeArquivoIndice);
+    printf("--- [DEBUG] Conteudo de %s ---\n", nomeArquivoIndice);
     
     // 1. Lendo e Imprimindo o Cabeçalho
     CabecalhoIndice cab;
     if(le_cabecalho_indice(fp, &cab) != 0) {
-        printf("Falha ao ler o cabecalho.\\n");
+        printf("Falha ao ler o cabecalho.\n");
         fclose(fp);
         return;
     }
     
-    printf("CABECALHO:\\n");
-    printf("  status: '%c'\\n", cab.status);
-    printf("------------------------------------\\n");
+    printf("CABECALHO:\n");
+    printf("  status: '%c'\n", cab.status);
+    printf("------------------------------------\n");
     
     // 2. Lendo e Imprimindo os Registros de Índice
     int i = 0;
@@ -334,13 +334,13 @@ void debug_imprime_arquivo_indice(const char *nomeArquivoIndice) {
         if (fread(&reg.idPessoa, sizeof(int), 1, fp) < 1) break; // Fim de arquivo
         if (fread(&reg.byteOffset, sizeof(long long), 1, fp) < 1) break; // Fim de arquivo
 
-        printf("INDICE [%d]:\\n", i);
-        printf("  idPessoa: %d\\n", reg.idPessoa);
-        printf("  byteOffset: %lld\\n", reg.byteOffset);
-        printf("---\\n");
+        printf("INDICE [%d]:\n", i);
+        printf("  idPessoa: %d\n", reg.idPessoa);
+        printf("  byteOffset: %lld\n", reg.byteOffset);
+        printf("---\n");
         i++;
     }
     
     fclose(fp);
-    printf("--- [FIM DEBUG] de %s ---\\n\\n", nomeArquivoIndice);
+    printf("--- [FIM DEBUG] de %s ---\n\n", nomeArquivoIndice);
 }
