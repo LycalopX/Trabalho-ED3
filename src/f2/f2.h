@@ -13,4 +13,14 @@
  */
 void funcionalidade2(char* nomeArquivoCSV, char* nomeArquivoDados, char* nomeArquivoIndice);
 
+/**
+ * @brief Processa uma única linha do arquivo .csv e preenche a struct RegistroPessoa.
+ * Esta função substitui o uso de strtok, tratando corretamente os campos nulos.
+ *
+ * @param line A string contendo a linha lida do .csv.
+ * @param reg Ponteiro para a struct RegistroPessoa a ser preenchida.
+ * @return Retorna 0 em caso de sucesso, 1 em caso de falha.
+ */
+int parse_csv_line(char *line, RegistroPessoa *reg);
+
 #endif // F2_H

@@ -10,7 +10,7 @@ void funcionalidade1(char *nomeArquivoIndice)
 {
     
     char caminhoCompleto[200];
-    sprintf(caminhoCompleto, "bin/%s", nomeArquivoIndice);
+    sprintf(caminhoCompleto, "%s", nomeArquivoIndice);
 
     // Usa o caminho completo para abrir/criar o arquivo.
     FILE *fp = fopen(caminhoCompleto, "wb");
