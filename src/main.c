@@ -25,6 +25,8 @@ int main() {
         {
             char nomeArquivoIndice[100];
             scanf("%s", nomeArquivoIndice);
+
+            funcionalidade1(nomeArquivoIndice);
             break;
         }
         case 2:

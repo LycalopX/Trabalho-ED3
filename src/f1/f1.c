@@ -8,7 +8,12 @@
 
 void funcionalidade1(char *nomeArquivoIndice)
 {
-    FILE *fp = fopen(nomeArquivoIndice, "wb+");
+    
+    char caminhoCompleto[200];
+    sprintf(caminhoCompleto, "bin/%s", nomeArquivoIndice);
+
+    // Usa o caminho completo para abrir/criar o arquivo.
+    FILE *fp = fopen(caminhoCompleto, "wb");
 
     if (fp == NULL)
     {
@@ -30,6 +35,5 @@ void funcionalidade1(char *nomeArquivoIndice)
 
     fclose(fp);
 
-    // Exibir o conteúdo do arquivo
-    binarioNaTela(nomeArquivoIndice);
+    binarioNaTela(caminhoCompleto);
 }
