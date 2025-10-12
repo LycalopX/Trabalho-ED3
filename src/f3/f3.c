@@ -18,16 +18,13 @@ void funcionalidade3(char *nomeArquivo)
     }
 
     // Coleta o numero de registros que devem ser lidos
-    /*CabecalhoPessoa *cab = malloc(sizeof(CabecalhoPessoa));
+    CabecalhoPessoa *cab = malloc(sizeof(CabecalhoPessoa));
     if (le_cabecalho_pessoa(fp, cab) != 0) 
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         fclose(fp);
         return;
-    }*/
-   // Enquanto cabecalho esta em desenvolvimento, numero de registros fixo
-    CabecalhoPessoa *cab = malloc(sizeof(CabecalhoPessoa));
-    cab->quantidadePessoas = 1;
+    }
 
     int numRegistros = cab->quantidadePessoas;
 
@@ -43,9 +40,11 @@ void funcionalidade3(char *nomeArquivo)
         }
         registrosLidos++;
         imprime_registro_pessoa(*reg);
-        // Destruir registro alocado
+        destroi_registro(*reg); // Destruir registro alocado
         printf("\n");
     }
 
+    free(cab);
+    free(reg);
     fclose(fp);
 }

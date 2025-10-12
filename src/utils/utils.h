@@ -49,6 +49,12 @@ int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
 int le_registro_pessoa(FILE* fp, RegistroPessoa** reg_out);
 
 /**
+ * @brief Libera a memória alocada para um registro de pessoa.
+ * @param reg Ponteiro para o registro a ser destruído.
+ */
+void destroi_registro(RegistroPessoa* reg);
+
+/**
  * @brief Escreve um registro de dados completo no arquivo.
  * @param fp Ponteiro para o arquivo de dados.
  * @param reg Ponteiro para a struct contendo os dados a serem escritos.
@@ -78,21 +84,5 @@ void binarioNaTela(char *nomeArquivoBinario);
  * @param str Ponteiro para o buffer onde a string lida será armazenada.
  */
 void scan_quote_string(char *str);
-
-
-/**
- * @brief Lê um arquivo binário de dados (pessoa.bin) e imprime seu conteúdo
- * de forma estruturada e legível, campo por campo.
- * @param nomeArquivoDados O nome do arquivo a ser lido e impresso.
- */
-void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados);
-
-/**
- * @brief Lê um arquivo binário de índice (indexaPessoa.bin) e imprime seu
- * conteúdo de forma estruturada e legível, campo por campo.
- * @param nomeArquivoIndice O nome do arquivo a ser lido e impresso.
- */
-void debug_imprime_arquivo_indice(const char *nomeArquivoIndice);
-
 
 #endif
