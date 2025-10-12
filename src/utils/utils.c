@@ -9,7 +9,24 @@
 int le_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
 {
     fseek(fp, 0, SEEK_SET);
-    if (fread(cab, sizeof(CabecalhoPessoa), 1, fp) < 1)
+
+    if (fread(&cab->status, sizeof(char), 1, fp) < 1)
+        return 1;
+    if (fread(&cab->quantidadePessoas, sizeof(int), 1, fp) < 1)
+        return 1;
+    if (fread(&cab->quantidadeRemovidos, sizeof(int), 1, fp) < 1)
+        return 1;
+    if (fread(&cab->proxByteOffset, sizeof(long long), 1, fp) < 1)
+        return 1;
+
+    return 0;
+}
+
+int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
+{
+    fseek(fp, 0, SEEK_SET);
+
+    if (fread(&cab->status, sizeof(char), 1, fp) < 1 || fread(&cab->lixo, sizeof(char), 11, fp) < 1)
     {
         return 1;
     }
