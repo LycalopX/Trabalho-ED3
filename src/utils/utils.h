@@ -21,6 +21,26 @@ int le_cabecalho_pessoa(FILE* fp, CabecalhoPessoa* cab);
 int escreve_cabecalho_pessoa(FILE* fp, CabecalhoPessoa* cab);
 
 /**
+ * @brief Lê o registro de cabeçalho do arquivo de índice.
+ * Posiciona o cursor no início do arquivo e lê os campos 'status' e 'lixo'
+ * para dentro da struct fornecida.
+ * @param fp Ponteiro para o arquivo de índice.
+ * @param cab Ponteiro para a struct CabecalhoIndice que será preenchida.
+ * @return Retorna 0 em caso de sucesso e 1 em caso de falha de leitura.
+ */
+int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
+
+/**
+ * @brief Escreve o registro de cabeçalho no arquivo de índice.
+ * Posiciona o cursor no início do arquivo e escreve os campos 'status' e 'lixo'
+ * a partir da struct fornecida.
+ * @param fp Ponteiro para o arquivo de índice.
+ * @param cab Ponteiro para a struct CabecalhoIndice contendo os dados a serem escritos.
+ * @return Retorna 0 em caso de sucesso e 1 em caso de falha de escrita.
+ */
+int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
+
+/**
  * @brief Lê um registro de dados do arquivo.
  * @param fp Ponteiro para o arquivo de dados.
  * @param reg_out Endereço de um ponteiro que receberá a struct alocada com os dados.
