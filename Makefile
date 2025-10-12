@@ -1,13 +1,19 @@
 # Makefile para compilação e execução do trabalho
+# Esta versão encontra automaticamente todos os arquivos .c necessários.
 
+# Encontra todos os arquivos .c dentro da pasta src e de suas subpastas
+SRCS = $(shell find src -name "*.c")
+
+# A regra 'all' compila todos os arquivos .c encontrados.
+# -lmd é a flag necessária para a função binarioNaTela.
 all:
-    gcc -Wall -Wextra -std=c11 -o programaTrab *.c -I. -Ibin -lm
+	gcc -o programaTrab $(SRCS) -lmd
 
-    # A flag -lm é para a biblioteca de matemática, pode ser útil. 
-    # O PDF indica -Imd, verifique qual é a correta para a função binarioNaTela.
-
+# A regra 'run' executa o programa.
 run:
-    ./programaTrab
+	./programaTrab
 
+# A regra 'clean' remove o programa executável.
 clean:
-    rm -f programaTrab bin/*
+	rm -f programaTrab
+
