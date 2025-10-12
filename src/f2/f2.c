@@ -239,8 +239,5 @@ void funcionalidade2(char *nomeArquivoCSV, char *nomeArquivoDados, char *nomeArq
 
     // Fecha os arquivos restantes.
     fclose(fp_csv);
-    fclose(fp_data);
-
-    // Liberta a memória alocada para o array de índice.
     free(regs_index);
 }
