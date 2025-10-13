@@ -20,7 +20,6 @@ void scan_quote_string(char *str);
 int main()
 {
     int funcionalidade;
-    printf("Digite o número da funcionalidade desejada:\n");
     scanf("%d", &funcionalidade);
 
     switch (funcionalidade)

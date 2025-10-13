@@ -51,6 +51,7 @@ Busca *scanf_busca() {
     if (campo == NULL || valor == NULL) {
         return NULL;
     }
+    remover_aspas_extremas(valor);
 
     return cria_busca(campo, valor);
 }
@@ -75,6 +76,7 @@ int campo_valido(char *campo) {
     } else if (strcmp(campo, "nomeUsuario") == 0) {
         return 1;
     } else {
+        printf("Campo inválido: %s\n", campo);
         return 0;
     }
 }
