@@ -9,27 +9,6 @@
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 
-// String utils
-// Remove aspas duplas do início e fim de uma string, se presentes
-// Somente strings com aspas nos dois extremos são modificadas
-void remover_aspas_extremas(char *str) {
-    // String não nula
-    if (str == NULL) {
-        return;
-    }
-
-    int len = strlen(str);
-
-    // Validação
-    if (len >= 2 && str[0] == '"' && str[len - 1] == '"') {
-        // Mover o bloco de caracteres (sem as aspas) para o início da string
-        memmove(str, str + 1, len - 2);
-
-        // Adiciona o novo terminador nulo para finalizar a string
-        str[len - 2] = '\0';
-    }
-}
-
 // BUSCA
 Busca *cria_busca(char *campo, char *valor) {
     Busca *busca = malloc(sizeof(Busca));
@@ -42,17 +21,22 @@ Busca *cria_busca(char *campo, char *valor) {
     return busca;
 }
 
-Busca *scanf_busca() {
-    char input[100];
-    fscanf(stdin, "%99s", input);
-    char *campo = strtok(input, "=");
-    char *valor = strtok(NULL, "=");
-    // Verifica se a entrada era válida (tinha '=')
-    if (campo == NULL || valor == NULL) {
-        return NULL;
-    }
-    remover_aspas_extremas(valor);
+Busca *scanf_busca_com_funcao_professora() {
+    char campo[100];
+    char valor[100];
 
+    // 1. Lê o nome do campo até o caractere '='
+    if (scanf(" %[^=]", campo) != 1) {
+        return NULL; // Falha ao ler o campo
+    }
+
+    // 2. Consome o caractere '=' que ficou no buffer de entrada
+    getchar();
+
+    // 3. Usa a função da professora para ler o valor (com ou sem aspas)
+    scan_quote_string(valor);
+
+    // 4. Cria a estrutura de busca com os dados lidos
     return cria_busca(campo, valor);
 }
 
@@ -66,9 +50,9 @@ void destroi_busca(Busca *busca) {
 
 // FUNCIONALIDADE 4
 #define CAMPO_ID "idPessoa"
-#define CAMPO_IDADE "idade"
-#define CAMPO_NOME "nome"
-#define CAMPO_USUARIO "usuario"
+#define CAMPO_IDADE "idadePessoa"
+#define CAMPO_NOME "nomePessoa"
+#define CAMPO_USUARIO "usuarioPessoa"
 
 // Retorna 1 se o campo for valido e 0 se inválido
 int campo_valido(char *campo) {
@@ -140,11 +124,14 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
         return;
     }
 
+    // Criar as buscas
     for (int i = 0; i < buscas; i++) 
     {
-        printf("%d ", i + 1);
         buscasArray[i] = scanf_busca();
 
+        if(buscasArray[i] != NULL){
+            printf("Busca %d: campo=%s valor=%s\n", i + 1, buscasArray[i]->campo, buscasArray[i]->valor);
+        }
         if(buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo)) // Busca inválida
         {
             // Buscas

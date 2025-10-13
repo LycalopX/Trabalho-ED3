@@ -165,7 +165,7 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
     if (reg == NULL)
         return 1;
 
-    printf("Dados da pessoa de codigo %d:\n", reg->idPessoa);
+    printf("Dados da pessoa de codigo %d\n", reg->idPessoa);
 
     printf("Nome: ");
     if (reg->tamanhoNomePessoa > 0)
@@ -183,7 +183,7 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
         printf("Idade: %d\n", reg->idadePessoa);
     }
 
-    printf("Usuário: ");
+    printf("Usuario: ");
     if (reg->tamanhoNomeUsuario > 0)
     {
         fwrite(reg->nomeUsuario, sizeof(char), reg->tamanhoNomeUsuario, stdout);
