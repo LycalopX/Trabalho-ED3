@@ -65,15 +65,20 @@ void destroi_busca(Busca *busca) {
 }
 
 // FUNCIONALIDADE 4
+#define CAMPO_ID "idPessoa"
+#define CAMPO_IDADE "idade"
+#define CAMPO_NOME "nome"
+#define CAMPO_USUARIO "usuario"
+
 // Retorna 1 se o campo for valido e 0 se inválido
 int campo_valido(char *campo) {
-    if (strcmp(campo, "idPessoa") == 0) {
+    if (strcmp(campo, CAMPO_ID) == 0) {
         return 1;
-    } else if (strcmp(campo, "idadePessoa") == 0) {
+    } else if (strcmp(campo, CAMPO_IDADE) == 0) {
         return 1;
-    } else if (strcmp(campo, "nomePessoa") == 0) {
+    } else if (strcmp(campo, CAMPO_NOME) == 0) {
         return 1;
-    } else if (strcmp(campo, "nomeUsuario") == 0) {
+    } else if (strcmp(campo, CAMPO_USUARIO) == 0) {
         return 1;
     } else {
         printf("Campo inválido: %s\n", campo);
@@ -174,7 +179,7 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
         Busca *b = buscasArray[i];
 
         // Busca com índice
-        if(strcmp(b->campo, "idPessoa") == 0) 
+        if(strcmp(b->campo, CAMPO_ID) == 0) 
         {
             int idBusca = atoi(b->valor);
             // Busca binária no índice
@@ -200,7 +205,7 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
         else // Busca linear
         {
             int registrosLidos = 0;
-            if(strcmp(b->campo, "idadePessoa") == 0) 
+            if(strcmp(b->campo, CAMPO_IDADE) == 0) 
             {
                 int idadeBusca = atoi(b->valor);
                 // Percorrer todos os registros e exibir os que tiverem idadePessoa igual a idadeBusca
@@ -220,7 +225,7 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
                     destroi_registro(reg); // Destruir registro alocado
                 }
             } 
-            else if(strcmp(b->campo, "nomePessoa") == 0) 
+            else if(strcmp(b->campo, CAMPO_NOME) == 0) 
             {
                 char *nomeBusca = b->valor;
                 // Percorrer todos os registros e exibir os que tiverem nomePessoa igual a nomeBusca
@@ -240,7 +245,7 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
                     destroi_registro(reg); // Destruir registro alocado
                 }
             } 
-            else if(strcmp(b->campo, "nomeUsuario") == 0) 
+            else if(strcmp(b->campo, CAMPO_USUARIO) == 0) 
             {
                 char *usuarioBusca = b->valor;
                 // Percorrer todos os registros e exibir os que tiverem nomeUsuario igual a usuarioBusca

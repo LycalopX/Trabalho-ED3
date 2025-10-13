@@ -306,7 +306,6 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros) {
     RegistroIndice **registros = malloc(numeroRegistros * sizeof(RegistroIndice *));
 
     for(int i = 0; i < numeroRegistros; i++) {
-        registros[i] = malloc(sizeof(RegistroIndice));
         if(le_registro_indice(fp, &registros[i]) != 0) {
             // Em caso de erro, libera a memória alocada até o momento e retorna NULL
             for(int j = 0; j <= i; j++) {
