@@ -179,7 +179,7 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
                 destroi_registro(reg);
             }
             if (encontrados == 0) {
-                printf("Registro inexistente.\n");
+                printf("Registro inexistente.\n\n");
             }
         }
 
