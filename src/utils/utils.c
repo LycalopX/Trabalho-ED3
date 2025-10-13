@@ -188,7 +188,7 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
     {
         fwrite(reg->nomeUsuario, sizeof(char), reg->tamanhoNomeUsuario, stdout);
     }
-    printf("\n");
+    printf("\n\n");
 
     return 0;
 }

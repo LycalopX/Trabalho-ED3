@@ -47,7 +47,6 @@ void funcionalidade3(char *nomeArquivo)
         registrosLidos++;
         imprime_registro_pessoa(*reg);
         destroi_registro(*reg); // Destruir registro alocado
-        printf("\n");
     }
 
     free(cab);
