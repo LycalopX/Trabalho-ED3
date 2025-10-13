@@ -1,5 +1,5 @@
 // Alexandre Brenner Weber - 15436911
-// André Luis Santos Messias -
+// André Luis Santos Messias - 15493857
 
 // Bibliotecas padrão
 #include <stdio.h>
@@ -11,6 +11,8 @@
 #include "utils/utils.h"
 #include "f1/f1.h"
 #include "f2/f2.h"
+#include "f3/f3.h"
+#include "f4/f4.h"
 
 void binarioNaTela(char *nomeArquivoBinario);
 void scan_quote_string(char *str);
@@ -22,37 +24,55 @@ int main()
 
     switch (funcionalidade)
     {
-    case 1:
-    {
-        char nomeArquivoIndice[100];
-        scanf("%s", nomeArquivoIndice);
+        case 1:
+        {
+            char nomeArquivoIndice[100];
+            scanf("%s", nomeArquivoIndice);
 
-        funcionalidade1(nomeArquivoIndice);
-        break;
-    }
-    case 2:
-    {
-        char nomeArquivoCSV[100];
-        char nomeArquivoDados[100];
-        char nomeArquivoIndice[100];
-        scanf("%s", nomeArquivoCSV);
-        scanf("%s", nomeArquivoDados);
-        scanf("%s", nomeArquivoIndice);
-        
-        funcionalidade2(nomeArquivoCSV, nomeArquivoDados, nomeArquivoIndice);
-        break;
-    }
-    case 3:
-    {
-        break;
-    }
-    case 4:
-    {
-        break;
-    }
+            funcionalidade1(nomeArquivoIndice);
+            break;
+        }
+        case 2:
+        {
+            char nomeArquivoCSV[100];
+            char nomeArquivoDados[100];
+            char nomeArquivoIndice[100];
+            scanf("%s", nomeArquivoCSV);
+            scanf("%s", nomeArquivoDados);
+            scanf("%s", nomeArquivoIndice);
+            
+            funcionalidade2(nomeArquivoCSV, nomeArquivoDados, nomeArquivoIndice);
+            break;
+        }
+        case 3:
+        {
+            char nomeArquivoDeRegistro[100];
+            scanf("%s", nomeArquivoDeRegistro);
 
-    default:
-        break;
+            funcionalidade3(nomeArquivoDeRegistro);
+            break;
+        }
+        case 4:
+        {
+            // Registros
+            char nomeArquivoDeRegistro[100];
+            scanf("%s", nomeArquivoDeRegistro);
+
+            // Índice
+            char nomeArquivoIndice[100];
+            scanf("%s", nomeArquivoIndice);
+
+            int buscas;
+            scanf("%d", &buscas);
+            funcionalidade4(nomeArquivoDeRegistro, nomeArquivoIndice, buscas);
+            break;
+        }
+
+        default:
+        {
+            printf("Funcionalidade inválida!\n");
+            exit(0);
+        }
     }
 
     return 0;
