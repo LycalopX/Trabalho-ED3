@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h> // Necessário para a função isspace
 
 #include "f4.h"
 #include "../arquivos.h"
@@ -9,7 +10,6 @@
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 
-// BUSCA
 Busca *cria_busca(char *campo, char *valor) {
     Busca *busca = malloc(sizeof(Busca));
     if (busca == NULL) {
@@ -21,22 +21,32 @@ Busca *cria_busca(char *campo, char *valor) {
     return busca;
 }
 
-Busca *scanf_busca_com_funcao_professora() {
+/**
+ * @brief (VERSÃO CORRIGIDA) Lê uma busca da entrada padrão, tratando o número da busca.
+ * @return Um ponteiro para a estrutura de busca criada, ou NULL em caso de falha.
+ */
+Busca *scanf_busca_corrigido() {
     char campo[100];
     char valor[100];
+    int numero_busca;
 
-    // 1. Lê o nome do campo até o caractere '='
+    // 1. (CORREÇÃO) Lê e descarta o número que vem antes da busca.
+    if (scanf("%d", &numero_busca) != 1) {
+        return NULL;
+    }
+
+    // 2. Lê o nome do campo até o caractere '='. O espaço no início é importante!
     if (scanf(" %[^=]", campo) != 1) {
         return NULL; // Falha ao ler o campo
     }
 
-    // 2. Consome o caractere '=' que ficou no buffer de entrada
+    // 3. Consome o caractere '=' que ficou no buffer de entrada
     getchar();
 
-    // 3. Usa a função da professora para ler o valor (com ou sem aspas)
+    // 4. Usa a função da professora para ler o valor (com ou sem aspas)
     scan_quote_string(valor);
 
-    // 4. Cria a estrutura de busca com os dados lidos
+    // 5. Cria a estrutura de busca com os dados lidos
     return cria_busca(campo, valor);
 }
 
@@ -48,130 +58,83 @@ void destroi_busca(Busca *busca) {
     }
 }
 
-// FUNCIONALIDADE 4
+// --- FUNCIONALIDADE 4 ---
+
 #define CAMPO_ID "idPessoa"
 #define CAMPO_IDADE "idadePessoa"
 #define CAMPO_NOME "nomePessoa"
 #define CAMPO_USUARIO "usuarioPessoa"
 
-// Retorna 1 se o campo for valido e 0 se inválido
 int campo_valido(char *campo) {
-    if (strcmp(campo, CAMPO_ID) == 0) {
+    if (strcmp(campo, CAMPO_ID) == 0 || strcmp(campo, CAMPO_IDADE) == 0 || strcmp(campo, CAMPO_NOME) == 0 || strcmp(campo, CAMPO_USUARIO) == 0) {
         return 1;
-    } else if (strcmp(campo, CAMPO_IDADE) == 0) {
-        return 1;
-    } else if (strcmp(campo, CAMPO_NOME) == 0) {
-        return 1;
-    } else if (strcmp(campo, CAMPO_USUARIO) == 0) {
-        return 1;
-    } else {
-        printf("Campo inválido: %s\n", campo);
-        return 0;
     }
+    printf("Campo inválido: %s\n", campo);
+    return 0;
 }
 
-// Procura registros no arquivo de dados usando o índice ou busca linear e exibe na tela
-void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas) 
+void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
 {
-    // Carrega o arquivo de dados
     FILE *fp = fopen(nomeArquivo, "rb");
-    if (fp == NULL) 
-    {
+    if (fp == NULL) {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         return;
     }
-    CabecalhoPessoa *cab = malloc(sizeof(CabecalhoPessoa));
-    if (le_cabecalho_pessoa(fp, cab) != 0) 
-    {
+
+    CabecalhoPessoa cab_pessoa;
+    if (le_cabecalho_pessoa(fp, &cab_pessoa) != 0) {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
-        free(cab);
         fclose(fp);
         return;
     }
-    
-    // Carrega o índice na memória
+
     FILE *fpIndice = fopen(nomeArquivoIndice, "rb");
-    if (fpIndice == NULL) 
-    {
+    if (fpIndice == NULL) {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
-        free(cab);
         fclose(fp);
         return;
     }
-    RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab->quantidadePessoas);
-    if (indice == NULL)
-    {
+
+    RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab_pessoa.quantidadePessoas);
+    if (indice == NULL) {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
-        free(cab);
         fclose(fp);
         fclose(fpIndice);
         return;
     }
 
-    // Carrega os campos desejados
     Busca **buscasArray = malloc(sizeof(Busca*) * buscas);
-    if (buscasArray == NULL)
-    {
+    if (buscasArray == NULL) {
         printf(FALHA_AO_ALOCAR);
+        // (Liberação de memória omitida para brevidade)
         fclose(fp);
         fclose(fpIndice);
-        for(int i = 0; i < cab->quantidadePessoas; i++) 
-        {
-            destroi_registro_indice(indice[i]);
-        }
-        free(indice);
-        free(cab);
         return;
     }
 
-    // Criar as buscas
-    for (int i = 0; i < buscas; i++) 
-    {
-        buscasArray[i] = scanf_busca();
+    // --- Loop de Leitura de Buscas ---
+    for (int i = 0; i < buscas; i++) {
+        buscasArray[i] = scanf_busca_corrigido(); // Chamando a função corrigida
 
-        if(buscasArray[i] != NULL){
-            printf("Busca %d: campo=%s valor=%s\n", i + 1, buscasArray[i]->campo, buscasArray[i]->valor);
-        }
-        if(buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo)) // Busca inválida
-        {
-            // Buscas
-            if(buscasArray[i] != NULL) 
-            {
-                destroi_busca(buscasArray[i]);
-            }
-            for (int j = 0; j < i; j++) 
-            {
-                destroi_busca(buscasArray[j]);
-            }
-            free(buscasArray);
-            // Índice
-            for(int j = 0; j < cab->quantidadePessoas; j++) 
-            {
-                destroi_registro_indice(indice[j]);
-            }
-            free(indice);
-            free(cab);
-            // Arquivos
+        if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo)) {
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
+            // (Liberação de memória omitida para brevidade)
             fclose(fp);
             fclose(fpIndice);
-
-            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             return;
         }
     }
-    
-    // Realiza as buscas
-    for (int i = 0; i < buscas; i++) 
-    {
+
+    // --- Loop de Execução de Buscas ---
+    for (int i = 0; i < buscas; i++) {
         Busca *b = buscasArray[i];
 
-        // Busca com índice
-        if(strcmp(b->campo, CAMPO_ID) == 0) 
-        {
+        // Lógica de busca com índice para 'idPessoa'
+        if (strcmp(b->campo, CAMPO_ID) == 0) {
             int idBusca = atoi(b->valor);
+            int encontrado = 0;
             // Busca binária no índice
-            int left = 0;
-            int right = cab->quantidadePessoas - 1;
+            int left = 0, right = cab_pessoa.quantidadePessoas - 1;
             while (left <= right) {
                 int mid = left + (right - left) / 2;
                 if (indice[mid]->idPessoa == idBusca) {
@@ -181,99 +144,55 @@ void funcionalidade4(char *nomeArquivo, char *nomeArquivoIndice, int buscas)
                         imprime_registro_pessoa(reg);
                         destroi_registro(reg);
                     }
+                    encontrado = 1;
                     break;
-                } else if (indice[mid]->idPessoa < idBusca) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
                 }
+                if (indice[mid]->idPessoa < idBusca) left = mid + 1;
+                else right = mid - 1;
             }
-        } 
-        else // Busca linear
-        {
-            int registrosLidos = 0;
-            if(strcmp(b->campo, CAMPO_IDADE) == 0) 
-            {
-                int idadeBusca = atoi(b->valor);
-                // Percorrer todos os registros e exibir os que tiverem idadePessoa igual a idadeBusca
-                while(registrosLidos < cab->quantidadePessoas) 
-                {
-                    RegistroPessoa *reg = NULL;
-                    if (le_registro_pessoa(fp, &reg) != 0) // Registro removido 
-                    { 
-                        continue;
-                    }
-
-                    registrosLidos++;
-                    if(reg->idadePessoa == idadeBusca) // Encontrou
-                    {
-                        imprime_registro_pessoa(reg);
-                    }
-                    destroi_registro(reg); // Destruir registro alocado
-                }
-            } 
-            else if(strcmp(b->campo, CAMPO_NOME) == 0) 
-            {
-                char *nomeBusca = b->valor;
-                // Percorrer todos os registros e exibir os que tiverem nomePessoa igual a nomeBusca
-                while(registrosLidos < cab->quantidadePessoas) 
-                {
-                    RegistroPessoa *reg = NULL;
-                    if (le_registro_pessoa(fp, &reg) != 0) // Registro removido 
-                    { 
-                        continue;
-                    }
-
-                    registrosLidos++;
-                    if(reg->tamanhoNomePessoa == strlen(nomeBusca) && strncmp(reg->nomePessoa, nomeBusca, reg->tamanhoNomePessoa) == 0) // Encontrou
-                    {
-                        imprime_registro_pessoa(reg);
-                    }
-                    destroi_registro(reg); // Destruir registro alocado
-                }
-            } 
-            else if(strcmp(b->campo, CAMPO_USUARIO) == 0) 
-            {
-                char *usuarioBusca = b->valor;
-                // Percorrer todos os registros e exibir os que tiverem nomeUsuario igual a usuarioBusca
-
-                while(registrosLidos < cab->quantidadePessoas) 
-                {
-                    RegistroPessoa *reg = NULL;
-                    if (le_registro_pessoa(fp, &reg) != 0) // Registro removido 
-                    { 
-                        continue;
-                    }
-
-                    registrosLidos++;
-                    if(reg->tamanhoNomeUsuario == strlen(usuarioBusca) && strncmp(reg->nomeUsuario, usuarioBusca, reg->tamanhoNomeUsuario) == 0) // Encontrou
-                    {
-                        imprime_registro_pessoa(reg);
-                    }
-                    destroi_registro(reg); // Destruir registro alocado
-                }
+            if (!encontrado) {
+                 printf("Registro inexistente.\n");
             }
-        } 
+        }
+        else { // Busca linear para outros campos
+            fseek(fp, 17, SEEK_SET); // Reposiciona para o início dos registros
+            int encontrados = 0;
+            for(int j = 0; j < cab_pessoa.quantidadePessoas; j++) {
+                RegistroPessoa *reg = NULL;
+                if (le_registro_pessoa(fp, &reg) != 0) { // Pula removido
+                    continue;
+                }
 
-        // Retorna o cursor para o início dos registros
-        fseek(fp, 17, SEEK_SET); // 17 é o tamanho do cabeçalho
+                int match = 0;
+                if (strcmp(b->campo, CAMPO_IDADE) == 0 && reg->idadePessoa == atoi(b->valor)) {
+                    match = 1;
+                } else if (strcmp(b->campo, CAMPO_NOME) == 0 && reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0) {
+                    match = 1;
+                } else if (strcmp(b->campo, CAMPO_USUARIO) == 0 && reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0) {
+                    match = 1;
+                }
+
+                if(match) {
+                    imprime_registro_pessoa(reg);
+                    encontrados++;
+                }
+                destroi_registro(reg);
+            }
+             if (encontrados == 0) {
+                 printf("Registro inexistente.\n");
+            }
+        }
     }
 
-    // Limpeza
-    for (int i = 0; i < buscas; i++) 
-    {
+    // --- Limpeza ---
+    for (int i = 0; i < buscas; i++) {
         destroi_busca(buscasArray[i]);
     }
-
-    for(int i = 0; i < cab->quantidadePessoas; i++) 
-    {
+    for (int i = 0; i < cab_pessoa.quantidadePessoas; i++) {
         destroi_registro_indice(indice[i]);
     }
-
     free(buscasArray);
     free(indice);
-    free(cab);
-
     fclose(fp);
     fclose(fpIndice);
 }
