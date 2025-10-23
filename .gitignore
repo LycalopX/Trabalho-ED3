@@ -2,3 +2,5 @@
 *.o
 programaTrab
 *.zip
+.entrada.bin
+.indice.bin
