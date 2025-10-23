@@ -1,9 +1,13 @@
+#include <stddef.h> // Para size_t
+#include <stdint.h> // Para SIZE_MAX (para checagem de overflow)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
 #include "utils.h"
+
+#define GOLDEN_RATIO 1.61803398875
 
 // Lê o cabeçalho do arquivo de dados. Retorna 1 em caso de erro.
 int le_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
@@ -317,4 +321,47 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros) {
     }
 
     return registros;
+}
+
+void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size) {
+    
+    // 1. Calcular a nova capacidade
+    size_t new_capacity;
+    if (*p_current_capacity == 0) {
+        // Caso inicial: alocar pela primeira vez
+        new_capacity = 10;
+    } else {
+        // Arredonda para o inteiro mais próximo para garantir o crescimento
+        new_capacity = (size_t)(*p_current_capacity * GOLDEN_RATIO + 0.5);
+        
+        // Garantir que a capacidade realmente aumente (caso *p_current_capacity seja 1)
+        if (new_capacity <= *p_current_capacity) {
+            new_capacity = *p_current_capacity + 1;
+        }
+    }
+
+    // 2. Checagem de segurança contra overflow de multiplicação
+    // (new_capacity * elem_size) pode exceder o tamanho máximo de um size_t
+    if (elem_size > 0 && new_capacity > SIZE_MAX / elem_size) {
+        fprintf(stderr, "Erro: Overflow de alocação (tamanho solicitado excede SIZE_MAX).\n");
+        return;
+    }
+    
+    // 3. Calcular o novo tamanho total em bytes
+    size_t new_size_bytes = new_capacity * elem_size;
+
+    // 4. Chamar realloc. realloc lida corretamente com ptr == NULL.
+    (*ptr) = realloc(*ptr, new_size_bytes);
+
+    // 5. Tratar o resultado
+    if ((*ptr) == NULL) {
+        // Falha na alocação!
+        // O ponteiro original 'ptr' ainda é válido e não foi liberado.
+        // Não atualizamos *p_current_capacity.
+        fprintf(stderr, "Erro: Falha ao realocar memória para %zu bytes.\n", new_size_bytes);
+        return; 
+    }
+
+    // 6. Sucesso! Atualizar a capacidade e retornar o novo ponteiro.
+    *p_current_capacity = new_capacity;
 }

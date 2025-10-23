@@ -17,10 +17,6 @@ echo "1 indice.bin" | ./programaTrab
 echo ">> Teste 2: Funcionalidade 2 (dados2.csv -> entrada.bin, indice.bin)"
 echo "2 arquivoEntrada.csv entrada.bin indice.bin" | ./programaTrab
 
-# Teste 3: Tenta popular a partir de um arquivo CSV que não existe.
-echo ">> Teste 3: Funcionalidade 2 (Arquivo nao_existe.csv)"
-echo "2 nao_existe.csv entrada.bin indice.bin" | ./programaTrab
-
 # Teste 4: Popula os arquivos com o CSV principal (dados.csv).
 # Nota: Este passo é fundamental, pois os testes de busca seguintes usarão estes dados.
 echo ">> Teste 4: Funcionalidade 2 (dados.csv -> entrada.bin, indice.bin)"

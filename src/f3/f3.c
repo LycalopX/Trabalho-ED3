@@ -7,49 +7,51 @@
 
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 
-// Lê os registros do arquivo de dados e exibe na tela
-void funcionalidade3(char *nomeArquivo) 
+void funcionalidade3(FILE *fp) 
 {
-    FILE *fp = fopen(nomeArquivo, "rb");
-    if (fp == NULL) 
+    // Checa se o ponteiro do arquivo é válido
+    if (fp == NULL) {
+        printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        return;
+    }
+
+    // Lê o cabeçalho para saber o número de registros
+    CabecalhoPessoa cab;
+    if (le_cabecalho_pessoa(fp, &cab) != 0 || cab.status == '0') 
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         return;
     }
 
-    // Coleta o numero de registros que devem ser lidos
-    CabecalhoPessoa *cab = malloc(sizeof(CabecalhoPessoa));
-    if (le_cabecalho_pessoa(fp, cab) != 0) 
-    {
-        printf(FALHA_AO_PROCESSAR_ARQUIVO);
-        fclose(fp);
+    // Se não houver registros, imprime a mensagem apropriada
+    if (cab.quantidadePessoas == 0) {
+        printf("Registro inexistente.\n\n");
         return;
     }
 
-    int numRegistros = cab->quantidadePessoas;
-    if(numRegistros == 0) {
-        printf("Registro inexistente.\n");
-        free(cab);
-        fclose(fp);
-        return;
-    }
+    // Posiciona o cursor no início dos registros de dados
+    fseek(fp, 17, SEEK_SET);
 
-    // Lê e exibe os registros
-    RegistroPessoa **reg = malloc(sizeof(RegistroPessoa *));
-    int registrosLidos = 0;
-    while (registrosLidos < numRegistros) 
+    // Itera sobre os registros do arquivo
+    int registrosEncontrados = 0;
+    for (int i = 0; i < cab.quantidadePessoas + cab.quantidadeRemovidos; i++) 
     {
-        if (le_registro_pessoa(fp, reg) != 0) // Registro removido 
-        { 
-            printf("Falha ao ler registro %d.\n", registrosLidos + 1);
-            continue;
+        RegistroPessoa *reg = NULL;
+
+
+        if (le_registro_pessoa(fp, &reg) == 0) { // Se a leitura for bem sucedida
+            if (reg->removido == '0') { // E o registro não estiver removido
+                imprime_registro_pessoa(reg);
+                registrosEncontrados++;
+            }
+            destroi_registro(reg); // Destroi o registro temporário
+        } else {
+            // Se le_registro_pessoa falhar, pode ser o fim do arquivo
+            break;
         }
-        registrosLidos++;
-        imprime_registro_pessoa(*reg);
-        destroi_registro(*reg); // Destruir registro alocado
     }
 
-    free(cab);
-    free(reg);
-    fclose(fp);
+    if (registrosEncontrados == 0) {
+        printf("Registro inexistente.\n\n");
+    }
 }

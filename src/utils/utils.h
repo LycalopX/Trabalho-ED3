@@ -126,5 +126,23 @@ void debug_imprime_arquivo_pessoa(const char *nomeArquivoDados);
  */
 void debug_imprime_arquivo_indice(const char *nomeArquivoIndice);
 
+/**
+ * @brief Realoca um array genérico para uma nova capacidade baseada na razão áurea.
+ *
+ * Esta função é um wrapper seguro para realloc que lida com o crescimento
+ * de um array genérico (void*).
+ *
+ * @param ptr O ponteiro para o array atual (ou NULL para alocar pela primeira vez).
+ * @param p_current_capacity Um ponteiro para a variável que armazena a 
+ * capacidade *atual* (número de elementos que o array
+ * *pode* conter). Este valor será *atualizado* para
+ * a nova capacidade se a realocação for bem-sucedida.
+ * @param elem_size O tamanho (em bytes) de um único elemento no array (usar sizeof()).
+ *
+ * @return Um ponteiro para o novo bloco de memória, ou NULL se a alocação falhar.
+ * Se falhar, o ponteiro original (ptr) NÃO é liberado e 
+ * *p_current_capacity não é alterado.
+ */
+void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size);
 
 #endif

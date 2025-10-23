@@ -16,7 +16,7 @@ int comparar_indices(const void *a, const void *b)
 }
 
 // Função auxiliar para interpretar uma linha do CSV e preencher uma struct RegistroPessoa.
-int parse_csv_line(char *line, RegistroPessoa *reg)
+int parse_pessoa_csv_line(char *line, RegistroPessoa *reg)
 {
     // Remove quebras de linha (\n ou \r) do final da string para evitar erros de parsing.
     line[strcspn(line, "\r\n")] = 0;
@@ -82,33 +82,8 @@ int parse_csv_line(char *line, RegistroPessoa *reg)
     return 0; // Retorna 0 em caso de sucesso.
 }
 
-void funcionalidade2(char *nomeArquivoCSV, char *nomeArquivoDados, char *nomeArquivoIndice)
+void funcionalidade2(FILE *fp_csv, FILE *fp_data, FILE *fp_index, const char *nomeArquivoDados, const char *nomeArquivoIndice)
 {
-    // Prepara os caminhos para os ficheiros de entrada (CSV) e de saída (binários).
-    char caminhoCSV[200], caminhoDados[200], caminhoIndice[200];
-    sprintf(caminhoCSV, "%s", nomeArquivoCSV);
-    sprintf(caminhoDados, "%s", nomeArquivoDados);
-    sprintf(caminhoIndice, "%s", nomeArquivoIndice);
-
-    // Abre os três ficheiros nos modos corretos.
-    FILE *fp_csv = fopen(caminhoCSV, "r");
-    FILE *fp_data = fopen(caminhoDados, "wb+"); // (wb+) para usar fseek e ftell
-    FILE *fp_index = fopen(caminhoIndice, "rb+");
-    
-    if (fp_csv == NULL || fp_data == NULL || fp_index == NULL)
-    {
-        printf("Falha no processamento do arquivo.\n");
-
-        if (fp_csv != NULL)
-            fclose(fp_csv);
-        if (fp_data != NULL)
-            fclose(fp_data);
-        if (fp_index != NULL)
-            fclose(fp_index);
-
-        return;
-    }
-
     // Declara e inicializa os cabeçalhos.
     CabecalhoPessoa data_header;
     CabecalhoIndice index_header;
@@ -118,126 +93,85 @@ void funcionalidade2(char *nomeArquivoCSV, char *nomeArquivoDados, char *nomeArq
     data_header.quantidadeRemovidos = 0;
     data_header.proxByteOffset = 17;
 
-    // Lê o cabeçalho do ficheiro de índice (que já deve existir) e marca-o como inconsistente.
     le_cabecalho_indice(fp_index, &index_header);
     index_header.status = '0';
 
-    // Escreve os cabeçalhos iniciais nos ficheiros binários.
     escreve_cabecalho_pessoa(fp_data, &data_header);
     escreve_cabecalho_indice(fp_index, &index_header);
 
     char buffer[256];
     fgets(buffer, sizeof(buffer), fp_csv); // Pula a primeira linha (cabeçalho) do ficheiro CSV.
 
-    fseek(fp_data, 0, SEEK_END); // Posiciona o cursor no final do ficheiro de dados para começar a escrita.
+    // Posiciona o cursor no final do cabeçalho para garantir o início da escrita de dados.
+    fseek(fp_data, 17, SEEK_SET);
 
-    // Prepara o array dinâmico em memória para armazenar o índice.
-    RegistroIndice *regs_index = malloc(100 * sizeof(RegistroIndice));
-    int regs_length = 100;
+    // CORREÇÃO: Alocação movida para fora do laço e tipo da variável de tamanho corrigido.
+    size_t regs_length = 100;
+    RegistroIndice *regs_index = malloc(regs_length * sizeof(RegistroIndice));
     int index = 0;
-    int byteOffset = ftell(fp_data);
+    long long byteOffset = ftell(fp_data);
 
     // Itera sobre cada linha de dados do ficheiro CSV.
     while (fgets(buffer, sizeof(buffer), fp_csv))
     {
-        // Verifica se a alocação do array de índice falhou.
         if (regs_index == NULL)
         {
             printf("Falha no processamento do arquivo.\n");
-
-            fclose(fp_csv);
-            fclose(fp_data);
-            fclose(fp_index);
-
-            free(regs_index);
-
             return;
         }
 
         RegistroPessoa reg_pessoa;
-
-        // Zera os ponteiros para evitar libertar memória inválida se o parse falhar.
         reg_pessoa.nomePessoa = NULL;
         reg_pessoa.nomeUsuario = NULL;
 
-        // Chama a função de parse. Se falhar, pula para a próxima linha do CSV.
-        if (parse_csv_line(buffer, &reg_pessoa) != 0)
+        if (parse_pessoa_csv_line(buffer, &reg_pessoa) != 0)
         {
             continue;
         }
 
-        // Preenche os campos de controlo do registro.
         reg_pessoa.removido = '0';
-        reg_pessoa.tamanhoRegistro = sizeof(char) + sizeof(int) * 5 + reg_pessoa.tamanhoNomePessoa + reg_pessoa.tamanhoNomeUsuario;
 
-        // Expande o array de índice em memória se a capacidade for atingida.
-        if (regs_length < index + 1)
+        int tamanho_total_em_disco = sizeof(reg_pessoa.removido) + sizeof(reg_pessoa.tamanhoRegistro) + sizeof(reg_pessoa.idPessoa) + sizeof(reg_pessoa.idadePessoa) + sizeof(reg_pessoa.tamanhoNomePessoa) + sizeof(reg_pessoa.tamanhoNomeUsuario) + reg_pessoa.tamanhoNomePessoa + reg_pessoa.tamanhoNomeUsuario;
+        reg_pessoa.tamanhoRegistro = tamanho_total_em_disco - (sizeof(reg_pessoa.removido) + sizeof(reg_pessoa.tamanhoRegistro));
+
+        if (index >= regs_length)
         {
-            regs_length = regs_length * 1.618; // Expansão geométrica.
-            regs_index = realloc(regs_index, regs_length * sizeof(RegistroIndice));
+            realloc_golden((void **)&regs_index, &regs_length, sizeof(RegistroIndice));
         }
 
-        // Adiciona a nova entrada de índice (ID, offset) ao array em memória.
         regs_index[index].idPessoa = reg_pessoa.idPessoa;
         regs_index[index].byteOffset = byteOffset;
 
-        // Atualiza o byteOffset manualmente para o próximo registro.
-        byteOffset += reg_pessoa.tamanhoRegistro;
+        byteOffset += tamanho_total_em_disco;
 
-        reg_pessoa.tamanhoRegistro -= sizeof(int) + sizeof(char); // Ajusta tamanhoRegistro para não contar os campos de controle.
-        // Escreve o registro de pessoa completo no ficheiro de dados.
         escreve_registro_pessoa(fp_data, &reg_pessoa);
 
-        // Liberta a memória alocada para as strings temporárias.
         free(reg_pessoa.nomePessoa);
         free(reg_pessoa.nomeUsuario);
 
         index++;
     }
 
-    // Atualiza os campos do cabeçalho de dados com os valores finais.
     data_header.quantidadePessoas = index;
-    data_header.proxByteOffset = ftell(fp_data);
+    data_header.proxByteOffset = byteOffset;
 
-    // Ordena o array de índice em memória usando qsort.
     qsort(regs_index, index, sizeof(RegistroIndice), comparar_indices);
 
-    // Escreve o conteúdo do array (agora ordenado) no ficheiro de índice, campo a campo.
+    fseek(fp_index, 12, SEEK_SET);
     for (int i = 0; i < data_header.quantidadePessoas; i++)
     {
         fwrite(&regs_index[i].idPessoa, sizeof(int), 1, fp_index);
         fwrite(&regs_index[i].byteOffset, sizeof(long long), 1, fp_index);
     }
 
-    // Atualiza os status dos cabeçalhos para '1' (consistente).
     data_header.status = '1';
     index_header.status = '1';
 
     escreve_cabecalho_pessoa(fp_data, &data_header);
+    escreve_cabecalho_indice(fp_index, &index_header);
 
-    // Fecha o arquivo de índice para garantir que todos os registros sejam salvos.
-    fclose(fp_index);
+    fflush(fp_data);
+    fflush(fp_index);
 
-    // Reabre o arquivo no modo 'rb+' para poder sobrescrever o cabeçalho com segurança. (estava dando errado sem fazer isso)
-    fp_index = fopen(caminhoIndice, "rb+"); 
-    if (fp_index != NULL) {
-        escreve_cabecalho_indice(fp_index, &index_header);
-        fclose(fp_index);
-    }
-
-    // mesma coisa para o fp_data
-    fclose(fp_data);
-
-    fp_data = fopen(caminhoDados, "rb+"); 
-    if (fp_data != NULL) {
-        escreve_cabecalho_pessoa(fp_data, &data_header);
-        fclose(fp_data);
-    }
-
-    binarioNaTela(caminhoDados);
-    binarioNaTela(caminhoIndice);
-
-    // Fecha os arquivos restantes.
-    fclose(fp_csv);
     free(regs_index);
 }

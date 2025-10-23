@@ -33,6 +33,12 @@ typedef struct
     char *nomeUsuario;
 } RegistroPessoa;
 
+// Registro de dados retornado ao fazer busca dos dados de 'pessoa.bin'
+typedef struct {
+    RegistroPessoa *registro;
+    long long ByteOffset;
+} RegistroBuscaPessoa;
+
 // Cabeçalho do arquivo de índice 'indexaPessoa.bin'
 typedef struct
 {
@@ -48,5 +54,27 @@ typedef struct
     long long byteOffset;
     
 } RegistroIndice;
+
+// Cabeçalho do arquivo de índice 'Segue.bin'
+typedef struct
+{
+    char status;
+    int quantidadePessoas;
+    int proxRRN;
+
+} CabecalhoSegue;
+
+// Registro de dados de 'Segue.bin'
+typedef struct
+{
+    int removido;
+    int idPessoaQueSegue;
+    int idPessoaQueESeguida;
+    char dataInicioQueSegue[10];
+    char dataFimQueSegue[10];
+    char grauAmizade;
+
+} RegistroSegue;
+
 
 #endif
