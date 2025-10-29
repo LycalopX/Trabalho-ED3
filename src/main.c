@@ -153,7 +153,7 @@ int main()
             break;
         }
 
-        funcionalidade5(fp, fpIndice, buscas, nomeArquivoDeRegistro, nomeArquivoIndice);
+        funcionalidade5(fp, fpIndice, buscas);
 
         fclose(fp);
         fclose(fpIndice);

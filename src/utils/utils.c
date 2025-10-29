@@ -118,6 +118,26 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
     return 0;
 }
 
+// Construtor da struct RegistroPessoa
+RegistroPessoa* cria_registro_pessoa(int idPessoa, char nomePessoa[200], int idade, char nomeUsuario[200])
+{
+    RegistroPessoa *registroPessoa = malloc(sizeof(RegistroPessoa));
+
+    registroPessoa->removido = '0';
+    registroPessoa->idPessoa = idPessoa;
+    registroPessoa->idadePessoa = idade;
+
+    registroPessoa->tamanhoNomePessoa = strlen(nomePessoa);
+    registroPessoa->nomePessoa = malloc(registroPessoa->tamanhoNomePessoa);
+    memcpy(registroPessoa->nomePessoa, nomePessoa, registroPessoa->tamanhoNomePessoa);
+
+    registroPessoa->tamanhoNomeUsuario = strlen(nomeUsuario);
+    registroPessoa->nomeUsuario = malloc(registroPessoa->tamanhoNomeUsuario);
+    memcpy(registroPessoa->nomeUsuario, nomeUsuario, registroPessoa->tamanhoNomeUsuario);
+
+    return registroPessoa;
+}
+
 // Libera a memória alocada para um registro de pessoa.
 void destroi_registro(RegistroPessoa *reg)
 {
@@ -176,14 +196,18 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
     {
         fwrite(reg->nomePessoa, sizeof(char), reg->tamanhoNomePessoa, stdout);
     }
-    else{
+    else
+    {
         printf("-");
     }
     printf("\n");
 
-    if(reg->idadePessoa == -1) {
+    if (reg->idadePessoa == -1)
+    {
         printf("Idade: -\n");
-    } else {
+    }
+    else
+    {
         printf("Idade: %d\n", reg->idadePessoa);
     }
 
@@ -293,26 +317,32 @@ void destroi_registro_indice(RegistroIndice *reg)
 }
 
 // Carrega todo o índice na memória, retornando um array dinâmico de ponteiros para os registros.
-RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros) {
-    if (fp == NULL) {
+RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros)
+{
+    if (fp == NULL)
+    {
         return NULL;
     }
 
     CabecalhoIndice cab;
-    if (le_cabecalho_indice(fp, &cab) != 0) {
+    if (le_cabecalho_indice(fp, &cab) != 0)
+    {
         return NULL;
     }
 
     // Move o cursor para o início dos registros
-    //fseek(fp, 12, SEEK_SET);
+    // fseek(fp, 12, SEEK_SET);
 
     // Aloca um array dinâmico para armazenar os ponteiros dos registros
     RegistroIndice **registros = malloc(numeroRegistros * sizeof(RegistroIndice *));
 
-    for(int i = 0; i < numeroRegistros; i++) {
-        if(le_registro_indice(fp, &registros[i]) != 0) {
+    for (int i = 0; i < numeroRegistros; i++)
+    {
+        if (le_registro_indice(fp, &registros[i]) != 0)
+        {
             // Em caso de erro, libera a memória alocada até o momento e retorna NULL
-            for(int j = 0; j <= i; j++) {
+            for (int j = 0; j <= i; j++)
+            {
                 free(registros[j]);
             }
             free(registros);
@@ -323,30 +353,36 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros) {
     return registros;
 }
 
-void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size) {
-    
+void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
+{
+
     // 1. Calcular a nova capacidade
     size_t new_capacity;
-    if (*p_current_capacity == 0) {
+    if (*p_current_capacity == 0)
+    {
         // Caso inicial: alocar pela primeira vez
         new_capacity = 10;
-    } else {
+    }
+    else
+    {
         // Arredonda para o inteiro mais próximo para garantir o crescimento
         new_capacity = (size_t)(*p_current_capacity * GOLDEN_RATIO + 0.5);
-        
+
         // Garantir que a capacidade realmente aumente (caso *p_current_capacity seja 1)
-        if (new_capacity <= *p_current_capacity) {
+        if (new_capacity <= *p_current_capacity)
+        {
             new_capacity = *p_current_capacity + 1;
         }
     }
 
     // 2. Checagem de segurança contra overflow de multiplicação
     // (new_capacity * elem_size) pode exceder o tamanho máximo de um size_t
-    if (elem_size > 0 && new_capacity > SIZE_MAX / elem_size) {
+    if (elem_size > 0 && new_capacity > SIZE_MAX / elem_size)
+    {
         fprintf(stderr, "Erro: Overflow de alocação (tamanho solicitado excede SIZE_MAX).\n");
         return;
     }
-    
+
     // 3. Calcular o novo tamanho total em bytes
     size_t new_size_bytes = new_capacity * elem_size;
 
@@ -354,12 +390,13 @@ void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size) {
     (*ptr) = realloc(*ptr, new_size_bytes);
 
     // 5. Tratar o resultado
-    if ((*ptr) == NULL) {
+    if ((*ptr) == NULL)
+    {
         // Falha na alocação!
         // O ponteiro original 'ptr' ainda é válido e não foi liberado.
         // Não atualizamos *p_current_capacity.
         fprintf(stderr, "Erro: Falha ao realocar memória para %zu bytes.\n", new_size_bytes);
-        return; 
+        return;
     }
 
     // 6. Sucesso! Atualizar a capacidade e retornar o novo ponteiro.

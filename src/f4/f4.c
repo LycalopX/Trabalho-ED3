@@ -33,7 +33,7 @@ Busca *scanf_busca_corrigido()
     char valor[100];
     int numero_busca;
 
-    // 1. (CORREÇÃO) Lê e descarta o número que vem antes da busca.
+    // 1. Lê e descarta o número que vem antes da busca.
     if (scanf("%d", &numero_busca) != 1)
     {
         return NULL;
@@ -193,12 +193,29 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
 
                 int match = 0;
-                if (strcmp(b->campo, CAMPO_IDADE) == 0 && reg->idadePessoa == atoi(b->valor))
-                    match = 1;
-                else if (strcmp(b->campo, CAMPO_NOME) == 0 && reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0)
-                    match = 1;
-                else if (strcmp(b->campo, CAMPO_USUARIO) == 0 && reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0)
-                    match = 1;
+                if (strcmp(b->campo, CAMPO_IDADE) == 0)
+                {
+                    if (strcmp(b->valor, "") == 0)
+                    { // Busca por idade NULA
+                        if (reg->idadePessoa == -1)
+                            match = 1;
+                    }
+                    else
+                    {
+                        if (reg->idadePessoa == atoi(b->valor))
+                            match = 1;
+                    }
+                }
+                else if (strcmp(b->campo, CAMPO_NOME) == 0)
+                {
+                    if (reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0)
+                        match = 1;
+                }
+                else if (strcmp(b->campo, CAMPO_USUARIO) == 0)
+                {
+                    if (reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0)
+                        match = 1;
+                }
 
                 if (match)
                 {

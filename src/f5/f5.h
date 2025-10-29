@@ -15,6 +15,6 @@
  * @param nomeArquivoDados Nome do arquivo de dados, para passar ao binarioNaTela.
  * @param nomeArquivoIndice Nome do arquivo de índice, para passar ao binarioNaTela.
  */
-void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas, const char* nomeArquivoDados, const char* nomeArquivoIndice);
+void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas);
 
 #endif

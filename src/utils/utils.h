@@ -73,6 +73,9 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros);
  */
 int le_registro_pessoa(FILE* fp, RegistroPessoa** reg_out);
 
+// Criar @brief depois
+RegistroPessoa* cria_registro_pessoa(int idPessoa, char nomePessoa[200], int idade, char nomeUsuario[200]);
+
 /**
  * @brief Libera a memória alocada para um registro de pessoa.
  * @param reg Ponteiro para o registro a ser destruído.
