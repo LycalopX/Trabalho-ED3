@@ -32,10 +32,11 @@ void destroi_busca(Busca *busca);
  * @param fpIndice Ponteiro para o arquivo de índice (aberto em "rb").
  * @param buscas Número de buscas a serem realizadas.
  * @param nRegsEncontrados Ponteiro para um inteiro que, ao final da execução, armazenará o número de registros encontrados.
+ * @param silent Se 1, suprime as mensagens de erro como "Registro inexistente.".
  * @return Um array alocado dinamicamente de ponteiros para RegistroBuscaPessoa (RegistroBuscaPessoa**).
  *         A RESPONSABILIDADE DE LIBERAR A MEMÓRIA (o array, cada struct RegistroBuscaPessoa e cada RegistroPessoa dentro dela)
  *         É DA FUNÇÃO QUE CHAMA ESTA. Retorna NULL em caso de erro.
  */
-RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados);
+RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados, int silent);
 
 #endif

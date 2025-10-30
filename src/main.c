@@ -115,7 +115,7 @@ int main()
         }
 
         int nRegsEncontrados = 0;
-        RegistroBuscaPessoa **resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados);
+        RegistroBuscaPessoa **resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 0);
 
         // Imprime os resultados e libera a memória
         if (resultados != NULL) {

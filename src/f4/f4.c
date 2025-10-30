@@ -7,7 +7,6 @@
 #include "../arquivos.h"
 #include "../utils/utils.h"
 
-#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 
 Busca *cria_busca(char *campo, char *valor)
@@ -45,13 +44,8 @@ Busca *scanf_busca_corrigido()
         return NULL; // Falha ao ler o campo
     }
 
-    // 3. Consome o caractere '=' que ficou no buffer de entrada
     getchar();
-
-    // 4. Usa a função da professora para ler o valor (com ou sem aspas)
     scan_quote_string(valor);
-
-    // 5. Cria a estrutura de busca com os dados lidos
     return cria_busca(campo, valor);
 }
 
@@ -64,8 +58,6 @@ void destroi_busca(Busca *busca)
         free(busca);
     }
 }
-
-// --- FUNCIONALIDADE 4 ---
 
 #define CAMPO_ID "idPessoa"
 #define CAMPO_IDADE "idadePessoa"
@@ -82,8 +74,13 @@ int campo_valido(char *campo)
     return 0;
 }
 
-RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados)
+RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados, int silent)
 {
+    char *FALHA_AO_PROCESSAR_ARQUIVO = "Falha no processamento do arquivo.\n";
+    if (silent) {
+        FALHA_AO_PROCESSAR_ARQUIVO = "";
+    }
+
     *nRegsEncontrados = 0;
     size_t tamanhoRegs = 10;
     RegistroBuscaPessoa **regs = malloc(sizeof(RegistroBuscaPessoa *) * tamanhoRegs);
@@ -97,7 +94,7 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
     CabecalhoPessoa cab_pessoa;
     if (le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')
     {
-        printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
         free(regs);
         return NULL;
     }
@@ -105,7 +102,7 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
     RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab_pessoa.quantidadePessoas);
     if (indice == NULL)
     {
-        printf(FALHA_AO_PROCESSAR_ARQUIVO);
+        printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
         free(regs);
         return NULL;
     }
@@ -115,25 +112,26 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
     {
         printf(FALHA_AO_ALOCAR);
         free(regs);
-        // (Liberação de memória do índice omitida para brevidade)
+        for(int i = 0; i < cab_pessoa.quantidadePessoas; i++) destroi_registro_indice(indice[i]);
+        free(indice);
         return NULL;
     }
 
-    // --- Loop de Leitura de Buscas ---
     for (int i = 0; i < buscas; i++)
     {
         buscasArray[i] = scanf_busca_corrigido();
         if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo))
         {
-            printf(FALHA_AO_PROCESSAR_ARQUIVO);
-            // (Liberação de memória omitida para brevidade)
+            printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
             free(regs);
+            for(int j = 0; j < i; j++) destroi_busca(buscasArray[j]);
             free(buscasArray);
+            for(int j = 0; j < cab_pessoa.quantidadePessoas; j++) destroi_registro_indice(indice[j]);
+            free(indice);
             return NULL;
         }
     }
 
-    // --- Loop de Execução de Buscas ---
     for (int i = 0; i < buscas; i++)
     {
         Busca *b = buscasArray[i];
@@ -177,14 +175,19 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         }
         else
         {
-            long long byteOffset = 17; // Início dos registros
-
+            long long byteOffset = 17;
             fseek(fp, 17, SEEK_SET);
+
             for (int j = 0; j < cab_pessoa.quantidadePessoas + cab_pessoa.quantidadeRemovidos; j++)
             {
+                long long recordStartOffset = byteOffset;
                 RegistroPessoa *reg = NULL;
-                if (le_registro_pessoa(fp, &reg) != 0)
-                    continue;
+
+                if (le_registro_pessoa(fp, &reg) != 0) {
+                    break;
+                }
+                
+                byteOffset += sizeof(char) + sizeof(int) + reg->tamanhoRegistro;
 
                 if (reg->removido == '1')
                 {
@@ -196,7 +199,7 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 if (strcmp(b->campo, CAMPO_IDADE) == 0)
                 {
                     if (strcmp(b->valor, "") == 0)
-                    { // Busca por idade NULA
+                    {
                         if (reg->idadePessoa == -1)
                             match = 1;
                     }
@@ -208,12 +211,12 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
                 else if (strcmp(b->campo, CAMPO_NOME) == 0)
                 {
-                    if (reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0)
+                    if (reg->tamanhoNomePessoa > 0 && reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0)
                         match = 1;
                 }
                 else if (strcmp(b->campo, CAMPO_USUARIO) == 0)
                 {
-                    if (reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0)
+                    if (reg->tamanhoNomeUsuario > 0 && reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0)
                         match = 1;
                 }
 
@@ -223,10 +226,9 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                     {
                         realloc_golden((void **)&regs, &tamanhoRegs, sizeof(RegistroBuscaPessoa *));
                     }
-                    // Aloca memória para a struct que encapsula o resultado
                     regs[*nRegsEncontrados] = malloc(sizeof(RegistroBuscaPessoa));
                     regs[*nRegsEncontrados]->registro = reg;
-                    regs[*nRegsEncontrados]->ByteOffset = byteOffset;
+                    regs[*nRegsEncontrados]->ByteOffset = recordStartOffset;
 
                     (*nRegsEncontrados)++;
                     encontradosNestaBusca++;
@@ -235,18 +237,14 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 {
                     destroi_registro(reg);
                 }
-
-                int tamanho_total_em_disco = sizeof(reg->removido) + sizeof(reg->tamanhoRegistro) + sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) + sizeof(reg->tamanhoNomePessoa) + sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomePessoa + reg->tamanhoNomeUsuario;
-                byteOffset += tamanho_total_em_disco;
             }
         }
-        if (encontradosNestaBusca == 0)
+        if (encontradosNestaBusca == 0 && !silent)
         {
-            printf("Registro inexistente.\n\n");
+            printf("Registro inexistente.\n");
         }
     }
 
-    // --- Limpeza ---
     for (int i = 0; i < buscas; i++)
         destroi_busca(buscasArray[i]);
     for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)

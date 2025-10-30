@@ -34,10 +34,10 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
         // 1. Lê e descarta o número que vem antes da busca.
         if (scanf("%d", &numero_busca) != 1)
         {
-            return NULL;
+            return;
         }
 
-        scanf("%d, %s, %s, %s", idPessoa, nomePessoa, idadeString, nomeUsuario);
+        scanf("%d, %s, %s, %s", &idPessoa, nomePessoa, idadeString, nomeUsuario);
 
         scan_quote_string(nomePessoa);
         scan_quote_string(idadeString);

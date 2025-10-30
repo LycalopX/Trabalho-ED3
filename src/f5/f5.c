@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>      
+#include <sys/types.h> 
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
@@ -45,14 +47,29 @@ int buscaBinaria(RegistroIndice **indice, int tamanho, int idBusca)
     return -1; // Não encontrado
 }
 
-void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas, char const *nomeArquivoIndice)
+void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
 {
     // Implementação da funcionalidade 5
 
     int nRegsEncontrados = 0;
-    RegistroBuscaPessoa **resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados);
+    RegistroBuscaPessoa **resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1);
 
     qsort(resultados, nRegsEncontrados, sizeof(RegistroBuscaPessoa *), comparar_resultados);
+
+    if (nRegsEncontrados > 0) {
+        int write_idx = 1;
+        for (int read_idx = 1; read_idx < nRegsEncontrados; read_idx++) {
+            if (resultados[read_idx]->ByteOffset != resultados[read_idx - 1]->ByteOffset) {
+                resultados[write_idx] = resultados[read_idx];
+                write_idx++;
+            } else {
+                // Libera a memória do registro duplicado que não será mantido
+                destroi_registro(resultados[read_idx]->registro);
+                free(resultados[read_idx]);
+            }
+        }
+        nRegsEncontrados = write_idx; // Atualiza a contagem para o número de registros únicos
+    }
 
     fseek(fp, 0, 0);
     CabecalhoPessoa cp;
@@ -72,7 +89,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas, char const *nomeArqui
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         free(resultados);
-        return NULL;
+        return;
     }
 
     int PosicaoIndice;
@@ -92,7 +109,9 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas, char const *nomeArqui
 
             // Remover do indice
             PosicaoIndice = buscaBinaria(indice, cp.quantidadePessoas, resultados[i]->registro->idPessoa);
-            indice[PosicaoIndice]->idPessoa = -1;
+            if(PosicaoIndice != -1) {
+                indice[PosicaoIndice]->idPessoa = -1;
+            }
 
             // Define qual o ByteOffset que deve servir como referência ao próximo seek
             previousByteOffset += nextByteOffset + sizeof(char) + sizeof(int) + resultados[i]->registro->tamanhoRegistro;
@@ -108,24 +127,47 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas, char const *nomeArqui
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
     }
 
-    FILE *fpIndiceWB = fopen(nomeArquivoIndice, "wb+");
 
-    fseek(fpIndiceWB, 12, SEEK_SET);
+    // Rebobina o arquivo de índice para o início para reescrevê-lo.
+    fseek(fpIndice, 0, SEEK_SET);
+
+    // Lê o cabeçalho existente, atualiza o status para '0' e reescreve.
+    CabecalhoIndice index_header;
+    le_cabecalho_indice(fpIndice, &index_header);
+    index_header.status = '0';
+    escreve_cabecalho_indice(fpIndice, &index_header);
+
+
+    // Reescreve os registros de índice válidos.
+    fseek(fpIndice, 12, SEEK_SET);
     for (int i = 0; i < cp.quantidadePessoas; i++)
     {
-        if (indice[i]->idPessoa > 0)
+        if (indice[i] != NULL && indice[i]->idPessoa > 0)
         {
-            fwrite(&indice[i]->idPessoa, sizeof(int), 1, fpIndiceWB);
-            fwrite(&indice[i]->byteOffset, sizeof(long long), 1, fpIndiceWB);
+            fwrite(&indice[i]->idPessoa, sizeof(int), 1, fpIndice);
+            fwrite(&indice[i]->byteOffset, sizeof(long long), 1, fpIndice);
         }
         destroi_registro_indice(indice[i]);
     }
+    free(indice);
 
+
+    // Trunca o arquivo para remover lixo do final, caso o novo conteúdo seja menor.
+    long finalPos = ftell(fpIndice);
+    ftruncate(fileno(fpIndice), finalPos);
+
+    index_header.status = '1';
+    escreve_cabecalho_indice(fpIndice, &index_header);
+
+
+    // Atualiza o cabeçalho do arquivo de dados.
     fseek(fp, 0, 0);
     cp.status = 1;
     cp.quantidadeRemovidos = cp.quantidadeRemovidos + nRegsEncontrados;
     cp.quantidadePessoas = cp.quantidadePessoas - nRegsEncontrados;
+    
 
     escreve_cabecalho_pessoa(fp, &cp);
     fflush(fp);
+    fflush(fpIndice);
 }
