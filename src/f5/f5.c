@@ -98,6 +98,9 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
         {
             nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
 
+            // Remover registro
+            fseek(fp, nextByteOffset, SEEK_CUR);
+
             resultados[i]->registro->removido = '1';
             escreve_registro_pessoa(fp, resultados[i]->registro);
 
@@ -165,7 +168,8 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     // Atualiza o cabeçalho do arquivo de dados.
     fflush(fp);
     fseek(fp, 0, SEEK_SET);
-    cp.status = 1;
+
+    cp.status = '1';
     cp.quantidadeRemovidos = cp.quantidadeRemovidos + nRegsEncontrados;
     cp.quantidadePessoas = cp.quantidadePessoas - nRegsEncontrados;
 
