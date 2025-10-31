@@ -136,6 +136,7 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
     {
         Busca *b = buscasArray[i];
         int encontradosNestaBusca = 0;
+        printf("\n--- DEBUG F4: Iniciando busca %d: Campo='%s', Valor='%s' ---\n", i + 1, b->campo, b->valor);
 
         if (strcmp(b->campo, CAMPO_ID) == 0)
         {
@@ -243,6 +244,7 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         {
             printf("Registro inexistente.\n");
         }
+        printf("--- DEBUG F4: Fim da busca %d: %d registro(s) encontrado(s). ---\n", i + 1, encontradosNestaBusca);
     }
 
     for (int i = 0; i < buscas; i++)

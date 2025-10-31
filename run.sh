@@ -24,19 +24,19 @@ echo "--- Executando Testes Runcodes ---"
 
 # Teste 5: Tenta listar registros de um arquivo de dados que não existe.
  echo ">> Teste 5: Funcionalidade 3 (Arquivo pessoas5.bin)"
- echo -e "3 entrada.bin" | ./programaTrab
+# echo -e "3 entrada.bin" | ./programaTrab
 
 # Teste 6: Tenta listar registros de um arquivo de dados que não existe.
  echo ">> Teste 6: Funcionalidade 3 (Arquivo nao_existe.bin)"
- echo -e "3 nao_existe.bin" | ./programaTrab
+# echo -e "3 nao_existe.bin" | ./programaTrab
 
 # Teste 7: Realiza uma busca simples por 'idPessoa'.
  echo ">> Teste 7: Funcionalidade 4 (Busca por idPessoa=96)"
- echo -e "4 entrada.bin indice.bin 1\n1 idPessoa=96" | ./programaTrab
+# echo -e "4 entrada.bin indice.bin 1\n1 idPessoa=96" | ./programaTrab
 
 # Teste 8: Realiza múltiplas buscas com diferentes campos e valores.
  echo ">> Teste 8: Funcionalidade 4 (Múltiplas buscas)"
- echo -e "4 entrada.bin indice.bin 6\n1 idadePessoa=19\n2 idadePessoa=81\n3 idadePessoa=333\n4 nomePessoa=\"AGATHA ALBUQUERQUE\"\n5 nomePessoa=\"JOHN LENNON\"\n6 nomePessoa=\"MATHEUS PACHECO\"" | ./programaTrab
+# echo -e "4 entrada.bin indice.bin 6\n1 idadePessoa=19\n2 idadePessoa=81\n3 idadePessoa=333\n4 nomePessoa=\"AGATHA ALBUQUERQUE\"\n5 nomePessoa=\"JOHN LENNON\"\n6 nomePessoa=\"MATHEUS PACHECO\"" | ./programaTrab
 
 # Teste 9: Tenta remover um registro de um arquivo que não existe.
  echo ">> Teste 9: Funcionalidade 5 (Remoção em arquivo inexistente)"

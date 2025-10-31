@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>      
-#include <sys/types.h> 
+#include <unistd.h>
+#include <sys/types.h>
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
@@ -25,26 +25,17 @@ int comparar_resultados(const void *a, const void *b)
         return 0;
 }
 
-int buscaBinaria(RegistroIndice **indice, int tamanho, int idBusca)
+// Função de comparação para bsearch, para encontrar um registro de índice por idPessoa.
+int comparar_bsearch_indice(const void *key, const void *elem)
 {
-    int left = 0, right = tamanho - 1;
-    while (left <= right)
-    {
-        int mid = left + (right - left) / 2;
-        if (indice[mid]->idPessoa == idBusca)
-        {
-            return mid;
-        }
-        else if (indice[mid]->idPessoa < idBusca)
-        {
-            left = mid + 1;
-        }
-        else
-        {
-            right = mid - 1;
-        }
-    }
-    return -1; // Não encontrado
+    int id_busca = *(const int *)key;
+    const RegistroIndice *reg = *(const RegistroIndice **)elem;
+
+    if (id_busca < reg->idPessoa)
+        return -1;
+    if (id_busca > reg->idPessoa)
+        return 1;
+    return 0;
 }
 
 void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
@@ -56,13 +47,18 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
 
     qsort(resultados, nRegsEncontrados, sizeof(RegistroBuscaPessoa *), comparar_resultados);
 
-    if (nRegsEncontrados > 0) {
+    if (nRegsEncontrados > 0)
+    {
         int write_idx = 1;
-        for (int read_idx = 1; read_idx < nRegsEncontrados; read_idx++) {
-            if (resultados[read_idx]->ByteOffset != resultados[read_idx - 1]->ByteOffset) {
+        for (int read_idx = 1; read_idx < nRegsEncontrados; read_idx++)
+        {
+            if (resultados[read_idx]->ByteOffset != resultados[write_idx - 1]->ByteOffset)
+            {
                 resultados[write_idx] = resultados[read_idx];
                 write_idx++;
-            } else {
+            }
+            else
+            {
                 // Libera a memória do registro duplicado que não será mantido
                 destroi_registro(resultados[read_idx]->registro);
                 free(resultados[read_idx]);
@@ -81,9 +77,10 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     escreve_cabecalho_pessoa(fp, &cp); // Atualiza o cabeçalho para refletir as remoções
 
     long long nextByteOffset;
-    long long previousByteOffset = 17; // Começa após o cabeçalho
+    long long previousByteOffset = 17;
 
     // Para atualizarmos conforme removemos pessoas
+    rewind(fpIndice);
     RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cp.quantidadePessoas);
     if (indice == NULL)
     {
@@ -91,8 +88,6 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
         free(resultados);
         return;
     }
-
-    int PosicaoIndice;
 
     // Imprime os resultados e libera a memória
     if (resultados != NULL)
@@ -108,13 +103,27 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
             escreve_registro_pessoa(fp, resultados[i]->registro);
 
             // Remover do indice
-            PosicaoIndice = buscaBinaria(indice, cp.quantidadePessoas, resultados[i]->registro->idPessoa);
-            if(PosicaoIndice != -1) {
-                indice[PosicaoIndice]->idPessoa = -1;
+            int id_a_remover = resultados[i]->registro->idPessoa;
+            RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
+                                                        indice,
+                                                        cp.quantidadePessoas,
+                                                        sizeof(RegistroIndice *),
+                                                        comparar_bsearch_indice);
+
+            if (p_encontrado_ptr != NULL)
+            {
+                (*p_encontrado_ptr)->byteOffset = -1; // Marca como removido no índice
             }
 
-            // Define qual o ByteOffset que deve servir como referência ao próximo seek
-            previousByteOffset += nextByteOffset + sizeof(char) + sizeof(int) + resultados[i]->registro->tamanhoRegistro;
+            // Atualiza o previousByteOffset com base no tamanho real do que foi escrito,
+            // em vez de confiar no campo tamanhoRegistro que pode estar inconsistente.
+            printf("  - Após escreve_registro_pessoa: ftell=%ld\n", ftell(fp));
+            
+            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) + 
+                                           sizeof(int) + resultados[i]->registro->tamanhoNomePessoa + 
+                                           sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
+            previousByteOffset += nextByteOffset + tamanho_real_escrito;
+            printf("  - Atualizado: previousByteOffset=%lld (tamanho recalculado=%lld)\n", previousByteOffset, tamanho_real_escrito);
 
             // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
             destroi_registro(resultados[i]->registro);
@@ -127,7 +136,6 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
     }
 
-
     // Rebobina o arquivo de índice para o início para reescrevê-lo.
     fseek(fpIndice, 0, SEEK_SET);
 
@@ -137,12 +145,11 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     index_header.status = '0';
     escreve_cabecalho_indice(fpIndice, &index_header);
 
-
     // Reescreve os registros de índice válidos.
     fseek(fpIndice, 12, SEEK_SET);
     for (int i = 0; i < cp.quantidadePessoas; i++)
     {
-        if (indice[i] != NULL && indice[i]->idPessoa > 0)
+        if (indice[i] != NULL && indice[i]->byteOffset > 0)
         {
             fwrite(&indice[i]->idPessoa, sizeof(int), 1, fpIndice);
             fwrite(&indice[i]->byteOffset, sizeof(long long), 1, fpIndice);
@@ -151,7 +158,6 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     }
     free(indice);
 
-
     // Trunca o arquivo para remover lixo do final, caso o novo conteúdo seja menor.
     long finalPos = ftell(fpIndice);
     ftruncate(fileno(fpIndice), finalPos);
@@ -159,13 +165,11 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     index_header.status = '1';
     escreve_cabecalho_indice(fpIndice, &index_header);
 
-
     // Atualiza o cabeçalho do arquivo de dados.
-    fseek(fp, 0, 0);
+    fseek(fp, 0, SEEK_SET);
     cp.status = 1;
     cp.quantidadeRemovidos = cp.quantidadeRemovidos + nRegsEncontrados;
     cp.quantidadePessoas = cp.quantidadePessoas - nRegsEncontrados;
-    
 
     escreve_cabecalho_pessoa(fp, &cp);
     fflush(fp);
