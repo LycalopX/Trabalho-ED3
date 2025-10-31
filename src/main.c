@@ -14,6 +14,8 @@
 #include "f3/f3.h"
 #include "f4/f4.h"
 #include "f5/f5.h"
+#include "f8/f8.h"
+#include "f9/f9.h"
 
 void binarioNaTela(char *nomeArquivoBinario);
 void scan_quote_string(char *str);
@@ -162,6 +164,39 @@ int main()
         binarioNaTela(nomeArquivoIndice);
         break;
     }
+    case 9:
+    {
+        char nomeArquivoDeRegistro[100];
+        char nomeArquivoDestino[100];
+
+        scanf("%s %s", nomeArquivoDeRegistro, nomeArquivoDestino);
+
+        FILE *fp = fopen(nomeArquivoDeRegistro, "rb");
+        if (fp == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            break;
+        }
+
+        FILE *fpDestino = fopen(nomeArquivoDestino, "wb");
+        if (fpDestino == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            fclose(fp);
+            break;
+        }
+
+        if (funcionalidade9(fp, fpDestino) != 0)
+        {
+            printf("Falha no processamento do arquivo.\n");
+        }
+
+        fclose(fp);
+        fclose(fpDestino);
+
+        binarioNaTela(nomeArquivoDestino);
+        break;
+    } 
     default:
     {
         printf("Funcionalidade inválida!\n");
