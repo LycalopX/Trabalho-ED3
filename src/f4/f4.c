@@ -136,7 +136,6 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
     {
         Busca *b = buscasArray[i];
         int encontradosNestaBusca = 0;
-        printf("\n--- DEBUG F4: Iniciando busca %d: Campo='%s', Valor='%s' ---\n", i + 1, b->campo, b->valor);
 
         if (strcmp(b->campo, CAMPO_ID) == 0)
         {
@@ -240,8 +239,6 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
             }
         }
-
-        printf("Busca por %s=%s. Encontrados: %d\n", b->campo, b->valor, encontradosNestaBusca);
 
         if (encontradosNestaBusca == 0 && !silent)
         {

@@ -114,6 +114,22 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
     }
     fread(reg->nomeUsuario, reg->tamanhoNomeUsuario, 1, fp);
 
+    // Calcula o total de bytes lidos para os campos de dados do registro.
+    int bytes_lidos = sizeof(reg->idPessoa) +
+                      sizeof(reg->idadePessoa) +
+                      sizeof(reg->tamanhoNomePessoa) +
+                      reg->tamanhoNomePessoa +
+                      sizeof(reg->tamanhoNomeUsuario) +
+                      reg->tamanhoNomeUsuario;
+
+    // Calcula a quantidade de lixo (bytes de preenchimento) no final do registro.
+    int lixo = reg->tamanhoRegistro - bytes_lidos;
+
+    // Se houver lixo, avança o ponteiro do arquivo para pulá-lo.
+    if (lixo > 0) {
+        fseek(fp, lixo, SEEK_CUR);
+    }
+
     *reg_out = reg;
     return 0;
 }

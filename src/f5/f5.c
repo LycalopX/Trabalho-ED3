@@ -75,7 +75,8 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     // Atualizar cabeçalho
     cp.status = 0;
 
-    escreve_cabecalho_pessoa(fp, &cp); // Atualiza o cabeçalho para refletir as remoções
+    fseek(fp, 0, 0);
+    escreve_cabecalho_pessoa(fp, &cp);
 
     long long nextByteOffset;
     long long previousByteOffset = 17;
@@ -97,14 +98,12 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
         {
             nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
 
-            // Remover registro
-            fseek(fp, nextByteOffset, SEEK_CUR);
-
             resultados[i]->registro->removido = '1';
             escreve_registro_pessoa(fp, resultados[i]->registro);
 
             // Remover do indice
             int id_a_remover = resultados[i]->registro->idPessoa;
+            
             RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
                                                         indice,
                                                         cp.quantidadePessoas,
@@ -116,15 +115,11 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
                 (*p_encontrado_ptr)->byteOffset = -1; // Marca como removido no índice
             }
 
-            // Atualiza o previousByteOffset com base no tamanho real do que foi escrito,
-            // em vez de confiar no campo tamanhoRegistro que pode estar inconsistente.
-            printf("  - Após escreve_registro_pessoa: ftell=%ld\n", ftell(fp));
-            
             long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) + 
                                            sizeof(int) + resultados[i]->registro->tamanhoNomePessoa + 
                                            sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
+
             previousByteOffset += nextByteOffset + tamanho_real_escrito;
-            printf("  - Atualizado: previousByteOffset=%lld (tamanho recalculado=%lld)\n", previousByteOffset, tamanho_real_escrito);
 
             // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
             destroi_registro(resultados[i]->registro);
@@ -143,6 +138,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     // Lê o cabeçalho existente, atualiza o status para '0' e reescreve.
     CabecalhoIndice index_header;
     le_cabecalho_indice(fpIndice, &index_header);
+
     index_header.status = '0';
     escreve_cabecalho_indice(fpIndice, &index_header);
 
@@ -167,6 +163,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     escreve_cabecalho_indice(fpIndice, &index_header);
 
     // Atualiza o cabeçalho do arquivo de dados.
+    fflush(fp);
     fseek(fp, 0, SEEK_SET);
     cp.status = 1;
     cp.quantidadeRemovidos = cp.quantidadeRemovidos + nRegsEncontrados;
