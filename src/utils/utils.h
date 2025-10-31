@@ -148,4 +148,11 @@ void debug_imprime_arquivo_indice(const char *nomeArquivoIndice);
  */
 void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size);
 
+/**
+ * @brief Imprime todos os registros de um arquivo de dados, incluindo os removidos.
+ * 
+ * @param fp Ponteiro para o arquivo de dados.
+ */
+void imprimir_registros_raw(FILE *fp);
+
 #endif

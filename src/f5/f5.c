@@ -40,6 +40,7 @@ int comparar_bsearch_indice(const void *key, const void *elem)
 
 void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
 {
+
     // Implementação da funcionalidade 5
 
     int nRegsEncontrados = 0;

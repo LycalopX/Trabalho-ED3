@@ -402,3 +402,61 @@ void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
     // 6. Sucesso! Atualizar a capacidade e retornar o novo ponteiro.
     *p_current_capacity = new_capacity;
 }
+
+void imprimir_registros_raw(FILE *fp) {
+    if (fp == NULL) {
+        printf("Arquivo inválido.\n");
+        return;
+    }
+
+    fseek(fp, 17, SEEK_SET); // Pula o cabeçalho
+    printf("--- INICIO RAW PRINT ---\n");
+
+    while (1) {
+        long currentPos = ftell(fp);
+        RegistroPessoa *reg = NULL;
+        
+        // Tenta ler o próximo registro
+        if (le_registro_pessoa(fp, &reg) != 0) {
+            // Se a leitura falhar, pode ser o fim do arquivo.
+            break;
+        }
+
+        printf("Registro em %ld | Removido: '%c' | Tamanho Declarado: %d\n", 
+               currentPos, reg->removido, reg->tamanhoRegistro);
+
+        // Calcula o tamanho real dos dados lidos para este registro
+        long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +
+                                 sizeof(reg->tamanhoNomePessoa) + reg->tamanhoNomePessoa +
+                                 sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomeUsuario;
+
+        printf("  - ID: %d\n", reg->idPessoa);
+        printf("  - Idade: %d\n", reg->idadePessoa);
+
+        printf("  - Nome (%d): ", reg->tamanhoNomePessoa);
+        if (reg->tamanhoNomePessoa > 0) {
+            fwrite(reg->nomePessoa, 1, reg->tamanhoNomePessoa, stdout);
+        }
+        printf("\n");
+
+        printf("  - Usuario (%d): ", reg->tamanhoNomeUsuario);
+        if (reg->tamanhoNomeUsuario > 0) {
+            fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, stdout);
+        }
+        printf("\n");
+
+        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
+        long lixo = reg->tamanhoRegistro - tamanho_real_lido;
+        printf("  - Lixo: %ld bytes\n\n", lixo);
+
+        // Pula o lixo para posicionar o ponteiro para o próximo registro
+        if (lixo > 0) {
+            fseek(fp, lixo, SEEK_CUR);
+        }
+        
+        destroi_registro(reg);
+    }
+
+    printf("--- FIM RAW PRINT ---\n");
+    fflush(stdout);
+}

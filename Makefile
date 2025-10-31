@@ -34,17 +34,13 @@ test: $(TARGET)
 # Regra para criar o executável
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $(TARGET)
-	@if [ "$(MAKECMDGOALS)" != "buildO" ] && [ "$(MAKECMDGOALS)" != "zipO" ]; then \
+	@if [ "$(MAKECMDGOALS)" != "buildO" ]; then \
 		find . -name "*.o" -type f -delete; \
 	fi
 
 # buildO: compila e mantém os .o
 buildO: $(OBJS)
 	$(CC) $(OBJS) -o $(TARGET)
-
-# zipO: cria o zip e mantém os .o
-zipO: $(TARGET)
-	zip -r $(ZIPFILE) * -x "*.o" "$(TARGET)" $(ZIPFILE)
 
 # Regra para compilar os arquivos .c em .o
 %.o: %.c
@@ -61,7 +57,8 @@ clean-obj:
 
 # Regra para criar um arquivo zip com todo o projeto, ignorando .o e o próprio .zip
 zip:
-	zip -r $(ZIPFILE) * -x "*.o" "$(TARGET)" $(ZIPFILE)
+	rm -f $(ZIPFILE)
+	find . -name "*.c" -o -name "*.h" -o -name "Makefile" -o -name "run.sh" | zip $(ZIPFILE) -@
 
 # Compilar com flag de debug
 debug: CFLAGS += -g
@@ -79,4 +76,4 @@ valtest: $(TARGET)
 		echo "Arquivo de teste $(TEST) não encontrado!"; \
 	fi
 
-.PHONY: all clean clean-obj debug zip val valtest buildO zipO
+.PHONY: all clean clean-obj debug zip val valtest buildO

@@ -240,11 +240,13 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
             }
         }
+
+        printf("Busca por %s=%s. Encontrados: %d\n", b->campo, b->valor, encontradosNestaBusca);
+
         if (encontradosNestaBusca == 0 && !silent)
         {
             printf("Registro inexistente.\n");
         }
-        printf("--- DEBUG F4: Fim da busca %d: %d registro(s) encontrado(s). ---\n", i + 1, encontradosNestaBusca);
     }
 
     for (int i = 0; i < buscas; i++)
