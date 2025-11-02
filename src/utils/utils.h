@@ -86,6 +86,14 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros);
  */
 int comparar_registros_busca_offset(const void *a, const void *b);
 
+/**
+ * @brief Função de comparação para qsort, ordenando registros de busca por idPessoa.
+ * @param a Ponteiro para o primeiro elemento a ser comparado.
+ * @param b Ponteiro para o segundo elemento a ser comparado.
+ * @return Retorna a diferença entre os ids (regA->idPessoa - regB->idPessoa).
+ */
+int comparar_registros_busca_id(const void *a, const void *b);
+
 // Registros
 /**
  * @brief Lê um registro de dados do arquivo.

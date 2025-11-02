@@ -85,5 +85,12 @@ typedef struct
 
 } RegistroSegue;
 
+#define CAMPO_ID "idPessoa"
+#define CAMPO_IDADE "idadePessoa"
+#define CAMPO_NOME "nomePessoa"
+#define CAMPO_USUARIO "nomeUsuario"
+
+#define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
+#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 
 #endif

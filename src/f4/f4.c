@@ -7,8 +7,6 @@
 #include "../arquivos.h"
 #include "../utils/utils.h"
 
-#define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
-
 Parametro *cria_busca(char *campo, char *valor)
 {
     Parametro *busca = malloc(sizeof(Parametro));
@@ -81,11 +79,6 @@ void destroi_busca(Parametro *busca)
     }
 }
 
-#define CAMPO_ID "idPessoa"
-#define CAMPO_IDADE "idadePessoa"
-#define CAMPO_NOME "nomePessoa"
-#define CAMPO_USUARIO "nomeUsuario"
-
 int campo_valido(char *campo)
 {
     if (strcmp(campo, CAMPO_ID) == 0 || strcmp(campo, CAMPO_IDADE) == 0 || strcmp(campo, CAMPO_NOME) == 0 || strcmp(campo, CAMPO_USUARIO) == 0)
@@ -100,23 +93,23 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 {
     // Caso tenhamos updates (ela é diferente de NULL), estamos rodando para a funcionalidade 7
 
-    char *FALHA_AO_PROCESSAR_ARQUIVO = "Falha no processamento do arquivo.\n";
+    char *falha_ao_processar_arquivo = "Falha no processamento do arquivo.\n";
     if (silent)
     {
-        FALHA_AO_PROCESSAR_ARQUIVO = "";
+        falha_ao_processar_arquivo = "";
     }
 
     CabecalhoPessoa cab_pessoa;
     if (le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')
     {
-        printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
+        printf("%s", falha_ao_processar_arquivo);
         return NULL;
     }
 
     RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab_pessoa.quantidadePessoas);
     if (indice == NULL && cab_pessoa.quantidadePessoas > 0)
     {
-        printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
+        printf("%s", falha_ao_processar_arquivo);
         return NULL;
     }
 
@@ -171,7 +164,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         buscasArray[i] = scanf_busca(updatesArray, i);
         if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo) || (updateBool && updatesArray[i] != NULL && !campo_valido(updatesArray[i]->campo)))
         {
-            printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
+            printf("%s", falha_ao_processar_arquivo);
             for (int j = 0; j < i; j++)
             {
                 destroi_busca(buscasArray[j]);

@@ -400,6 +400,14 @@ int comparar_registros_busca_offset(const void *a, const void *b)
         return 0;
 }
 
+int comparar_registros_busca_id(const void *a, const void *b)
+{
+    RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
+    RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
+
+    return regA->registro->idPessoa - regB->registro->idPessoa;
+}
+
 
 void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
 {

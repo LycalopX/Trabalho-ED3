@@ -5,8 +5,6 @@
 #include "../arquivos.h"
 #include "../utils/utils.h"
 
-#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
-
 void funcionalidade3(FILE *fp) 
 {
     // Checa se o ponteiro do arquivo é válido

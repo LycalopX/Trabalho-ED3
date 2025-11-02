@@ -9,9 +9,6 @@
 #include "f5.h"
 #include "../f4/f4.h"
 
-#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
-#define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
-
 // Função de comparação para bsearch, para encontrar um registro de índice por idPessoa.
 int comparar_bsearch_indice(const void *key, const void *elem)
 {
