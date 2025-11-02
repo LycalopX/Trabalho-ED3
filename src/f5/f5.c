@@ -40,7 +40,6 @@ int comparar_bsearch_indice(const void *key, const void *elem)
 
 void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
 {
-
     // Implementação da funcionalidade 5
 
     int nRegsEncontrados = 0;
@@ -72,7 +71,8 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     CabecalhoPessoa cp;
     le_cabecalho_pessoa(fp, &cp); // Lê o cabeçalho para posicionar o ponteiro corretamente
 
-    toggle_cabecalho_pessoa(fpIndice, &cp);
+    cp.status = '0';
+    toggle_cabecalho_pessoa(fp, &cp);
 
     long long nextByteOffset;
     long long previousByteOffset = 17;

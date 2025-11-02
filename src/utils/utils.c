@@ -483,10 +483,8 @@ void imprimir_registros_raw(FILE *fp) {
         long lixo = reg->tamanhoRegistro - tamanho_real_lido;
         printf("  - Lixo: %ld bytes\n\n", lixo);
 
-        // Pula o lixo para posicionar o ponteiro para o próximo registro
-        if (lixo > 0) {
-            fseek(fp, lixo, SEEK_CUR);
-        }
+        // O lixo já é pulado pela função le_registro_pessoa.
+        // Manter o fseek aqui causaria um pulo duplo.
         
         destroi_registro(reg);
     }

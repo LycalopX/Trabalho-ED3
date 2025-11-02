@@ -81,9 +81,9 @@ static int parse_insercao_linha(char *line, int *numero_busca, int *idPessoa, ch
     token = strtok(NULL, ",");
     if (token == NULL) return 0;
     // Remove leading space and quotes
-    while (*token == ' ' || *token == '\"') token++;
+    while (*token == ' ' || *token == '"') token++;
     char *end = token + strlen(token) - 1;
-    while (end > token && *end == '\"') *end-- = '\0';
+    while (end > token && *end == '"') *end-- = '\0';
     strcpy(nomePessoa, token);
 
     // idadeString
@@ -96,9 +96,9 @@ static int parse_insercao_linha(char *line, int *numero_busca, int *idPessoa, ch
     token = strtok(NULL, "\n");
     if (token == NULL) return 0;
     // Remove leading space and quotes
-    while (*token == ' ' || *token == '\"') token++;
+    while (*token == ' ' || *token == '"') token++;
     end = token + strlen(token) - 1;
-    while (end > token && *end == '\"') *end-- = '\0';
+    while (end > token && *end == '"') *end-- = '\0';
     strcpy(nomeUsuario, token);
 
     return 5;
@@ -106,6 +106,7 @@ static int parse_insercao_linha(char *line, int *numero_busca, int *idPessoa, ch
 
 void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
 {
+
     // Atualizar cabeçalho
     CabecalhoPessoa *cp = malloc(sizeof(CabecalhoPessoa));
     le_cabecalho_pessoa(fp, cp); // Lê o cabeçalho para posicionar o ponteiro corretamente
@@ -124,6 +125,7 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
     RegistroPessoa *reg_temp;
     while (le_registro_pessoa(fp, &reg_temp) == 0)
     {
+        int tamanho_registro_atual = reg_temp->tamanhoRegistro;
         if (reg_temp->removido == '1')
         {
             if (n_removidos >= capacidade_removidos)
@@ -152,15 +154,21 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
             busca_reg->ByteOffset = offset_corrente;
 
             removidos[n_removidos++] = busca_reg;
+        } else {
+            destroi_registro(reg_temp);
         }
 
-        offset_corrente += sizeof(char) + sizeof(int) + reg_temp->tamanhoRegistro;
+        offset_corrente += sizeof(char) + sizeof(int) + tamanho_registro_atual;
     }
-
-    destroi_registro(reg_temp);
 
     // Ordenar a lista de removidos por tamanho para usar a estratégia best-fit
     qsort(removidos, n_removidos, sizeof(RegistroBuscaPessoa *), compara_removidos_busca);
+
+    printf("--- DEBUG: Removidos ---\n");
+    for (int i = 0; i < n_removidos; i++) {
+        printf("Removido %d: offset=%lld, size=%d\n", i, removidos[i]->ByteOffset, removidos[i]->registro->tamanhoRegistro);
+    }
+    printf("--- END DEBUG: Removidos ---\n");
 
     // Loop de inserção para os novos registros
     RegistroBuscaPessoa **registrosInseridos = malloc(insercoes * sizeof(RegistroBuscaPessoa *));
@@ -211,7 +219,13 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
         }
 
         // Encontrar local para inserção (best-fit)
+        printf("--- DEBUG: Novo Registro ---\n");
+        printf("Novo reg: id=%d, size=%d\n", novo_reg->idPessoa, novo_reg->tamanhoRegistro);
+        
         int idx_best_fit = busca_binaria_best_fit_busca(removidos, n_removidos, novo_reg->tamanhoRegistro);
+
+        printf("Best-fit idx: %d\n", idx_best_fit);
+        printf("--- END DEBUG: Novo Registro ---\n");
 
         long long offset_insercao;
         if (idx_best_fit != -1)
@@ -219,6 +233,11 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
             n_registros_substituidos++;
             RegistroBuscaPessoa *espaco_removido = removidos[idx_best_fit];
             offset_insercao = espaco_removido->ByteOffset;
+            printf("--- DEBUG: Inserindo em slot removido ---\n");
+            printf("Offset: %lld\n", offset_insercao);
+            printf("--- END DEBUG ---\n");
+
+            novo_reg->tamanhoRegistro = espaco_removido->registro->tamanhoRegistro;
 
             destroi_registro(espaco_removido->registro);
             free(espaco_removido);          // Libera o RegistroBuscaPessoa
@@ -228,12 +247,15 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
         {
             // Inserir no final do arquivo
             offset_insercao = cp->proxByteOffset;
+            printf("--- DEBUG: Inserindo no final ---\n");
+            printf("Offset: %lld\n", offset_insercao);
+            printf("--- END DEBUG ---\n");
             cp->proxByteOffset += sizeof(char) + sizeof(int) + novo_reg->tamanhoRegistro;
         }
 
         // Criar o novo registro de índice
         registrosInseridos[i] = malloc(sizeof(RegistroBuscaPessoa));
-        if (registrosInseridos[i] == NULL)
+        if (registrosInseridos[i] == NULL) 
         { // Erro de malloc
             printf(FALHA_AO_PROCESSAR_ARQUIVO);
             // TODO: Liberar tudo que foi alocado até agora
@@ -247,6 +269,12 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
     // Para juntarmos com o indice comum
     qsort(registrosInseridos, insercoes, sizeof(RegistroBuscaPessoa *), compara_inseridos_busca);
 
+    // DEBUGGING
+    for (int i = 0; i < insercoes; i++)
+    {
+        printf("Inseriremos %d em ByteOffset %lld\n", registrosInseridos[i]->registro->idPessoa, registrosInseridos[i]->ByteOffset);
+    }
+
     // Voltando para depois do cabeçalho
     fseek(fp, 17, SEEK_SET);
     long long byteOffset = 17;
@@ -256,13 +284,25 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
         long long diffByteOffset = registrosInseridos[i]->ByteOffset - byteOffset;
 
         fseek(fp, diffByteOffset, SEEK_CUR);
-        escreve_registro_pessoa(fp, registrosInseridos[i]->registro);
+        
+        RegistroPessoa* reg_a_inserir = registrosInseridos[i]->registro;
+        escreve_registro_pessoa(fp, reg_a_inserir);
 
-        long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) +
-                                         sizeof(int) + registrosInseridos[i]->registro->tamanhoNomePessoa +
-                                         sizeof(int) + registrosInseridos[i]->registro->tamanhoNomeUsuario;
+        // Calculate the size of the actual data written
+        int bytes_escritos = sizeof(int) + sizeof(int) + sizeof(int) + reg_a_inserir->tamanhoNomePessoa + sizeof(int) + reg_a_inserir->tamanhoNomeUsuario;
+        
+        // Calculate garbage
+        int lixo = reg_a_inserir->tamanhoRegistro - bytes_escritos;
 
-        byteOffset += diffByteOffset + tamanho_real_escrito;
+        // Write garbage padding
+        if (lixo > 0) {
+            char garbage_char = '$';
+            for (int j = 0; j < lixo; j++) {
+                fwrite(&garbage_char, sizeof(char), 1, fp);
+            }
+        }
+
+        byteOffset += diffByteOffset + sizeof(char) + sizeof(int) + reg_a_inserir->tamanhoRegistro;
     }
 
     // A lista de removidos não é mais necessária, podemos liberar sua memória.
@@ -354,4 +394,7 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
 
     // Liberar o cabeçalho do arquivo de dados
     free(cp);
+
+    printf("Agora imprimindo o arquivo atualizado:\n");
+    imprimir_registros_raw(fp);
 }
