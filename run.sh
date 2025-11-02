@@ -23,19 +23,19 @@ echo "--- Executando Testes Runcodes ---"
  echo -e "2 arquivoEntrada.csv entrada.bin indice.bin" | ./programaTrab
 
 # Teste 5: Tenta listar registros de um arquivo de dados que não existe.
- echo ">> Teste 5: Funcionalidade 3 (Arquivo pessoas5.bin)"
+# echo ">> Teste 5: Funcionalidade 3 (Arquivo pessoas5.bin)"
 # echo -e "3 entrada.bin" | ./programaTrab
 
 # Teste 6: Tenta listar registros de um arquivo de dados que não existe.
- echo ">> Teste 6: Funcionalidade 3 (Arquivo nao_existe.bin)"
+# echo ">> Teste 6: Funcionalidade 3 (Arquivo nao_existe.bin)"
 # echo -e "3 nao_existe.bin" | ./programaTrab
 
 # Teste 7: Realiza uma busca simples por 'idPessoa'.
- echo ">> Teste 7: Funcionalidade 4 (Busca por idPessoa=96)"
+# echo ">> Teste 7: Funcionalidade 4 (Busca por idPessoa=96)"
 # echo -e "4 entrada.bin indice.bin 1\n1 idPessoa=96" | ./programaTrab
 
 # Teste 8: Realiza múltiplas buscas com diferentes campos e valores.
- echo ">> Teste 8: Funcionalidade 4 (Múltiplas buscas)"
+# echo ">> Teste 8: Funcionalidade 4 (Múltiplas buscas)"
 # echo -e "4 entrada.bin indice.bin 6\n1 idadePessoa=19\n2 idadePessoa=81\n3 idadePessoa=333\n4 nomePessoa=\"AGATHA ALBUQUERQUE\"\n5 nomePessoa=\"JOHN LENNON\"\n6 nomePessoa=\"MATHEUS PACHECO\"" | ./programaTrab
 
 # Teste 9: Tenta remover um registro de um arquivo que não existe.
@@ -47,8 +47,8 @@ echo "--- Executando Testes Runcodes ---"
  echo -e "5 entrada.bin indice.bin 5\n1 idPessoa=69\n2 idPessoa=520\n3 idPessoa=2000\n4 nomeUsuario=\"MATEUS90\"\n5 idadePessoa=NULO" | ./programaTrab
 
 # Teste 11: Realiza múltiplas inserções.
-# echo ">> Teste 11: Funcionalidade 6 (Múltiplas inserções)"
-# echo -e "6 entrada.bin indice.bin 2\n1 625, \"SAMANTHA PEREIRA SANTOS\", 13, \"SAMANTHAPS\"\n2 645, \"VITORIA PRADO CAMPOS\", NULO, \"VIVICA\"" | ./programaTrab
+ echo ">> Teste 11: Funcionalidade 6 (Múltiplas inserções)"
+ echo -e "6 entrada.bin indice.bin 2\n1 625, \"SAMANTHA PEREIRA SANTOS\", 13, \"SAMANTHAPS\"\n2 645, \"VITORIA PRADO CAMPOS\", NULO, \"VIVICA\"" | ./programaTrab
 
 # Teste 12: Realiza múltiplas atualizações.
 # echo ">> Teste 12: Funcionalidade 7 (Múltiplas atualizações)"

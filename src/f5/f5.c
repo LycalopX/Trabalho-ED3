@@ -72,11 +72,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     CabecalhoPessoa cp;
     le_cabecalho_pessoa(fp, &cp); // Lê o cabeçalho para posicionar o ponteiro corretamente
 
-    // Atualizar cabeçalho
-    cp.status = 0;
-
-    fseek(fp, 0, 0);
-    escreve_cabecalho_pessoa(fp, &cp);
+    toggle_cabecalho_pessoa(fpIndice, &cp);
 
     long long nextByteOffset;
     long long previousByteOffset = 17;

@@ -26,6 +26,14 @@ int le_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
     return 0;
 }
 
+void toggle_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab) {
+    fseek(fp, 0, SEEK_SET);
+
+    cab->status = (cab->status == '0') ? '1' : '0';
+    escreve_cabecalho_pessoa(fp, cab);
+    return;
+}
+
 int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
 {
     fseek(fp, 0, SEEK_SET);
@@ -35,6 +43,14 @@ int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
         return 1;
     }
     return 0;
+}
+
+void toggle_cabecalho_indice(FILE *fp, CabecalhoIndice *cab) {
+    fseek(fp, 0, SEEK_SET);
+
+    cab->status = (cab->status == '0') ? '1' : '0';
+    escreve_cabecalho_indice(fp, cab);
+    return;
 }
 
 // Escreve o cabeçalho no arquivo de dados. Retorna 1 em caso de erro.
@@ -150,6 +166,8 @@ RegistroPessoa* cria_registro_pessoa(int idPessoa, char nomePessoa[200], int ida
     registroPessoa->tamanhoNomeUsuario = strlen(nomeUsuario);
     registroPessoa->nomeUsuario = malloc(registroPessoa->tamanhoNomeUsuario);
     memcpy(registroPessoa->nomeUsuario, nomeUsuario, registroPessoa->tamanhoNomeUsuario);
+
+    registroPessoa->tamanhoRegistro = sizeof(int) + sizeof(int) + sizeof(int) + registroPessoa->tamanhoNomePessoa + sizeof(int) + registroPessoa->tamanhoNomeUsuario;
 
     return registroPessoa;
 }
@@ -475,4 +493,34 @@ void imprimir_registros_raw(FILE *fp) {
 
     printf("--- FIM RAW PRINT ---\n");
     fflush(stdout);
+}
+
+RegistroIndice **intercalar_indices(RegistroIndice **indice_antigo, int n_antigo, RegistroIndice **indice_novo, int n_novo) 
+{
+    int n_total = n_antigo + n_novo;
+    RegistroIndice **indice_final = malloc(n_total * sizeof(RegistroIndice *));
+    if (indice_final == NULL) {
+        return NULL;
+    }
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    while (i < n_antigo && j < n_novo) {
+        if (indice_antigo[i]->idPessoa <= indice_novo[j]->idPessoa) {
+            indice_final[k++] = indice_antigo[i++];
+        } else {
+            indice_final[k++] = indice_novo[j++];
+        }
+    }
+
+    while (i < n_antigo) {
+        indice_final[k++] = indice_antigo[i++];
+    }
+    while (j < n_novo) {
+        indice_final[k++] = indice_novo[j++];
+    }
+
+    return indice_final;
 }

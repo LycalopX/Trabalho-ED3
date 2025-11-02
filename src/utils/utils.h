@@ -14,12 +14,26 @@
 int le_cabecalho_pessoa(FILE* fp, CabecalhoPessoa* cab);
 
 /**
+ * @brief Alterna o status do cabeçalho do arquivo de dados entre '0' e '1' e salva no arquivo.
+ * @param fp Ponteiro para o arquivo de dados.
+ * @param cab Ponteiro para a struct CabecalhoPessoa que será modificada.
+ */
+void toggle_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab);
+
+/**
  * @brief Escreve o registro de cabeçalho no arquivo de dados.
  * @param fp Ponteiro para o arquivo de dados.
  * @param cab Ponteiro para a struct contendo os dados a serem escritos.
  * @return Retorna 0 em caso de sucesso, 1 em caso de falha.
  */
 int escreve_cabecalho_pessoa(FILE* fp, CabecalhoPessoa* cab);
+
+/**
+ * @brief Alterna o status do cabeçalho do arquivo de índice entre '0' e '1' e salva no arquivo.
+ * @param fp Ponteiro para o arquivo de índice.
+ * @param cab Ponteiro para a struct CabecalhoIndice que será modificada.
+ */
+void toggle_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
 
 /**
  * @brief Lê o registro de cabeçalho do arquivo de índice.
@@ -154,5 +168,19 @@ void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size);
  * @param fp Ponteiro para o arquivo de dados.
  */
 void imprimir_registros_raw(FILE *fp);
+
+/**
+ * @brief Intercala (merge) dois arrays de ponteiros para RegistroIndice.
+ * Ambos os arrays de entrada DEVEM estar ordenados por idPessoa.
+ * 
+ * @param indice_antigo O array original de registros de índice.
+ * @param n_antigo O número de elementos no array antigo.
+ * @param indice_novo O array com os novos registros de índice.
+ * @param n_novo O número de elementos no array novo.
+ * 
+ * @return Retorna um novo array, alocado dinamicamente, contendo a intercalação
+ * dos dois arrays. Retorna NULL se a alocação de memória falhar.
+ */
+RegistroIndice **intercalar_indices(RegistroIndice **indice_antigo, int n_antigo, RegistroIndice **indice_novo, int n_novo);
 
 #endif
