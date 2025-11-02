@@ -83,6 +83,15 @@ int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
     return 0;
 }
 
+int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
+{
+    fwrite(&cab->status, sizeof(char), 1, fp);
+    fwrite(&cab->quantidadePessoas, sizeof(int), 1, fp);
+    fwrite(&cab->proxRRN, sizeof(int), 1, fp);
+
+    return 0; // Sucesso.
+}
+
 // Lê um registro de dados do arquivo. Retorna 1 em caso de erro ou fim de arquivo.
 int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
 {
@@ -253,6 +262,55 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
     printf("\n\n");
 
     return 0;
+}
+
+int le_registro_segue(FILE *fp, RegistroSegue *reg_segue)
+{
+    fread(&reg_segue->removido, sizeof(char), 1, fp);
+    if(reg_segue->removido == REGISTRO_SEGUE_REMOVIDO) {
+        fp += REGISTRO_SEGUE_TAMANHO - 1; // Pula o resto do registro
+        return 1;
+    }
+
+    fread(&reg_segue->idPessoaQueSegue, sizeof(int), 1, fp);
+    fread(&reg_segue->idPessoaQueESeguida, sizeof(int), 1, fp);
+    fread(&reg_segue->dataInicioQueSegue, sizeof(char), 10, fp);
+    fread(&reg_segue->dataFimQueSegue, sizeof(char), 10, fp);
+    fread(&reg_segue->grauAmizade, sizeof(char), 1, fp);
+
+    return 0;
+}
+
+int escreve_registro_segue(FILE *fp, RegistroSegue *reg)
+{
+    if (reg == NULL)
+        return 1;
+
+    fwrite(&reg->removido, sizeof(char), 1, fp);
+    fwrite(&reg->idPessoaQueSegue, sizeof(int), 1, fp);
+    fwrite(&reg->idPessoaQueESeguida, sizeof(int), 1, fp);
+    fwrite(&reg->dataInicioQueSegue, sizeof(char), 10, fp);
+    fwrite(&reg->dataFimQueSegue, sizeof(char), 10, fp);
+    fwrite(&reg->grauAmizade, sizeof(char), 1, fp);
+    
+    return 0; // Sucesso.
+}
+
+void imprime_registro_segue(RegistroSegue *reg) {
+    if (reg == NULL) {
+        printf("Registro nulo.\n");
+        return;
+    }
+
+    printf("  - ID Pessoa Que Segue: %d\n", reg->idPessoaQueSegue);
+    printf("  - ID Pessoa Que É Seguida: %d\n", reg->idPessoaQueESeguida);
+    printf("  - Data Início Que Segue: %.10s\n", reg->dataInicioQueSegue);
+    printf("  - Data Fim Que Segue: %.10s\n", reg->dataFimQueSegue);
+    if (reg->grauAmizade == '$') {
+        printf("  - Grau de Amizade: NULO\n");
+    } else {
+        printf("  - Grau de Amizade: %c\n", reg->grauAmizade);
+    }
 }
 
 void binarioNaTela(char *nomeArquivoBinario)

@@ -68,22 +68,26 @@ typedef struct
 typedef struct
 {
     char status;
-    int quantidadePessoas;
-    int proxRRN;
+    unsigned quantidadePessoas;
+    unsigned proxRRN;
 
 } CabecalhoSegue;
 
 // Registro de dados de 'Segue.bin'
 typedef struct
 {
-    int removido;
+    char removido;
     int idPessoaQueSegue;
     int idPessoaQueESeguida;
-    char dataInicioQueSegue[10];
-    char dataFimQueSegue[10];
+    char dataInicioQueSegue[11];
+    char dataFimQueSegue[11];
     char grauAmizade;
 
 } RegistroSegue;
-
+#define NULO_DATA "$$$$$$$$$$"
+#define NULO_CARACTERE '$'
+#define REGISTRO_SEGUE_REMOVIDO '0'
+#define REGISTRO_SEGUE_NAO_REMOVIDO '1'
+#define REGISTRO_SEGUE_TAMANHO sizeof(RegistroSegue) - 2 // Excluir os '\0' das datas
 
 #endif

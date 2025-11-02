@@ -230,7 +230,8 @@ int main()
             break;
         }
 
-        if (funcionalidade8(fp_csv, fp_bin) != 0)
+        int result = funcionalidade8(fp_csv, fp_bin);
+        if (result != 0)
         {
             printf("Falha no processamento do arquivo.\n");
         }
