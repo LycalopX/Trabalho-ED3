@@ -22,32 +22,51 @@ int parse_segue_csv_line(char *line, RegistroSegue *reg)
         return 1;
 
     *virgula = '\0';
-    reg->idPessoaQueSegue = atoi(p);
-    p = virgula + 1;
-
+    if(*p == '\0') 
+    {
+        // Campo nulo
+        reg->idPessoaQueSegue = NULO_INTEIRO;
+    }
+    else
+    {
+        reg->idPessoaQueSegue = atoi(p);
+    }
+    
     // Lê o campo idPessoaQueESeguida.
+    p = virgula + 1;
     virgula = strchr(p, ',');
 
     if (virgula == NULL)
         return 2;
 
     *virgula = '\0';
-    reg->idPessoaQueESeguida = atoi(p);
-    p = virgula + 1;
-
+    if(*p == '\0') 
+    {
+        // Campo nulo
+        reg->idPessoaQueESeguida = NULO_INTEIRO;
+    }
+    else
+    {
+        reg->idPessoaQueESeguida = atoi(p);
+    }
+    
     // Lê os campos dataInicioQueSegue
+    p = virgula + 1;
     virgula = strchr(p, ',');
 
     if (virgula == NULL)
         return 3;
 
     *virgula = '\0';
-    snprintf(reg->dataInicioQueSegue, 
-             sizeof(reg->dataInicioQueSegue), 
-             "%s", p);
-    p = virgula + 1;
+    snprintf(reg->dataInicioQueSegue, sizeof(reg->dataInicioQueSegue), "%s", p);
 
+    if(reg->dataInicioQueSegue[0] == '\0') {
+        // Campo nulo
+        strcpy(reg->dataInicioQueSegue, NULO_DATA);
+    }
+    
     // Lê o campo dataFimQueSegue
+    p = virgula + 1;
     virgula = strchr(p, ',');
 
     if (virgula == NULL)
@@ -102,8 +121,7 @@ int funcionalidade8(FILE *fp_csv, FILE *fp_bin)
         }
 
         // DEBUG: printa o registro lido
-        //imprime_registro_segue(reg); 
-        //printf("\n");
+        imprime_registro_segue(reg); 
         
         // Escreve o registro no arquivo binário.
         if(escreve_registro_segue(fp_bin, reg) != 0)
@@ -113,7 +131,7 @@ int funcionalidade8(FILE *fp_csv, FILE *fp_bin)
         }
 
         cab->quantidadePessoas++;
-        cab->proxRRN += REGISTRO_SEGUE_TAMANHO; // Fim dos registros.
+        cab->proxRRN++; // Fim dos registros.
     }
 
     // Atualiza o cabeçalho com os valores corretos.

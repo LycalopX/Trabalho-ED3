@@ -84,10 +84,12 @@ typedef struct
     char grauAmizade;
 
 } RegistroSegue;
+
+#define NULO_INTEIRO -1
 #define NULO_DATA "$$$$$$$$$$"
 #define NULO_CARACTERE '$'
-#define REGISTRO_SEGUE_REMOVIDO '0'
-#define REGISTRO_SEGUE_NAO_REMOVIDO '1'
-#define REGISTRO_SEGUE_TAMANHO sizeof(RegistroSegue) - 2 // Excluir os '\0' das datas
+#define REGISTRO_SEGUE_REMOVIDO '1'
+#define REGISTRO_SEGUE_NAO_REMOVIDO '0'
+#define REGISTRO_SEGUE_TAMANHO 30 * sizeof(char) // Excluir os '\0' das datas
 
 #endif

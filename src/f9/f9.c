@@ -86,7 +86,7 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
     // Escreve os registros ordenados no arquivo de destino
     for (int i = 0; i < cabecalho->quantidadePessoas; i++) 
     {
-        //imprime_registro_segue(&registros[i]); // DEBUG: printa o registro escrito
+        imprime_registro_segue(&registros[i]); // DEBUG: printa o registro escrito
         escreve_registro_segue(fpDestino, &registros[i]);
     }
 

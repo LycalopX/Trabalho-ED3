@@ -86,8 +86,8 @@ int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
 int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
 {
     fwrite(&cab->status, sizeof(char), 1, fp);
-    fwrite(&cab->quantidadePessoas, sizeof(int), 1, fp);
-    fwrite(&cab->proxRRN, sizeof(int), 1, fp);
+    fwrite(&cab->quantidadePessoas, sizeof(unsigned), 1, fp);
+    fwrite(&cab->proxRRN, sizeof(unsigned), 1, fp);
 
     return 0; // Sucesso.
 }
@@ -274,8 +274,8 @@ int le_registro_segue(FILE *fp, RegistroSegue *reg_segue)
 
     fread(&reg_segue->idPessoaQueSegue, sizeof(int), 1, fp);
     fread(&reg_segue->idPessoaQueESeguida, sizeof(int), 1, fp);
-    fread(&reg_segue->dataInicioQueSegue, sizeof(char), 10, fp);
-    fread(&reg_segue->dataFimQueSegue, sizeof(char), 10, fp);
+    fread(reg_segue->dataInicioQueSegue, sizeof(char), 10, fp);
+    fread(reg_segue->dataFimQueSegue, sizeof(char), 10, fp);
     fread(&reg_segue->grauAmizade, sizeof(char), 1, fp);
 
     return 0;
@@ -289,8 +289,8 @@ int escreve_registro_segue(FILE *fp, RegistroSegue *reg)
     fwrite(&reg->removido, sizeof(char), 1, fp);
     fwrite(&reg->idPessoaQueSegue, sizeof(int), 1, fp);
     fwrite(&reg->idPessoaQueESeguida, sizeof(int), 1, fp);
-    fwrite(&reg->dataInicioQueSegue, sizeof(char), 10, fp);
-    fwrite(&reg->dataFimQueSegue, sizeof(char), 10, fp);
+    fwrite(reg->dataInicioQueSegue, sizeof(char), 10, fp);
+    fwrite(reg->dataFimQueSegue, sizeof(char), 10, fp);
     fwrite(&reg->grauAmizade, sizeof(char), 1, fp);
     
     return 0; // Sucesso.
@@ -302,14 +302,16 @@ void imprime_registro_segue(RegistroSegue *reg) {
         return;
     }
 
-    printf("  - ID Pessoa Que Segue: %d\n", reg->idPessoaQueSegue);
-    printf("  - ID Pessoa Que É Seguida: %d\n", reg->idPessoaQueESeguida);
-    printf("  - Data Início Que Segue: %.10s\n", reg->dataInicioQueSegue);
-    printf("  - Data Fim Que Segue: %.10s\n", reg->dataFimQueSegue);
-    if (reg->grauAmizade == '$') {
-        printf("  - Grau de Amizade: NULO\n");
+    printf("%d,%d,%s,", reg->idPessoaQueSegue, reg->idPessoaQueESeguida, reg->dataInicioQueSegue);
+    if(reg->dataFimQueSegue[0] == NULO_CARACTERE) {
+        printf(",");
     } else {
-        printf("  - Grau de Amizade: %c\n", reg->grauAmizade);
+        printf("%s,", reg->dataFimQueSegue);
+    }
+    if(reg->grauAmizade == NULO_CARACTERE) {
+        printf("\n");
+    } else {
+        printf("%c\n", reg->grauAmizade);
     }
 }
 
