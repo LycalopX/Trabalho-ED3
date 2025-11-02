@@ -1,11 +1,11 @@
 #ifndef ARQUIVOS_H
 #define ARQUIVOS_H
 
-// Estrutura para representar uma busca
+// Estrutura para representar um parametro a ser modificado/avaliado
 typedef struct {
     char *campo;
     char *valor;
-} Busca;
+} Parametro;
 
 // Cabeçalho do arquivo de dados 'pessoa.bin'
 typedef struct
@@ -33,11 +33,20 @@ typedef struct
     char *nomeUsuario;
 } RegistroPessoa;
 
-// Registro de dados retornado ao fazer busca dos dados de 'pessoa.bin'
+// Registro de dados que guarda byteoffset também, para fins de busca
 typedef struct {
+
     RegistroPessoa *registro;
     long long ByteOffset;
 } RegistroBuscaPessoa;
+
+// Registro de dados retornado ao fazer busca dos dados de 'pessoa.bin'
+typedef struct {
+    RegistroBuscaPessoa **registrosBusca;
+    int nRegistros;
+    Parametro busca;
+    Parametro update;
+} ResultadoBuscaPessoa;
 
 // Cabeçalho do arquivo de índice 'indexaPessoa.bin'
 typedef struct

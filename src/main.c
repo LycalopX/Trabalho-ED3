@@ -121,17 +121,20 @@ int main()
         }
 
         int nRegsEncontrados = 0;
-        RegistroBuscaPessoa **resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 0);
+        ResultadoBuscaPessoa *resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 0, 0);
 
         // Imprime os resultados e libera a memória
         if (resultados != NULL)
         {
-            for (int i = 0; i < nRegsEncontrados; i++)
+            for (int i = 0; i < buscas; i++)
             {
-                imprime_registro_pessoa(resultados[i]->registro);
-                // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
-                destroi_registro(resultados[i]->registro);
-                free(resultados[i]);
+                for (int j = 0; j < resultados[i].nRegistros; j++)
+                {
+                    imprime_registro_pessoa(resultados[i].registrosBusca[j]->registro);
+                    // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
+                    destroi_registro(resultados[i].registrosBusca[j]->registro);
+                }
+                free(resultados[i].registrosBusca);
             }
             free(resultados); // Libera o array de ponteiros
         }
@@ -194,7 +197,7 @@ int main()
             fclose(fp);
             break;
         }
-        
+
         funcionalidade6(fp, fpIndice, buscas);
 
         fclose(fp);

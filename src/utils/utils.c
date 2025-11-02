@@ -375,7 +375,7 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros)
         if (le_registro_indice(fp, &registros[i]) != 0)
         {
             // Em caso de erro, libera a memória alocada até o momento e retorna NULL
-            for (int j = 0; j <= i; j++)
+            for (int j = 0; j < i; j++)
             {
                 free(registros[j]);
             }
@@ -386,6 +386,20 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros)
 
     return registros;
 }
+
+int comparar_registros_busca_offset(const void *a, const void *b)
+{
+    RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
+    RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
+
+    if (regA->ByteOffset < regB->ByteOffset)
+        return -1;
+    else if (regA->ByteOffset > regB->ByteOffset)
+        return 1;
+    else
+        return 0;
+}
+
 
 void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
 {

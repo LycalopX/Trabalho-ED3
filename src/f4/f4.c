@@ -9,9 +9,9 @@
 
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 
-Busca *cria_busca(char *campo, char *valor)
+Parametro *cria_busca(char *campo, char *valor)
 {
-    Busca *busca = malloc(sizeof(Busca));
+    Parametro *busca = malloc(sizeof(Parametro));
     if (busca == NULL)
     {
         printf(FALHA_AO_ALOCAR);
@@ -23,10 +23,11 @@ Busca *cria_busca(char *campo, char *valor)
 }
 
 /**
- * @brief (VERSÃO CORRIGIDA) Lê uma busca da entrada padrão, tratando o número da busca.
+ * @brief Lê uma busca da entrada padrão, tratando o número da busca.
  * @return Um ponteiro para a estrutura de busca criada, ou NULL em caso de falha.
+ * @param updates Se não for NULL, armazena os valores lidos para atualizações (usado na funcionalidade 7).
  */
-Busca *scanf_busca_corrigido()
+Parametro *scanf_busca(Parametro **updates, int i)
 {
     char campo[100];
     char valor[100];
@@ -46,10 +47,31 @@ Busca *scanf_busca_corrigido()
 
     getchar();
     scan_quote_string(valor);
+
+    // Caso haja update
+    if (updates != NULL)
+    {
+        char campo2[100];
+        char valor2[100];
+
+        // Remover espaço antes do campo
+        getchar();
+
+        if (scanf(" %[^=]", campo2) != 1)
+        {
+            return NULL; // Falha ao ler o campo
+        }
+
+        getchar();
+        scan_quote_string(valor2);
+
+        updates[i] = cria_busca(campo2, valor2);
+    }
+
     return cria_busca(campo, valor);
 }
 
-void destroi_busca(Busca *busca)
+void destroi_busca(Parametro *busca)
 {
     if (busca != NULL)
     {
@@ -74,68 +96,128 @@ int campo_valido(char *campo)
     return 0;
 }
 
-RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados, int silent)
+ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados, int silent, int updateBool)
 {
+    // Caso tenhamos updates (ela é diferente de NULL), estamos rodando para a funcionalidade 7
+
     char *FALHA_AO_PROCESSAR_ARQUIVO = "Falha no processamento do arquivo.\n";
-    if (silent) {
-        FALHA_AO_PROCESSAR_ARQUIVO = "";
-    }
-
-    *nRegsEncontrados = 0;
-    size_t tamanhoRegs = 10;
-    RegistroBuscaPessoa **regs = malloc(sizeof(RegistroBuscaPessoa *) * tamanhoRegs);
-
-    if (!regs)
+    if (silent)
     {
-        printf(FALHA_AO_ALOCAR);
-        return NULL;
+        FALHA_AO_PROCESSAR_ARQUIVO = "";
     }
 
     CabecalhoPessoa cab_pessoa;
     if (le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')
     {
         printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
-        free(regs);
         return NULL;
     }
 
     RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab_pessoa.quantidadePessoas);
-    if (indice == NULL)
+    if (indice == NULL && cab_pessoa.quantidadePessoas > 0)
     {
         printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
-        free(regs);
         return NULL;
     }
 
-    Busca **buscasArray = malloc(sizeof(Busca *) * buscas);
+    Parametro **buscasArray = malloc(sizeof(Parametro *) * buscas);
     if (buscasArray == NULL)
     {
         printf(FALHA_AO_ALOCAR);
-        free(regs);
-        for(int i = 0; i < cab_pessoa.quantidadePessoas; i++) destroi_registro_indice(indice[i]);
-        free(indice);
+        if (indice)
+        {
+            for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
+                destroi_registro_indice(indice[i]);
+            free(indice);
+        }
         return NULL;
     }
 
-    for (int i = 0; i < buscas; i++)
+    ResultadoBuscaPessoa *resultadoBusca = malloc(sizeof(ResultadoBuscaPessoa) * buscas);
+    if (resultadoBusca == NULL)
     {
-        buscasArray[i] = scanf_busca_corrigido();
-        if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo))
+        printf(FALHA_AO_ALOCAR);
+        if (indice)
         {
-            printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
-            free(regs);
-            for(int j = 0; j < i; j++) destroi_busca(buscasArray[j]);
-            free(buscasArray);
-            for(int j = 0; j < cab_pessoa.quantidadePessoas; j++) destroi_registro_indice(indice[j]);
+            for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
+                destroi_registro_indice(indice[i]);
             free(indice);
+        }
+        free(buscasArray);
+        return NULL;
+    }
+
+    Parametro **updatesArray = NULL;
+    if (updateBool)
+    {
+        updatesArray = malloc(sizeof(Parametro *) * buscas);
+        if (updatesArray == NULL)
+        {
+            printf(FALHA_AO_ALOCAR);
+            if (indice)
+            {
+                for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
+                    destroi_registro_indice(indice[i]);
+                free(indice);
+            }
+            free(buscasArray);
+            free(resultadoBusca);
             return NULL;
         }
     }
 
     for (int i = 0; i < buscas; i++)
     {
-        Busca *b = buscasArray[i];
+        buscasArray[i] = scanf_busca(updatesArray, i);
+        if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo) || (updateBool && updatesArray[i] != NULL && !campo_valido(updatesArray[i]->campo)))
+        {
+            printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
+            for (int j = 0; j < i; j++)
+            {
+                destroi_busca(buscasArray[j]);
+                if (updateBool && updatesArray[j] != NULL)
+                    destroi_busca(updatesArray[j]);
+            }
+            free(buscasArray);
+            if (updateBool)
+                free(updatesArray);
+            if (indice)
+            {
+                for (int j = 0; j < cab_pessoa.quantidadePessoas; j++)
+                    destroi_registro_indice(indice[j]);
+                free(indice);
+            }
+            free(resultadoBusca);
+            return NULL;
+        }
+    }
+
+    for (int i = 0; i < buscas; i++)
+    {
+        Parametro *b = buscasArray[i];
         int encontradosNestaBusca = 0;
+
+        resultadoBusca[i].busca = *b;
+        if (updateBool && updatesArray[i] != NULL)
+        {
+            resultadoBusca[i].update = *updatesArray[i];
+        }
+        else
+        {
+            resultadoBusca[i].update.campo = NULL;
+            resultadoBusca[i].update.valor = NULL;
+        }
+        resultadoBusca[i].registrosBusca = NULL;
+        resultadoBusca[i].nRegistros = 0;
+
+        size_t tamanhoRegs = 10;
+        RegistroBuscaPessoa **regs = malloc(sizeof(RegistroBuscaPessoa *) * tamanhoRegs);
+
+        if (!regs)
+        {
+            printf(FALHA_AO_ALOCAR);
+            continue; // Skip this search
+        }
 
         if (strcmp(b->campo, CAMPO_ID) == 0)
         {
@@ -150,15 +232,15 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                     RegistroPessoa *reg = NULL;
                     if (le_registro_pessoa(fp, &reg) == 0 && reg->removido == '0')
                     {
-                        if (*nRegsEncontrados >= tamanhoRegs)
+                        if (resultadoBusca[i].nRegistros >= tamanhoRegs)
                         {
                             realloc_golden((void **)&regs, &tamanhoRegs, sizeof(RegistroBuscaPessoa *));
                         }
-                        regs[*nRegsEncontrados] = malloc(sizeof(RegistroBuscaPessoa));
-                        regs[*nRegsEncontrados]->registro = reg;
-                        regs[*nRegsEncontrados]->ByteOffset = indice[mid]->byteOffset;
+                        regs[resultadoBusca[i].nRegistros] = malloc(sizeof(RegistroBuscaPessoa));
+                        regs[resultadoBusca[i].nRegistros]->registro = reg;
+                        regs[resultadoBusca[i].nRegistros]->ByteOffset = indice[mid]->byteOffset;
 
-                        (*nRegsEncontrados)++;
+                        (resultadoBusca[i].nRegistros)++;
                         encontradosNestaBusca++;
                     }
                     else if (reg)
@@ -175,19 +257,16 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         }
         else
         {
-            long long byteOffset = 17;
             fseek(fp, 17, SEEK_SET);
-
             for (int j = 0; j < cab_pessoa.quantidadePessoas + cab_pessoa.quantidadeRemovidos; j++)
             {
-                long long recordStartOffset = byteOffset;
+                long long recordStartOffset = ftell(fp);
                 RegistroPessoa *reg = NULL;
 
-                if (le_registro_pessoa(fp, &reg) != 0) {
+                if (le_registro_pessoa(fp, &reg) != 0)
+                {
                     break;
                 }
-                
-                byteOffset += sizeof(char) + sizeof(int) + reg->tamanhoRegistro;
 
                 if (reg->removido == '1')
                 {
@@ -222,15 +301,15 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 
                 if (match)
                 {
-                    if (*nRegsEncontrados >= tamanhoRegs)
+                    if (resultadoBusca[i].nRegistros >= tamanhoRegs)
                     {
                         realloc_golden((void **)&regs, &tamanhoRegs, sizeof(RegistroBuscaPessoa *));
                     }
-                    regs[*nRegsEncontrados] = malloc(sizeof(RegistroBuscaPessoa));
-                    regs[*nRegsEncontrados]->registro = reg;
-                    regs[*nRegsEncontrados]->ByteOffset = recordStartOffset;
+                    regs[resultadoBusca[i].nRegistros] = malloc(sizeof(RegistroBuscaPessoa));
+                    regs[resultadoBusca[i].nRegistros]->registro = reg;
+                    regs[resultadoBusca[i].nRegistros]->ByteOffset = recordStartOffset;
 
-                    (*nRegsEncontrados)++;
+                    (resultadoBusca[i].nRegistros)++;
                     encontradosNestaBusca++;
                 }
                 else
@@ -243,15 +322,37 @@ RegistroBuscaPessoa **funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         if (encontradosNestaBusca == 0 && !silent)
         {
             printf("Registro inexistente.\n");
+            free(regs); // Libera se não encontrou nada
         }
+        else
+        {
+            resultadoBusca[i].registrosBusca = regs;
+        }
+        (*nRegsEncontrados) += encontradosNestaBusca;
     }
 
+    // Libera memória interna que não será retornada
     for (int i = 0; i < buscas; i++)
+    {
         destroi_busca(buscasArray[i]);
-    for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-        destroi_registro_indice(indice[i]);
+        if (updateBool && updatesArray[i] != NULL)
+        {
+            destroi_busca(updatesArray[i]);
+        }
+    }
     free(buscasArray);
-    free(indice);
+    if (updateBool)
+    {
+        free(updatesArray);
+    }
+    if (indice)
+    {
+        for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
+        {
+            destroi_registro_indice(indice[i]);
+        }
+        free(indice);
+    }
 
-    return regs;
+    return resultadoBusca;
 }

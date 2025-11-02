@@ -12,19 +12,6 @@
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 
-int comparar_resultados(const void *a, const void *b)
-{
-    RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
-    RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
-
-    if (regA->ByteOffset < regB->ByteOffset)
-        return -1;
-    else if (regA->ByteOffset > regB->ByteOffset)
-        return 1;
-    else
-        return 0;
-}
-
 // Função de comparação para bsearch, para encontrar um registro de índice por idPessoa.
 int comparar_bsearch_indice(const void *key, const void *elem)
 {
@@ -43,9 +30,27 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     // Implementação da funcionalidade 5
 
     int nRegsEncontrados = 0;
-    RegistroBuscaPessoa **resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1);
+    ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 0);
 
-    qsort(resultados, nRegsEncontrados, sizeof(RegistroBuscaPessoa *), comparar_resultados);
+    int index = 0;
+    RegistroBuscaPessoa **resultados = malloc(nRegsEncontrados * sizeof(RegistroBuscaPessoa *));
+
+    // Imprime os resultados e libera a memória
+    if (resultadosEmBuscas != NULL)
+    {
+        for (int i = 0; i < buscas; i++)
+        {
+            for (int j = 0; j < resultadosEmBuscas[i].nRegistros; j++)
+            {
+                resultados[index] = resultadosEmBuscas[i].registrosBusca[j];
+                index++;
+            }
+            free(resultadosEmBuscas[i].registrosBusca);
+        }
+        free(resultadosEmBuscas); // Libera o array de ponteiros
+    }
+
+    qsort(resultados, nRegsEncontrados, sizeof(RegistroBuscaPessoa *), comparar_registros_busca_offset);
 
     if (nRegsEncontrados > 0)
     {
@@ -102,7 +107,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
 
             // Remover do indice
             int id_a_remover = resultados[i]->registro->idPessoa;
-            
+
             RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
                                                         indice,
                                                         cp.quantidadePessoas,
@@ -114,9 +119,9 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
                 (*p_encontrado_ptr)->byteOffset = -1; // Marca como removido no índice
             }
 
-            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) + 
-                                           sizeof(int) + resultados[i]->registro->tamanhoNomePessoa + 
-                                           sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
+            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) +
+                                             sizeof(int) + resultados[i]->registro->tamanhoNomePessoa +
+                                             sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
 
             previousByteOffset += nextByteOffset + tamanho_real_escrito;
 
