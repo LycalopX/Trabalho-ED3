@@ -55,6 +55,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     Permita  a  atualização  dos  registros  do  arquivo  de  dados  pessoa
     */
 
+    printf("Cornito pangolino \n");
+
     int nRegsEncontrados = 0;
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
 
@@ -85,11 +87,12 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         return -1;
     }
 
+    printf("Cornito pangolino \n");
+
     fseek(fp, 0, SEEK_SET);
+
     CabecalhoPessoa cp;
     le_cabecalho_pessoa(fp, &cp); // Lê o cabeçalho para posicionar o ponteiro corretamente
-
-    cp.status = '0';
     toggle_cabecalho_pessoa(fp, &cp);
 
     long long proxByteOffset = cp.proxByteOffset;
@@ -107,8 +110,9 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     */
     // Mesma especificação do exercício 6 para leitura dos campos a serem atualizados
 
-    int nIgnorados = 0;
     int nTarefas = 0;
+
+    printf("Cornito pangolino \n");
 
     for (int i = 0; i < buscas; i++)
     {
@@ -148,7 +152,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
                 }
             }
         }
@@ -177,7 +180,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
                 }
             }
         }
@@ -234,7 +236,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
                 }
             }
         }
@@ -254,10 +255,13 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     int tamanhoNomeUsuario = strlen(new_username);
                     int old_tamanhoNomeUsuario = registrosBusca[j]->registro->tamanhoNomeUsuario;
+                    printf("[DEBUG f7] Atualizando usuario: de %d para %d bytes. current_username_ptr: %p, new_username: \"%s\"\n", old_tamanhoNomeUsuario, tamanhoNomeUsuario, (void*)current_username, new_username);
 
                     free(registrosBusca[j]->registro->nomeUsuario);
+                    printf("[DEBUG f7] Freeing old nomeUsuario at %p\n", (void*)current_username);
 
                     registrosBusca[j]->registro->nomeUsuario = strdup(new_username);
+                    printf("[DEBUG f7] New nomeUsuario strdup returned %p\n", (void*)registrosBusca[j]->registro->nomeUsuario);
                     registrosBusca[j]->registro->tamanhoNomeUsuario = tamanhoNomeUsuario;
 
                     if (tamanhoNomeUsuario > old_tamanhoNomeUsuario)
@@ -266,6 +270,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                         tarefas[indexTarefa].rrnAntigo = registrosBusca[j]->ByteOffset;
                         registrosBusca[j]->ByteOffset = proxByteOffset;
                         proxByteOffset += sizeof(char) + sizeof(int) + registrosBusca[j]->registro->tamanhoRegistro;
+                        printf("[DEBUG f7] Novo proxByteOffset: %lld\n", proxByteOffset);
                         continue;
                     }
                 }
@@ -273,15 +278,18 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
                 }
             }
         }
     }
 
+    printf("Cornito pangolino\n");
+
     // Juntar tudo em uma única array para usar em outras funções
     int index = 0;
+    printf("[DEBUG f7] Prestes a alocar 'resultados'. nRegsEncontrados = %d\n", nRegsEncontrados);
     RegistroBuscaPessoa **resultados = malloc(nRegsEncontrados * sizeof(RegistroBuscaPessoa *));
+
     if (resultados == NULL && nRegsEncontrados > 0)
     {
         printf(FALHA_AO_ALOCAR);
@@ -309,6 +317,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         return -1;
     }
 
+    printf("Cornito pangolino \n");
+
     // Transfere os resultados e libera a memória
     if (resultadosEmBuscas != NULL)
     {
@@ -330,6 +340,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         }
         free(resultadosEmBuscas); // Libera o array de ponteiros
     }
+
+    printf("Cornito pangolino \n");
 
     // Não esquecer de unificar resultados (se tiver um registro em mais de uma busca)
     // Para unificação de dois resultados diferentes, sempre usar o byteOffset de maior valor entre os dois
@@ -393,6 +405,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     }
     nTarefas = nRegsEncontrados;
 
+    printf("Cornito pangolino \n");
+
     /*
     Quando o tamanho do registro atualizado for maior do que o tamanho do
     registro atual, o registro atual deve ser logicamente removido e o registro atualizado
@@ -413,8 +427,12 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         return -1;
     }
 
+    printf("Cornito pangolino 7\n");
+
     fseek(fp, 17, SEEK_SET);
     long long cursor_position = 17;
+
+    printf("Cornito pangolino 8\n");
 
     // Para podermos avançar o cursor, em vez de ter que dar set_seek toda hora
     qsort(tarefas, nRegsEncontrados, sizeof(TarefaDeAtualizacao), comparar_tarefas_por_byteoffset);
@@ -479,7 +497,16 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         if (tarefas[i].indiceDaRegra == 0 || tarefas[i].rrnAntigo > 0)
         {
             // pegar maior entre id busca e id atual
-            int id_busca = (tarefas[i].idPessoaAntigo > reg_atualizado->idPessoa) ? tarefas[i].idPessoaAntigo : reg_atualizado->idPessoa;
+            int id_busca;
+
+            if (tarefas[i].idPessoaAntigo == 0)
+            {
+                id_busca = reg_atualizado->idPessoa;
+            }
+            else
+            {
+                id_busca = tarefas[i].idPessoaAntigo;
+            }
 
             // Lógica para atualizar o índice em memória (remover id_original, adicionar id_novo)
             RegistroIndice **p_encontrado_ptr = bsearch(&id_busca,
@@ -509,6 +536,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 
         byteOffset += diffByteOffset + tamanho_real_escrito;
     }
+
+    printf("Cornito pangolino \n");
 
     // Lógica para reescrever o arquivo de índice a partir do índice em memória, similar à funcionalidade 6.
     qsort(indice_em_memoria, cp.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
@@ -561,6 +590,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         }
         free(resultados);
     }
+
+    printf("Cornito pangolino \n");
 
     return 0;
 }

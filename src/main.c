@@ -24,6 +24,8 @@ void scan_quote_string(char *str);
 
 int main()
 {
+    setbuf(stdout, NULL);
+
     int funcionalidade;
     scanf("%d", &funcionalidade);
 

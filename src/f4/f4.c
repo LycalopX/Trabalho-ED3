@@ -43,8 +43,9 @@ Parametro *scanf_busca(Parametro **updates, int i)
         return NULL; // Falha ao ler o campo
     }
 
-    getchar();
-    scan_quote_string(valor);
+    getchar(); // Consumes '='
+    scan_quote_string(valor); // Reads the value
+    printf("[DEBUG scanf_busca] Busca %d: campo=\"%s\", valor=\"%s\"\n", i, campo, valor);
 
     // Caso haja update
     if (updates != NULL)
@@ -53,15 +54,16 @@ Parametro *scanf_busca(Parametro **updates, int i)
         char valor2[100];
 
         // Remover espaço antes do campo
-        getchar();
+        getchar(); // This is the problematic one, it consumes the newline after the first value.
 
         if (scanf(" %[^=]", campo2) != 1)
         {
             return NULL; // Falha ao ler o campo
         }
 
-        getchar();
-        scan_quote_string(valor2);
+        getchar(); // Consumes '='
+        scan_quote_string(valor2); // Reads the value
+        printf("[DEBUG scanf_busca] Atualização %d: campo2=\"%s\", valor2=\"%s\"\n", i, campo2, valor2);
 
         updates[i] = cria_busca(campo2, valor2);
     }
@@ -94,13 +96,10 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
     // Caso tenhamos updates (ela é diferente de NULL), estamos rodando para a funcionalidade 7
 
     char *falha_ao_processar_arquivo = FALHA_AO_PROCESSAR_ARQUIVO;
-    if (silent)
-    {
-        falha_ao_processar_arquivo = "";
-    }
 
     CabecalhoPessoa cab_pessoa;
-    if ((le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')) {
+    if ((le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0'))
+    {
         printf("%s", falha_ao_processar_arquivo);
         return NULL;
     }
@@ -112,17 +111,25 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         return NULL;
     }
 
+    if (silent)
+    {
+        falha_ao_processar_arquivo = "";
+    }
+
     Parametro **buscasArray = malloc(sizeof(Parametro *) * buscas);
     ResultadoBuscaPessoa *resultadoBusca = malloc(sizeof(ResultadoBuscaPessoa) * buscas);
     Parametro **updatesArray = NULL;
-    
-    if (updateBool) {
+
+    if (updateBool)
+    {
         updatesArray = malloc(sizeof(Parametro *) * buscas);
-        if (updatesArray == NULL) {
+        if (updatesArray == NULL)
+        {
             printf(FALHA_AO_ALOCAR);
             free(buscasArray);
             free(resultadoBusca);
-            if (indice) {
+            if (indice)
+            {
                 for (int j = 0; j < cab_pessoa.quantidadePessoas; j++)
                     destroi_registro_indice(indice[j]);
                 free(indice);
@@ -133,7 +140,9 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 
     for (int i = 0; i < buscas; i++)
     {
+        fflush(stdout);
         buscasArray[i] = scanf_busca(updatesArray, i);
+        fflush(stdout);
         if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo) || (updateBool && updatesArray[i] != NULL && !campo_valido(updatesArray[i]->campo)))
         {
             printf("%s", falha_ao_processar_arquivo);
@@ -300,6 +309,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
             resultadoBusca[i].registrosBusca = regs;
         }
         (*nRegsEncontrados) += encontradosNestaBusca;
+
     }
 
     // Libera memória interna que não será retornada
@@ -325,5 +335,6 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         free(indice);
     }
 
+    printf("[DEBUG funcionalidade4] nRegsEncontrados final: %d\n", *nRegsEncontrados);
     return resultadoBusca;
 }
