@@ -121,7 +121,7 @@ int funcionalidade8(FILE *fp_csv, FILE *fp_bin)
         }
 
         // DEBUG: printa o registro lido
-        imprime_registro_segue(reg); 
+        //imprime_registro_segue(reg); 
         
         // Escreve o registro no arquivo binário.
         if(escreve_registro_segue(fp_bin, reg) != 0)

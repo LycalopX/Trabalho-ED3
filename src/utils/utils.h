@@ -55,14 +55,6 @@ int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
  */
 int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab);
 
-/**
- * @brief Escreve o registro de cabeçalho no arquivo de seguidores.
- * @param fp Ponteiro para o arquivo de seguidores.
- * @param cab Ponteiro para a struct contendo os dados a serem escritos.
- * @return Retorna 0 em caso de sucesso, 1 em caso de falha.
- */
-int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab);
-
 // Indices
 /**
  * @brief Lê um registro de índice do arquivo.
@@ -85,6 +77,22 @@ void destroi_registro_indice(RegistroIndice *reg);
  * @return Retorna 0 em caso de sucesso, 1 em caso de erro (fim de arquivo, falha de memória, etc).
  */
 RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros);
+
+/**
+ * @brief Escreve o registro de cabeçalho no arquivo de seguidores.
+ * @param fp Ponteiro para o arquivo de seguidores.
+ * @param cab Ponteiro para a struct contendo os dados a serem escritos.
+ * @return Retorna 0 em caso de sucesso, 1 em caso de falha.
+ */
+int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab);
+
+/**
+ * @brief Lê o registro de cabeçalho do arquivo de seguidores.
+ * @param fp Ponteiro para o arquivo de seguidores.
+ * @param cab Ponteiro para a struct que será preenchida com os dados.
+ * @return Retorna 0 em caso de sucesso, 1 em caso de falha.
+ */
+int le_cabecalho_segue(FILE *fp, CabecalhoSegue *cab);
 
 /**
  * @brief Função de comparação para qsort, ordenando registros de busca por ByteOffset.
@@ -134,6 +142,7 @@ int imprime_registro_pessoa(RegistroPessoa* reg);
  * @return Retorna 0 em caso de sucesso, 1 em caso de erro (fim de arquivo, falha de memória, etc).
  */
 int le_registro_segue(FILE *fp, RegistroSegue *reg_segue);
+#define LE_REGISTRO_SEGUE_REMOVIDO 1
 
 /**
  * @brief Escreve um registro no arquivo de dados.

@@ -92,4 +92,8 @@ typedef struct
 #define REGISTRO_SEGUE_NAO_REMOVIDO '0'
 #define REGISTRO_SEGUE_TAMANHO 30 * sizeof(char) // Excluir os '\0' das datas
 
+#define AMIZADE_0 "celebridade"
+#define AMIZADE_1 "amiga de minha amiga"
+#define AMIZADE_2 "minha amiga"
+
 #endif

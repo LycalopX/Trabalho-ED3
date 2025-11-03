@@ -50,9 +50,10 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
 
     // Lê o cabeçalho
     CabecalhoSegue *cabecalho = malloc(sizeof(CabecalhoSegue));
-    fread(&cabecalho->status, sizeof(char), 1, fp);
-    fread(&cabecalho->quantidadePessoas, sizeof(int), 1, fp);
-    fread(&cabecalho->proxRRN, sizeof(int), 1, fp);
+    if(le_cabecalho_segue(fp, cabecalho) != 0) {
+        free(cabecalho);
+        return 1; // Falha ao ler o cabeçalho
+    }
 
     // DEBUG: printa o cabeçalho lido
     //printf("Cabeçalho lido:\n - Status: %c\n - Quantidade Pessoas: %u\n - Próximo RRN: %u\n\n", cabecalho->status, cabecalho->quantidadePessoas, cabecalho->proxRRN);
@@ -60,7 +61,7 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
     // Aloca memória para os registros
     RegistroSegue *registros = malloc(cabecalho->quantidadePessoas * sizeof(RegistroSegue));
     if (registros == NULL) {
-        return -1; // Falha na alocação de memória
+        return 2; // Falha na alocação de memória
     }
 
     // Lê os registros
@@ -81,12 +82,17 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
     qsort(registros, cabecalho->quantidadePessoas, sizeof(RegistroSegue), comparar_registros);
 
     // Escreve o cabeçalho no arquivo de destino
-    fwrite(cabecalho, sizeof(CabecalhoSegue), 1, fpDestino);
+    if(escreve_cabecalho_segue(fpDestino, cabecalho) != 0)
+    {
+        free(registros);
+        free(cabecalho);
+        return 5; // Erro ao atualizar o cabeçalho.
+    }
 
     // Escreve os registros ordenados no arquivo de destino
     for (int i = 0; i < cabecalho->quantidadePessoas; i++) 
     {
-        imprime_registro_segue(&registros[i]); // DEBUG: printa o registro escrito
+        //imprime_registro_segue(&registros[i]); // DEBUG: printa o registro escrito
         escreve_registro_segue(fpDestino, &registros[i]);
     }
 

@@ -83,6 +83,19 @@ int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
     return 0;
 }
 
+// Lê o cabeçalho_segue do arquivo de dados segue. Retorna 1 em caso de erro.
+int le_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
+{
+    if(fp == NULL || cab == NULL)
+        return 1;
+
+    fread(&cab->status, sizeof(char), 1, fp);
+    fread(&cab->quantidadePessoas, sizeof(int), 1, fp);
+    fread(&cab->proxRRN, sizeof(int), 1, fp);
+    return 0;
+}
+
+// Escreve o cabeçalho_segue no arquivo de dados segue. Retorna 1 em caso de erro.
 int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
 {
     fwrite(&cab->status, sizeof(char), 1, fp);
@@ -269,7 +282,7 @@ int le_registro_segue(FILE *fp, RegistroSegue *reg_segue)
     fread(&reg_segue->removido, sizeof(char), 1, fp);
     if(reg_segue->removido == REGISTRO_SEGUE_REMOVIDO) {
         fp += REGISTRO_SEGUE_TAMANHO - 1; // Pula o resto do registro
-        return 1;
+        return LE_REGISTRO_SEGUE_REMOVIDO;
     }
 
     fread(&reg_segue->idPessoaQueSegue, sizeof(int), 1, fp);
@@ -302,17 +315,65 @@ void imprime_registro_segue(RegistroSegue *reg) {
         return;
     }
 
-    printf("%d,%d,%s,", reg->idPessoaQueSegue, reg->idPessoaQueESeguida, reg->dataInicioQueSegue);
-    if(reg->dataFimQueSegue[0] == NULO_CARACTERE) {
-        printf(",");
-    } else {
-        printf("%s,", reg->dataFimQueSegue);
+    // idPessoaQueESeguida
+    printf("Segue a pessoa de codigo: ");
+    if(reg->idPessoaQueESeguida == NULO_INTEIRO) 
+    {
+        printf("-\n");
+    } 
+    else 
+    {
+        printf("%d\n", reg->idPessoaQueESeguida);
     }
-    if(reg->grauAmizade == NULO_CARACTERE) {
-        printf("\n");
-    } else {
-        printf("%c\n", reg->grauAmizade);
+
+    // grauAmizade
+    printf("Justificativa para seguir: ");
+    switch (reg->grauAmizade)
+    {
+        case '0':
+        {
+            printf("%s\n", AMIZADE_0);
+            break;
+        }
+        case '1':
+        {
+            printf("%s\n", AMIZADE_1);
+            break;
+        }
+        case '2':
+        {
+            printf("%s\n", AMIZADE_2);
+            break;
+        }
+        case NULO_CARACTERE:
+        {
+            printf("-\n");
+            break;
+        }
+        default:
+        {
+            printf("Valor desconhecido (%c)\n", reg->grauAmizade);
+            break;
+        }
     }
+
+    // dataInicioQueSegue
+    printf("Começou a seguir em: ");
+    if (reg->dataInicioQueSegue[0] == NULO_CARACTERE) {
+        printf("-\n");
+    } else {
+        printf("%s\n", reg->dataInicioQueSegue);
+    }
+
+    // dataFimQueSegue
+    printf("Parou de seguir em: ");
+    if (reg->dataFimQueSegue[0] == NULO_CARACTERE) {
+        printf("-\n");
+    } else {
+        printf("%s\n", reg->dataFimQueSegue);
+    }
+
+    printf("\n");
 }
 
 void binarioNaTela(char *nomeArquivoBinario)
