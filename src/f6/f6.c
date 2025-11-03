@@ -7,7 +7,7 @@
 #include "../utils/utils.h"
 #include "f6.h"
 
-#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
+
 
 static int compara_inseridos_busca(const void *a, const void *b)
 {
@@ -20,13 +20,6 @@ static int compara_inseridos_busca(const void *a, const void *b)
         return 1;
     else
         return 0;
-}
-
-static int comparar_indices_id(const void *a, const void *b)
-{
-    RegistroIndice *regA = *(RegistroIndice **)a;
-    RegistroIndice *regB = *(RegistroIndice **)b;
-    return regA->idPessoa - regB->idPessoa;
 }
 
 static int parse_insercao_linha(char *line, int *numero_busca, int *idPessoa, char *nomePessoa, char *idadeString, char *nomeUsuario)
@@ -132,7 +125,7 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
         { 
             printf(FALHA_AO_PROCESSAR_ARQUIVO);
             free(cp);
-            destroi_registro(novo_reg);
+            destroi_registro_pessoa(novo_reg);
             // TODO: Liberar o resto do array
             free(registrosInseridos);
             return;
@@ -169,7 +162,7 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
 
     for (int i = 0; i < insercoes; i++)
     {
-        destroi_registro(registrosInseridos[i]->registro);
+        destroi_registro_pessoa(registrosInseridos[i]->registro);
         free(registrosInseridos[i]);
     }
     free(registrosInseridos);

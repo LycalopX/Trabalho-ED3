@@ -105,7 +105,6 @@ void funcionalidade2(FILE *fp_csv, FILE *fp_data, FILE *fp_index, const char *no
     // Posiciona o cursor no final do cabeçalho para garantir o início da escrita de dados.
     fseek(fp_data, 17, SEEK_SET);
 
-    // CORREÇÃO: Alocação movida para fora do laço e tipo da variável de tamanho corrigido.
     size_t regs_length = 100;
     RegistroIndice *regs_index = malloc(regs_length * sizeof(RegistroIndice));
     int index = 0;
@@ -116,7 +115,7 @@ void funcionalidade2(FILE *fp_csv, FILE *fp_data, FILE *fp_index, const char *no
     {
         if (regs_index == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             return;
         }
 

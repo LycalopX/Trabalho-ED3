@@ -17,7 +17,7 @@ void funcionalidade1(FILE *fp)
     fseek(fp, 0, SEEK_SET);
     if (fwrite(&cab, sizeof(CabecalhoIndice), 1, fp) < 1)
     {
-        printf("Falha no processamento do arquivo.\n");
+        printf(FALHA_AO_PROCESSAR_ARQUIVO);
         return;
     }
 

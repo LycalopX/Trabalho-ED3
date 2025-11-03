@@ -93,68 +93,40 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 {
     // Caso tenhamos updates (ela é diferente de NULL), estamos rodando para a funcionalidade 7
 
-    char *falha_ao_processar_arquivo = "Falha no processamento do arquivo.\n";
+    char *falha_ao_processar_arquivo = FALHA_AO_PROCESSAR_ARQUIVO;
     if (silent)
     {
         falha_ao_processar_arquivo = "";
     }
 
     CabecalhoPessoa cab_pessoa;
-    if (le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')
-    {
+    if ((le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')) {
         printf("%s", falha_ao_processar_arquivo);
         return NULL;
     }
 
     RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab_pessoa.quantidadePessoas);
-    if (indice == NULL && cab_pessoa.quantidadePessoas > 0)
+    if ((indice == NULL && cab_pessoa.quantidadePessoas > 0))
     {
         printf("%s", falha_ao_processar_arquivo);
         return NULL;
     }
 
     Parametro **buscasArray = malloc(sizeof(Parametro *) * buscas);
-    if (buscasArray == NULL)
-    {
-        printf(FALHA_AO_ALOCAR);
-        if (indice)
-        {
-            for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-                destroi_registro_indice(indice[i]);
-            free(indice);
-        }
-        return NULL;
-    }
-
     ResultadoBuscaPessoa *resultadoBusca = malloc(sizeof(ResultadoBuscaPessoa) * buscas);
-    if (resultadoBusca == NULL)
-    {
-        printf(FALHA_AO_ALOCAR);
-        if (indice)
-        {
-            for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-                destroi_registro_indice(indice[i]);
-            free(indice);
-        }
-        free(buscasArray);
-        return NULL;
-    }
-
     Parametro **updatesArray = NULL;
-    if (updateBool)
-    {
+    
+    if (updateBool) {
         updatesArray = malloc(sizeof(Parametro *) * buscas);
-        if (updatesArray == NULL)
-        {
+        if (updatesArray == NULL) {
             printf(FALHA_AO_ALOCAR);
-            if (indice)
-            {
-                for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-                    destroi_registro_indice(indice[i]);
-                free(indice);
-            }
             free(buscasArray);
             free(resultadoBusca);
+            if (indice) {
+                for (int j = 0; j < cab_pessoa.quantidadePessoas; j++)
+                    destroi_registro_indice(indice[j]);
+                free(indice);
+            }
             return NULL;
         }
     }
@@ -171,16 +143,20 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 if (updateBool && updatesArray[j] != NULL)
                     destroi_busca(updatesArray[j]);
             }
-            free(buscasArray);
-            if (updateBool)
-                free(updatesArray);
+            if (buscasArray)
+            {
+                free(buscasArray);
+            }
             if (indice)
             {
                 for (int j = 0; j < cab_pessoa.quantidadePessoas; j++)
                     destroi_registro_indice(indice[j]);
                 free(indice);
             }
-            free(resultadoBusca);
+            if (resultadoBusca)
+            {
+                free(resultadoBusca);
+            }
             return NULL;
         }
     }
@@ -190,10 +166,12 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         Parametro *b = buscasArray[i];
         int encontradosNestaBusca = 0;
 
-        resultadoBusca[i].busca = *b;
+        resultadoBusca[i].busca.campo = strdup(b->campo);
+        resultadoBusca[i].busca.valor = strdup(b->valor);
         if (updateBool && updatesArray[i] != NULL)
         {
-            resultadoBusca[i].update = *updatesArray[i];
+            resultadoBusca[i].update.campo = strdup(updatesArray[i]->campo);
+            resultadoBusca[i].update.valor = strdup(updatesArray[i]->valor);
         }
         else
         {
@@ -238,7 +216,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                     }
                     else if (reg)
                     {
-                        destroi_registro(reg);
+                        destroi_registro_pessoa(reg);
                     }
                     break;
                 }
@@ -263,7 +241,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 
                 if (reg->removido == '1')
                 {
-                    destroi_registro(reg);
+                    destroi_registro_pessoa(reg);
                     continue;
                 }
 
@@ -307,7 +285,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
                 else
                 {
-                    destroi_registro(reg);
+                    destroi_registro_pessoa(reg);
                 }
             }
         }
