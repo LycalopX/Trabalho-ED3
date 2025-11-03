@@ -6,7 +6,7 @@ OS=$(uname -s)
 # Define o comando de execução com ou sem Valgrind
 if [ "$OS" = "Linux" ]; then
     echo "Detectado Linux. Executando com Valgrind."
-    RUN_CMD="./programaTrab"
+    RUN_CMD="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./programaTrab"
 else
     echo "Detectado $OS. Executando sem Valgrind."
     RUN_CMD="./programaTrab"
