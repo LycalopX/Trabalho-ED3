@@ -6,7 +6,7 @@ OS=$(uname -s)
 # Define o comando de execução com ou sem Valgrind
 if [ "$OS" = "Linux" ]; then
     echo "Detectado Linux. Executando com Valgrind."
-    RUN_CMD="./programaTrab"
+    RUN_CMD="valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./programaTrab"
 else
     echo "Detectado $OS. Executando sem Valgrind."
     RUN_CMD="./programaTrab"
@@ -68,8 +68,8 @@ echo ">> Teste 12: Funcionalidade 7 (Múltiplas atualizações)"
 echo -e "7 entrada.bin indice.bin 3 \n1 idPessoa=71 nomePessoa=\"JOSE MIGUEL CASTRADO\" \n2 idadePessoa=89 idadePessoa=20 \n3 idPessoa=266 nomePessoa=NULO" | $RUN_CMD
 
 # Teste 13: Realiza múltiplas atualizações com casos de borda, usando dados válidos.
-# echo ">> Teste 13: Funcionalidade 7 (Atualizações com dados válidos)"
-# echo -e "7 entrada.bin indice.bin 3\n1 id=397 nome=\"MARIANA PEREIRA\"\n2 idade=73 idade=20\n3 id=315 nome=NULO" | $RUN_CMD
+echo ">> Teste 13: Funcionalidade 7 (Atualizações com dados válidos)"
+echo -e "7 entrada.bin indice.bin 3\n1 id=397 nome=\"MARIANA PEREIRA\"\n2 idade=73 idade=20\n3 id=315 nome=NULO" | $RUN_CMD
 
 # Teste 14: Tenta criar um arquivo de seguidores a partir de um CSV que não existe.
 # echo ">> Teste 14: Funcionalidade 8 (Arquivo CSV de seguidores inexistente)"
