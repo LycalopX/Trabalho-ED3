@@ -5,7 +5,9 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../utils/utilsT2.h"
 #include "f7.h"
+
 #include "../f4/f4.h"
 
 typedef struct

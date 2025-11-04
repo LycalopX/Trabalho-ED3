@@ -5,8 +5,8 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../utils/utilsT2.h"
 #include "f6.h"
-
 
 
 static int compara_inseridos_busca(const void *a, const void *b)

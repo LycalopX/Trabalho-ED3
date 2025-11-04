@@ -6,7 +6,9 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../utils/utilsT2.h"
 #include "f5.h"
+
 #include "../f4/f4.h"
 
 void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)

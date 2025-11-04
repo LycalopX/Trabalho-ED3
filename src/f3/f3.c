@@ -4,6 +4,7 @@
 #include "f3.h"
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../utils/utilsT1.h"
 
 void funcionalidade3(FILE *fp) 
 {

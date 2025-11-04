@@ -6,6 +6,7 @@
 #include "f4.h"
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../utils/utilsT1.h"
 
 Parametro *cria_busca(char *campo, char *valor)
 {
