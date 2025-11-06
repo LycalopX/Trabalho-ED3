@@ -5,7 +5,8 @@
 typedef struct {
     char *campo;
     char *valor;
-} Parametro;
+} 
+Parametro;
 
 // Cabeçalho do arquivo de dados 'pessoa.bin'
 typedef struct
@@ -16,7 +17,8 @@ typedef struct
 
     long long proxByteOffset;
 
-} CabecalhoPessoa;
+} 
+CabecalhoPessoa;
 
 // Registro de dados de 'pessoa.bin'
 typedef struct
@@ -31,22 +33,26 @@ typedef struct
 
     int tamanhoNomeUsuario;
     char *nomeUsuario;
-} RegistroPessoa;
+} 
+RegistroPessoa;
 
 // Registro de dados que guarda byteoffset também, para fins de busca
 typedef struct {
 
     RegistroPessoa *registro;
     long long ByteOffset;
-} RegistroBuscaPessoa;
+} 
+RegistroBuscaPessoa;
 
 // Registro de dados retornado ao fazer busca dos dados de 'pessoa.bin'
 typedef struct {
     RegistroBuscaPessoa **registrosBusca;
+
     int nRegistros;
     Parametro busca;
     Parametro update;
-} ResultadoBuscaPessoa;
+} 
+ResultadoBuscaPessoa;
 
 // Cabeçalho do arquivo de índice 'indexaPessoa.bin'
 typedef struct
@@ -54,7 +60,8 @@ typedef struct
     char status;
     char lixo[11];
 
-} CabecalhoIndice;
+} 
+CabecalhoIndice;
 
 // Registro de dados de 'indexaPessoa.bin'
 typedef struct
@@ -62,7 +69,8 @@ typedef struct
     int idPessoa;
     long long byteOffset;
     
-} RegistroIndice;
+} 
+RegistroIndice;
 
 // Cabeçalho do arquivo de índice 'Segue.bin'
 typedef struct
@@ -71,7 +79,8 @@ typedef struct
     unsigned quantidadePessoas;
     unsigned proxRRN;
 
-} CabecalhoSegue;
+} 
+CabecalhoSegue;
 
 // Registro de dados de 'Segue.bin'
 typedef struct
@@ -83,7 +92,8 @@ typedef struct
     char dataFimQueSegue[11];
     char grauAmizade;
 
-} RegistroSegue;
+} 
+RegistroSegue;
 
 #define NULO_INTEIRO -1
 #define NULO_DATA "$$$$$$$$$$"
