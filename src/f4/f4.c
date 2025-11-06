@@ -6,7 +6,9 @@
 #include "f4.h"
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "../utils/utilsT1.h"
+
+#include "../data_manip/pessoa.h"
+#include "../data_manip/indice.h"
 
 Parametro *cria_busca(char *campo, char *valor)
 {
@@ -46,7 +48,6 @@ Parametro *scanf_busca(Parametro **updates, int i)
 
     getchar(); // Consumes '='
     scan_quote_string(valor); // Reads the value
-    printf("[DEBUG scanf_busca] Busca %d: campo=\"%s\", valor=\"%s\"\n", i, campo, valor);
 
     // Caso haja update
     if (updates != NULL)
@@ -64,7 +65,6 @@ Parametro *scanf_busca(Parametro **updates, int i)
 
         getchar(); // Consumes '='
         scan_quote_string(valor2); // Reads the value
-        printf("[DEBUG scanf_busca] Atualização %d: campo2=\"%s\", valor2=\"%s\"\n", i, campo2, valor2);
 
         updates[i] = cria_busca(campo2, valor2);
     }
@@ -336,6 +336,5 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         free(indice);
     }
 
-    printf("[DEBUG funcionalidade4] nRegsEncontrados final: %d\n", *nRegsEncontrados);
     return resultadoBusca;
 }

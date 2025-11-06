@@ -4,7 +4,8 @@
 #include "f3.h"
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "../utils/utilsT1.h"
+
+#include "../data_manip/pessoa.h"
 
 void funcionalidade3(FILE *fp) 
 {

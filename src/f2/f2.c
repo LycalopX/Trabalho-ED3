@@ -4,7 +4,8 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "../utils/utilsT1.h"
+#include "../data_manip/indice.h"
+#include "../data_manip/pessoa.h"
 #include "f2.h"
 
 // Função de comparação, necessária para o qsort ordenar os índices por idPessoa.

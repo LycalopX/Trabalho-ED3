@@ -28,6 +28,7 @@ echo "--- Executando Testes Runcodes ---"
 
 # Teste 2: Popula os arquivos a partir de um arquivo CSV (dados2.csv).
 # Nota: Este teste sobrescreverá os arquivos criados no teste anterior.
+ echo ">> Teste 2: Funcionalidade 2 (dados.csv -> entrada.bin, indice.bin)"
  echo -e "2 arquivoEntrada.csv entrada.bin indice.bin" | $RUN_CMD
 
 # Teste 4: Popula os arquivos com o CSV principal (dados.csv).

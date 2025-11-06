@@ -9,6 +9,7 @@
 // Includes locais
 #include "arquivos.h"
 #include "utils/utils.h"
+#include "data_manip/pessoa.h"
 #include "f1/f1.h"
 #include "f2/f2.h"
 #include "f3/f3.h"

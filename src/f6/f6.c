@@ -5,7 +5,8 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "../utils/utilsT2.h"
+#include "../data_manip/indice.h"
+#include "../data_manip/pessoa.h"
 #include "f6.h"
 
 

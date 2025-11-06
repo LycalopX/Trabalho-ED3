@@ -5,8 +5,8 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "../utils/utilsT2.h"
-#include "f7.h"
+#include "../data_manip/indice.h"
+#include "../data_manip/pessoa.h"
 
 #include "../f4/f4.h"
 
@@ -113,7 +113,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     // Mesma especificação do exercício 6 para leitura dos campos a serem atualizados
 
     int nTarefas = 0;
-    int nIgnorados = 0;
+    // compilador chato da porra int nIgnorados = 0;
 
     printf("Cornito pangolino \n");
 
@@ -156,7 +156,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
+                    //nIgnorados++;
                 }
             }
             nTarefas += j;
@@ -185,7 +185,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
+                    // nIgnorados++;
                 }
             }
             nTarefas += j;
@@ -243,7 +243,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
+                    // nIgnorados++;
                 }
             }
             nTarefas += j;
@@ -294,7 +294,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
                 {
                     // Marcar como não atualizar
                     registrosBusca[j]->ByteOffset = -1;
-                    nIgnorados++;
+                    // nIgnorados++;
                 }
             }
         }
@@ -305,7 +305,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 
     // Juntar tudo em uma única array para usar em outras funções
     int index = 0;
-    printf("[DEBUG f7] Prestes a alocar 'resultados'. nRegsEncontrados = %d\n", nRegsEncontrados);
     RegistroBuscaPessoa **resultados = malloc(nRegsEncontrados * sizeof(RegistroBuscaPessoa *));
 
     if (resultados == NULL && nRegsEncontrados > 0)

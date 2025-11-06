@@ -4,7 +4,6 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "f9.h"
 
 // Compara a e b e retorna um valor negativo se a < b, zero se a == b, e positivo se a > b
 int comparar_registros(const void *a, const void *b) {
