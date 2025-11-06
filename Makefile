@@ -2,7 +2,7 @@
 CC = gcc
 
 # Flags de compilação
-CFLAGS = -Wall -I. -IAssets
+CFLAGS = -Wall -g -I. -IAssets
 
 # Busca recursiva por arquivos .c
 SRCS = $(wildcard src/*.c) $(wildcard src/*/*.c) $(wildcard *.c) 

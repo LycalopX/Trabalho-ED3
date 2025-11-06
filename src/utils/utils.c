@@ -6,375 +6,10 @@
 #include <ctype.h>
 
 #include "utils.h"
+#include "../data_manip/indice.h"
+#include "../data_manip/pessoa.h"
 
 #define GOLDEN_RATIO 1.61803398875
-
-// Lê o cabeçalho do arquivo de dados. Retorna 1 em caso de erro.
-int le_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
-{
-    fseek(fp, 0, SEEK_SET);
-
-    if (fread(&cab->status, sizeof(char), 1, fp) < 1)
-        return 1;
-    if (fread(&cab->quantidadePessoas, sizeof(int), 1, fp) < 1)
-        return 1;
-    if (fread(&cab->quantidadeRemovidos, sizeof(int), 1, fp) < 1)
-        return 1;
-    if (fread(&cab->proxByteOffset, sizeof(long long), 1, fp) < 1)
-        return 1;
-
-    return 0;
-}
-
-void toggle_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab) {
-    fseek(fp, 0, SEEK_SET);
-
-    cab->status = (cab->status == '0') ? '1' : '0';
-    escreve_cabecalho_pessoa(fp, cab);
-    return;
-}
-
-int le_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
-{
-    fseek(fp, 0, SEEK_SET);
-
-    if (fread(&cab->status, sizeof(char), 1, fp) < 1 || fread(&cab->lixo, sizeof(char), 11, fp) < 1)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-void toggle_cabecalho_indice(FILE *fp, CabecalhoIndice *cab) {
-    fseek(fp, 0, SEEK_SET);
-
-    cab->status = (cab->status == '0') ? '1' : '0';
-    escreve_cabecalho_indice(fp, cab);
-    return;
-}
-
-// Escreve o cabeçalho no arquivo de dados. Retorna 1 em caso de erro.
-int escreve_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
-{
-    fseek(fp, 0, SEEK_SET);
-
-    if (fwrite(&cab->status, sizeof(char), 1, fp) < 1)
-        return 1;
-    if (fwrite(&cab->quantidadePessoas, sizeof(int), 1, fp) < 1)
-        return 1;
-    if (fwrite(&cab->quantidadeRemovidos, sizeof(int), 1, fp) < 1)
-        return 1;
-    if (fwrite(&cab->proxByteOffset, sizeof(long long), 1, fp) < 1)
-        return 1;
-
-    return 0;
-}
-
-// Escreve o cabeçalho no arquivo de dados. Retorna 1 em caso de erro.
-int escreve_cabecalho_indice(FILE *fp, CabecalhoIndice *cab)
-{
-    fseek(fp, 0, SEEK_SET);
-
-    if (fwrite(&cab->status, sizeof(char), 1, fp) < 1)
-        return 1;
-    if (fwrite(&cab->lixo, 1, 11, fp) < 1)
-        return 1;
-
-    return 0;
-}
-
-// Lê o cabeçalho_segue do arquivo de dados segue. Retorna 1 em caso de erro.
-int le_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
-{
-    if(fp == NULL || cab == NULL)
-        return 1;
-
-    fread(&cab->status, sizeof(char), 1, fp);
-    fread(&cab->quantidadePessoas, sizeof(int), 1, fp);
-    fread(&cab->proxRRN, sizeof(int), 1, fp);
-    return 0;
-}
-
-// Escreve o cabeçalho_segue no arquivo de dados segue. Retorna 1 em caso de erro.
-int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
-{
-    fwrite(&cab->status, sizeof(char), 1, fp);
-    fwrite(&cab->quantidadePessoas, sizeof(unsigned), 1, fp);
-    fwrite(&cab->proxRRN, sizeof(unsigned), 1, fp);
-
-    return 0; // Sucesso.
-}
-
-// Lê um registro de dados do arquivo. Retorna 1 em caso de erro ou fim de arquivo.
-int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
-{
-    RegistroPessoa *reg = malloc(sizeof(RegistroPessoa));
-    if (reg == NULL)
-        return 1;
-
-    if (fread(&reg->removido, sizeof(char), 1, fp) == 0)
-    {
-        free(reg);
-        return 1;
-    }
-
-    fread(&reg->tamanhoRegistro, sizeof(int), 1, fp);
-    fread(&reg->idPessoa, sizeof(int), 1, fp);
-    fread(&reg->idadePessoa, sizeof(int), 1, fp);
-
-    fread(&reg->tamanhoNomePessoa, sizeof(int), 1, fp);
-    if (reg->tamanhoNomePessoa > 0)
-    {
-        reg->nomePessoa = malloc(reg->tamanhoNomePessoa);
-        if (reg->nomePessoa == NULL)
-        {
-            free(reg);
-            return 1;
-        }
-        fread(reg->nomePessoa, reg->tamanhoNomePessoa, 1, fp);
-    }
-    else
-    {
-        reg->nomePessoa = NULL;
-    }
-
-    fread(&reg->tamanhoNomeUsuario, sizeof(int), 1, fp);
-
-    reg->nomeUsuario = malloc(reg->tamanhoNomeUsuario);
-
-    // se malloc não funcionou
-    if (reg->nomeUsuario == NULL)
-    {
-        if (reg->nomePessoa != NULL)
-            free(reg->nomePessoa);
-        free(reg);
-        return 1;
-    }
-    fread(reg->nomeUsuario, reg->tamanhoNomeUsuario, 1, fp);
-
-    // Calcula o total de bytes lidos para os campos de dados do registro.
-    int bytes_lidos = sizeof(reg->idPessoa) +
-                      sizeof(reg->idadePessoa) +
-                      sizeof(reg->tamanhoNomePessoa) +
-                      reg->tamanhoNomePessoa +
-                      sizeof(reg->tamanhoNomeUsuario) +
-                      reg->tamanhoNomeUsuario;
-
-    // Calcula a quantidade de lixo (bytes de preenchimento) no final do registro.
-    int lixo = reg->tamanhoRegistro - bytes_lidos;
-
-    // Se houver lixo, avança o ponteiro do arquivo para pulá-lo.
-    if (lixo > 0) {
-        fseek(fp, lixo, SEEK_CUR);
-    }
-
-    *reg_out = reg;
-    return 0;
-}
-
-// Construtor da struct RegistroPessoa
-RegistroPessoa* cria_registro_pessoa(int idPessoa, char nomePessoa[200], int idade, char nomeUsuario[200])
-{
-    RegistroPessoa *registroPessoa = malloc(sizeof(RegistroPessoa));
-
-    registroPessoa->removido = '0';
-    registroPessoa->idPessoa = idPessoa;
-    registroPessoa->idadePessoa = idade;
-
-    registroPessoa->tamanhoNomePessoa = strlen(nomePessoa);
-    registroPessoa->nomePessoa = malloc(registroPessoa->tamanhoNomePessoa);
-    memcpy(registroPessoa->nomePessoa, nomePessoa, registroPessoa->tamanhoNomePessoa);
-
-    registroPessoa->tamanhoNomeUsuario = strlen(nomeUsuario);
-    registroPessoa->nomeUsuario = malloc(registroPessoa->tamanhoNomeUsuario);
-    memcpy(registroPessoa->nomeUsuario, nomeUsuario, registroPessoa->tamanhoNomeUsuario);
-
-    registroPessoa->tamanhoRegistro = sizeof(int) + sizeof(int) + sizeof(int) + registroPessoa->tamanhoNomePessoa + sizeof(int) + registroPessoa->tamanhoNomeUsuario;
-
-    return registroPessoa;
-}
-
-// Libera a memória alocada para um registro de pessoa.
-void destroi_registro(RegistroPessoa *reg)
-{
-    if (reg == NULL)
-        return;
-
-    if (reg->nomePessoa != NULL)
-        free(reg->nomePessoa);
-    if (reg->nomeUsuario != NULL)
-        free(reg->nomeUsuario);
-    free(reg);
-}
-
-// Escreve um registro de dados no arquivo. Retorna 1 em caso de erro.
-int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
-{
-    if (fwrite(&reg->removido, sizeof(char), 1, fp) < 1)
-        return 1;
-    if (fwrite(&reg->tamanhoRegistro, sizeof(int), 1, fp) < 1)
-        return 1;
-
-    if (fwrite(&reg->idPessoa, sizeof(int), 1, fp) < 1)
-        return 1;
-
-    if (fwrite(&reg->idadePessoa, sizeof(int), 1, fp) < 1)
-        return 1;
-
-    if (fwrite(&reg->tamanhoNomePessoa, sizeof(int), 1, fp) < 1)
-        return 1;
-
-    if (reg->tamanhoNomePessoa > 0)
-    {
-        if (fwrite(reg->nomePessoa, reg->tamanhoNomePessoa, 1, fp) < 1)
-            return 1;
-    }
-
-    if (fwrite(&reg->tamanhoNomeUsuario, sizeof(int), 1, fp) < 1)
-        return 1;
-
-    if (fwrite(reg->nomeUsuario, reg->tamanhoNomeUsuario, 1, fp) < 1)
-        return 1;
-
-    return 0;
-}
-
-// Imprime um registro de pessoa formatado. Retorna 1 se o registro for nulo.
-int imprime_registro_pessoa(RegistroPessoa *reg)
-{
-    if (reg == NULL)
-        return 1;
-
-    printf("Dados da pessoa de codigo %d\n", reg->idPessoa);
-
-    printf("Nome: ");
-    if (reg->tamanhoNomePessoa > 0)
-    {
-        fwrite(reg->nomePessoa, sizeof(char), reg->tamanhoNomePessoa, stdout);
-    }
-    else
-    {
-        printf("-");
-    }
-    printf("\n");
-
-    if (reg->idadePessoa == -1)
-    {
-        printf("Idade: -\n");
-    }
-    else
-    {
-        printf("Idade: %d\n", reg->idadePessoa);
-    }
-
-    printf("Usuario: ");
-    if (reg->tamanhoNomeUsuario > 0)
-    {
-        fwrite(reg->nomeUsuario, sizeof(char), reg->tamanhoNomeUsuario, stdout);
-    }
-    printf("\n\n");
-
-    return 0;
-}
-
-int le_registro_segue(FILE *fp, RegistroSegue *reg_segue)
-{
-    fread(&reg_segue->removido, sizeof(char), 1, fp);
-    if(reg_segue->removido == REGISTRO_SEGUE_REMOVIDO) {
-        fp += REGISTRO_SEGUE_TAMANHO - 1; // Pula o resto do registro
-        return LE_REGISTRO_SEGUE_REMOVIDO;
-    }
-
-    fread(&reg_segue->idPessoaQueSegue, sizeof(int), 1, fp);
-    fread(&reg_segue->idPessoaQueESeguida, sizeof(int), 1, fp);
-    fread(reg_segue->dataInicioQueSegue, sizeof(char), 10, fp);
-    fread(reg_segue->dataFimQueSegue, sizeof(char), 10, fp);
-    fread(&reg_segue->grauAmizade, sizeof(char), 1, fp);
-
-    return 0;
-}
-
-int escreve_registro_segue(FILE *fp, RegistroSegue *reg)
-{
-    if (reg == NULL)
-        return 1;
-
-    fwrite(&reg->removido, sizeof(char), 1, fp);
-    fwrite(&reg->idPessoaQueSegue, sizeof(int), 1, fp);
-    fwrite(&reg->idPessoaQueESeguida, sizeof(int), 1, fp);
-    fwrite(reg->dataInicioQueSegue, sizeof(char), 10, fp);
-    fwrite(reg->dataFimQueSegue, sizeof(char), 10, fp);
-    fwrite(&reg->grauAmizade, sizeof(char), 1, fp);
-    
-    return 0; // Sucesso.
-}
-
-void imprime_registro_segue(RegistroSegue *reg) {
-    if (reg == NULL) {
-        printf("Registro nulo.\n");
-        return;
-    }
-
-    // idPessoaQueESeguida
-    printf("Segue a pessoa de codigo: ");
-    if(reg->idPessoaQueESeguida == NULO_INTEIRO) 
-    {
-        printf("-\n");
-    } 
-    else 
-    {
-        printf("%d\n", reg->idPessoaQueESeguida);
-    }
-
-    // grauAmizade
-    printf("Justificativa para seguir: ");
-    switch (reg->grauAmizade)
-    {
-        case '0':
-        {
-            printf("%s\n", AMIZADE_0);
-            break;
-        }
-        case '1':
-        {
-            printf("%s\n", AMIZADE_1);
-            break;
-        }
-        case '2':
-        {
-            printf("%s\n", AMIZADE_2);
-            break;
-        }
-        case NULO_CARACTERE:
-        {
-            printf("-\n");
-            break;
-        }
-        default:
-        {
-            printf("Valor desconhecido (%c)\n", reg->grauAmizade);
-            break;
-        }
-    }
-
-    // dataInicioQueSegue
-    printf("Começou a seguir em: ");
-    if (reg->dataInicioQueSegue[0] == NULO_CARACTERE) {
-        printf("-\n");
-    } else {
-        printf("%s\n", reg->dataInicioQueSegue);
-    }
-
-    // dataFimQueSegue
-    printf("Parou de seguir em: ");
-    if (reg->dataFimQueSegue[0] == NULO_CARACTERE) {
-        printf("-\n");
-    } else {
-        printf("%s\n", reg->dataFimQueSegue);
-    }
-
-    printf("\n");
-}
 
 void binarioNaTela(char *nomeArquivoBinario)
 {
@@ -438,75 +73,7 @@ void scan_quote_string(char *str)
     }
 }
 
-// Lê um registro de dados do arquivo. Retorna 1 em caso de erro ou fim de arquivo.
-int le_registro_indice(FILE *fp, RegistroIndice **reg_out)
-{
-    RegistroIndice *reg = malloc(sizeof(RegistroIndice));
-    if (reg == NULL)
-        return 1;
-
-    if (fread(&reg->idPessoa, sizeof(int), 1, fp) == 0)
-    {
-        free(reg);
-        return 1;
-    }
-
-    if (fread(&reg->byteOffset, sizeof(long long), 1, fp) == 0)
-    {
-        // Se o ficheiro acabar inesperadamente aqui (muito raro, mas possível)
-        free(reg);
-        return 1;
-    }
-
-    *reg_out = reg;
-    return 0;
-}
-
-// Libera a memória alocada para um registro de índice.
-void destroi_registro_indice(RegistroIndice *reg)
-{
-    if (reg == NULL)
-        return;
-
-    free(reg);
-}
-
-// Carrega todo o índice na memória, retornando um array dinâmico de ponteiros para os registros.
-RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros)
-{
-    if (fp == NULL)
-    {
-        return NULL;
-    }
-
-    CabecalhoIndice cab;
-    if (le_cabecalho_indice(fp, &cab) != 0)
-    {
-        return NULL;
-    }
-
-    // Move o cursor para o início dos registros
-    // fseek(fp, 12, SEEK_SET);
-
-    // Aloca um array dinâmico para armazenar os ponteiros dos registros
-    RegistroIndice **registros = malloc(numeroRegistros * sizeof(RegistroIndice *));
-
-    for (int i = 0; i < numeroRegistros; i++)
-    {
-        if (le_registro_indice(fp, &registros[i]) != 0)
-        {
-            // Em caso de erro, libera a memória alocada até o momento e retorna NULL
-            for (int j = 0; j < i; j++)
-            {
-                free(registros[j]);
-            }
-            free(registros);
-            return NULL;
-        }
-    }
-
-    return registros;
-}
+// FUNÇÕES DE COMPARAÇÃO PARA BUSCA
 
 int comparar_registros_busca_offset(const void *a, const void *b)
 {
@@ -521,6 +88,15 @@ int comparar_registros_busca_offset(const void *a, const void *b)
         return 0;
 }
 
+int comparar_registros_busca_id(const void *a, const void *b)
+{
+    RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
+    RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
+
+    return regA->registro->idPessoa - regB->registro->idPessoa;
+}
+
+// GERENCIAMENTO DE ARRAY EXPANDÍVEL
 
 void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
 {
@@ -572,8 +148,11 @@ void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
     *p_current_capacity = new_capacity;
 }
 
-void imprimir_registros_raw(FILE *fp) {
-    if (fp == NULL) {
+// DEBUG
+void imprimir_registros_raw(FILE *fp)
+{
+    if (fp == NULL)
+    {
         printf("Arquivo inválido.\n");
         return;
     }
@@ -581,17 +160,19 @@ void imprimir_registros_raw(FILE *fp) {
     fseek(fp, 17, SEEK_SET); // Pula o cabeçalho
     printf("--- INICIO RAW PRINT ---\n");
 
-    while (1) {
+    while (1)
+    {
         long currentPos = ftell(fp);
         RegistroPessoa *reg = NULL;
-        
+
         // Tenta ler o próximo registro
-        if (le_registro_pessoa(fp, &reg) != 0) {
+        if (le_registro_pessoa(fp, &reg) != 0)
+        {
             // Se a leitura falhar, pode ser o fim do arquivo.
             break;
         }
 
-        printf("Registro em %ld | Removido: '%c' | Tamanho Declarado: %d\n", 
+        printf("Registro em %ld | Removido: '%c' | Tamanho Declarado: %d\n",
                currentPos, reg->removido, reg->tamanhoRegistro);
 
         // Calcula o tamanho real dos dados lidos para este registro
@@ -603,15 +184,15 @@ void imprimir_registros_raw(FILE *fp) {
         printf("  - Idade: %d\n", reg->idadePessoa);
 
         printf("  - Nome (%d): ", reg->tamanhoNomePessoa);
-        if (reg->tamanhoNomePessoa > 0) {
+        if (reg->tamanhoNomePessoa > 0)
+        {
             fwrite(reg->nomePessoa, 1, reg->tamanhoNomePessoa, stdout);
         }
         printf("\n");
 
         printf("  - Usuario (%d): ", reg->tamanhoNomeUsuario);
-        if (reg->tamanhoNomeUsuario > 0) {
-            fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, stdout);
-        }
+        fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, stdout);
+
         printf("\n");
 
         // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
@@ -620,40 +201,10 @@ void imprimir_registros_raw(FILE *fp) {
 
         // O lixo já é pulado pela função le_registro_pessoa.
         // Manter o fseek aqui causaria um pulo duplo.
-        
-        destroi_registro(reg);
+
+        destroi_registro_pessoa(reg);
     }
 
     printf("--- FIM RAW PRINT ---\n");
     fflush(stdout);
-}
-
-RegistroIndice **intercalar_indices(RegistroIndice **indice_antigo, int n_antigo, RegistroIndice **indice_novo, int n_novo) 
-{
-    int n_total = n_antigo + n_novo;
-    RegistroIndice **indice_final = malloc(n_total * sizeof(RegistroIndice *));
-    if (indice_final == NULL) {
-        return NULL;
-    }
-
-    int i = 0;
-    int j = 0;
-    int k = 0;
-
-    while (i < n_antigo && j < n_novo) {
-        if (indice_antigo[i]->idPessoa <= indice_novo[j]->idPessoa) {
-            indice_final[k++] = indice_antigo[i++];
-        } else {
-            indice_final[k++] = indice_novo[j++];
-        }
-    }
-
-    while (i < n_antigo) {
-        indice_final[k++] = indice_antigo[i++];
-    }
-    while (j < n_novo) {
-        indice_final[k++] = indice_novo[j++];
-    }
-
-    return indice_final;
 }

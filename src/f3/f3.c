@@ -5,15 +5,10 @@
 #include "../arquivos.h"
 #include "../utils/utils.h"
 
-#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
+#include "../data_manip/pessoa.h"
 
 void funcionalidade3(FILE *fp) 
 {
-    // Checa se o ponteiro do arquivo é válido
-    if (fp == NULL) {
-        printf(FALHA_AO_PROCESSAR_ARQUIVO);
-        return;
-    }
 
     // Lê o cabeçalho para saber o número de registros
     CabecalhoPessoa cab;
@@ -38,13 +33,12 @@ void funcionalidade3(FILE *fp)
     {
         RegistroPessoa *reg = NULL;
 
-
         if (le_registro_pessoa(fp, &reg) == 0) { // Se a leitura for bem sucedida
             if (reg->removido == '0') { // E o registro não estiver removido
                 imprime_registro_pessoa(reg);
                 registrosEncontrados++;
             }
-            destroi_registro(reg); // Destroi o registro temporário
+            destroi_registro_pessoa(reg); // Destroi o registro temporário
         } else {
             // Se le_registro_pessoa falhar, pode ser o fim do arquivo
             break;

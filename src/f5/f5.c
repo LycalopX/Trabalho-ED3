@@ -6,24 +6,11 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../data_manip/indice.h"
+#include "../data_manip/pessoa.h"
 #include "f5.h"
+
 #include "../f4/f4.h"
-
-#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
-#define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
-
-// Função de comparação para bsearch, para encontrar um registro de índice por idPessoa.
-int comparar_bsearch_indice(const void *key, const void *elem)
-{
-    int id_busca = *(const int *)key;
-    const RegistroIndice *reg = *(const RegistroIndice **)elem;
-
-    if (id_busca < reg->idPessoa)
-        return -1;
-    if (id_busca > reg->idPessoa)
-        return 1;
-    return 0;
-}
 
 void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
 {
@@ -46,6 +33,8 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
                 index++;
             }
             free(resultadosEmBuscas[i].registrosBusca);
+            free(resultadosEmBuscas[i].busca.campo);
+            free(resultadosEmBuscas[i].busca.valor);
         }
         free(resultadosEmBuscas); // Libera o array de ponteiros
     }
@@ -65,7 +54,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
             else
             {
                 // Libera a memória do registro duplicado que não será mantido
-                destroi_registro(resultados[read_idx]->registro);
+                destroi_registro_pessoa(resultados[read_idx]->registro);
                 free(resultados[read_idx]);
             }
         }
@@ -126,7 +115,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
             previousByteOffset += nextByteOffset + tamanho_real_escrito;
 
             // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
-            destroi_registro(resultados[i]->registro);
+            destroi_registro_pessoa(resultados[i]->registro);
             free(resultados[i]);
         }
         free(resultados); // Libera o array de ponteiros

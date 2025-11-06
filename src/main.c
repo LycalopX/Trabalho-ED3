@@ -9,12 +9,14 @@
 // Includes locais
 #include "arquivos.h"
 #include "utils/utils.h"
+#include "data_manip/pessoa.h"
 #include "f1/f1.h"
 #include "f2/f2.h"
 #include "f3/f3.h"
 #include "f4/f4.h"
 #include "f5/f5.h"
 #include "f6/f6.h"
+#include "f7/f7.h"
 #include "f8/f8.h"
 #include "f9/f9.h"
 #include "f10/f10.h"
@@ -24,6 +26,8 @@ void scan_quote_string(char *str);
 
 int main()
 {
+    setbuf(stdout, NULL);
+
     int funcionalidade;
     scanf("%d", &funcionalidade);
 
@@ -37,7 +41,7 @@ int main()
         FILE *fp = fopen(nomeArquivoIndice, "wb");
         if (fp == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
@@ -59,7 +63,7 @@ int main()
 
         if (fp_csv == NULL || fp_data == NULL || fp_index == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             if (fp_csv != NULL)
                 fclose(fp_csv);
             if (fp_data != NULL)
@@ -88,7 +92,7 @@ int main()
         FILE *fp = fopen(nomeArquivoDeRegistro, "rb");
         if (fp == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
@@ -109,14 +113,14 @@ int main()
         FILE *fp = fopen(nomeArquivoDeRegistro, "rb");
         if (fp == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
         FILE *fpIndice = fopen(nomeArquivoIndice, "rb");
         if (fpIndice == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             fclose(fp);
             break;
         }
@@ -133,7 +137,7 @@ int main()
                 {
                     imprime_registro_pessoa(resultados[i].registrosBusca[j]->registro);
                     // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
-                    destroi_registro(resultados[i].registrosBusca[j]->registro);
+                    destroi_registro_pessoa(resultados[i].registrosBusca[j]->registro);
                 }
                 free(resultados[i].registrosBusca);
             }
@@ -155,14 +159,14 @@ int main()
         FILE *fp = fopen(nomeArquivoDeRegistro, "rb+");
         if (fp == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
         FILE *fpIndice = fopen(nomeArquivoIndice, "rb+");
         if (fpIndice == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             fclose(fp);
             break;
         }
@@ -187,19 +191,51 @@ int main()
         FILE *fp = fopen(nomeArquivoDeRegistro, "rb+");
         if (fp == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
         FILE *fpIndice = fopen(nomeArquivoIndice, "rb+");
         if (fpIndice == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             fclose(fp);
             break;
         }
 
         funcionalidade6(fp, fpIndice, buscas);
+
+        fclose(fp);
+        fclose(fpIndice);
+
+        binarioNaTela(nomeArquivoDeRegistro);
+        binarioNaTela(nomeArquivoIndice);
+        break;
+    }
+    case 7:
+    {
+        char nomeArquivoDeRegistro[100];
+        char nomeArquivoIndice[100];
+        int buscas;
+
+        scanf("%s %s %d", nomeArquivoDeRegistro, nomeArquivoIndice, &buscas);
+
+        FILE *fp = fopen(nomeArquivoDeRegistro, "rb+");
+        if (fp == NULL)
+        {
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
+            break;
+        }
+
+        FILE *fpIndice = fopen(nomeArquivoIndice, "rb+");
+        if (fpIndice == NULL)
+        {
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
+            fclose(fp);
+            break;
+        }
+
+        funcionalidade7(fp, fpIndice, buscas);
 
         fclose(fp);
         fclose(fpIndice);
@@ -219,14 +255,14 @@ int main()
         FILE *fp_csv = fopen(nomeArquivoCSV, "r");
         if (fp_csv == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
         FILE *fp_bin = fopen(nomeArquivoBinario, "wb");
         if (fp_bin == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             fclose(fp_csv);
             break;
         }
@@ -234,7 +270,7 @@ int main()
         int result = funcionalidade8(fp_csv, fp_bin);
         if (result != 0)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
         }
 
         fclose(fp_csv);
@@ -253,21 +289,21 @@ int main()
         FILE *fp = fopen(nomeArquivoDeRegistro, "rb");
         if (fp == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             break;
         }
 
         FILE *fpDestino = fopen(nomeArquivoDestino, "wb");
         if (fpDestino == NULL)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
             fclose(fp);
             break;
         }
 
         if (funcionalidade9(fp, fpDestino) != 0)
         {
-            printf("Falha no processamento do arquivo.\n");
+            printf(FALHA_AO_PROCESSAR_ARQUIVO);
         }
 
         fclose(fp);
@@ -328,6 +364,11 @@ int main()
 
     return 0;
 }
+
+
+
+
+
 /*
 
 Av. Trabalhador São-carlense, 400 . centro . São Carlos - SP cep 13566-590 . Brasil . www.icmc.usp.br

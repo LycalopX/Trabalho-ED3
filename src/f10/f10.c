@@ -4,6 +4,8 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
+#include "../data_manip/pessoa.h"
+#include "../data_manip/segue.h"
 #include "f10.h"
 #include "../f4/f4.h"
 

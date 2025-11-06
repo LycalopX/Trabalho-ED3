@@ -95,5 +95,12 @@ typedef struct
 #define AMIZADE_0 "celebridade"
 #define AMIZADE_1 "amiga de minha amiga"
 #define AMIZADE_2 "minha amiga"
+#define CAMPO_ID "idPessoa"
+#define CAMPO_IDADE "idadePessoa"
+#define CAMPO_NOME "nomePessoa"
+#define CAMPO_USUARIO "nomeUsuario"
+
+#define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
+#define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 
 #endif

@@ -7,7 +7,8 @@
 #include "../arquivos.h"
 #include "../utils/utils.h"
 
-#define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
+#include "../data_manip/pessoa.h"
+#include "../data_manip/indice.h"
 
 Parametro *cria_busca(char *campo, char *valor)
 {
@@ -45,8 +46,8 @@ Parametro *scanf_busca(Parametro **updates, int i)
         return NULL; // Falha ao ler o campo
     }
 
-    getchar();
-    scan_quote_string(valor);
+    getchar(); // Consumes '='
+    scan_quote_string(valor); // Reads the value
 
     // Caso haja update
     if (updates != NULL)
@@ -55,15 +56,15 @@ Parametro *scanf_busca(Parametro **updates, int i)
         char valor2[100];
 
         // Remover espaço antes do campo
-        getchar();
+        getchar(); // This is the problematic one, it consumes the newline after the first value.
 
         if (scanf(" %[^=]", campo2) != 1)
         {
             return NULL; // Falha ao ler o campo
         }
 
-        getchar();
-        scan_quote_string(valor2);
+        getchar(); // Consumes '='
+        scan_quote_string(valor2); // Reads the value
 
         updates[i] = cria_busca(campo2, valor2);
     }
@@ -81,11 +82,6 @@ void destroi_busca(Parametro *busca)
     }
 }
 
-#define CAMPO_ID "idPessoa"
-#define CAMPO_IDADE "idadePessoa"
-#define CAMPO_NOME "nomePessoa"
-#define CAMPO_USUARIO "nomeUsuario"
-
 int campo_valido(char *campo)
 {
     if (strcmp(campo, CAMPO_ID) == 0 || strcmp(campo, CAMPO_IDADE) == 0 || strcmp(campo, CAMPO_NOME) == 0 || strcmp(campo, CAMPO_USUARIO) == 0)
@@ -100,94 +96,77 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 {
     // Caso tenhamos updates (ela é diferente de NULL), estamos rodando para a funcionalidade 7
 
-    char *FALHA_AO_PROCESSAR_ARQUIVO = "Falha no processamento do arquivo.\n";
-    if (silent)
-    {
-        FALHA_AO_PROCESSAR_ARQUIVO = "";
-    }
+    char *falha_ao_processar_arquivo = FALHA_AO_PROCESSAR_ARQUIVO;
 
     CabecalhoPessoa cab_pessoa;
-    if (le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0')
+    if ((le_cabecalho_pessoa(fp, &cab_pessoa) != 0 || cab_pessoa.status == '0'))
     {
-        printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
+        printf("%s", falha_ao_processar_arquivo);
         return NULL;
     }
 
     RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cab_pessoa.quantidadePessoas);
-    if (indice == NULL && cab_pessoa.quantidadePessoas > 0)
+    if ((indice == NULL && cab_pessoa.quantidadePessoas > 0))
     {
-        printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
+        printf("%s", falha_ao_processar_arquivo);
         return NULL;
+    }
+
+    if (silent)
+    {
+        falha_ao_processar_arquivo = "";
     }
 
     Parametro **buscasArray = malloc(sizeof(Parametro *) * buscas);
-    if (buscasArray == NULL)
-    {
-        printf(FALHA_AO_ALOCAR);
-        if (indice)
-        {
-            for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-                destroi_registro_indice(indice[i]);
-            free(indice);
-        }
-        return NULL;
-    }
-
     ResultadoBuscaPessoa *resultadoBusca = malloc(sizeof(ResultadoBuscaPessoa) * buscas);
-    if (resultadoBusca == NULL)
-    {
-        printf(FALHA_AO_ALOCAR);
-        if (indice)
-        {
-            for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-                destroi_registro_indice(indice[i]);
-            free(indice);
-        }
-        free(buscasArray);
-        return NULL;
-    }
-
     Parametro **updatesArray = NULL;
+
     if (updateBool)
     {
         updatesArray = malloc(sizeof(Parametro *) * buscas);
         if (updatesArray == NULL)
         {
             printf(FALHA_AO_ALOCAR);
-            if (indice)
-            {
-                for (int i = 0; i < cab_pessoa.quantidadePessoas; i++)
-                    destroi_registro_indice(indice[i]);
-                free(indice);
-            }
             free(buscasArray);
             free(resultadoBusca);
-            return NULL;
-        }
-    }
-
-    for (int i = 0; i < buscas; i++)
-    {
-        buscasArray[i] = scanf_busca(updatesArray, i);
-        if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo) || (updateBool && updatesArray[i] != NULL && !campo_valido(updatesArray[i]->campo)))
-        {
-            printf("%s", FALHA_AO_PROCESSAR_ARQUIVO);
-            for (int j = 0; j < i; j++)
-            {
-                destroi_busca(buscasArray[j]);
-                if (updateBool && updatesArray[j] != NULL)
-                    destroi_busca(updatesArray[j]);
-            }
-            free(buscasArray);
-            if (updateBool)
-                free(updatesArray);
             if (indice)
             {
                 for (int j = 0; j < cab_pessoa.quantidadePessoas; j++)
                     destroi_registro_indice(indice[j]);
                 free(indice);
             }
-            free(resultadoBusca);
+            return NULL;
+        }
+    }
+
+    for (int i = 0; i < buscas; i++)
+    {
+        fflush(stdout);
+        buscasArray[i] = scanf_busca(updatesArray, i);
+        fflush(stdout);
+        if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo) || (updateBool && updatesArray[i] != NULL && !campo_valido(updatesArray[i]->campo)))
+        {
+            printf("%s", falha_ao_processar_arquivo);
+            for (int j = 0; j < i; j++)
+            {
+                destroi_busca(buscasArray[j]);
+                if (updateBool && updatesArray[j] != NULL)
+                    destroi_busca(updatesArray[j]);
+            }
+            if (buscasArray)
+            {
+                free(buscasArray);
+            }
+            if (indice)
+            {
+                for (int j = 0; j < cab_pessoa.quantidadePessoas; j++)
+                    destroi_registro_indice(indice[j]);
+                free(indice);
+            }
+            if (resultadoBusca)
+            {
+                free(resultadoBusca);
+            }
             return NULL;
         }
     }
@@ -197,10 +176,12 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         Parametro *b = buscasArray[i];
         int encontradosNestaBusca = 0;
 
-        resultadoBusca[i].busca = *b;
+        resultadoBusca[i].busca.campo = strdup(b->campo);
+        resultadoBusca[i].busca.valor = strdup(b->valor);
         if (updateBool && updatesArray[i] != NULL)
         {
-            resultadoBusca[i].update = *updatesArray[i];
+            resultadoBusca[i].update.campo = strdup(updatesArray[i]->campo);
+            resultadoBusca[i].update.valor = strdup(updatesArray[i]->valor);
         }
         else
         {
@@ -245,7 +226,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                     }
                     else if (reg)
                     {
-                        destroi_registro(reg);
+                        destroi_registro_pessoa(reg);
                     }
                     break;
                 }
@@ -270,7 +251,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 
                 if (reg->removido == '1')
                 {
-                    destroi_registro(reg);
+                    destroi_registro_pessoa(reg);
                     continue;
                 }
 
@@ -314,7 +295,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
                 else
                 {
-                    destroi_registro(reg);
+                    destroi_registro_pessoa(reg);
                 }
             }
         }
@@ -329,6 +310,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
             resultadoBusca[i].registrosBusca = regs;
         }
         (*nRegsEncontrados) += encontradosNestaBusca;
+
     }
 
     // Libera memória interna que não será retornada

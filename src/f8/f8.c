@@ -4,7 +4,7 @@
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
-#include "f8.h"
+#include "../data_manip/segue.h"
 
 // Função auxiliar para interpretar uma linha do CSV e preencher uma struct RegistroPessoa.
 int parse_segue_csv_line(char *line, RegistroSegue *reg)
