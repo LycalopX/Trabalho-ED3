@@ -363,7 +363,7 @@ static void unificarResultados(RegistroBuscaPessoa **resultados, TarefaDeAtualiz
     (*nRegsEncontrados) = write_idx + 1;
 }
 
-static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice *indice_em_memoria, TarefaDeAtualizacao *tarefas,
+static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_memoria, TarefaDeAtualizacao *tarefas,
                                           int nRegsEncontrados, CabecalhoPessoa cp, RegistroBuscaPessoa **resultados)
 {
 
@@ -471,6 +471,31 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice *indice_em_mem
     return 0;
 }
 
+static void reescrever_arquivo_indice (FILE *fpIndice, RegistroIndice **indice_em_memoria, CabecalhoPessoa cp) {
+    
+    CabecalhoIndice index_header;
+    le_cabecalho_indice(fpIndice, &index_header);
+
+    toggle_cabecalho_indice(fpIndice, &index_header);
+
+    fseek(fpIndice, 12, SEEK_SET);
+    for (int i = 0; i < cp.quantidadePessoas; i++)
+    {
+        if (indice_em_memoria[i] != NULL && indice_em_memoria[i]->byteOffset > 0)
+        {
+            fwrite(&indice_em_memoria[i]->idPessoa, sizeof(int), 1, fpIndice);
+            fwrite(&indice_em_memoria[i]->byteOffset, sizeof(long long), 1, fpIndice);
+        }
+        destroi_registro_indice(indice_em_memoria[i]);
+    }
+    free(indice_em_memoria);
+
+    long finalPos = ftell(fpIndice);
+    ftruncate(fileno(fpIndice), finalPos);
+
+    toggle_cabecalho_indice(fpIndice, &index_header);
+}
+
 int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 {
     /*
@@ -567,7 +592,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     qsort(tarefas, nRegsEncontrados, sizeof(TarefaDeAtualizacao), comparar_tarefas_por_byteoffset);
     qsort(resultados, nRegsEncontrados, sizeof(RegistroBuscaPessoa *), comparar_registros_busca_offset);
 
-    if (aplicar_atualizacoes_de_busca(fp, *indice_em_memoria, tarefas, nRegsEncontrados, cp, resultados) < 0) {
+    if (aplicar_atualizacoes_de_busca(fp, indice_em_memoria, tarefas, nRegsEncontrados, cp, resultados) < 0) {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         free(tarefas);
         free(resultados);
@@ -577,28 +602,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     // Lógica para reescrever o arquivo de índice a partir do índice em memória, similar à funcionalidade 6.
     qsort(indice_em_memoria, cp.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
 
-    CabecalhoIndice index_header;
-    le_cabecalho_indice(fpIndice, &index_header);
-
-    toggle_cabecalho_indice(fpIndice, &index_header);
-
-    fseek(fpIndice, 12, SEEK_SET);
-    for (int i = 0; i < cp.quantidadePessoas; i++)
-    {
-        if (indice_em_memoria[i] != NULL && indice_em_memoria[i]->byteOffset > 0)
-        {
-            fwrite(&indice_em_memoria[i]->idPessoa, sizeof(int), 1, fpIndice);
-            fwrite(&indice_em_memoria[i]->byteOffset, sizeof(long long), 1, fpIndice);
-        }
-        destroi_registro_indice(indice_em_memoria[i]);
-    }
-    free(indice_em_memoria);
-
-    long finalPos = ftell(fpIndice);
-    ftruncate(fileno(fpIndice), finalPos);
-
-    index_header.status = '1';
-    escreve_cabecalho_indice(fpIndice, &index_header);
+    reescrever_arquivo_indice(fpIndice, indice_em_memoria, cp);
 
     fflush(fp);
     fseek(fp, 0, SEEK_SET);
