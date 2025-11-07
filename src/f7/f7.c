@@ -64,14 +64,6 @@ static int atualizar_campo_string(RegistroBuscaPessoa *registroBusca, TarefaDeAt
         }
         *campo_registro = strdup(new_string);
         *tamanho_campo = new_size;
-
-        if (new_size > old_size)
-        {
-            tarefa->rrnAntigo = registroBusca->ByteOffset;
-            registroBusca->ByteOffset = *proxByteOffset;
-            *proxByteOffset += sizeof(char) + sizeof(int) + registroBusca->registro->tamanhoRegistro;
-            printf("    Atualização out-of-place. Novo ByteOffset: %lld\n", registroBusca->ByteOffset);
-        }
     }
     else
     {
@@ -109,7 +101,7 @@ static void processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *re
             for (j = 0; j < nRegistros; j++)
             {
                 int indexTarefa = j + nTarefas;
-                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, &indexTarefa);
+                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, registrosBusca[j]->ByteOffset, &indexTarefa);
                 atualizar_campo_inteiro(registrosBusca[j], &tarefas[indexTarefa], u, &registrosBusca[j]->registro->idPessoa);
             }
             nTarefas += j;
@@ -119,7 +111,7 @@ static void processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *re
             for (j = 0; j < nRegistros; j++)
             {
                 int indexTarefa = j + nTarefas;
-                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, &indexTarefa);
+                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, registrosBusca[j]->ByteOffset, &indexTarefa);
                 atualizar_campo_inteiro(registrosBusca[j], &tarefas[indexTarefa], u, &registrosBusca[j]->registro->idadePessoa);
             }
             nTarefas += j;
@@ -129,7 +121,7 @@ static void processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *re
             for (j = 0; j < nRegistros; j++)
             {
                 int indexTarefa = j + nTarefas;
-                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, &indexTarefa);
+                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, registrosBusca[j]->ByteOffset, &indexTarefa);
                 atualizar_campo_string(registrosBusca[j], &tarefas[indexTarefa], u, &registrosBusca[j]->registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa, proxByteOffset);
             }
             nTarefas += j;
@@ -139,7 +131,7 @@ static void processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *re
             for (j = 0; j < nRegistros; j++)
             {
                 int indexTarefa = j + nTarefas;
-                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, &indexTarefa);
+                inicializa_tarefa(&tarefas[indexTarefa], registrosBusca[j]->registro->idPessoa, registrosBusca[j]->ByteOffset, &indexTarefa);
                 atualizar_campo_string(registrosBusca[j], &tarefas[indexTarefa], u, &registrosBusca[j]->registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario, proxByteOffset);
             }
             nTarefas += j;
@@ -226,8 +218,10 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
         printf("  [DEBUG] Aplicando atualização para ID %d no ByteOffset %lld\n", reg_atualizado->idPessoa, resultados[i]->ByteOffset);
 
         long long byteOffset = resultados[i]->ByteOffset;
+
         int tamanho_novo_dados = sizeof(int) * 4 + reg_atualizado->tamanhoNomePessoa + reg_atualizado->tamanhoNomeUsuario;
         int tamanho_antigo_dados = reg_atualizado->tamanhoRegistro;
+        
         printf("    Tamanho antigo: %d, Tamanho novo: %d\n", tamanho_antigo_dados, tamanho_novo_dados);
 
         long long tamanho_real_escrito = sizeof(char) + sizeof(int) + tamanho_novo_dados;
@@ -256,10 +250,12 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
             removidos_inseridos[removidos_inseridos_idx] = malloc(sizeof(RegistroBuscaPessoa));
             removidos_inseridos[removidos_inseridos_idx]->registro = reg_atualizado;
             removidos_inseridos[removidos_inseridos_idx]->ByteOffset = byteOffset;
+
+            cabPessoa.proxByteOffset += tamanho_real_escrito;
             removidos_inseridos_idx++;
         }
 
-        if (tarefas[i].indiceDaRegra == 0 || tarefas[i].rrnAntigo > 0)
+        if (tarefas[i].indiceDaRegra == 0)
         {
             printf("    Atualizando índice para ID %d.\n", reg_atualizado->idPessoa);
             int id_busca;
@@ -291,20 +287,14 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
                 (*p_encontrado_ptr)->idPessoa = reg_atualizado->idPessoa;
                 printf("      ID no índice atualizado para %d.\n", reg_atualizado->idPessoa);
             }
-            else
-            {
-                (*p_encontrado_ptr)->byteOffset = byteOffset;
-                printf("      ByteOffset no índice atualizado para %lld.\n", byteOffset);
-            }
         }
 
         byteOffset += diffByteOffset + tamanho_real_escrito;
     }
 
-    printf("  [DEBUG] Aplicando %d remoções/inserções out-of-place.\n", nRemovidosInseridos);
     remover_pessoas_e_indices(removidos_inseridos, indice_em_memoria, cabPessoa, nRemovidosInseridos, fp, 1);
     inserir_pessoas(fp, removidos_inseridos, nRemovidosInseridos);
-    printf("[DEBUG] Saindo de aplicar_atualizacoes_de_busca.\n");
+
     return 0;
 }
 
