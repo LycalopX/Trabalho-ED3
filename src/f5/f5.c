@@ -62,108 +62,46 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
     }
 
     fseek(fp, 0, 0);
-    CabecalhoPessoa cp;
-    le_cabecalho_pessoa(fp, &cp); // Lê o cabeçalho para posicionar o ponteiro corretamente
+    CabecalhoPessoa cabPessoa;
+    le_cabecalho_pessoa(fp, &cabPessoa); // Lê o cabeçalho para posicionar o ponteiro corretamente
 
-    cp.status = '0';
-    toggle_cabecalho_pessoa(fp, &cp);
-
-    long long nextByteOffset;
-    long long previousByteOffset = 17;
+    cabPessoa.status = '0';
+    toggle_cabecalho_pessoa(fp, &cabPessoa);
 
     // Para atualizarmos conforme removemos pessoas
     rewind(fpIndice);
-    RegistroIndice **indice = carregar_indice_inteiro(fpIndice, cp.quantidadePessoas);
-    if (indice == NULL)
+    RegistroIndice **indices = carregar_indice_inteiro(fpIndice, cabPessoa.quantidadePessoas);
+    if (indices == NULL)
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         free(resultados);
         return;
     }
 
-    // Imprime os resultados e libera a memória
-    if (resultados != NULL)
-    {
-        for (int i = 0; i < nRegsEncontrados; i++)
-        {
-            nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
-
-            // Remover registro
-            fseek(fp, nextByteOffset, SEEK_CUR);
-
-            resultados[i]->registro->removido = '1';
-            escreve_registro_pessoa(fp, resultados[i]->registro);
-
-            // Remover do indice
-            int id_a_remover = resultados[i]->registro->idPessoa;
-
-            RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
-                                                        indice,
-                                                        cp.quantidadePessoas,
-                                                        sizeof(RegistroIndice *),
-                                                        comparar_bsearch_indice);
-
-            if (p_encontrado_ptr != NULL)
-            {
-                (*p_encontrado_ptr)->byteOffset = -1; // Marca como removido no índice
-            }
-
-            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) +
-                                             sizeof(int) + resultados[i]->registro->tamanhoNomePessoa +
-                                             sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
-
-            previousByteOffset += nextByteOffset + tamanho_real_escrito;
-
-            // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
-            destroi_registro_pessoa(resultados[i]->registro);
-            free(resultados[i]);
-        }
-        free(resultados); // Libera o array de ponteiros
-    }
-    else
-    {
-        printf(FALHA_AO_PROCESSAR_ARQUIVO);
-    }
+    remover_pessoas_e_indices(resultados, indices, cabPessoa, nRegsEncontrados, fp, 0);
 
     // Rebobina o arquivo de índice para o início para reescrevê-lo.
     fseek(fpIndice, 0, SEEK_SET);
 
-    // Lê o cabeçalho existente, atualiza o status para '0' e reescreve.
-    CabecalhoIndice index_header;
-    le_cabecalho_indice(fpIndice, &index_header);
+    reescrever_arquivo_indice(fpIndice, indices, cabPessoa.quantidadePessoas);
 
-    index_header.status = '0';
-    escreve_cabecalho_indice(fpIndice, &index_header);
-
-    // Reescreve os registros de índice válidos.
-    fseek(fpIndice, 12, SEEK_SET);
-    for (int i = 0; i < cp.quantidadePessoas; i++)
+    // Liberar memória
+    for (int i = 0; i < nRegsEncontrados; i++)
     {
-        if (indice[i] != NULL && indice[i]->byteOffset > 0)
-        {
-            fwrite(&indice[i]->idPessoa, sizeof(int), 1, fpIndice);
-            fwrite(&indice[i]->byteOffset, sizeof(long long), 1, fpIndice);
-        }
-        destroi_registro_indice(indice[i]);
+        destroi_registro_pessoa(resultados[i]->registro);
+        free(resultados[i]);
     }
-    free(indice);
-
-    // Trunca o arquivo para remover lixo do final, caso o novo conteúdo seja menor.
-    long finalPos = ftell(fpIndice);
-    ftruncate(fileno(fpIndice), finalPos);
-
-    index_header.status = '1';
-    escreve_cabecalho_indice(fpIndice, &index_header);
+    free(resultados); // Libera o array de ponteiros
 
     // Atualiza o cabeçalho do arquivo de dados.
     fflush(fp);
     fseek(fp, 0, SEEK_SET);
 
-    cp.status = '1';
-    cp.quantidadeRemovidos = cp.quantidadeRemovidos + nRegsEncontrados;
-    cp.quantidadePessoas = cp.quantidadePessoas - nRegsEncontrados;
+    cabPessoa.status = '1';
+    cabPessoa.quantidadeRemovidos = cabPessoa.quantidadeRemovidos + nRegsEncontrados;
+    cabPessoa.quantidadePessoas = cabPessoa.quantidadePessoas - nRegsEncontrados;
 
-    escreve_cabecalho_pessoa(fp, &cp);
+    escreve_cabecalho_pessoa(fp, &cabPessoa);
     fflush(fp);
     fflush(fpIndice);
 }

@@ -4,6 +4,7 @@
 #include <ctype.h>
 
 #include "pessoa.h"
+#include "indice.h"
 
 // FUNÇÕES STRUCT PESSOA
 
@@ -217,4 +218,21 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
     printf("\n\n");
 
     return 0;
+}
+
+void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) {
+
+    fseek(fp, 17, SEEK_SET);
+    long long byteOffset = 17;
+
+    for (int i = 0; i < nInsercoes; i++)
+    {
+        long long diffByteOffset = registros[i]->ByteOffset - byteOffset;
+        fseek(fp, diffByteOffset, SEEK_CUR);
+        
+        escreve_registro_pessoa(fp, registros[i]->registro);
+
+        long long tamanho_real_escrito = sizeof(char) + sizeof(int) + registros[i]->registro->tamanhoRegistro;
+        byteOffset += diffByteOffset + tamanho_real_escrito;
+    }
 }

@@ -148,6 +148,37 @@ void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
     *p_current_capacity = new_capacity;
 }
 
+void liberar_resultados_busca(ResultadoBuscaPessoa *resultados, int nBuscas)
+{
+    if (resultados == NULL)
+        return;
+
+    for (int i = 0; i < nBuscas; i++)
+    {
+        if (resultados[i].registrosBusca != NULL)
+        {
+            for (int j = 0; j < resultados[i].nRegistros; j++)
+            {
+                if (resultados[i].registrosBusca[j] != NULL)
+                {
+                    destroi_registro_pessoa(resultados[i].registrosBusca[j]->registro);
+                    free(resultados[i].registrosBusca[j]);
+                }
+            }
+            free(resultados[i].registrosBusca);
+        }
+        if (resultados[i].busca.campo != NULL)
+            free(resultados[i].busca.campo);
+        if (resultados[i].busca.valor != NULL)
+            free(resultados[i].busca.valor);
+        if (resultados[i].update.campo != NULL)
+            free(resultados[i].update.campo);
+        if (resultados[i].update.valor != NULL)
+            free(resultados[i].update.valor);
+    }
+    free(resultados);
+}
+
 // DEBUG
 void imprimir_registros_raw(FILE *fp)
 {
@@ -207,4 +238,59 @@ void imprimir_registros_raw(FILE *fp)
 
     printf("--- FIM RAW PRINT ---\n");
     fflush(stdout);
+}
+
+// Só funciona quando resultados está ordenado pelo byteoffset do registro.
+void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate)
+{
+    long long nextByteOffset;
+    long long previousByteOffset = 17;
+
+    // Escreve os resultados e libera a memória
+    if (resultados != NULL)
+    {
+        for (int i = 0; i < nRegsEncontrados; i++)
+        {
+            nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
+
+            // Remover registro
+            fseek(fp, nextByteOffset, SEEK_CUR);
+
+            resultados[i]->registro->removido = '1';
+            escreve_registro_pessoa(fp, resultados[i]->registro);
+
+            // Remover do indice
+            int id_a_remover = resultados[i]->registro->idPessoa;
+
+            RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
+                                                        indices,
+                                                        cabPessoa.quantidadePessoas,
+                                                        sizeof(RegistroIndice *),
+                                                        comparar_bsearch_indice);
+
+            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) +
+                                             sizeof(int) + resultados[i]->registro->tamanhoNomePessoa +
+                                             sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
+
+            if (p_encontrado_ptr != NULL)
+            {
+                if (flagUpdate)
+                {
+                    // em vez de remover indice, atualizamos para apontar ao final do arquivo
+                    (*p_encontrado_ptr)->byteOffset = cabPessoa.proxByteOffset; // Marca como removido no índice
+                    cabPessoa.proxByteOffset += tamanho_real_escrito;
+                }
+                else
+                {
+                    (*p_encontrado_ptr)->byteOffset = -1; // Marca como removido no índice
+                }
+            }
+
+            previousByteOffset += nextByteOffset + tamanho_real_escrito;
+        }
+    }
+    else
+    {
+        printf(FALHA_AO_PROCESSAR_ARQUIVO);
+    }
 }

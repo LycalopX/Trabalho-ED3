@@ -137,21 +137,7 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
 
     qsort(registrosInseridos, insercoes, sizeof(RegistroBuscaPessoa *), compara_inseridos_busca);
 
-    fseek(fp, 17, SEEK_SET);
-    long long byteOffset = 17;
-
-    for (int i = 0; i < insercoes; i++)
-    {
-        long long diffByteOffset = registrosInseridos[i]->ByteOffset - byteOffset;
-
-        fseek(fp, diffByteOffset, SEEK_CUR);
-        
-        escreve_registro_pessoa(fp, registrosInseridos[i]->registro);
-
-        long long tamanho_real_escrito = sizeof(char) + sizeof(int) + registrosInseridos[i]->registro->tamanhoRegistro;
-
-        byteOffset += diffByteOffset + tamanho_real_escrito;
-    }
+    inserir_pessoas(fp, registrosInseridos, insercoes);
 
     RegistroIndice **indices_novos = malloc(insercoes * sizeof(RegistroIndice *));
     for (int i = 0; i < insercoes; i++)
@@ -171,8 +157,8 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
     qsort(indices_novos, insercoes, sizeof(RegistroIndice *), comparar_indices_id);
 
     fseek(fpIndice, 0, SEEK_SET);
-
     RegistroIndice **indices_antigos = carregar_indice_inteiro(fpIndice, cp->quantidadePessoas);
+
     if (indices_antigos == NULL && cp->quantidadePessoas > 0)
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
@@ -181,34 +167,10 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
         return;
     }
 
-    int n_final = cp->quantidadePessoas + insercoes;
     RegistroIndice **indice_final = intercalar_indices(indices_antigos, cp->quantidadePessoas, indices_novos, insercoes);
 
     if(indices_antigos) free(indices_antigos);
     if(indices_novos) free(indices_novos);
-
-    CabecalhoIndice index_header;
-    le_cabecalho_indice(fpIndice, &index_header);
-
-    toggle_cabecalho_indice(fpIndice, &index_header);
-
-    fseek(fpIndice, 12, SEEK_SET);
-    for (int i = 0; i < n_final; i++)
-    {
-        if (indice_final[i] != NULL && indice_final[i]->byteOffset > 0)
-        {
-            fwrite(&indice_final[i]->idPessoa, sizeof(int), 1, fpIndice);
-            fwrite(&indice_final[i]->byteOffset, sizeof(long long), 1, fpIndice);
-        }
-        destroi_registro_indice(indice_final[i]);
-    }
-    free(indice_final);
-
-    long finalPos = ftell(fpIndice);
-    ftruncate(fileno(fpIndice), finalPos);
-
-    index_header.status = '1';
-    escreve_cabecalho_indice(fpIndice, &index_header);
 
     fflush(fp);
     fseek(fp, 0, SEEK_SET);
@@ -217,6 +179,9 @@ void funcionalidade6(FILE *fp, FILE *fpIndice, int insercoes)
     cp->quantidadePessoas = cp->quantidadePessoas + insercoes;
 
     escreve_cabecalho_pessoa(fp, cp);
+
+    reescrever_arquivo_indice(fpIndice, indice_final, cp->quantidadePessoas);
+
     fflush(fp);
     fflush(fpIndice);
 

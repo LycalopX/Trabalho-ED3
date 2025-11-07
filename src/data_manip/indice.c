@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 
+#include "pessoa.h"
 #include "indice.h"
 
 // FUNÇÕES STRUCT INDICE
@@ -165,4 +167,30 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros)
     }
 
     return registros;
+}
+
+void reescrever_arquivo_indice (FILE *fpIndice, RegistroIndice **indice_em_memoria, int numeroRegistros) {
+    
+    CabecalhoIndice index_header;
+    le_cabecalho_indice(fpIndice, &index_header);
+
+    toggle_cabecalho_indice(fpIndice, &index_header);
+
+    fseek(fpIndice, 12, SEEK_SET);
+    for (int i = 0; i < numeroRegistros; i++)
+    {
+        if (indice_em_memoria[i] != NULL && indice_em_memoria[i]->byteOffset > 0)
+        {
+            fwrite(&indice_em_memoria[i]->idPessoa, sizeof(int), 1, fpIndice);
+            fwrite(&indice_em_memoria[i]->byteOffset, sizeof(long long), 1, fpIndice);
+        }
+        destroi_registro_indice(indice_em_memoria[i]);
+    }
+    free(indice_em_memoria);
+
+    long finalPos = ftell(fpIndice);
+    ftruncate(fileno(fpIndice), finalPos);
+
+    index_header.status = '1';
+    escreve_cabecalho_indice(fpIndice, &index_header);
 }

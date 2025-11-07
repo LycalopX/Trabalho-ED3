@@ -67,4 +67,12 @@ int escreve_registro_pessoa(FILE* fp, RegistroPessoa* reg);
  */
 int imprime_registro_pessoa(RegistroPessoa* reg);
 
+/**
+ * @brief Insere múltiplos registros de pessoas no arquivo de dados.
+ * @param fp Ponteiro para o arquivo de dados.
+ * @param registros Array de ponteiros para os registros a serem inseridos.
+ * @param nInsercoes Número de inserções a serem realizadas.
+ */
+void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes);
+
 #endif
