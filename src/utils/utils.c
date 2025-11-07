@@ -80,19 +80,15 @@ int comparar_registros_busca_offset(const void *a, const void *b)
     RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
     RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
 
-    if (regA->ByteOffset < regB->ByteOffset)
-        return -1;
-    else if (regA->ByteOffset > regB->ByteOffset)
-        return 1;
-    else
-        return 0;
+    if (regA->ByteOffset < regB->ByteOffset) return -1;
+    if (regA->ByteOffset > regB->ByteOffset) return 1;
+    return 0;
 }
 
 int comparar_registros_busca_id(const void *a, const void *b)
 {
     RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
     RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
-
     return regA->registro->idPessoa - regB->registro->idPessoa;
 }
 

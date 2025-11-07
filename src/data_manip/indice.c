@@ -146,11 +146,22 @@ RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros)
         return NULL;
     }
 
+    if (numeroRegistros <= 0)
+    {         
+        return NULL;
+    }
+
     // Move o cursor para o início dos registros
-    // fseek(fp, 12, SEEK_SET);
+    fseek(fp, 12, SEEK_SET);
 
     // Aloca um array dinâmico para armazenar os ponteiros dos registros
     RegistroIndice **registros = malloc(numeroRegistros * sizeof(RegistroIndice *));
+    
+    if (registros == NULL)
+    {
+        // Não há o que liberar, apenas retorna o erro.
+        return NULL;
+    }
 
     for (int i = 0; i < numeroRegistros; i++)
     {
