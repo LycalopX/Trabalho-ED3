@@ -63,9 +63,14 @@ void scan_quote_string(char *str)
         getchar(); // ignorar aspas fechando
     }
     else if (R != EOF)
-    { // vc tá tentando ler uma string que não tá entre aspas! Fazer leitura normal %s então, pois deve ser algum inteiro ou algo assim...
-        str[0] = R;
-        scanf("%s", &str[1]);
+    { 
+        int i = 0;
+        str[i++] = R;
+        while((R = getchar()) != EOF && !isspace(R)) {
+            str[i++] = R;
+        }
+        str[i] = '\0';
+        if(R != EOF) ungetc(R, stdin);
     }
     else
     { // EOF
@@ -326,6 +331,16 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
     {
         for (int i = 0; i < nRegsEncontrados; i++)
         {
+            //debuggin
+            printf("Removendo registro com id %d no byte offset %lld\n", resultados[i]->registro->idPessoa, resultados[i]->ByteOffset);
+            // propriedades do registro:
+            printf("  - Tamanho Registro: %d\n", resultados[i]->registro->tamanhoRegistro);
+            printf("  - Idade Pessoa: %d\n", resultados[i]->registro->idadePessoa);
+            printf("  - Tamanho Nome Pessoa: %d\n", resultados[i]->registro->tamanhoNomePessoa);
+            printf("  - Nome Pessoa: %s\n", resultados[i]->registro->nomePessoa ? resultados[i]->registro->nomePessoa : "NULL");
+            printf("  - Tamanho Nome Usuario: %d\n", resultados[i]->registro->tamanhoNomeUsuario);
+            printf("  - Nome Usuario: %s\n", resultados[i]->registro->nomeUsuario ? resultados[i]->registro->nomeUsuario : "NULL");
+            
             nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
 
             // Remover registro
