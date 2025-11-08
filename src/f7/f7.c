@@ -27,7 +27,7 @@ static int atualizar_campo_inteiro(Atualizacao *atualizacao, Parametro *u, int c
 
 // Atualizar campos como nome, usuario
 // flag: lembrar que atualizacao precisa receber o id da operação
-static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *campo_registro, char **campo_registro_atualizacao, int *tamanho_campo, long long *proxByteOffset)
+static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *campo_registro, char **campo_registro_atualizacao, int *tamanho_campo)
 {
     char *current_string = campo_registro;
     char *new_string = u->valor;
@@ -78,7 +78,7 @@ static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *
 }
 
 // Processa as atualizações para cada busca, preenchendo o array de tarefas
-static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *resultadosEmBuscas, Atualizacao *atualizacoes, long long *proxByteOffset)
+static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *resultadosEmBuscas, Atualizacao *atualizacoes)
 {
     int nAtualizacoes = 0;
 
@@ -126,7 +126,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
             {
                 int indexAtualizacao = j + nAtualizacoes;
                 inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro, registrosBusca[j]->ByteOffset, 2);
-                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomePessoa, &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa, proxByteOffset);
+                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomePessoa, &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa);
             }
             free(resultadosEmBuscas[i].registrosBusca);
             nAtualizacoes += j;
@@ -138,7 +138,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
             {
                 int indexAtualizacao = j + nAtualizacoes;
                 inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro, registrosBusca[j]->ByteOffset, 3);
-                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomeUsuario, &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario, proxByteOffset);
+                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomeUsuario, &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario);
             }
             free(resultadosEmBuscas[i].registrosBusca);
             nAtualizacoes += j;
@@ -211,6 +211,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
     for (int i = 0; i < nRegsEncontrados; i++)
     {
+
         RegistroPessoa *reg_atualizado = atualizacoes[i].registro;
 
         long long byteOffset = atualizacoes[i].ByteOffset;
@@ -228,7 +229,6 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
         {
             int new_size = sizeof(int) * 4 + reg_atualizado->tamanhoNomePessoa + reg_atualizado->tamanhoNomeUsuario;
 
-            reg_atualizado->tamanhoRegistro = new_size;
             escreve_registro_pessoa(fp, reg_atualizado);
 
             if (new_size < tamanho_dados)
@@ -283,7 +283,6 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
     fseek(fp, 17, SEEK_SET);
 
     remover_pessoas_e_indices(removidos_inseridos, indice_em_memoria, cabPessoa, nRemovidosInseridos, fp, 1);
-
     inserir_pessoas(fp, removidos_inseridos, removidos_inseridos_idx);
 
     return 0;
@@ -291,11 +290,10 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
 int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 {
-    imprimir_registros_raw_em_arquivo(fp, "./debug/input.txt");
 
     int nRegsEncontrados = 0;
     // A função f4 agora é a única responsável por ler os dados da busca.
-    ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
+    ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 0, 1);
     if (nRegsEncontrados == 0)
     {
         if (resultadosEmBuscas)
@@ -309,7 +307,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     fseek(fp, 0, SEEK_SET);
     le_cabecalho_pessoa(fp, &cabPessoa);
     toggle_cabecalho_pessoa(fp, &cabPessoa);
-    long long proxByteOffset = cabPessoa.proxByteOffset;
 
     // Aloca um array plano de Atualizacao.
     Atualizacao *atualizacoes = malloc(sizeof(Atualizacao) * nRegsEncontrados);
@@ -322,7 +319,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     }
 
     // Cria objetos de atualização e preenche o array.
-    int nAtualizacoes = processar_atualizacoes_de_busca(buscas, resultadosEmBuscas, atualizacoes, &proxByteOffset);
+    int nAtualizacoes = processar_atualizacoes_de_busca(buscas, resultadosEmBuscas, atualizacoes);
 
     // Ordena por ID para fundir registros duplicados.
     qsort(atualizacoes, nAtualizacoes, sizeof(Atualizacao), comparar_atualizacao_por_id);
@@ -352,8 +349,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     // Nova função que escreve as alterações no arquivo.
     aplicar_atualizacoes_de_busca(fp, indice_em_memoria, atualizacoes, nRegsEncontrados, nRemovidosInseridos, &cabPessoa);
 
-    cabPessoa.proxByteOffset = proxByteOffset;
-
     // Reordena o índice por ID para reescrevê-lo corretamente.
     qsort(indice_em_memoria, cabPessoa.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
     reescrever_arquivo_indice(fpIndice, indice_em_memoria, cabPessoa.quantidadePessoas);
@@ -372,6 +367,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     }
     free(atualizacoes);
 
-    imprimir_registros_raw_em_arquivo(fp, "./debug/f7_output.txt");
+    imprimir_registros_raw(fp);
     return 0;
 }

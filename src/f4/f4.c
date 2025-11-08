@@ -37,14 +37,20 @@ Parametro *scanf_busca(Parametro **updates, int i)
     // 1. Lê e descarta o número que vem antes da busca.
     if (scanf("%d", &numero_busca) != 1)
     {
+        printf("Erro ao ler o número da busca.\n");
         return NULL;
     }
+
+    printf("Processando busca número: $%d$\n", numero_busca);
 
     // 2. Lê o nome do campo até o caractere '='. O espaço no início é importante!
     if (scanf(" %[^=]", campo) != 1)
     {
+        printf("Erro ao ler o campo da busca.\n");
         return NULL; // Falha ao ler o campo
     }
+
+    printf("Campo lido: $%s$\n", campo);
 
     getchar(); // Consumes '='
     scan_quote_string(valor); // Reads the value
@@ -60,11 +66,16 @@ Parametro *scanf_busca(Parametro **updates, int i)
 
         if (scanf(" %[^=]", campo2) != 1)
         {
+            printf("Erro ao ler o campo da atualização.\n");
             return NULL; // Falha ao ler o campo
         }
 
+        printf("Campo de atualização lido: $%s$\n", campo2);
+
         getchar(); // Consumes '='
         scan_quote_string(valor2); // Reads the value
+
+        printf("Valor de atualização lido: $%s$\n", valor2);
 
         updates[i] = cria_busca(campo2, valor2);
     }
@@ -141,12 +152,11 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 
     for (int i = 0; i < buscas; i++)
     {
-        fflush(stdout);
         buscasArray[i] = scanf_busca(updatesArray, i);
-        fflush(stdout);
         if (buscasArray[i] == NULL || !campo_valido(buscasArray[i]->campo) || (updateBool && updatesArray[i] != NULL && !campo_valido(updatesArray[i]->campo)))
         {
             printf("%s", falha_ao_processar_arquivo);
+
             for (int j = 0; j < i; j++)
             {
                 destroi_busca(buscasArray[j]);

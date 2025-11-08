@@ -184,7 +184,14 @@ void imprimir_registros_raw(FILE *fp)
         return;
     }
 
-    fseek(fp, 17, SEEK_SET); // Pula o cabeçalho
+    CabecalhoPessoa cabPessoa;
+    le_cabecalho_pessoa(fp, &cabPessoa); // Vamos imprimir o cabeçalho
+
+    printf("Cabeçalho:\n");
+    printf("  - Próximo Byte Offset: %lld\n", cabPessoa.proxByteOffset);
+    printf("  - Quantidade Removidos: %d\n", cabPessoa.quantidadeRemovidos);
+    printf("  - Quantidade Pessoas: %d\n", cabPessoa.quantidadePessoas);
+    printf("Status: %c\n\n", cabPessoa.status);
     printf("--- INICIO RAW PRINT ---\n");
 
     while (1)
@@ -251,7 +258,14 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
         return;
     }
 
-    fseek(fp, 17, SEEK_SET); // Pula o cabeçalho
+    CabecalhoPessoa cabPessoa;
+    le_cabecalho_pessoa(fp, &cabPessoa); // Vamos imprimir o cabeçalho
+
+    fprintf(output_fp, "Cabeçalho:\n");
+    fprintf(output_fp, "  - Próximo Byte Offset: %lld\n", cabPessoa.proxByteOffset);
+    fprintf(output_fp, "  - Quantidade Removidos: %d\n", cabPessoa.quantidadeRemovidos);
+    fprintf(output_fp, "  - Quantidade Pessoas: %d\n", cabPessoa.quantidadePessoas);
+    fprintf(output_fp, "Status: %c\n\n", cabPessoa.status);
 
     while (1)
     {
