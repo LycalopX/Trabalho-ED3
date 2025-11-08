@@ -329,14 +329,15 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
                                                         sizeof(RegistroIndice *),
                                                         comparar_bsearch_indice);
 
-            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + calcula_tamanho_registro_pessoa(resultados[i]->registro);
+            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + resultados[i]->registro->tamanhoRegistro;
 
             if (p_encontrado_ptr != NULL)
             {
                 if (flagUpdate)
                 {
                     // em vez de remover indice, atualizamos para apontar ao final do arquivo
-                    (*p_encontrado_ptr)->byteOffset = cabPessoa->proxByteOffset; // Marca como removido no índice
+                    (*p_encontrado_ptr)->byteOffset = cabPessoa->proxByteOffset;
+                    resultados[i]->ByteOffset = cabPessoa->proxByteOffset;
                     cabPessoa->proxByteOffset += tamanho_real_escrito;
                 }
                 else
