@@ -237,7 +237,7 @@ void imprimir_registros_raw(FILE *fp)
 }
 
 // Só funciona quando resultados está ordenado pelo byteoffset do registro.
-void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate)
+void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa *cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate)
 {
     long long nextByteOffset;
     long long previousByteOffset = 17;
@@ -252,29 +252,29 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
             // Remover registro
             fseek(fp, nextByteOffset, SEEK_CUR);
 
-            resultados[i]->registro->removido = '1';
-            escreve_registro_pessoa(fp, resultados[i]->registro);
+            char removido = '1';
+            fwrite(&removido, sizeof(char), 1, fp);
 
             // Remover do indice
             int id_a_remover = resultados[i]->registro->idPessoa;
 
             RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
                                                         indices,
-                                                        cabPessoa.quantidadePessoas,
+                                                        cabPessoa->quantidadePessoas,
                                                         sizeof(RegistroIndice *),
                                                         comparar_bsearch_indice);
 
-            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + sizeof(int) + sizeof(int) +
-                                             sizeof(int) + resultados[i]->registro->tamanhoNomePessoa +
-                                             sizeof(int) + resultados[i]->registro->tamanhoNomeUsuario;
+            long long tamanho_real_escrito = sizeof(char) + sizeof(int) + calcula_tamanho_registro_pessoa(resultados[i]->registro);
 
             if (p_encontrado_ptr != NULL)
             {
                 if (flagUpdate)
                 {
+                    resultados[i]->registro->removido = '0';
+
                     // em vez de remover indice, atualizamos para apontar ao final do arquivo
-                    (*p_encontrado_ptr)->byteOffset = cabPessoa.proxByteOffset; // Marca como removido no índice
-                    cabPessoa.proxByteOffset += tamanho_real_escrito;
+                    (*p_encontrado_ptr)->byteOffset = cabPessoa->proxByteOffset; // Marca como removido no índice
+                    cabPessoa->proxByteOffset += tamanho_real_escrito;
                 }
                 else
                 {
@@ -282,7 +282,7 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
                 }
             }
 
-            previousByteOffset += nextByteOffset + tamanho_real_escrito;
+            previousByteOffset += nextByteOffset + 1;
         }
     }
     else

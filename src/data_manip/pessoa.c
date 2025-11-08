@@ -134,7 +134,7 @@ RegistroPessoa *cria_registro_pessoa(int idPessoa, char nomePessoa[200], int ida
     registroPessoa->nomeUsuario = malloc(registroPessoa->tamanhoNomeUsuario);
     memcpy(registroPessoa->nomeUsuario, nomeUsuario, registroPessoa->tamanhoNomeUsuario);
 
-    registroPessoa->tamanhoRegistro = sizeof(int) + sizeof(int) + sizeof(int) + registroPessoa->tamanhoNomePessoa + sizeof(int) + registroPessoa->tamanhoNomeUsuario;
+    registroPessoa->tamanhoRegistro = calcula_tamanho_registro_pessoa(registroPessoa);
 
     return registroPessoa;
 }
@@ -235,4 +235,16 @@ void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) 
         long long tamanho_real_escrito = sizeof(char) + sizeof(int) + registros[i]->registro->tamanhoRegistro;
         byteOffset += diffByteOffset + tamanho_real_escrito;
     }
+}
+
+int calcula_tamanho_registro_pessoa(RegistroPessoa *reg) {
+    if (reg == NULL)
+        return 0;
+
+    return sizeof(int) + // idPessoa
+           sizeof(int) + // idadePessoa
+           sizeof(int) + // tamanhoNomePessoa
+           reg->tamanhoNomePessoa +
+           sizeof(int) + // tamanhoNomeUsuario
+           reg->tamanhoNomeUsuario;
 }

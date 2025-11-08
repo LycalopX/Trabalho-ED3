@@ -86,7 +86,7 @@ void imprimir_registros_raw(FILE *fp);
  * @param fp Ponteiro para o arquivo de dados.
  * @param fpIndice Ponteiro para o arquivo de índice.
  */
-void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate);
+void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa *cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate);
 
 
 #endif

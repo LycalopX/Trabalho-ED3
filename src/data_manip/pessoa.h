@@ -75,4 +75,11 @@ int imprime_registro_pessoa(RegistroPessoa* reg);
  */
 void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes);
 
+/**
+ * @brief Calcula o tamanho do registro de uma pessoa.
+ * @param reg Ponteiro para o registro a ser calculado.
+ * @return Retorna o tamanho do registro em bytes.
+ */
+int calcula_tamanho_registro_pessoa(RegistroPessoa *reg);
+
 #endif

@@ -78,7 +78,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, int buscas)
         return;
     }
 
-    remover_pessoas_e_indices(resultados, indices, cabPessoa, nRegsEncontrados, fp, 0);
+    remover_pessoas_e_indices(resultados, indices, &cabPessoa, nRegsEncontrados, fp, 0);
 
     // Rebobina o arquivo de índice para o início para reescrevê-lo.
     fseek(fpIndice, 0, SEEK_SET);
