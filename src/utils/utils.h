@@ -77,6 +77,14 @@ void liberar_resultados_busca(ResultadoBuscaPessoa *resultados, int nBuscas);
 void imprimir_registros_raw(FILE *fp);
 
 /**
+ * @brief Imprime todos os registros de um arquivo de dados, incluindo os removidos, em um arquivo de saída.
+ *
+ * @param fp Ponteiro para o arquivo de dados.
+ * @param nome_arquivo_saida Nome do arquivo onde a saída será escrita.
+ */
+void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida);
+
+/**
  * @brief Remove registros de pessoas do arquivo de dados e atualiza o arquivo de índice.
  *
  * @param resultados Array de ponteiros para os registros encontrados na busca.

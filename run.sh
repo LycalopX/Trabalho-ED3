@@ -66,7 +66,7 @@ echo "--- Executando Testes Runcodes ---"
 
 # Teste 12: Realiza múltiplas atualizações.
  echo ">> Teste 12: Funcionalidade 7 (Múltiplas atualizações)"
- echo -e "7 entrada.bin indice.bin 3 \n1 idPessoa=71 nomePessoa=\"JOSE MIGUEL CASTRADO\" \n2 idadePessoa=89 idadePessoa=20 \n3 idPessoa=266 nomePessoa=NULO" | $RUN_CMD
+ echo -e "7 entrada.bin indice.bin 3 \n1 idPessoa=23 nomePessoa=\"PINTUDO DA SILVA\" \n2 idadePessoa=89 idadePessoa=20 \n3 nomePessoa=\"HEITOR DA MOTA\" nomePessoa=\"HIHI PINTUDO DA SILVA DE NOVO HIHI\"" | $RUN_CMD
 
 # Teste 13: Realiza múltiplas atualizações com casos de borda, usando dados válidos.
 # echo ">> Teste 13: Funcionalidade 7 (Atualizações com dados válidos)"

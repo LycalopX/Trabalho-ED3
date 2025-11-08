@@ -38,45 +38,42 @@ static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *
     if (current_string == NULL)
     {
         if (strlen(new_string) > 0)
-        {
             update_needed = 1;
-        }
     }
     else
     {
         if (strcmp(new_string, current_string) != 0)
-        {
             update_needed = 1;
-        }
     }
 
-    if (update_needed)
+    if (!update_needed)
     {
-        int new_size_field = strlen(new_string);
+        atualizacao->ByteOffset = -1; // Mark to be ignored
+        return 0;
+    }
 
-        // Libera a string antiga se ela existir
-        if (current_string != NULL)
-        {
-            free(campo_registro);
-        }
+    // This is the size of the actual record on disk.
+    int old_record_disk_size = atualizacao->registro->tamanhoRegistro;
 
-        // Aloca memória para a nova string e atualiza o tamanho
-        *campo_registro_atualizacao = strdup(new_string);
-        *tamanho_campo = new_size_field;
+    // Update the in-memory record first to calculate the new size
+    if (*campo_registro_atualizacao != NULL)
+    {
+        free(*campo_registro_atualizacao);
+    }
+    *campo_registro_atualizacao = strdup(new_string);
+    *tamanho_campo = strlen(new_string);
 
-        int content_size = calcula_tamanho_registro_pessoa(atualizacao->registro);
-        int old_size = atualizacao->registro->tamanhoRegistro;
+    // Calculate the size the new record *would* need if written compactly.
+    int new_compact_size = calcula_tamanho_registro_pessoa(atualizacao->registro);
 
-        // Caso 1: Novo valor é maior, precisa de realocação (out-of-place)
-        if (content_size > old_size)
-        {
-            atualizacao->flagNovoByteOffset = 1;
-        }
+    if (new_compact_size > old_record_disk_size)
+    {
+        atualizacao->flagNovoByteOffset = '1';
+        atualizacao->registro->tamanhoRegistro = new_compact_size;
     }
     else
     {
-        // Se não precisar de atualização, marca o ByteOffset como -1 para ignorar
-        atualizacao->ByteOffset = -1;
+        atualizacao->registro->tamanhoRegistro = old_record_disk_size;
     }
 
     return 0;
@@ -228,7 +225,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
         RegistroPessoa *reg_atualizado = atualizacoes[i].registro;
 
         long long byteOffset = atualizacoes[i].ByteOffset;
-        long long flagNovoByteOffset = atualizacoes[i].flagNovoByteOffset;
+        char flagNovoByteOffset = atualizacoes[i].flagNovoByteOffset;
 
         int tamanho_dados = reg_atualizado->tamanhoRegistro;
 
@@ -237,7 +234,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
         printf("[DEBUG] Aplicando atualização %d:\n", i);
         printf("    ByteOffset original: %lld\n", byteOffset);
-        printf("    Flag do Novo ByteOffset: %lld\n", flagNovoByteOffset);
+        printf("    Flag do Novo ByteOffset: %c\n", flagNovoByteOffset);
         printf("    Tamanho dados: %d\n", tamanho_dados);
         printf("    Tamanho real escrito: %lld\n", tamanho_real_escrito);
         printf("    Diff ByteOffset: %lld\n", diffByteOffset);
@@ -246,8 +243,9 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
         printf("    Registro Usuario: %s\n", reg_atualizado->nomeUsuario);
         printf("    Registro Idade: %d\n", reg_atualizado->idadePessoa);
         printf("    Registro Tamanho: %d\n", reg_atualizado->tamanhoRegistro);
+        printf("    Tipo da atualização: %i\n", atualizacoes[i].indiceDaRegra);
 
-        if (flagNovoByteOffset == -1)
+        if (flagNovoByteOffset == '0')
         {
             int new_size = sizeof(int) * 4 + reg_atualizado->tamanhoNomePessoa + reg_atualizado->tamanhoNomeUsuario;
 
@@ -317,6 +315,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
 int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 {
+    imprimir_registros_raw_em_arquivo(fp, "./debug/input.txt");
 
     int nRegsEncontrados = 0;
     // A função f4 agora é a única responsável por ler os dados da busca.
@@ -368,7 +367,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     int nRemovidosInseridos = 0;
     for (int i = 0; i < nAtualizacoes; i++)
     {
-        if (atualizacoes[i].flagNovoByteOffset != -1)
+        if (atualizacoes[i].flagNovoByteOffset != '0')
         {
             nRemovidosInseridos++;
         }
@@ -394,7 +393,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         destroi_registro_pessoa(atualizacoes[i].registro);
     }
     free(atualizacoes);
-
-    imprimir_registros_raw(fp);
+    imprimir_registros_raw_em_arquivo(fp, "./debug/output.txt");
     return 0;
 }

@@ -236,6 +236,71 @@ void imprimir_registros_raw(FILE *fp)
     fflush(stdout);
 }
 
+void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
+{
+    if (fp == NULL)
+    {
+        printf("Arquivo inválido.\n");
+        return;
+    }
+
+    FILE *output_fp = fopen(nome_arquivo_saida, "w");
+    if (output_fp == NULL)
+    {
+        printf("Não foi possível abrir o arquivo de saída.\n");
+        return;
+    }
+
+    fseek(fp, 17, SEEK_SET); // Pula o cabeçalho
+
+    while (1)
+    {
+        long currentPos = ftell(fp);
+        RegistroPessoa *reg = NULL;
+
+        // Tenta ler o próximo registro
+        if (le_registro_pessoa(fp, &reg) != 0)
+        {
+            // Se a leitura falhar, pode ser o fim do arquivo.
+            break;
+        }
+
+        fprintf(output_fp, "Registro em %ld | Removido: '%c' | Tamanho Declarado: %d\n",
+               currentPos, reg->removido, reg->tamanhoRegistro);
+
+        // Calcula o tamanho real dos dados lidos para este registro
+        long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +
+                                 sizeof(reg->tamanhoNomePessoa) + reg->tamanhoNomePessoa +
+                                 sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomeUsuario;
+
+        fprintf(output_fp, "  - ID: %d\n", reg->idPessoa);
+        fprintf(output_fp, "  - Idade: %d\n", reg->idadePessoa);
+
+        fprintf(output_fp, "  - Nome (%d): ", reg->tamanhoNomePessoa);
+        if (reg->tamanhoNomePessoa > 0)
+        {
+            fwrite(reg->nomePessoa, 1, reg->tamanhoNomePessoa, output_fp);
+        }
+        fprintf(output_fp, "\n");
+
+        fprintf(output_fp, "  - Usuario (%d): ", reg->tamanhoNomeUsuario);
+        fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, output_fp);
+
+        fprintf(output_fp, "\n");
+
+        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
+        long lixo = reg->tamanhoRegistro - tamanho_real_lido;
+        fprintf(output_fp, "  - Lixo: %ld bytes\n\n", lixo);
+
+        // O lixo já é pulado pela função le_registro_pessoa.
+        // Manter o fseek aqui causaria um pulo duplo.
+
+        destroi_registro_pessoa(reg);
+    }
+
+    fflush(stdout);
+}
+
 // Só funciona quando resultados está ordenado pelo byteoffset do registro.
 void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa *cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate)
 {
@@ -270,8 +335,6 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
             {
                 if (flagUpdate)
                 {
-                    resultados[i]->registro->removido = '0';
-
                     // em vez de remover indice, atualizamos para apontar ao final do arquivo
                     (*p_encontrado_ptr)->byteOffset = cabPessoa->proxByteOffset; // Marca como removido no índice
                     cabPessoa->proxByteOffset += tamanho_real_escrito;
