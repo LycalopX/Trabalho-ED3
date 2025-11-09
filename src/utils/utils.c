@@ -226,6 +226,10 @@ void imprimir_registros_raw(FILE *fp)
         }
         printf("\n");
 
+        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
+        long lixo = reg->tamanhoRegistro - tamanho_real_lido;
+        printf("  - Lixo: %ld bytes\n", lixo);
+
         printf("  - ID: %d\n", reg->idPessoa);
         printf("  - Idade: %d\n", reg->idadePessoa);
 
@@ -233,11 +237,7 @@ void imprimir_registros_raw(FILE *fp)
         printf("  - Usuario (%d): ", reg->tamanhoNomeUsuario);
         fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, stdout);
 
-        printf("\n");
-
-        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
-        long lixo = reg->tamanhoRegistro - tamanho_real_lido;
-        printf("  - Lixo: %ld bytes\n\n", lixo);
+        printf("\n\n");
 
         // O lixo já é pulado pela função le_registro_pessoa.
         // Manter o fseek aqui causaria um pulo duplo.
@@ -300,17 +300,17 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
         }
         fprintf(output_fp, "\n");
 
+        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
+        long lixo = reg->tamanhoRegistro - tamanho_real_lido;
+        fprintf(output_fp, "  - Lixo: %ld bytes\n", lixo);
+
         fprintf(output_fp, "  - ID: %d\n", reg->idPessoa);
         fprintf(output_fp, "  - Idade: %d\n", reg->idadePessoa);
 
         fprintf(output_fp, "  - Usuario (%d): ", reg->tamanhoNomeUsuario);
         fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, output_fp);
 
-        fprintf(output_fp, "\n");
-
-        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
-        long lixo = reg->tamanhoRegistro - tamanho_real_lido;
-        fprintf(output_fp, "  - Lixo: %ld bytes\n\n", lixo);
+        fprintf(output_fp, "\n\n");
 
         // O lixo já é pulado pela função le_registro_pessoa.
         // Manter o fseek aqui causaria um pulo duplo.

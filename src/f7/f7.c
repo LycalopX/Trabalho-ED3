@@ -203,7 +203,7 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
                 break;
             }
 
-            if (atualizacoes[read_idx].flagNovoByteOffset == '1')
+            if (atualizacoes[read_idx].flagNovoByteOffset == '1' || atualizacoes[write_idx].flagNovoByteOffset == '1')
             {
                 atualizacoes[write_idx].flagNovoByteOffset = '1';
                 atualizacoes[write_idx].registro->tamanhoRegistro = calcula_tamanho_registro_pessoa(atualizacoes[write_idx].registro);
@@ -308,6 +308,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
 int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 {
+    imprimir_registros_raw(fp);
     imprimir_registros_raw_em_arquivo(fp, "./debug/input_7.txt");
 
     int nRegsEncontrados = 0;

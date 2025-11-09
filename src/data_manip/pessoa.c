@@ -229,6 +229,7 @@ void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) 
     {
         // propriedades do registro
         
+        /*
         printf("Inserindo registro com id %d no byte offset %lld\n", registros[i]->registro->idPessoa, byteOffset);
         printf("  - Tamanho Registro: %d\n", registros[i]->registro->tamanhoRegistro);
         printf("  - Idade Pessoa: %d\n", registros[i]->registro->idadePessoa);
@@ -237,6 +238,7 @@ void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) 
         printf("  - Tamanho Nome Usuario: %d\n", registros[i]->registro->tamanhoNomeUsuario);
         printf("  - Nome Usuario: %s\n", registros[i]->registro->nomeUsuario ? registros[i]->registro->nomeUsuario : "NULL");
         printf(" --- \n");
+        */
             
 
 
