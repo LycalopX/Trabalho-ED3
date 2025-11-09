@@ -272,13 +272,29 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
                 }
                 else if (strcmp(b->campo, CAMPO_NOME) == 0)
                 {
-                    if (reg->tamanhoNomePessoa > 0 && reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0)
-                        match = 1;
+                    if (strcmp(b->valor, "") == 0)
+                    {
+                        if (reg->tamanhoNomePessoa == 0)
+                            match = 1;
+                    }
+                    else
+                    {
+                        if (reg->tamanhoNomePessoa > 0 && reg->tamanhoNomePessoa == strlen(b->valor) && strncmp(reg->nomePessoa, b->valor, reg->tamanhoNomePessoa) == 0)
+                            match = 1;
+                    }
                 }
                 else if (strcmp(b->campo, CAMPO_USUARIO) == 0)
                 {
-                    if (reg->tamanhoNomeUsuario > 0 && reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0)
-                        match = 1;
+                    if (strcmp(b->valor, "") == 0)
+                    {
+                        if (reg->tamanhoNomeUsuario == 0)
+                            match = 1;
+                    }
+                    else
+                    {
+                        if (reg->tamanhoNomeUsuario > 0 && reg->tamanhoNomeUsuario == strlen(b->valor) && strncmp(reg->nomeUsuario, b->valor, reg->tamanhoNomeUsuario) == 0)
+                            match = 1;
+                    }
                 }
 
                 if (match)

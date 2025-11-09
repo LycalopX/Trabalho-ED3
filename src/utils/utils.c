@@ -211,16 +211,13 @@ void imprimir_registros_raw(FILE *fp)
             break;
         }
 
-        printf("Registro em %ld | Removido: '%c' | Tamanho Declarado: %d\n",
-               currentPos, reg->removido, reg->tamanhoRegistro);
+        printf("Registro em %ld | Tamanho Declarado: %d | Removido: '%c'\n",
+               currentPos, reg->tamanhoRegistro, reg->removido);
 
         // Calcula o tamanho real dos dados lidos para este registro
         long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +
                                  sizeof(reg->tamanhoNomePessoa) + reg->tamanhoNomePessoa +
                                  sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomeUsuario;
-
-        printf("  - ID: %d\n", reg->idPessoa);
-        printf("  - Idade: %d\n", reg->idadePessoa);
 
         printf("  - Nome (%d): ", reg->tamanhoNomePessoa);
         if (reg->tamanhoNomePessoa > 0)
@@ -228,6 +225,10 @@ void imprimir_registros_raw(FILE *fp)
             fwrite(reg->nomePessoa, 1, reg->tamanhoNomePessoa, stdout);
         }
         printf("\n");
+
+        printf("  - ID: %d\n", reg->idPessoa);
+        printf("  - Idade: %d\n", reg->idadePessoa);
+
 
         printf("  - Usuario (%d): ", reg->tamanhoNomeUsuario);
         fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, stdout);
@@ -284,16 +285,13 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
             break;
         }
 
-        fprintf(output_fp, "Registro em %ld | Removido: '%c' | Tamanho Declarado: %d\n",
-               currentPos, reg->removido, reg->tamanhoRegistro);
+        fprintf(output_fp, "Registro em %ld | Tamanho Declarado: %d | Removido: '%c'\n",
+               currentPos, reg->tamanhoRegistro, reg->removido);
 
         // Calcula o tamanho real dos dados lidos para este registro
         long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +
                                  sizeof(reg->tamanhoNomePessoa) + reg->tamanhoNomePessoa +
                                  sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomeUsuario;
-
-        fprintf(output_fp, "  - ID: %d\n", reg->idPessoa);
-        fprintf(output_fp, "  - Idade: %d\n", reg->idadePessoa);
 
         fprintf(output_fp, "  - Nome (%d): ", reg->tamanhoNomePessoa);
         if (reg->tamanhoNomePessoa > 0)
@@ -301,6 +299,9 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
             fwrite(reg->nomePessoa, 1, reg->tamanhoNomePessoa, output_fp);
         }
         fprintf(output_fp, "\n");
+
+        fprintf(output_fp, "  - ID: %d\n", reg->idPessoa);
+        fprintf(output_fp, "  - Idade: %d\n", reg->idadePessoa);
 
         fprintf(output_fp, "  - Usuario (%d): ", reg->tamanhoNomeUsuario);
         fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, output_fp);
@@ -331,16 +332,6 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
     {
         for (int i = 0; i < nRegsEncontrados; i++)
         {
-            //debuggin
-            printf("Removendo registro com id %d no byte offset %lld\n", resultados[i]->registro->idPessoa, resultados[i]->ByteOffset);
-            // propriedades do registro:
-            printf("  - Tamanho Registro: %d\n", resultados[i]->registro->tamanhoRegistro);
-            printf("  - Idade Pessoa: %d\n", resultados[i]->registro->idadePessoa);
-            printf("  - Tamanho Nome Pessoa: %d\n", resultados[i]->registro->tamanhoNomePessoa);
-            printf("  - Nome Pessoa: %s\n", resultados[i]->registro->nomePessoa ? resultados[i]->registro->nomePessoa : "NULL");
-            printf("  - Tamanho Nome Usuario: %d\n", resultados[i]->registro->tamanhoNomeUsuario);
-            printf("  - Nome Usuario: %s\n", resultados[i]->registro->nomeUsuario ? resultados[i]->registro->nomeUsuario : "NULL");
-            
             nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
 
             // Remover registro
