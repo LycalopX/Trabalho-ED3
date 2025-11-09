@@ -387,6 +387,5 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     free(atualizacoes);
 
     imprimir_registros_raw_em_arquivo(fp, "./debug/output_f7.txt");
-    imprimir_registros_raw(fp);
     return 0;
 }

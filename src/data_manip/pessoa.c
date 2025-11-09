@@ -227,6 +227,19 @@ void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) 
 
     for (int i = 0; i < nInsercoes; i++)
     {
+        // propriedades do registro
+        
+        printf("Inserindo registro com id %d no byte offset %lld\n", registros[i]->registro->idPessoa, byteOffset);
+        printf("  - Tamanho Registro: %d\n", registros[i]->registro->tamanhoRegistro);
+        printf("  - Idade Pessoa: %d\n", registros[i]->registro->idadePessoa);
+        printf("  - Tamanho Nome Pessoa: %d\n", registros[i]->registro->tamanhoNomePessoa);
+        printf("  - Nome Pessoa: %s\n", registros[i]->registro->nomePessoa ? registros[i]->registro->nomePessoa : "NULL");
+        printf("  - Tamanho Nome Usuario: %d\n", registros[i]->registro->tamanhoNomeUsuario);
+        printf("  - Nome Usuario: %s\n", registros[i]->registro->nomeUsuario ? registros[i]->registro->nomeUsuario : "NULL");
+        printf(" --- \n");
+            
+
+
         long long diffByteOffset = registros[i]->ByteOffset - byteOffset;
         fseek(fp, diffByteOffset, SEEK_CUR);
         
