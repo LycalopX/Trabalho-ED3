@@ -308,12 +308,11 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
 int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
 {
-    imprimir_registros_raw(fp);
     imprimir_registros_raw_em_arquivo(fp, "./debug/input_7.txt");
 
     int nRegsEncontrados = 0;
     // A função f4 agora é a única responsável por ler os dados da busca.
-    ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 0, 1);
+    ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
     if (nRegsEncontrados == 0)
     {
         if (resultadosEmBuscas)
