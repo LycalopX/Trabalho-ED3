@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h> // Para ftruncate
 
 #include "../arquivos.h"
 #include "../utils/utils.h"
 #include "../data_manip/indice.h"
 #include "../data_manip/pessoa.h"
-
 #include "../f4/f4.h"
 #include "atualizacao.h"
 
-// Atualizar campos como ID, idade
+// --- Funções Auxiliares para Lógica de Atualização ---
+
+// Aplica uma atualização a um campo de tipo inteiro.
 static int atualizar_campo_inteiro(Atualizacao *atualizacao, Parametro *u, int campo_registro, int *campo_registro_atualizacao)
 {
     if (atoi(u->valor) != campo_registro)
@@ -20,13 +20,13 @@ static int atualizar_campo_inteiro(Atualizacao *atualizacao, Parametro *u, int c
     }
     else
     {
+        // Se o valor novo for igual ao antigo, marca a atualização para ser ignorada.
         atualizacao->ByteOffset = -1;
     }
     return 0;
 }
 
-// Atualizar campos como nome, usuario
-// flag: lembrar que atualizacao precisa receber o id da operação
+// Aplica uma atualização a um campo de tipo string.
 static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *campo_registro, char **campo_registro_atualizacao, int *tamanho_campo)
 {
     char *current_string = campo_registro;
@@ -46,11 +46,11 @@ static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *
 
     if (!update_needed)
     {
-        atualizacao->ByteOffset = -1; // Mark to be ignored
+        atualizacao->ByteOffset = -1; // Marca para ser ignorada.
         return 0;
     }
 
-    // This is the size of the actual record on disk.
+    // Calcula o novo tamanho do registro para determinar a estratégia de atualização.
     int old_record_disk_size = atualizacao->registro->tamanhoRegistro;
 
     // Update the in-memory record first to calculate the new size
@@ -61,51 +61,46 @@ static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *
     *campo_registro_atualizacao = strdup(new_string);
     *tamanho_campo = strlen(new_string);
 
-    // Calculate the size the new record *would* need if written compactly.
     int new_compact_size = calcula_tamanho_registro_pessoa(atualizacao->registro);
 
+    // Se o novo registro for maior que o espaço antigo, ele precisará ser movido.
     if (new_compact_size > old_record_disk_size)
     {
-        atualizacao->flagNovoByteOffset = '1';
+        atualizacao->flagNovoByteOffset = '1'; // Sinaliza remoção e inserção.
         atualizacao->registro->tamanhoRegistro = new_compact_size;
     }
     else
     {
+        // Se couber, mantém o tamanho original para preencher com lixo.
         atualizacao->registro->tamanhoRegistro = old_record_disk_size;
     }
-
     return 0;
 }
 
-// Processa as atualizações para cada busca, preenchendo o array de tarefas
+// Converte os resultados da busca em uma lista de "tarefas" de atualização.
 static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *resultadosEmBuscas, Atualizacao *atualizacoes)
 {
     int nAtualizacoes = 0;
-
     for (int i = 0; i < buscas; i++)
     {
         if (resultadosEmBuscas[i].nRegistros == 0 || resultadosEmBuscas[i].update.valor == NULL)
-        {
             continue;
-        }
 
         RegistroBuscaPessoa **registrosBusca = resultadosEmBuscas[i].registrosBusca;
         Parametro *u = &resultadosEmBuscas[i].update;
-
-        int j = 0;
         int nRegistros = resultadosEmBuscas[i].nRegistros;
 
+        int j = 0;
         // Indice da regra = 0
         if (strcmp(u->campo, CAMPO_ID) == 0)
         {
             for (j = 0; j < nRegistros; j++)
             {
                 int indexAtualizacao = j + nAtualizacoes;
-                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro, 
-                    registrosBusca[j]->ByteOffset, 0);
-                atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idPessoa, 
-                    &atualizacoes[indexAtualizacao].idPessoaNovo);
-                
+                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro,
+                                       registrosBusca[j]->ByteOffset, 0);
+                atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idPessoa,
+                                        &atualizacoes[indexAtualizacao].idPessoaNovo);
             }
             free(resultadosEmBuscas[i].registrosBusca);
             nAtualizacoes += j;
@@ -116,10 +111,10 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
             for (j = 0; j < nRegistros; j++)
             {
                 int indexAtualizacao = j + nAtualizacoes;
-                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro, 
-                    registrosBusca[j]->ByteOffset, 1);
+                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro,
+                                       registrosBusca[j]->ByteOffset, 1);
                 atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idadePessoa,
-                    &atualizacoes[indexAtualizacao].registro->idadePessoa);
+                                        &atualizacoes[indexAtualizacao].registro->idadePessoa);
             }
             free(resultadosEmBuscas[i].registrosBusca);
             nAtualizacoes += j;
@@ -130,10 +125,10 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
             for (j = 0; j < nRegistros; j++)
             {
                 int indexAtualizacao = j + nAtualizacoes;
-                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro, 
-                    registrosBusca[j]->ByteOffset, 2);
-                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomePessoa, 
-                    &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa);
+                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro,
+                                       registrosBusca[j]->ByteOffset, 2);
+                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomePessoa,
+                                       &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa);
             }
             free(resultadosEmBuscas[i].registrosBusca);
             nAtualizacoes += j;
@@ -144,10 +139,10 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
             for (j = 0; j < nRegistros; j++)
             {
                 int indexAtualizacao = j + nAtualizacoes;
-                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro, 
-                    registrosBusca[j]->ByteOffset, 3);
-                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomeUsuario, 
-                    &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario);
+                inicializa_atualizacao(&atualizacoes[indexAtualizacao], registrosBusca[j]->registro,
+                                       registrosBusca[j]->ByteOffset, 3);
+                atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomeUsuario,
+                                       &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario);
             }
             free(resultadosEmBuscas[i].registrosBusca);
             nAtualizacoes += j;
@@ -158,13 +153,11 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
     return nAtualizacoes;
 }
 
-// Apenas vamos manipular atualizacoes, como a única array importante
+// Unifica múltiplas atualizações para o mesmo registro em uma única tarefa.
 static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
 {
     if (*nRegsEncontrados <= 1)
-    {
         return;
-    }
 
     int write_idx = 0;
     for (int read_idx = 1; read_idx < (*nRegsEncontrados); read_idx++)
@@ -175,12 +168,14 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
             continue;
         }
 
+        // Se a tarefa de leitura for para um registro diferente da tarefa de escrita,
+        // move o ponteiro de escrita e copia a tarefa.
         if (atualizacoes[read_idx].registro->idPessoa != atualizacoes[write_idx].registro->idPessoa)
         {
             write_idx++;
             atualizacoes[write_idx] = atualizacoes[read_idx];
         }
-        else
+        else // Se for para o mesmo registro, mescla as atualizações.
         {
             switch (atualizacoes[read_idx].indiceDaRegra)
             {
@@ -196,7 +191,7 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
                 atualizacoes[write_idx].registro->nomePessoa = strdup(atualizacoes[read_idx].registro->nomePessoa);
                 atualizacoes[write_idx].registro->tamanhoNomePessoa = atualizacoes[read_idx].registro->tamanhoNomePessoa;
                 break;
-            case 3: // Usuario
+            case 3:
                 free(atualizacoes[write_idx].registro->nomeUsuario);
                 atualizacoes[write_idx].registro->nomeUsuario = strdup(atualizacoes[read_idx].registro->nomeUsuario);
                 atualizacoes[write_idx].registro->tamanhoNomeUsuario = atualizacoes[read_idx].registro->tamanhoNomeUsuario;
@@ -206,9 +201,7 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
             if (atualizacoes[read_idx].flagNovoByteOffset == '1' || atualizacoes[write_idx].flagNovoByteOffset == '1')
             {
                 atualizacoes[write_idx].flagNovoByteOffset = '1';
-                atualizacoes[write_idx].registro->tamanhoRegistro = calcula_tamanho_registro_pessoa(atualizacoes[write_idx].registro);
             }
-
             destroi_registro_pessoa(atualizacoes[read_idx].registro);
         }
     }
@@ -218,7 +211,6 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
 static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_memoria, Atualizacao *atualizacoes,
                                          int nRegsEncontrados, int nRemovidosInseridos, CabecalhoPessoa *cabPessoa)
 {
-
     fseek(fp, 17, SEEK_SET);
     long long cursor_position = 17;
 
@@ -264,11 +256,10 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
             {
                 (*p_encontrado_ptr)->idPessoa = reg_atualizado->idPessoa;
             }
-
             reg_atualizado->idPessoa = atualizacoes[i].idPessoaNovo;
         }
 
-        // Arquivo pessoa
+        // Se o registro couber no espaço antigo, faz a atualização no local (in-place).
         if (flagNovoByteOffset == '0')
         {
             int new_size = sizeof(int) * 4 + reg_atualizado->tamanhoNomePessoa + reg_atualizado->tamanhoNomeUsuario;
@@ -286,7 +277,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
                 free(dollar);
             }
         }
-        else
+        else // Se não couber, adiciona à lista de "remover e inserir".
         {
             removidos_inseridos[removidos_inseridos_idx] = malloc(sizeof(RegistroBuscaPessoa));
             removidos_inseridos[removidos_inseridos_idx]->registro = reg_atualizado;
@@ -306,12 +297,10 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
     return 0;
 }
 
-int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
+int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int buscas)
 {
-    imprimir_registros_raw_em_arquivo(fp, "./debug/input_7.txt");
-
+    // 1. Busca: Encontra todos os registros que correspondem aos critérios de busca e atualização.
     int nRegsEncontrados = 0;
-    // A função f4 agora é a única responsável por ler os dados da busca.
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
     if (nRegsEncontrados == 0)
     {
@@ -321,13 +310,13 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         return 0;
     }
 
+    // 2. Preparação: Marca os arquivos como instáveis ('0').
     CabecalhoPessoa cabPessoa;
-
     fseek(fp, 0, SEEK_SET);
     le_cabecalho_pessoa(fp, &cabPessoa);
     toggle_cabecalho_pessoa(fp, &cabPessoa);
 
-    // Aloca um array plano de Atualizacao.
+    // 3. Criação de Tarefas: Converte os resultados da busca em uma lista de tarefas de atualização.
     Atualizacao *atualizacoes = malloc(sizeof(Atualizacao) * nRegsEncontrados);
     if (atualizacoes == NULL)
     {
@@ -340,10 +329,11 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
     // Cria objetos de atualização e preenche o array.
     int nAtualizacoes = processar_atualizacoes_de_busca(buscas, resultadosEmBuscas, atualizacoes);
 
-    // Ordena por ID para fundir registros duplicados.
+    // 4. Unificação: Mescla múltiplas atualizações para o mesmo registro em uma única tarefa.
     qsort(atualizacoes, nAtualizacoes, sizeof(Atualizacao), comparar_atualizacao_por_id);
     unificarResultados(atualizacoes, &nAtualizacoes);
 
+    // 5. Execução: Aplica as tarefas de atualização ao arquivo de dados e ao índice em memória.
     RegistroIndice **indice_em_memoria = carregar_indice_inteiro(fpIndice, cabPessoa.quantidadePessoas);
     if (indice_em_memoria == NULL && cabPessoa.quantidadePessoas > 0)
     {
@@ -352,10 +342,8 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         return -1;
     }
 
-    // Ordena por byte offset para escrever no arquivo de dados de forma sequencial.
     qsort(atualizacoes, nAtualizacoes, sizeof(Atualizacao), comparar_atualizacao_por_byteoffset);
 
-    // Contar número de removidos e inseridos
     int nRemovidosInseridos = 0;
     for (int i = 0; i < nAtualizacoes; i++)
     {
@@ -365,17 +353,15 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, int buscas)
         }
     }
 
-    // Nova função que escreve as alterações no arquivo.
     aplicar_atualizacoes_de_busca(fp, indice_em_memoria, atualizacoes, nAtualizacoes, nRemovidosInseridos, &cabPessoa);
 
-    // Reordena o índice por ID para reescrevê-lo corretamente.
+    // 6. Finalização do Índice: Reordena o índice em memória por ID e o reescreve no disco.
     qsort(indice_em_memoria, cabPessoa.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
-    reescrever_arquivo_indice(fpIndice, indice_em_memoria, cabPessoa.quantidadePessoas);
+    reescrever_arquivo_indice(nomeArquivoIndice, indice_em_memoria, cabPessoa.quantidadePessoas);
 
-    // Atualiza o cabeçalho do arquivo de dados.
+    // 7. Finalização do Arquivo de Dados: Atualiza o cabeçalho com as novas contagens e marca como estável ('1').
     fflush(fp);
     fseek(fp, 0, SEEK_SET);
-
     cabPessoa.quantidadeRemovidos += nRemovidosInseridos;
     toggle_cabecalho_pessoa(fp, &cabPessoa);
 

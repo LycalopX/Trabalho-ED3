@@ -85,16 +85,17 @@ int comparar_indices_id(const void *a, const void *b);
 RegistroIndice **carregar_indice_inteiro(FILE *fp, int numeroRegistros);
 
 /**
- * @brief Reescreve completamente o arquivo de índice a partir de um array de registros de índice em memória.
+ * @brief Reescreve completamente o arquivo de índice a partir de um array de registros em memória.
  *
- * Esta função atualiza o cabeçalho do índice, trunca o arquivo para o novo tamanho e 
- * garante que o status do arquivo seja definido como consistente ('1') no final.
+ * Esta função utiliza uma estratégia de arquivo temporário para garantir que a operação
+ * seja atômica e segura. O arquivo original só é substituído no final do processo.
+ * A função também libera a memória do array 'indice_em_memoria' e seus conteúdos.
  *
- * @param fpIndice Ponteiro para o arquivo de índice a ser reescrito.
+ * @param nomeArquivoIndice O nome do arquivo de índice a ser reescrito.
  * @param indice_em_memoria Array de ponteiros para os registros de índice que serão escritos.
- * @param quantidadePessoas Contagem de pessoas a ser escrita no cabeçalho.
+ * @param numeroRegistros O número de registros no array 'indice_em_memoria'.
  */
-void reescrever_arquivo_indice (FILE *fpIndice, RegistroIndice **indice_em_memoria, int quantidadePessoas);
+void reescrever_arquivo_indice(const char *nomeArquivoIndice, RegistroIndice **indice_em_memoria, int numeroRegistros);
 
 
 #endif
