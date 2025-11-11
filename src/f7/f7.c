@@ -84,7 +84,9 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
     for (int i = 0; i < buscas; i++)
     {
         if (resultadosEmBuscas[i].nRegistros == 0 || resultadosEmBuscas[i].update.valor == NULL)
+        {
             continue;
+        }
 
         RegistroBuscaPessoa **registrosBusca = resultadosEmBuscas[i].registrosBusca;
         Parametro *u = &resultadosEmBuscas[i].update;
@@ -102,7 +104,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idPessoa,
                                         &atualizacoes[indexAtualizacao].idPessoaNovo);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
+
             nAtualizacoes += j;
         }
         // Indice da regra = 1
@@ -116,7 +118,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idadePessoa,
                                         &atualizacoes[indexAtualizacao].registro->idadePessoa);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
+
             nAtualizacoes += j;
         }
         // Indice da regra = 2
@@ -130,7 +132,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomePessoa,
                                        &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
+
             nAtualizacoes += j;
         }
         // Indice da regra = 3
@@ -144,11 +146,10 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomeUsuario,
                                        &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
+
             nAtualizacoes += j;
         }
     }
-    free(resultadosEmBuscas);
 
     return nAtualizacoes;
 }
@@ -294,6 +295,13 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
     remover_pessoas_e_indices(removidos_inseridos, indice_em_memoria, cabPessoa, nRemovidosInseridos, fp, 1);
     inserir_pessoas(fp, removidos_inseridos, removidos_inseridos_idx);
 
+    // Libera array removidos_inseridos
+    for (int i = 0; i < removidos_inseridos_idx; i++)
+    {
+        free(removidos_inseridos[i]);
+    }
+    free(removidos_inseridos);
+
     return 0;
 }
 
@@ -304,8 +312,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
     if (nRegsEncontrados == 0)
     {
-        if (resultadosEmBuscas)
-            free(resultadosEmBuscas);
+        liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         printf("Nenhum registro encontrado.\n");
         return 0;
     }
@@ -321,13 +328,39 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     if (atualizacoes == NULL)
     {
         printf(FALHA_AO_ALOCAR);
-        // A memória de resultadosEmBuscas precisa ser liberada aqui.
-        free(resultadosEmBuscas);
+        // Libera memória de resultadosEmBuscas e seus campos internos
+        liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         return -1;
     }
 
     // Cria objetos de atualização e preenche o array.
     int nAtualizacoes = processar_atualizacoes_de_busca(buscas, resultadosEmBuscas, atualizacoes);
+    
+    // Libera apenas os campos Parametro e containers, mantendo os RegistroPessoa
+    for (int i = 0; i < buscas; i++)
+    {
+        if (resultadosEmBuscas[i].registrosBusca != NULL)
+        {
+            for (int j = 0; j < resultadosEmBuscas[i].nRegistros; j++)
+            {
+                // Libera apenas o wrapper RegistroBuscaPessoa, não o registro interno
+                if (resultadosEmBuscas[i].registrosBusca[j] != NULL)
+                {
+                    free(resultadosEmBuscas[i].registrosBusca[j]);
+                }
+            }
+            free(resultadosEmBuscas[i].registrosBusca);
+        }
+        if (resultadosEmBuscas[i].busca.campo != NULL)
+            free(resultadosEmBuscas[i].busca.campo);
+        if (resultadosEmBuscas[i].busca.valor != NULL)
+            free(resultadosEmBuscas[i].busca.valor);
+        if (resultadosEmBuscas[i].update.campo != NULL)
+            free(resultadosEmBuscas[i].update.campo);
+        if (resultadosEmBuscas[i].update.valor != NULL)
+            free(resultadosEmBuscas[i].update.valor);
+    }
+    free(resultadosEmBuscas);
 
     // 4. Unificação: Mescla múltiplas atualizações para o mesmo registro em uma única tarefa.
     qsort(atualizacoes, nAtualizacoes, sizeof(Atualizacao), comparar_atualizacao_por_id);
@@ -357,6 +390,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
 
     // 6. Finalização do Índice: Reordena o índice em memória por ID e o reescreve no disco.
     qsort(indice_em_memoria, cabPessoa.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
+    // NOTA: reescrever_arquivo_indice já libera indice_em_memoria e seus elementos internamente
     reescrever_arquivo_indice(nomeArquivoIndice, indice_em_memoria, cabPessoa.quantidadePessoas);
 
     // 7. Finalização do Arquivo de Dados: Atualiza o cabeçalho com as novas contagens e marca como estável ('1').
@@ -372,6 +406,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     }
     free(atualizacoes);
 
-    imprimir_registros_raw_em_arquivo(fp, "./debug/output_f7.txt");
+    imprimir_registros_raw_em_arquivo(fp, "output_f7.txt");
     return 0;
 }

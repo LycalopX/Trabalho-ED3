@@ -317,9 +317,12 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
             }
         }
 
-        if (encontradosNestaBusca == 0 && !silent)
+        if (encontradosNestaBusca == 0)
         {
-            printf("Registro inexistente.\n");
+            if (!silent)
+            {
+                printf("Registro inexistente.\n");
+            }
             free(regs); // Libera se não encontrou nada
         }
         else
