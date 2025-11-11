@@ -70,7 +70,7 @@ echo "--- Executando Testes Runcodes ---"
 
 # Teste 13: Realiza múltiplas atualizações com casos de borda, usando dados válidos.
  echo ">> Teste 13: Funcionalidade 7 (Atualizações com dados válidos)"
- echo -e "7 entrada.bin indice.bin 5 \n1 idPessoa=140 idPessoa=1234 \n2 idadePessoa=NULO idadePessoa=18 \n3 nomePessoa=NULO nomePessoa=\"FANTASMA\" \n4 nomePessoa=\"NAOEXISTE\" idPessoa=1 \n5 nomeUsuario=\"HMACHADO\" nomeUsuario=\"ANAFER\"" | $RUN_CMD
+ echo -e "7 entrada.bin indice.bin 5 \n1 idPessoa=268 idPessoa=1234 \n2 idadePessoa=NULO idadePessoa=18 \n3 nomePessoa=NULO nomePessoa=\"FANTASMA\" \n4 nomePessoa=\"NAOEXISTE\" idPessoa=1 \n5 nomeUsuario=\"HMACHADO\" nomeUsuario=\"ANAFER\"" | $RUN_CMD
 
 # Teste 14: Tenta criar um arquivo de seguidores a partir de um CSV que não existe.
 # echo ">> Teste 14: Funcionalidade 8 (Arquivo CSV de seguidores inexistente)"

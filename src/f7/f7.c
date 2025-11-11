@@ -307,6 +307,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
 int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int buscas)
 {
+    imprimir_registros_raw_em_arquivo(fp, "./debug/input_f7.txt");
     // 1. Busca: Encontra todos os registros que correspondem aos critérios de busca e atualização.
     int nRegsEncontrados = 0;
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
@@ -406,6 +407,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     }
     free(atualizacoes);
 
-    imprimir_registros_raw_em_arquivo(fp, "output_f7.txt");
+    imprimir_registros_raw_em_arquivo(fp, "./debug/output_f7.txt");
     return 0;
 }
