@@ -110,6 +110,7 @@ void imprime_registro_segue(RegistroSegue *reg) {
         {
             printf("Valor desconhecido (%c)\n", reg->grauAmizade);
             break;
+        }
     }
 
     printf("Começou a seguir em: ");

@@ -28,6 +28,7 @@ int le_cabecalho_segue(FILE *fp, CabecalhoSegue *cab);
  * @return 0 em sucesso, LE_REGISTRO_SEGUE_REMOVIDO se o registro estiver removido, ou outro valor em erro.
  */
 int le_registro_segue(FILE *fp, RegistroSegue *reg_segue);
+
 #define LE_REGISTRO_SEGUE_REMOVIDO 1
 
 /**
