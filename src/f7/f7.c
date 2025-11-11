@@ -84,7 +84,20 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
     for (int i = 0; i < buscas; i++)
     {
         if (resultadosEmBuscas[i].nRegistros == 0 || resultadosEmBuscas[i].update.valor == NULL)
+        {
+            // Libera campos alocados mesmo quando não há registros para processar
+            if (resultadosEmBuscas[i].busca.campo != NULL)
+                free(resultadosEmBuscas[i].busca.campo);
+            if (resultadosEmBuscas[i].busca.valor != NULL)
+                free(resultadosEmBuscas[i].busca.valor);
+            if (resultadosEmBuscas[i].update.campo != NULL)
+                free(resultadosEmBuscas[i].update.campo);
+            if (resultadosEmBuscas[i].update.valor != NULL)
+                free(resultadosEmBuscas[i].update.valor);
+            if (resultadosEmBuscas[i].registrosBusca != NULL)
+                free(resultadosEmBuscas[i].registrosBusca);
             continue;
+        }
 
         RegistroBuscaPessoa **registrosBusca = resultadosEmBuscas[i].registrosBusca;
         Parametro *u = &resultadosEmBuscas[i].update;
@@ -103,6 +116,11 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                                         &atualizacoes[indexAtualizacao].idPessoaNovo);
             }
             free(resultadosEmBuscas[i].registrosBusca);
+            // Libera campos Parametro
+            free(resultadosEmBuscas[i].busca.campo);
+            free(resultadosEmBuscas[i].busca.valor);
+            free(resultadosEmBuscas[i].update.campo);
+            free(resultadosEmBuscas[i].update.valor);
             nAtualizacoes += j;
         }
         // Indice da regra = 1
@@ -117,6 +135,11 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                                         &atualizacoes[indexAtualizacao].registro->idadePessoa);
             }
             free(resultadosEmBuscas[i].registrosBusca);
+            // Libera campos Parametro
+            free(resultadosEmBuscas[i].busca.campo);
+            free(resultadosEmBuscas[i].busca.valor);
+            free(resultadosEmBuscas[i].update.campo);
+            free(resultadosEmBuscas[i].update.valor);
             nAtualizacoes += j;
         }
         // Indice da regra = 2
@@ -131,6 +154,11 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                                        &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa);
             }
             free(resultadosEmBuscas[i].registrosBusca);
+            // Libera campos Parametro
+            free(resultadosEmBuscas[i].busca.campo);
+            free(resultadosEmBuscas[i].busca.valor);
+            free(resultadosEmBuscas[i].update.campo);
+            free(resultadosEmBuscas[i].update.valor);
             nAtualizacoes += j;
         }
         // Indice da regra = 3
@@ -145,7 +173,21 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                                        &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario);
             }
             free(resultadosEmBuscas[i].registrosBusca);
+            // Libera campos Parametro
+            free(resultadosEmBuscas[i].busca.campo);
+            free(resultadosEmBuscas[i].busca.valor);
+            free(resultadosEmBuscas[i].update.campo);
+            free(resultadosEmBuscas[i].update.valor);
             nAtualizacoes += j;
+        }
+        else
+        {
+            // Campo de update não reconhecido - libera memória sem processar
+            free(resultadosEmBuscas[i].registrosBusca);
+            free(resultadosEmBuscas[i].busca.campo);
+            free(resultadosEmBuscas[i].busca.valor);
+            free(resultadosEmBuscas[i].update.campo);
+            free(resultadosEmBuscas[i].update.valor);
         }
     }
     free(resultadosEmBuscas);
@@ -294,6 +336,13 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
     remover_pessoas_e_indices(removidos_inseridos, indice_em_memoria, cabPessoa, nRemovidosInseridos, fp, 1);
     inserir_pessoas(fp, removidos_inseridos, removidos_inseridos_idx);
 
+    // Libera array removidos_inseridos
+    for (int i = 0; i < removidos_inseridos_idx; i++)
+    {
+        free(removidos_inseridos[i]);
+    }
+    free(removidos_inseridos);
+
     return 0;
 }
 
@@ -305,7 +354,23 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     if (nRegsEncontrados == 0)
     {
         if (resultadosEmBuscas)
+        {
+            // Libera campos internos de cada busca antes de liberar o array
+            for (int i = 0; i < buscas; i++)
+            {
+                if (resultadosEmBuscas[i].busca.campo != NULL)
+                    free(resultadosEmBuscas[i].busca.campo);
+                if (resultadosEmBuscas[i].busca.valor != NULL)
+                    free(resultadosEmBuscas[i].busca.valor);
+                if (resultadosEmBuscas[i].update.campo != NULL)
+                    free(resultadosEmBuscas[i].update.campo);
+                if (resultadosEmBuscas[i].update.valor != NULL)
+                    free(resultadosEmBuscas[i].update.valor);
+                if (resultadosEmBuscas[i].registrosBusca != NULL)
+                    free(resultadosEmBuscas[i].registrosBusca);
+            }
             free(resultadosEmBuscas);
+        }
         printf("Nenhum registro encontrado.\n");
         return 0;
     }
@@ -321,7 +386,20 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     if (atualizacoes == NULL)
     {
         printf(FALHA_AO_ALOCAR);
-        // A memória de resultadosEmBuscas precisa ser liberada aqui.
+        // Libera memória de resultadosEmBuscas e seus campos internos
+        for (int i = 0; i < buscas; i++)
+        {
+            if (resultadosEmBuscas[i].busca.campo != NULL)
+                free(resultadosEmBuscas[i].busca.campo);
+            if (resultadosEmBuscas[i].busca.valor != NULL)
+                free(resultadosEmBuscas[i].busca.valor);
+            if (resultadosEmBuscas[i].update.campo != NULL)
+                free(resultadosEmBuscas[i].update.campo);
+            if (resultadosEmBuscas[i].update.valor != NULL)
+                free(resultadosEmBuscas[i].update.valor);
+            if (resultadosEmBuscas[i].registrosBusca != NULL)
+                free(resultadosEmBuscas[i].registrosBusca);
+        }
         free(resultadosEmBuscas);
         return -1;
     }
@@ -357,6 +435,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
 
     // 6. Finalização do Índice: Reordena o índice em memória por ID e o reescreve no disco.
     qsort(indice_em_memoria, cabPessoa.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
+    // NOTA: reescrever_arquivo_indice já libera indice_em_memoria e seus elementos internamente
     reescrever_arquivo_indice(nomeArquivoIndice, indice_em_memoria, cabPessoa.quantidadePessoas);
 
     // 7. Finalização do Arquivo de Dados: Atualiza o cabeçalho com as novas contagens e marca como estável ('1').
