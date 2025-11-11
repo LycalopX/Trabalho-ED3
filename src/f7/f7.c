@@ -86,16 +86,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
         if (resultadosEmBuscas[i].nRegistros == 0 || resultadosEmBuscas[i].update.valor == NULL)
         {
             // Libera campos alocados mesmo quando não há registros para processar
-            if (resultadosEmBuscas[i].busca.campo != NULL)
-                free(resultadosEmBuscas[i].busca.campo);
-            if (resultadosEmBuscas[i].busca.valor != NULL)
-                free(resultadosEmBuscas[i].busca.valor);
-            if (resultadosEmBuscas[i].update.campo != NULL)
-                free(resultadosEmBuscas[i].update.campo);
-            if (resultadosEmBuscas[i].update.valor != NULL)
-                free(resultadosEmBuscas[i].update.valor);
-            if (resultadosEmBuscas[i].registrosBusca != NULL)
-                free(resultadosEmBuscas[i].registrosBusca);
+            liberar_resultado_busca(&resultadosEmBuscas[i]);
             continue;
         }
 
@@ -115,12 +106,9 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idPessoa,
                                         &atualizacoes[indexAtualizacao].idPessoaNovo);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
+
             // Libera campos Parametro
-            free(resultadosEmBuscas[i].busca.campo);
-            free(resultadosEmBuscas[i].busca.valor);
-            free(resultadosEmBuscas[i].update.campo);
-            free(resultadosEmBuscas[i].update.valor);
+            liberar_resultado_busca(&resultadosEmBuscas[i]);
             nAtualizacoes += j;
         }
         // Indice da regra = 1
@@ -134,12 +122,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_inteiro(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->idadePessoa,
                                         &atualizacoes[indexAtualizacao].registro->idadePessoa);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
-            // Libera campos Parametro
-            free(resultadosEmBuscas[i].busca.campo);
-            free(resultadosEmBuscas[i].busca.valor);
-            free(resultadosEmBuscas[i].update.campo);
-            free(resultadosEmBuscas[i].update.valor);
+
             nAtualizacoes += j;
         }
         // Indice da regra = 2
@@ -153,12 +136,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomePessoa,
                                        &atualizacoes[indexAtualizacao].registro->nomePessoa, &registrosBusca[j]->registro->tamanhoNomePessoa);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
-            // Libera campos Parametro
-            free(resultadosEmBuscas[i].busca.campo);
-            free(resultadosEmBuscas[i].busca.valor);
-            free(resultadosEmBuscas[i].update.campo);
-            free(resultadosEmBuscas[i].update.valor);
+
             nAtualizacoes += j;
         }
         // Indice da regra = 3
@@ -172,23 +150,15 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                 atualizar_campo_string(&atualizacoes[indexAtualizacao], u, registrosBusca[j]->registro->nomeUsuario,
                                        &atualizacoes[indexAtualizacao].registro->nomeUsuario, &registrosBusca[j]->registro->tamanhoNomeUsuario);
             }
-            free(resultadosEmBuscas[i].registrosBusca);
-            // Libera campos Parametro
-            free(resultadosEmBuscas[i].busca.campo);
-            free(resultadosEmBuscas[i].busca.valor);
-            free(resultadosEmBuscas[i].update.campo);
-            free(resultadosEmBuscas[i].update.valor);
+
             nAtualizacoes += j;
         }
         else
         {
             // Campo de update não reconhecido - libera memória sem processar
-            free(resultadosEmBuscas[i].registrosBusca);
-            free(resultadosEmBuscas[i].busca.campo);
-            free(resultadosEmBuscas[i].busca.valor);
-            free(resultadosEmBuscas[i].update.campo);
-            free(resultadosEmBuscas[i].update.valor);
         }
+
+        liberar_resultado_busca(&resultadosEmBuscas[i]);
     }
     free(resultadosEmBuscas);
 
@@ -353,24 +323,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
     if (nRegsEncontrados == 0)
     {
-        if (resultadosEmBuscas)
-        {
-            // Libera campos internos de cada busca antes de liberar o array
-            for (int i = 0; i < buscas; i++)
-            {
-                if (resultadosEmBuscas[i].busca.campo != NULL)
-                    free(resultadosEmBuscas[i].busca.campo);
-                if (resultadosEmBuscas[i].busca.valor != NULL)
-                    free(resultadosEmBuscas[i].busca.valor);
-                if (resultadosEmBuscas[i].update.campo != NULL)
-                    free(resultadosEmBuscas[i].update.campo);
-                if (resultadosEmBuscas[i].update.valor != NULL)
-                    free(resultadosEmBuscas[i].update.valor);
-                if (resultadosEmBuscas[i].registrosBusca != NULL)
-                    free(resultadosEmBuscas[i].registrosBusca);
-            }
-            free(resultadosEmBuscas);
-        }
+        liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         printf("Nenhum registro encontrado.\n");
         return 0;
     }
@@ -387,20 +340,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     {
         printf(FALHA_AO_ALOCAR);
         // Libera memória de resultadosEmBuscas e seus campos internos
-        for (int i = 0; i < buscas; i++)
-        {
-            if (resultadosEmBuscas[i].busca.campo != NULL)
-                free(resultadosEmBuscas[i].busca.campo);
-            if (resultadosEmBuscas[i].busca.valor != NULL)
-                free(resultadosEmBuscas[i].busca.valor);
-            if (resultadosEmBuscas[i].update.campo != NULL)
-                free(resultadosEmBuscas[i].update.campo);
-            if (resultadosEmBuscas[i].update.valor != NULL)
-                free(resultadosEmBuscas[i].update.valor);
-            if (resultadosEmBuscas[i].registrosBusca != NULL)
-                free(resultadosEmBuscas[i].registrosBusca);
-        }
-        free(resultadosEmBuscas);
+        liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         return -1;
     }
 
