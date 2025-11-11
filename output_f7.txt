@@ -1,0 +1,3520 @@
+Cabeçalho:
+  - Próximo Byte Offset: 20892
+  - Quantidade Removidos: 93
+  - Quantidade Pessoas: 409
+Status: 1
+
+Registro em 17 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (18): JOSE PEDRO PIMENTA
+  - Lixo: 0 bytes
+  - ID: 268
+  - Idade: -1
+  - Usuario (5): JOSE7
+
+Registro em 61 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (15): HELLENA MACHADO
+  - Lixo: 0 bytes
+  - ID: 69
+  - Idade: -1
+  - Usuario (8): HMACHADO
+
+Registro em 105 | Tamanho Declarado: 48 | Removido: '1'
+  - Nome (23): MARIA FERNANDA TEIXEIRA
+  - Lixo: 0 bytes
+  - ID: 189
+  - Idade: -1
+  - Usuario (9): MTEIXEIRA
+
+Registro em 158 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (13): ANA LIZ PIRES
+  - Lixo: 0 bytes
+  - ID: 261
+  - Idade: 39
+  - Usuario (4): ANA5
+
+Registro em 196 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 197
+  - Idade: 81
+  - Usuario (9): AFERREIRA
+
+Registro em 226 | Tamanho Declarado: 24 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 94
+  - Idade: 81
+  - Usuario (8): MATEUS90
+
+Registro em 255 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): HELLENA ALVES
+  - Lixo: 0 bytes
+  - ID: 473
+  - Idade: 41
+  - Usuario (6): HALVES
+
+Registro em 295 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (14): EVELYN REZENDE
+  - Lixo: 0 bytes
+  - ID: 307
+  - Idade: -1
+  - Usuario (7): EVELYN7
+
+Registro em 337 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): JULIA FOGACA
+  - Lixo: 0 bytes
+  - ID: 81
+  - Idade: 19
+  - Usuario (7): JFOGACA
+
+Registro em 377 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): MAYA BORGES
+  - Lixo: 0 bytes
+  - ID: 140
+  - Idade: 35
+  - Usuario (6): MAYA83
+
+Registro em 415 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): STEPHANY CAMARA
+  - Lixo: 0 bytes
+  - ID: 318
+  - Idade: 60
+  - Usuario (9): STEPHANY6
+
+Registro em 460 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (18): JOAO PEDRO PEIXOTO
+  - Lixo: 0 bytes
+  - ID: 107
+  - Idade: 76
+  - Usuario (6): JOAO78
+
+Registro em 505 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (18): JOAO VITOR ALMEIDA
+  - Lixo: 0 bytes
+  - ID: 83
+  - Idade: 64
+  - Usuario (8): JALMEIDA
+
+Registro em 552 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 293
+  - Idade: 97
+  - Usuario (9): NATALIA84
+
+Registro em 582 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (12): ALANA ARAUJO
+  - Lixo: 0 bytes
+  - ID: 168
+  - Idade: -1
+  - Usuario (11): ALANAARAUJO
+
+Registro em 626 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 444
+  - Idade: 42
+  - Usuario (7): REBECA6
+
+Registro em 654 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (17): LUCCA CASA GRANDE
+  - Lixo: 0 bytes
+  - ID: 483
+  - Idade: 90
+  - Usuario (11): LUCCAGRANDE
+
+Registro em 703 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 72
+  - Idade: 67
+  - Usuario (6): JROCHA
+
+Registro em 730 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): ANA APARECIDA
+  - Lixo: 0 bytes
+  - ID: 215
+  - Idade: 88
+  - Usuario (12): ANAAPARECIDA
+
+Registro em 776 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (21): LUCAS GABRIEL CARDOSO
+  - Lixo: 0 bytes
+  - ID: 478
+  - Idade: 87
+  - Usuario (12): LUCASCARDOSO
+
+Registro em 830 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 153
+  - Idade: 59
+  - Usuario (9): BRENOMATA
+
+Registro em 860 | Tamanho Declarado: 24 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 251
+  - Idade: 51
+  - Usuario (8): HELOISA5
+
+Registro em 889 | Tamanho Declarado: 28 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 65
+  - Idade: -1
+  - Usuario (12): MARIAANDRADE
+
+Registro em 922 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): MANUELA ABREU
+  - Lixo: 0 bytes
+  - ID: 228
+  - Idade: 73
+  - Usuario (12): MANUELAABREU
+
+Registro em 968 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (18): MARIA LAURA VIEIRA
+  - Lixo: 0 bytes
+  - ID: 273
+  - Idade: 72
+  - Usuario (12): MARIAVIEIRA1
+
+Registro em 1019 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (13): PIETRA VARGAS
+  - Lixo: 0 bytes
+  - ID: 344
+  - Idade: -1
+  - Usuario (12): PIETRAVARGAS
+
+Registro em 1065 | Tamanho Declarado: 47 | Removido: '0'
+  - Nome (16): ISABELLA CARDOSO
+  - Lixo: 0 bytes
+  - ID: 284
+  - Idade: 84
+  - Usuario (15): ISABELLACARDOSO
+
+Registro em 1117 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): RYAN MENDES
+  - Lixo: 0 bytes
+  - ID: 249
+  - Idade: 52
+  - Usuario (10): RYANMENDES
+
+Registro em 1159 | Tamanho Declarado: 23 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 19
+  - Idade: -1
+  - Usuario (7): HBORGES
+
+Registro em 1187 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (15): DAVI LUIZ ALVES
+  - Lixo: 0 bytes
+  - ID: 290
+  - Idade: 90
+  - Usuario (5): DAVI5
+
+Registro em 1228 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (11): DIOGO SOUZA
+  - Lixo: 0 bytes
+  - ID: 305
+  - Idade: 82
+  - Usuario (7): DIOGO36
+
+Registro em 1267 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (13): ENZO SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 327
+  - Idade: -1
+  - Usuario (6): ENZO58
+
+Registro em 1307 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): LUAN ANDRADE
+  - Lixo: 0 bytes
+  - ID: 271
+  - Idade: 52
+  - Usuario (6): LUAN46
+
+Registro em 1346 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): EDUARDO FONSECA
+  - Lixo: 0 bytes
+  - ID: 182
+  - Idade: 66
+  - Usuario (14): EDUARDOFONSECA
+
+Registro em 1396 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (13): YAGO NOGUEIRA
+  - Lixo: 0 bytes
+  - ID: 269
+  - Idade: 43
+  - Usuario (5): YAGO8
+
+Registro em 1435 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): HEITOR FARIAS
+  - Lixo: 0 bytes
+  - ID: 203
+  - Idade: 51
+  - Usuario (7): HEITOR6
+
+Registro em 1476 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (13): LAVINIA SILVA
+  - Lixo: 0 bytes
+  - ID: 437
+  - Idade: 29
+  - Usuario (9): LAVINIA47
+
+Registro em 1519 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (18): ANA LIVIA CASSIANO
+  - Lixo: 0 bytes
+  - ID: 299
+  - Idade: 55
+  - Usuario (11): ANACASSIANO
+
+Registro em 1569 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 128
+  - Idade: 90
+  - Usuario (7): RARAGAO
+
+Registro em 1597 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): AURORA ARAGAO
+  - Lixo: 0 bytes
+  - ID: 346
+  - Idade: 27
+  - Usuario (7): AARAGAO
+
+Registro em 1638 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (17): MARIA JULIA NUNES
+  - Lixo: 0 bytes
+  - ID: 349
+  - Idade: 100
+  - Usuario (6): MNUNES
+
+Registro em 1682 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (21): HENRY GABRIEL ALMEIDA
+  - Lixo: 0 bytes
+  - ID: 239
+  - Idade: 68
+  - Usuario (12): HENRYALMEIDA
+
+Registro em 1736 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (16): VITOR GABRIEL SA
+  - Lixo: 0 bytes
+  - ID: 421
+  - Idade: 48
+  - Usuario (6): VITOR2
+
+Registro em 1779 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (12): RAEL MARTINS
+  - Lixo: 0 bytes
+  - ID: 321
+  - Idade: 85
+  - Usuario (8): RMARTINS
+
+Registro em 1820 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (19): MARIA LUIZA DA CRUZ
+  - Lixo: 0 bytes
+  - ID: 311
+  - Idade: 97
+  - Usuario (5): MCRUZ
+
+Registro em 1865 | Tamanho Declarado: 27 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 179
+  - Idade: 79
+  - Usuario (11): JOAOMARQUES
+
+Registro em 1897 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): AGATHA SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 434
+  - Idade: 37
+  - Usuario (8): AGATHA51
+
+Registro em 1941 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (18): JOAO FELIPE CASTRO
+  - Lixo: 0 bytes
+  - ID: 124
+  - Idade: 76
+  - Usuario (5): JOAO6
+
+Registro em 1985 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 382
+  - Idade: 60
+  - Usuario (9): NATALIA32
+
+Registro em 2015 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): SARA ALMEIDA
+  - Lixo: 0 bytes
+  - ID: 454
+  - Idade: 40
+  - Usuario (6): SARA58
+
+Registro em 2054 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (12): KAIQUE ABREU
+  - Lixo: 0 bytes
+  - ID: 401
+  - Idade: 38
+  - Usuario (8): KAIQUE67
+
+Registro em 2095 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): OLIVER VIANA
+  - Lixo: 0 bytes
+  - ID: 98
+  - Idade: 30
+  - Usuario (6): OVIANA
+
+Registro em 2134 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): CALEB CAMPOS
+  - Lixo: 0 bytes
+  - ID: 133
+  - Idade: 19
+  - Usuario (7): CALEB45
+
+Registro em 2174 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): ALEXIA OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 400
+  - Idade: 26
+  - Usuario (8): ALEXIA93
+
+Registro em 2218 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (13): BELLA MARQUES
+  - Lixo: 0 bytes
+  - ID: 265
+  - Idade: -1
+  - Usuario (7): BELLA32
+
+Registro em 2259 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (20): LUIZ OTAVIO DA ROCHA
+  - Lixo: 0 bytes
+  - ID: 49
+  - Idade: 36
+  - Usuario (10): LUIZROCHA1
+
+Registro em 2310 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): NOAH MORAES
+  - Lixo: 0 bytes
+  - ID: 475
+  - Idade: 37
+  - Usuario (6): NOAH31
+
+Registro em 2348 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): MAITE SAMPAIO
+  - Lixo: 0 bytes
+  - ID: 45
+  - Idade: 48
+  - Usuario (7): MAITE82
+
+Registro em 2389 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): ALEXIA MONTEIRO
+  - Lixo: 0 bytes
+  - ID: 468
+  - Idade: 70
+  - Usuario (9): AMONTEIRO
+
+Registro em 2434 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): LAVINIA VARGAS
+  - Lixo: 0 bytes
+  - ID: 192
+  - Idade: 40
+  - Usuario (13): LAVINIAVARGAS
+
+Registro em 2482 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): LORENZO SOUZA
+  - Lixo: 0 bytes
+  - ID: 462
+  - Idade: 77
+  - Usuario (6): LSOUZA
+
+Registro em 2522 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): JULIA SOUSA
+  - Lixo: 0 bytes
+  - ID: 70
+  - Idade: 33
+  - Usuario (6): JULIA5
+
+Registro em 2560 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (13): PIETRA FOGACA
+  - Lixo: 0 bytes
+  - ID: 241
+  - Idade: -1
+  - Usuario (7): PIETRA6
+
+Registro em 2601 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (19): MARIA VITORIA ROCHA
+  - Lixo: 0 bytes
+  - ID: 366
+  - Idade: 36
+  - Usuario (11): MARIAROCHA1
+
+Registro em 2652 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 330
+  - Idade: 71
+  - Usuario (6): ACUNHA
+
+Registro em 2679 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (17): BRUNA VASCONCELOS
+  - Lixo: 0 bytes
+  - ID: 264
+  - Idade: 56
+  - Usuario (16): BRUNAVASCONCELOS
+
+Registro em 2733 | Tamanho Declarado: 28 | Removido: '0'
+  - Nome (9): APOLLO SA
+  - Lixo: 0 bytes
+  - ID: 470
+  - Idade: 19
+  - Usuario (3): ASA
+
+Registro em 2766 | Tamanho Declarado: 51 | Removido: '0'
+  - Nome (24): MARIA CECILIA NASCIMENTO
+  - Lixo: 0 bytes
+  - ID: 30
+  - Idade: 100
+  - Usuario (11): MNASCIMENTO
+
+Registro em 2822 | Tamanho Declarado: 25 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 159
+  - Idade: -1
+  - Usuario (9): VINICIUS6
+
+Registro em 2852 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (22): VITOR GABRIEL SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 426
+  - Idade: 55
+  - Usuario (6): VITOR8
+
+Registro em 2901 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): LARA VARGAS
+  - Lixo: 0 bytes
+  - ID: 22
+  - Idade: 72
+  - Usuario (6): LARA85
+
+Registro em 2939 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (21): PEDRO MIGUEL SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 250
+  - Idade: 99
+  - Usuario (7): PEDRO92
+
+Registro em 2988 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (19): EMANUELLY FERNANDES
+  - Lixo: 0 bytes
+  - ID: 33
+  - Idade: 53
+  - Usuario (11): EMANUELLY87
+
+Registro em 3039 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (18): JOAO PEDRO DA MOTA
+  - Lixo: 0 bytes
+  - ID: 218
+  - Idade: 72
+  - Usuario (5): JMOTA
+
+Registro em 3083 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): MURILO BARROS
+  - Lixo: 0 bytes
+  - ID: 111
+  - Idade: 53
+  - Usuario (12): MURILOBARROS
+
+Registro em 3129 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (13): VITORIA RAMOS
+  - Lixo: 0 bytes
+  - ID: 247
+  - Idade: -1
+  - Usuario (12): VITORIARAMOS
+
+Registro em 3175 | Tamanho Declarado: 45 | Removido: '1'
+  - Nome (15): EVELYN MENDONCA
+  - Lixo: 0 bytes
+  - ID: 144
+  - Idade: -1
+  - Usuario (14): EVELYNMENDONCA
+
+Registro em 3225 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (17): JOSE MIGUEL COSTA
+  - Lixo: 0 bytes
+  - ID: 61
+  - Idade: 68
+  - Usuario (9): JOSECOSTA
+
+Registro em 3272 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (17): CATARINA DA COSTA
+  - Lixo: 0 bytes
+  - ID: 82
+  - Idade: 75
+  - Usuario (13): CATARINACOSTA
+
+Registro em 3323 | Tamanho Declarado: 42 | Removido: '1'
+  - Nome (17): NATALIA FERNANDES
+  - Lixo: 0 bytes
+  - ID: 74
+  - Idade: -1
+  - Usuario (9): NATALIA96
+
+Registro em 3370 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (14): THEO DAS NEVES
+  - Lixo: 0 bytes
+  - ID: 88
+  - Idade: 39
+  - Usuario (6): THEO96
+
+Registro em 3411 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (13): REBECA NOVAIS
+  - Lixo: 0 bytes
+  - ID: 62
+  - Idade: -1
+  - Usuario (12): REBECANOVAIS
+
+Registro em 3457 | Tamanho Declarado: 47 | Removido: '0'
+  - Nome (16): VALENTIM SAMPAIO
+  - Lixo: 0 bytes
+  - ID: 427
+  - Idade: 60
+  - Usuario (15): VALENTIMSAMPAIO
+
+Registro em 3509 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (11): IAN CAMARGO
+  - Lixo: 0 bytes
+  - ID: 450
+  - Idade: 64
+  - Usuario (11): IANCAMARGO1
+
+Registro em 3552 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (16): CLARICE DA CUNHA
+  - Lixo: 0 bytes
+  - ID: 353
+  - Idade: 24
+  - Usuario (6): CCUNHA
+
+Registro em 3595 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (17): ANA CAROLINA LIMA
+  - Lixo: 0 bytes
+  - ID: 181
+  - Idade: 42
+  - Usuario (7): ANALIMA
+
+Registro em 3640 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 217
+  - Idade: 64
+  - Usuario (7): ISABEL7
+
+Registro em 3668 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): THEO RODRIGUES
+  - Lixo: 0 bytes
+  - ID: 384
+  - Idade: 45
+  - Usuario (13): THEORODRIGUES
+
+Registro em 3716 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): NATALIA VIEIRA
+  - Lixo: 0 bytes
+  - ID: 374
+  - Idade: 39
+  - Usuario (13): NATALIAVIEIRA
+
+Registro em 3764 | Tamanho Declarado: 24 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 332
+  - Idade: 23
+  - Usuario (8): MATTEO40
+
+Registro em 3793 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (14): VICENTE PASTOR
+  - Lixo: 0 bytes
+  - ID: 213
+  - Idade: 57
+  - Usuario (9): VICENTE24
+
+Registro em 3837 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): THOMAS SALES
+  - Lixo: 0 bytes
+  - ID: 386
+  - Idade: 72
+  - Usuario (11): THOMASSALES
+
+Registro em 3881 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (17): ALLANA CAVALCANTI
+  - Lixo: 0 bytes
+  - ID: 252
+  - Idade: 68
+  - Usuario (8): ALLANA89
+
+Registro em 3927 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (22): ARTHUR GABRIEL FONSECA
+  - Lixo: 0 bytes
+  - ID: 414
+  - Idade: 18
+  - Usuario (8): ARTHUR44
+
+Registro em 3978 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 112
+  - Idade: 42
+  - Usuario (10): ANACOSTELA
+
+Registro em 4009 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (16): ELISA NASCIMENTO
+  - Lixo: 0 bytes
+  - ID: 442
+  - Idade: 85
+  - Usuario (7): ELISA10
+
+Registro em 4053 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (13): DANIEL BARROS
+  - Lixo: 0 bytes
+  - ID: 389
+  - Idade: -1
+  - Usuario (7): DANIEL6
+
+Registro em 4094 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (11): RYAN GARCIA
+  - Lixo: 0 bytes
+  - ID: 120
+  - Idade: -1
+  - Usuario (10): RYANGARCIA
+
+Registro em 4136 | Tamanho Declarado: 25 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 254
+  - Idade: -1
+  - Usuario (9): CLARICE11
+
+Registro em 4166 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (13): NOAH CARVALHO
+  - Lixo: 0 bytes
+  - ID: 40
+  - Idade: -1
+  - Usuario (9): NCARVALHO
+
+Registro em 4209 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (11): ERICK ABREU
+  - Lixo: 0 bytes
+  - ID: 347
+  - Idade: -1
+  - Usuario (10): ERICKABREU
+
+Registro em 4251 | Tamanho Declarado: 33 | Removido: '1'
+  - Nome (11): LUNA NOVAIS
+  - Lixo: 0 bytes
+  - ID: 229
+  - Idade: -1
+  - Usuario (6): LUNA40
+
+Registro em 4289 | Tamanho Declarado: 27 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 392
+  - Idade: 71
+  - Usuario (11): ANAPEREIRA1
+
+Registro em 4321 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): CLARA ARAGAO
+  - Lixo: 0 bytes
+  - ID: 50
+  - Idade: 59
+  - Usuario (7): CLARA81
+
+Registro em 4361 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 371
+  - Idade: 67
+  - Usuario (7): BENTO23
+
+Registro em 4389 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (15): VITOR GONCALVES
+  - Lixo: 0 bytes
+  - ID: 410
+  - Idade: 54
+  - Usuario (7): VITOR64
+
+Registro em 4432 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (15): SOPHIE CASSIANO
+  - Lixo: 0 bytes
+  - ID: 325
+  - Idade: 99
+  - Usuario (7): SOPHIE8
+
+Registro em 4475 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): PEDRO NOVAES
+  - Lixo: 0 bytes
+  - ID: 308
+  - Idade: 46
+  - Usuario (7): PEDRO27
+
+Registro em 4515 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): BENICIO RAMOS
+  - Lixo: 0 bytes
+  - ID: 430
+  - Idade: 61
+  - Usuario (12): BENICIORAMOS
+
+Registro em 4561 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): JUAN DA ROSA
+  - Lixo: 0 bytes
+  - ID: 1
+  - Idade: 34
+  - Usuario (6): JUAN76
+
+Registro em 4600 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): DAVI LUCAS LEAO
+  - Lixo: 0 bytes
+  - ID: 258
+  - Idade: 36
+  - Usuario (8): DAVILEAO
+
+Registro em 4644 | Tamanho Declarado: 52 | Removido: '0'
+  - Nome (22): ARTHUR MIGUEL OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 481
+  - Idade: 92
+  - Usuario (14): ARTHUROLIVEIRA
+
+Registro em 4701 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): JULIA MACHADO
+  - Lixo: 0 bytes
+  - ID: 301
+  - Idade: 85
+  - Usuario (6): JULIA7
+
+Registro em 4741 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (17): LUIZ FELIPE CUNHA
+  - Lixo: 0 bytes
+  - ID: 58
+  - Idade: 93
+  - Usuario (6): LCUNHA
+
+Registro em 4785 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): DANIELA PINTO
+  - Lixo: 0 bytes
+  - ID: 20
+  - Idade: 85
+  - Usuario (12): DANIELAPINTO
+
+Registro em 4831 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (18): MARIA CLARA DUARTE
+  - Lixo: 0 bytes
+  - ID: 240
+  - Idade: 37
+  - Usuario (11): MARIADUARTE
+
+Registro em 4881 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (11): YURI NOVAIS
+  - Lixo: 0 bytes
+  - ID: 231
+  - Idade: 26
+  - Usuario (7): YNOVAIS
+
+Registro em 4920 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (19): MARIA LIZ DAS NEVES
+  - Lixo: 0 bytes
+  - ID: 365
+  - Idade: 49
+  - Usuario (6): MNEVES
+
+Registro em 4966 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (17): VINICIUS CASSIANO
+  - Lixo: 0 bytes
+  - ID: 85
+  - Idade: 85
+  - Usuario (16): VINICIUSCASSIANO
+
+Registro em 5020 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): LUCAS GUERRA
+  - Lixo: 0 bytes
+  - ID: 108
+  - Idade: 53
+  - Usuario (7): LGUERRA
+
+Registro em 5060 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): LUIZA NOGUEIRA
+  - Lixo: 0 bytes
+  - ID: 335
+  - Idade: 34
+  - Usuario (13): LUIZANOGUEIRA
+
+Registro em 5108 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (20): GAEL HENRIQUE MENDES
+  - Lixo: 0 bytes
+  - ID: 419
+  - Idade: 42
+  - Usuario (7): GMENDES
+
+Registro em 5156 | Tamanho Declarado: 43 | Removido: '1'
+  - Nome (14): JOAQUIM FOGACA
+  - Lixo: 0 bytes
+  - ID: 34
+  - Idade: -1
+  - Usuario (13): JOAQUIMFOGACA
+
+Registro em 5204 | Tamanho Declarado: 27 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 288
+  - Idade: 33
+  - Usuario (11): NATHANNEVES
+
+Registro em 5236 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): NINA CASTRO
+  - Lixo: 0 bytes
+  - ID: 375
+  - Idade: 77
+  - Usuario (10): NINACASTRO
+
+Registro em 5278 | Tamanho Declarado: 24 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 440
+  - Idade: 69
+  - Usuario (8): EVELYN68
+
+Registro em 5307 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (16): GIOVANNA COSTELA
+  - Lixo: 0 bytes
+  - ID: 32
+  - Idade: 35
+  - Usuario (8): GCOSTELA
+
+Registro em 5352 | Tamanho Declarado: 46 | Removido: '1'
+  - Nome (23): MARCOS VINICIUS MOREIRA
+  - Lixo: 0 bytes
+  - ID: 95
+  - Idade: -1
+  - Usuario (7): MARCOS7
+
+Registro em 5403 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 257
+  - Idade: 33
+  - Usuario (5): ANA59
+
+Registro em 5429 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): EMANUEL BARBOSA
+  - Lixo: 0 bytes
+  - ID: 451
+  - Idade: 56
+  - Usuario (8): EBARBOSA
+
+Registro em 5473 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (14): ALEXIA AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 303
+  - Idade: -1
+  - Usuario (8): ALEXIA48
+
+Registro em 5516 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (21): JOAO FELIPE GONCALVES
+  - Lixo: 0 bytes
+  - ID: 291
+  - Idade: 27
+  - Usuario (5): JOAO9
+
+Registro em 5563 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (14): RAFAELA FARIAS
+  - Lixo: 0 bytes
+  - ID: 37
+  - Idade: 66
+  - Usuario (9): RAFAELA60
+
+Registro em 5607 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): LIAM CAMARGO
+  - Lixo: 0 bytes
+  - ID: 86
+  - Idade: 72
+  - Usuario (11): LIAMCAMARGO
+
+Registro em 5651 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (15): ANA JULIA ABREU
+  - Lixo: 0 bytes
+  - ID: 6
+  - Idade: 85
+  - Usuario (6): AABREU
+
+Registro em 5693 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): CALEB SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 224
+  - Idade: 20
+  - Usuario (7): CALEB93
+
+Registro em 5735 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (16): SABRINA MENDONCA
+  - Lixo: 0 bytes
+  - ID: 221
+  - Idade: -1
+  - Usuario (9): SMENDONCA
+
+Registro em 5781 | Tamanho Declarado: 40 | Removido: '1'
+  - Nome (17): RHAVI VASCONCELOS
+  - Lixo: 0 bytes
+  - ID: 27
+  - Idade: -1
+  - Usuario (7): RHAVI11
+
+Registro em 5826 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 205
+  - Idade: 27
+  - Usuario (6): MARIA7
+
+Registro em 5853 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (17): JOSE MIGUEL GOMES
+  - Lixo: 0 bytes
+  - ID: 99
+  - Idade: 69
+  - Usuario (9): JOSEGOMES
+
+Registro em 5900 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 499
+  - Idade: 19
+  - Usuario (7): KAIQUE6
+
+Registro em 5928 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): MARIAH MACEDO
+  - Lixo: 0 bytes
+  - ID: 406
+  - Idade: 56
+  - Usuario (7): MARIAH6
+
+Registro em 5969 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 314
+  - Idade: 32
+  - Usuario (9): ANAFARIAS
+
+Registro em 5999 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (18): MARIA LUIZA ARAGAO
+  - Lixo: 0 bytes
+  - ID: 117
+  - Idade: 35
+  - Usuario (12): MARIAARAGAO1
+
+Registro em 6050 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (10): JOSE ABREU
+  - Lixo: 0 bytes
+  - ID: 53
+  - Idade: 59
+  - Usuario (9): JOSEABREU
+
+Registro em 6090 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (12): LUCCA CIRINO
+  - Lixo: 0 bytes
+  - ID: 463
+  - Idade: -1
+  - Usuario (7): LUCCA11
+
+Registro em 6130 | Tamanho Declarado: 27 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 429
+  - Idade: 20
+  - Usuario (11): NICOLECOSTA
+
+Registro em 6162 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (14): BENTO DA ROCHA
+  - Lixo: 0 bytes
+  - ID: 373
+  - Idade: 29
+  - Usuario (6): BROCHA
+
+Registro em 6203 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (10): CAUA MOURA
+  - Lixo: 0 bytes
+  - ID: 167
+  - Idade: 91
+  - Usuario (9): CAUAMOURA
+
+Registro em 6243 | Tamanho Declarado: 24 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 207
+  - Idade: -1
+  - Usuario (8): ALLANA22
+
+Registro em 6272 | Tamanho Declarado: 20 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 146
+  - Idade: -1
+  - Usuario (4): DOM7
+
+Registro em 6297 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): YURI PACHECO
+  - Lixo: 0 bytes
+  - ID: 471
+  - Idade: 58
+  - Usuario (11): YURIPACHECO
+
+Registro em 6341 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (20): VITOR GABRIEL NOVAES
+  - Lixo: 0 bytes
+  - ID: 352
+  - Idade: 75
+  - Usuario (7): VNOVAES
+
+Registro em 6389 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (20): MARIA LUISA OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 178
+  - Idade: 43
+  - Usuario (13): MARIAOLIVEIRA
+
+Registro em 6443 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 84
+  - Idade: 59
+  - Usuario (7): ACAMPOS
+
+Registro em 6471 | Tamanho Declarado: 53 | Removido: '1'
+  - Nome (19): BARBARA ALBUQUERQUE
+  - Lixo: 0 bytes
+  - ID: 170
+  - Idade: -1
+  - Usuario (18): BARBARAALBUQUERQUE
+
+Registro em 6529 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): MARIA PIRES
+  - Lixo: 0 bytes
+  - ID: 422
+  - Idade: 39
+  - Usuario (10): MARIAPIRES
+
+Registro em 6571 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (20): PEDRO HENRIQUE ALVES
+  - Lixo: 0 bytes
+  - ID: 202
+  - Idade: 90
+  - Usuario (7): PEDRO22
+
+Registro em 6619 | Tamanho Declarado: 20 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 87
+  - Idade: 94
+  - Usuario (4): IAN7
+
+Registro em 6644 | Tamanho Declarado: 28 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 428
+  - Idade: 74
+  - Usuario (12): ENZOMOREIRA1
+
+Registro em 6677 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): MARIAH FONSECA
+  - Lixo: 0 bytes
+  - ID: 316
+  - Idade: 19
+  - Usuario (13): MARIAHFONSECA
+
+Registro em 6725 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): MAYSA ARAUJO
+  - Lixo: 0 bytes
+  - ID: 150
+  - Idade: 54
+  - Usuario (7): MARAUJO
+
+Registro em 6765 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 96
+  - Idade: 61
+  - Usuario (7): MARIA59
+
+Registro em 6793 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (17): JOSE MIGUEL CUNHA
+  - Lixo: 0 bytes
+  - ID: 90
+  - Idade: 51
+  - Usuario (9): JOSECUNHA
+
+Registro em 6840 | Tamanho Declarado: 31 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 286
+  - Idade: 76
+  - Usuario (15): EMILLYFERNANDES
+
+Registro em 6876 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): CAUA CAMARA
+  - Lixo: 0 bytes
+  - ID: 31
+  - Idade: 86
+  - Usuario (10): CAUACAMARA
+
+Registro em 6918 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (15): ANA LIVIA GOMES
+  - Lixo: 0 bytes
+  - ID: 11
+  - Idade: 53
+  - Usuario (5): ANA11
+
+Registro em 6959 | Tamanho Declarado: 32 | Removido: '0'
+  - Nome (12): LEO DA ROCHA
+  - Lixo: 0 bytes
+  - ID: 21
+  - Idade: 20
+  - Usuario (4): LEO5
+
+Registro em 6996 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (16): ISABELA DA COSTA
+  - Lixo: 0 bytes
+  - ID: 482
+  - Idade: 23
+  - Usuario (12): ISABELACOSTA
+
+Registro em 7045 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (13): RAVI OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 355
+  - Idade: 81
+  - Usuario (5): RAVI8
+
+Registro em 7084 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 411
+  - Idade: 38
+  - Usuario (7): NICOLE7
+
+Registro em 7112 | Tamanho Declarado: 29 | Removido: '1'
+  - Nome (9): DOM MOURA
+  - Lixo: 0 bytes
+  - ID: 348
+  - Idade: -1
+  - Usuario (4): DOM5
+
+Registro em 7146 | Tamanho Declarado: 47 | Removido: '0'
+  - Nome (16): EMANUELLY GUERRA
+  - Lixo: 0 bytes
+  - ID: 234
+  - Idade: 74
+  - Usuario (15): EMANUELLYGUERRA
+
+Registro em 7198 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 89
+  - Idade: 46
+  - Usuario (6): DSALES
+
+Registro em 7225 | Tamanho Declarado: 40 | Removido: '1'
+  - Nome (14): FERNANDO RAMOS
+  - Lixo: 0 bytes
+  - ID: 211
+  - Idade: -1
+  - Usuario (10): FERNANDO52
+
+Registro em 7270 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (15): MATTEO TEIXEIRA
+  - Lixo: 0 bytes
+  - ID: 469
+  - Idade: 59
+  - Usuario (7): MATTEO8
+
+Registro em 7313 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (17): ANA LAURA FONSECA
+  - Lixo: 0 bytes
+  - ID: 416
+  - Idade: 71
+  - Usuario (8): AFONSECA
+
+Registro em 7359 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (18): MARIA JULIA NOVAIS
+  - Lixo: 0 bytes
+  - ID: 126
+  - Idade: 90
+  - Usuario (7): MARIA80
+
+Registro em 7405 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): BARBARA VIANA
+  - Lixo: 0 bytes
+  - ID: 312
+  - Idade: 73
+  - Usuario (6): BVIANA
+
+Registro em 7445 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): FERNANDA VARGAS
+  - Lixo: 0 bytes
+  - ID: 194
+  - Idade: 30
+  - Usuario (9): FERNANDA6
+
+Registro em 7490 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (16): ANA LIVIA ARAGAO
+  - Lixo: 0 bytes
+  - ID: 248
+  - Idade: -1
+  - Usuario (5): ANA33
+
+Registro em 7532 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): CALEB VIANA
+  - Lixo: 0 bytes
+  - ID: 78
+  - Idade: 60
+  - Usuario (6): CVIANA
+
+Registro em 7570 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (15): ANTONY NOGUEIRA
+  - Lixo: 0 bytes
+  - ID: 457
+  - Idade: 65
+  - Usuario (7): ANTONY8
+
+Registro em 7613 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): LORENA CAMARA
+  - Lixo: 0 bytes
+  - ID: 143
+  - Idade: 32
+  - Usuario (7): LORENA6
+
+Registro em 7654 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): BEATRIZ DA MOTA
+  - Lixo: 0 bytes
+  - ID: 245
+  - Idade: 30
+  - Usuario (8): BEATRIZ4
+
+Registro em 7698 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (19): LUIZ MIGUEL AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 477
+  - Idade: 43
+  - Usuario (8): LAZEVEDO
+
+Registro em 7746 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (22): MARIA CLARA CAVALCANTI
+  - Lixo: 0 bytes
+  - ID: 476
+  - Idade: 84
+  - Usuario (11): MCAVALCANTI
+
+Registro em 7800 | Tamanho Declarado: 31 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 68
+  - Idade: 27
+  - Usuario (15): YURIALBUQUERQUE
+
+Registro em 7836 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): MANUELA PASTOR
+  - Lixo: 0 bytes
+  - ID: 381
+  - Idade: 21
+  - Usuario (7): MPASTOR
+
+Registro em 7878 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (16): ANA CLARA MENDES
+  - Lixo: 0 bytes
+  - ID: 263
+  - Idade: 77
+  - Usuario (7): AMENDES
+
+Registro em 7922 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (12): LAIS MOREIRA
+  - Lixo: 0 bytes
+  - ID: 438
+  - Idade: 85
+  - Usuario (8): LMOREIRA
+
+Registro em 7963 | Tamanho Declarado: 54 | Removido: '0'
+  - Nome (23): ANTHONY GABRIEL MOREIRA
+  - Lixo: 0 bytes
+  - ID: 230
+  - Idade: 46
+  - Usuario (15): ANTHONYMOREIRA1
+
+Registro em 8022 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): SOPHIE VIANA
+  - Lixo: 0 bytes
+  - ID: 24
+  - Idade: 91
+  - Usuario (7): SOPHIE5
+
+Registro em 8062 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (15): ANA JULIA JESUS
+  - Lixo: 0 bytes
+  - ID: 472
+  - Idade: 37
+  - Usuario (6): AJESUS
+
+Registro em 8104 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (15): PIETRA MENDONCA
+  - Lixo: 0 bytes
+  - ID: 175
+  - Idade: 63
+  - Usuario (7): PIETRA8
+
+Registro em 8147 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (17): MARIA JULIA SALES
+  - Lixo: 0 bytes
+  - ID: 297
+  - Idade: 30
+  - Usuario (11): MARIASALES1
+
+Registro em 8196 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 225
+  - Idade: 56
+  - Usuario (9): MANUELLA6
+
+Registro em 8226 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): SAMUEL BRITO
+  - Lixo: 0 bytes
+  - ID: 191
+  - Idade: 46
+  - Usuario (6): SBRITO
+
+Registro em 8265 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): CALEBE CIRINO
+  - Lixo: 0 bytes
+  - ID: 12
+  - Idade: 93
+  - Usuario (12): CALEBECIRINO
+
+Registro em 8311 | Tamanho Declarado: 29 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 283
+  - Idade: 100
+  - Usuario (13): LAVINIACAMPOS
+
+Registro em 8345 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (17): VALENTINA DA MOTA
+  - Lixo: 0 bytes
+  - ID: 103
+  - Idade: 77
+  - Usuario (10): VALENTINA4
+
+Registro em 8393 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (17): JOAO VITOR ARAUJO
+  - Lixo: 0 bytes
+  - ID: 216
+  - Idade: 31
+  - Usuario (6): JOAO89
+
+Registro em 8437 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (17): ANA JULIA AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 36
+  - Idade: 46
+  - Usuario (4): ANA7
+
+Registro em 8479 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (19): MARIA LUIZA DA MATA
+  - Lixo: 0 bytes
+  - ID: 377
+  - Idade: 72
+  - Usuario (5): MMATA
+
+Registro em 8524 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): HELENA MENDONCA
+  - Lixo: 0 bytes
+  - ID: 177
+  - Idade: 80
+  - Usuario (9): HMENDONCA
+
+Registro em 8569 | Tamanho Declarado: 24 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 467
+  - Idade: 40
+  - Usuario (8): MCAMARGO
+
+Registro em 8598 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (13): LETICIA RAMOS
+  - Lixo: 0 bytes
+  - ID: 270
+  - Idade: 58
+  - Usuario (9): LETICIA43
+
+Registro em 8641 | Tamanho Declarado: 22 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 52
+  - Idade: -1
+  - Usuario (6): GAEL56
+
+Registro em 8668 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (16): ANA LUIZA GUERRA
+  - Lixo: 0 bytes
+  - ID: 388
+  - Idade: 53
+  - Usuario (7): AGUERRA
+
+Registro em 8712 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 490
+  - Idade: 78
+  - Usuario (6): ISILVA
+
+Registro em 8739 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): SOPHIA NUNES
+  - Lixo: 0 bytes
+  - ID: 304
+  - Idade: 19
+  - Usuario (11): SOPHIANUNES
+
+Registro em 8783 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): JOSUE FREITAS
+  - Lixo: 0 bytes
+  - ID: 267
+  - Idade: 75
+  - Usuario (7): JOSUE99
+
+Registro em 8824 | Tamanho Declarado: 27 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 132
+  - Idade: -1
+  - Usuario (11): DAVISAMPAIO
+
+Registro em 8856 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): SAMUEL GUERRA
+  - Lixo: 0 bytes
+  - ID: 459
+  - Idade: 75
+  - Usuario (7): SAMUEL6
+
+Registro em 8897 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): LIAM ARAGAO
+  - Lixo: 0 bytes
+  - ID: 172
+  - Idade: 90
+  - Usuario (10): LIAMARAGAO
+
+Registro em 8939 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): FERNANDO VIANA
+  - Lixo: 0 bytes
+  - ID: 165
+  - Idade: 82
+  - Usuario (13): FERNANDOVIANA
+
+Registro em 8987 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (16): GUILHERME DA LUZ
+  - Lixo: 0 bytes
+  - ID: 76
+  - Idade: 60
+  - Usuario (10): GUILHERME3
+
+Registro em 9034 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (12): ENZO AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 398
+  - Idade: 61
+  - Usuario (5): ENZO7
+
+Registro em 9072 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (17): MIGUEL CAVALCANTI
+  - Lixo: 0 bytes
+  - ID: 148
+  - Idade: 74
+  - Usuario (8): MIGUEL10
+
+Registro em 9118 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): KEVIN FERREIRA
+  - Lixo: 0 bytes
+  - ID: 310
+  - Idade: 94
+  - Usuario (7): KEVIN19
+
+Registro em 9160 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (12): HELENA JESUS
+  - Lixo: 0 bytes
+  - ID: 183
+  - Idade: 47
+  - Usuario (8): HELENA42
+
+Registro em 9201 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): MELISSA DA MOTA
+  - Lixo: 0 bytes
+  - ID: 226
+  - Idade: 54
+  - Usuario (9): MELISSA53
+
+Registro em 9246 | Tamanho Declarado: 47 | Removido: '0'
+  - Nome (16): LUCCA CAVALCANTE
+  - Lixo: 0 bytes
+  - ID: 494
+  - Idade: 67
+  - Usuario (15): LUCCACAVALCANTE
+
+Registro em 9298 | Tamanho Declarado: 32 | Removido: '0'
+  - Nome (12): LEO MONTEIRO
+  - Lixo: 0 bytes
+  - ID: 493
+  - Idade: 26
+  - Usuario (4): LEO8
+
+Registro em 9335 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (18): JOAO LUCAS DA MOTA
+  - Lixo: 0 bytes
+  - ID: 358
+  - Idade: 39
+  - Usuario (9): JOAOMOTA1
+
+Registro em 9383 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): ANTHONY CIRINO
+  - Lixo: 0 bytes
+  - ID: 244
+  - Idade: 70
+  - Usuario (7): ACIRINO
+
+Registro em 9425 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (16): SABRINA SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 357
+  - Idade: 37
+  - Usuario (9): SABRINA76
+
+Registro em 9471 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (21): GAEL HENRIQUE PEREIRA
+  - Lixo: 0 bytes
+  - ID: 212
+  - Idade: 61
+  - Usuario (12): GAELPEREIRA1
+
+Registro em 9525 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): MARIANE GOMES
+  - Lixo: 0 bytes
+  - ID: 57
+  - Idade: 41
+  - Usuario (8): MARIANE5
+
+Registro em 9567 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): MURILO SILVA
+  - Lixo: 0 bytes
+  - ID: 485
+  - Idade: 72
+  - Usuario (6): MSILVA
+
+Registro em 9606 | Tamanho Declarado: 30 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 328
+  - Idade: 18
+  - Usuario (14): RODRIGOMARTINS
+
+Registro em 9641 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (12): GAEL PIMENTA
+  - Lixo: 0 bytes
+  - ID: 102
+  - Idade: 89
+  - Usuario (5): GAEL7
+
+Registro em 9679 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): SARA BARROS
+  - Lixo: 0 bytes
+  - ID: 38
+  - Idade: 43
+  - Usuario (6): SARA72
+
+Registro em 9717 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 289
+  - Idade: 24
+  - Usuario (7): MVIEIRA
+
+Registro em 9745 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): RAFAELA BRITO
+  - Lixo: 0 bytes
+  - ID: 460
+  - Idade: 45
+  - Usuario (12): RAFAELABRITO
+
+Registro em 9791 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): OLIVER NOGUEIRA
+  - Lixo: 0 bytes
+  - ID: 280
+  - Idade: 91
+  - Usuario (14): OLIVERNOGUEIRA
+
+Registro em 9841 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (10): MAYA PIRES
+  - Lixo: 0 bytes
+  - ID: 9
+  - Idade: -1
+  - Usuario (9): MAYAPIRES
+
+Registro em 9881 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (16): GUSTAVO NOGUEIRA
+  - Lixo: 0 bytes
+  - ID: 43
+  - Idade: 100
+  - Usuario (9): GUSTAVO42
+
+Registro em 9927 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): MARIANE FARIAS
+  - Lixo: 0 bytes
+  - ID: 173
+  - Idade: 64
+  - Usuario (7): MFARIAS
+
+Registro em 9969 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (13): ARTHUR DA LUZ
+  - Lixo: 0 bytes
+  - ID: 259
+  - Idade: -1
+  - Usuario (7): ARTHUR3
+
+Registro em 10010 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 292
+  - Idade: 53
+  - Usuario (10): FERNANDA11
+
+Registro em 10041 | Tamanho Declarado: 44 | Removido: '1'
+  - Nome (16): VITORIA DA ROCHA
+  - Lixo: 0 bytes
+  - ID: 298
+  - Idade: -1
+  - Usuario (12): VITORIAROCHA
+
+Registro em 10090 | Tamanho Declarado: 43 | Removido: '1'
+  - Nome (14): MELINA AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 4
+  - Idade: -1
+  - Usuario (13): MELINAAZEVEDO
+
+Registro em 10138 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): DANIEL BORGES
+  - Lixo: 0 bytes
+  - ID: 28
+  - Idade: 30
+  - Usuario (8): DANIEL96
+
+Registro em 10180 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (17): ANA JULIA MARQUES
+  - Lixo: 0 bytes
+  - ID: 188
+  - Idade: 33
+  - Usuario (5): ANA87
+
+Registro em 10223 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (16): AUGUSTO OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 441
+  - Idade: 93
+  - Usuario (8): AUGUSTO8
+
+Registro em 10268 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (18): MARIA JULIA SANTOS
+  - Lixo: 0 bytes
+  - ID: 376
+  - Idade: 87
+  - Usuario (7): MARIA60
+
+Registro em 10314 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 278
+  - Idade: 61
+  - Usuario (9): SABRINA71
+
+Registro em 10344 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 119
+  - Idade: 65
+  - Usuario (5): LUIZ7
+
+Registro em 10370 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): VITOR COSTELA
+  - Lixo: 0 bytes
+  - ID: 474
+  - Idade: 22
+  - Usuario (6): VITOR7
+
+Registro em 10410 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): MIRELLA BARBOSA
+  - Lixo: 0 bytes
+  - ID: 339
+  - Idade: 33
+  - Usuario (8): MBARBOSA
+
+Registro em 10454 | Tamanho Declarado: 32 | Removido: '1'
+  - Nome (10): IAN DA LUZ
+  - Lixo: 0 bytes
+  - ID: 164
+  - Idade: -1
+  - Usuario (6): IANLUZ
+
+Registro em 10491 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): CAMILA JESUS
+  - Lixo: 0 bytes
+  - ID: 169
+  - Idade: 55
+  - Usuario (11): CAMILAJESUS
+
+Registro em 10535 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): JOSE DA CUNHA
+  - Lixo: 0 bytes
+  - ID: 8
+  - Idade: 95
+  - Usuario (6): JCUNHA
+
+Registro em 10575 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): CALEBE CAMARA
+  - Lixo: 0 bytes
+  - ID: 372
+  - Idade: 51
+  - Usuario (12): CALEBECAMARA
+
+Registro em 10621 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): JULIA CAMARA
+  - Lixo: 0 bytes
+  - ID: 236
+  - Idade: 21
+  - Usuario (7): JCAMARA
+
+Registro em 10661 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (20): JOAO MIGUEL FERREIRA
+  - Lixo: 0 bytes
+  - ID: 223
+  - Idade: 90
+  - Usuario (9): JFERREIRA
+
+Registro em 10711 | Tamanho Declarado: 30 | Removido: '0'
+  - Nome (9): JOAO LEAO
+  - Lixo: 0 bytes
+  - ID: 125
+  - Idade: 72
+  - Usuario (5): JOAO4
+
+Registro em 10746 | Tamanho Declarado: 44 | Removido: '1'
+  - Nome (19): GAEL HENRIQUE CUNHA
+  - Lixo: 0 bytes
+  - ID: 42
+  - Idade: -1
+  - Usuario (9): GAELCUNHA
+
+Registro em 10795 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (20): ARTHUR GABRIEL VIANA
+  - Lixo: 0 bytes
+  - ID: 363
+  - Idade: 42
+  - Usuario (6): AVIANA
+
+Registro em 10842 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): ELISA NOVAIS
+  - Lixo: 0 bytes
+  - ID: 47
+  - Idade: 48
+  - Usuario (11): ELISANOVAIS
+
+Registro em 10886 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (15): EDUARDA RIBEIRO
+  - Lixo: 0 bytes
+  - ID: 452
+  - Idade: -1
+  - Usuario (8): ERIBEIRO
+
+Registro em 10930 | Tamanho Declarado: 40 | Removido: '1'
+  - Nome (18): MARIA JULIA MORAES
+  - Lixo: 0 bytes
+  - ID: 56
+  - Idade: -1
+  - Usuario (6): MARIA6
+
+Registro em 10975 | Tamanho Declarado: 31 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 333
+  - Idade: 67
+  - Usuario (15): MANUELLAVIEIRA1
+
+Registro em 11011 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (22): MARIA FERNANDA CARDOSO
+  - Lixo: 0 bytes
+  - ID: 131
+  - Idade: 50
+  - Usuario (7): MARIA44
+
+Registro em 11061 | Tamanho Declarado: 28 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 449
+  - Idade: 72
+  - Usuario (12): THALESMORAES
+
+Registro em 11094 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (15): FERNANDA DA LUZ
+  - Lixo: 0 bytes
+  - ID: 417
+  - Idade: 100
+  - Usuario (11): FERNANDALUZ
+
+Registro em 11141 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (14): ESTER MENDONCA
+  - Lixo: 0 bytes
+  - ID: 80
+  - Idade: 69
+  - Usuario (6): ESTER8
+
+Registro em 11182 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 350
+  - Idade: 53
+  - Usuario (7): AMANDA6
+
+Registro em 11210 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): CAROLINE VARGAS
+  - Lixo: 0 bytes
+  - ID: 206
+  - Idade: 73
+  - Usuario (14): CAROLINEVARGAS
+
+Registro em 11260 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): ANDRE CAMARA
+  - Lixo: 0 bytes
+  - ID: 208
+  - Idade: 80
+  - Usuario (7): ANDRE53
+
+Registro em 11300 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (18): JOSE PEDRO DA MATA
+  - Lixo: 0 bytes
+  - ID: 362
+  - Idade: 68
+  - Usuario (6): JOSE14
+
+Registro em 11345 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (15): VINICIUS ARAGAO
+  - Lixo: 0 bytes
+  - ID: 277
+  - Idade: 40
+  - Usuario (15): VINICIUSARAGAO1
+
+Registro em 11396 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (13): LETICIA COSTA
+  - Lixo: 0 bytes
+  - ID: 25
+  - Idade: -1
+  - Usuario (6): LCOSTA
+
+Registro em 11436 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): EMILLY SIQUEIRA
+  - Lixo: 0 bytes
+  - ID: 486
+  - Idade: 48
+  - Usuario (14): EMILLYSIQUEIRA
+
+Registro em 11486 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): BENICIO BARBOSA
+  - Lixo: 0 bytes
+  - ID: 233
+  - Idade: 91
+  - Usuario (9): BENICIO27
+
+Registro em 11531 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (19): LUIZ HENRIQUE ALVES
+  - Lixo: 0 bytes
+  - ID: 447
+  - Idade: 75
+  - Usuario (10): LUIZALVES1
+
+Registro em 11581 | Tamanho Declarado: 53 | Removido: '1'
+  - Nome (22): ANA SOPHIA VASCONCELOS
+  - Lixo: 0 bytes
+  - ID: 306
+  - Idade: -1
+  - Usuario (15): ANAVASCONCELOS1
+
+Registro em 11639 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (12): BRUNA VIEIRA
+  - Lixo: 0 bytes
+  - ID: 171
+  - Idade: -1
+  - Usuario (7): BRUNA62
+
+Registro em 11679 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 396
+  - Idade: 93
+  - Usuario (6): PAULO8
+
+Registro em 11706 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): MATHEUS REZENDE
+  - Lixo: 0 bytes
+  - ID: 41
+  - Idade: 80
+  - Usuario (8): MREZENDE
+
+Registro em 11750 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (9): LIAM LEAO
+  - Lixo: 0 bytes
+  - ID: 379
+  - Idade: 64
+  - Usuario (8): LIAMLEAO
+
+Registro em 11788 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 77
+  - Idade: 37
+  - Usuario (5): SARA5
+
+Registro em 11814 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 10
+  - Idade: 51
+  - Usuario (10): BRYANLOPES
+
+Registro em 11845 | Tamanho Declarado: 22 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 138
+  - Idade: -1
+  - Usuario (6): VITOR9
+
+Registro em 11872 | Tamanho Declarado: 32 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 431
+  - Idade: 24
+  - Usuario (16): MATHIASAPARECIDA
+
+Registro em 11909 | Tamanho Declarado: 43 | Removido: '1'
+  - Nome (20): MARIA HELENA MACHADO
+  - Lixo: 0 bytes
+  - ID: 44
+  - Idade: -1
+  - Usuario (7): MARIA74
+
+Registro em 11957 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (17): MARIA LUISA ABREU
+  - Lixo: 0 bytes
+  - ID: 282
+  - Idade: 47
+  - Usuario (11): MARIAABREU1
+
+Registro em 12006 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): OLIVIA ARAUJO
+  - Lixo: 0 bytes
+  - ID: 200
+  - Idade: 38
+  - Usuario (8): OLIVIA90
+
+Registro em 12048 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (14): JOAO MIGUEL SA
+  - Lixo: 0 bytes
+  - ID: 54
+  - Idade: 86
+  - Usuario (6): JOAO47
+
+Registro em 12089 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): AURORA BORGES
+  - Lixo: 0 bytes
+  - ID: 118
+  - Idade: 19
+  - Usuario (7): ABORGES
+
+Registro em 12130 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (18): MARIA FLOR PIMENTA
+  - Lixo: 0 bytes
+  - ID: 387
+  - Idade: 86
+  - Usuario (12): MARIAPIMENTA
+
+Registro em 12181 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): CATARINA ALVES
+  - Lixo: 0 bytes
+  - ID: 317
+  - Idade: 74
+  - Usuario (13): CATARINAALVES
+
+Registro em 12229 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 14
+  - Idade: 86
+  - Usuario (9): RAFAELA74
+
+Registro em 12259 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (17): LUIZ FELIPE JESUS
+  - Lixo: 0 bytes
+  - ID: 15
+  - Idade: 62
+  - Usuario (5): LUIZ5
+
+Registro em 12302 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (15): ANA SOPHIA MELO
+  - Lixo: 0 bytes
+  - ID: 302
+  - Idade: 40
+  - Usuario (7): ANAMELO
+
+Registro em 12345 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): MELINA CUNHA
+  - Lixo: 0 bytes
+  - ID: 351
+  - Idade: 50
+  - Usuario (6): MCUNHA
+
+Registro em 12384 | Tamanho Declarado: 47 | Removido: '0'
+  - Nome (19): JOAO MIGUEL CORREIA
+  - Lixo: 0 bytes
+  - ID: 345
+  - Idade: 94
+  - Usuario (12): JOAOCORREIA1
+
+Registro em 12436 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): ERICK MARTINS
+  - Lixo: 0 bytes
+  - ID: 405
+  - Idade: 46
+  - Usuario (8): EMARTINS
+
+Registro em 12478 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): BRUNA SOUSA
+  - Lixo: 0 bytes
+  - ID: 368
+  - Idade: 20
+  - Usuario (6): BSOUSA
+
+Registro em 12516 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): ALEXIA DUARTE
+  - Lixo: 0 bytes
+  - ID: 255
+  - Idade: 18
+  - Usuario (12): ALEXIADUARTE
+
+Registro em 12562 | Tamanho Declarado: 33 | Removido: '1'
+  - Nome (12): ELOA DA MATA
+  - Lixo: 0 bytes
+  - ID: 155
+  - Idade: -1
+  - Usuario (5): ELOA4
+
+Registro em 12600 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (15): RODRIGO DA CRUZ
+  - Lixo: 0 bytes
+  - ID: 97
+  - Idade: 38
+  - Usuario (5): RCRUZ
+
+Registro em 12641 | Tamanho Declarado: 20 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 458
+  - Idade: 89
+  - Usuario (4): LEO7
+
+Registro em 12666 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 166
+  - Idade: 95
+  - Usuario (9): MATHIAS77
+
+Registro em 12696 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (13): ERICK COSTELA
+  - Lixo: 0 bytes
+  - ID: 415
+  - Idade: -1
+  - Usuario (7): ERICK40
+
+Registro em 12737 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): HEITOR AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 75
+  - Idade: 26
+  - Usuario (8): HEITOR33
+
+Registro em 12780 | Tamanho Declarado: 30 | Removido: '1'
+  - Nome (9): NOAH LIMA
+  - Lixo: 0 bytes
+  - ID: 319
+  - Idade: -1
+  - Usuario (5): NLIMA
+
+Registro em 12815 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 443
+  - Idade: 22
+  - Usuario (7): SOFIA40
+
+Registro em 12843 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): JULIA FARIAS
+  - Lixo: 0 bytes
+  - ID: 79
+  - Idade: 78
+  - Usuario (11): JULIAFARIAS
+
+Registro em 12887 | Tamanho Declarado: 20 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 193
+  - Idade: 50
+  - Usuario (4): LLUZ
+
+Registro em 12912 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (13): MELINA MORAES
+  - Lixo: 0 bytes
+  - ID: 2
+  - Idade: -1
+  - Usuario (8): MELINA36
+
+Registro em 12954 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 423
+  - Idade: 67
+  - Usuario (10): DAVINUNES1
+
+Registro em 12985 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (13): ISADORA PINTO
+  - Lixo: 0 bytes
+  - ID: 220
+  - Idade: 81
+  - Usuario (9): ISADORA73
+
+Registro em 13028 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (19): DAVI LUCAS MENDONCA
+  - Lixo: 0 bytes
+  - ID: 7
+  - Idade: 42
+  - Usuario (9): DMENDONCA
+
+Registro em 13077 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (18): JOAO VITOR MARTINS
+  - Lixo: 0 bytes
+  - ID: 324
+  - Idade: 72
+  - Usuario (12): JOAOMARTINS1
+
+Registro em 13128 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): ANDRE PACHECO
+  - Lixo: 0 bytes
+  - ID: 338
+  - Idade: 77
+  - Usuario (7): ANDRE84
+
+Registro em 13169 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): BRENO MACHADO
+  - Lixo: 0 bytes
+  - ID: 55
+  - Idade: 42
+  - Usuario (8): BMACHADO
+
+Registro em 13211 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (14): ANDRE SIQUEIRA
+  - Lixo: 0 bytes
+  - ID: 204
+  - Idade: -1
+  - Usuario (6): ANDRE8
+
+Registro em 13252 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): ALICIA CALDEIRA
+  - Lixo: 0 bytes
+  - ID: 393
+  - Idade: 67
+  - Usuario (9): ACALDEIRA
+
+Registro em 13297 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): CLARICE DA MATA
+  - Lixo: 0 bytes
+  - ID: 455
+  - Idade: 65
+  - Usuario (9): CLARICE71
+
+Registro em 13342 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 242
+  - Idade: 23
+  - Usuario (5): ISIS6
+
+Registro em 13368 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 253
+  - Idade: 44
+  - Usuario (5): LIAM6
+
+Registro em 13394 | Tamanho Declarado: 30 | Removido: '0'
+  - Nome (10): YAN MORAES
+  - Lixo: 0 bytes
+  - ID: 104
+  - Idade: 79
+  - Usuario (4): YAN6
+
+Registro em 13429 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (20): LUIZ FERNANDO FOGACA
+  - Lixo: 0 bytes
+  - ID: 196
+  - Idade: 86
+  - Usuario (10): LUIZFOGACA
+
+Registro em 13480 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 122
+  - Idade: 95
+  - Usuario (7): JOSUE69
+
+Registro em 13508 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (20): VITOR GABRIEL SANTOS
+  - Lixo: 0 bytes
+  - ID: 26
+  - Idade: 53
+  - Usuario (7): VITOR31
+
+Registro em 13556 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (18): ANA CAROLINA PINTO
+  - Lixo: 0 bytes
+  - ID: 63
+  - Idade: 85
+  - Usuario (6): APINTO
+
+Registro em 13601 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 23
+  - Idade: 36
+  - Usuario (6): JOAO10
+
+Registro em 13628 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): PEDRO BRITO
+  - Lixo: 0 bytes
+  - ID: 210
+  - Idade: 56
+  - Usuario (10): PEDROBRITO
+
+Registro em 13670 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (17): JOSE MIGUEL ROCHA
+  - Lixo: 0 bytes
+  - ID: 145
+  - Idade: 52
+  - Usuario (5): JOSE5
+
+Registro em 13713 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): HEITOR MARQUES
+  - Lixo: 0 bytes
+  - ID: 156
+  - Idade: 24
+  - Usuario (7): HEITOR7
+
+Registro em 13755 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): BRENDA ANDRADE
+  - Lixo: 0 bytes
+  - ID: 274
+  - Idade: 38
+  - Usuario (8): BANDRADE
+
+Registro em 13798 | Tamanho Declarado: 49 | Removido: '1'
+  - Nome (21): ANA CAROLINA MENDONCA
+  - Lixo: 0 bytes
+  - ID: 279
+  - Idade: -1
+  - Usuario (12): ANAMENDONCA1
+
+Registro em 13852 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (15): MARIAH OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 154
+  - Idade: -1
+  - Usuario (7): MARIAH8
+
+Registro em 13895 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): DANIELA CAMARA
+  - Lixo: 0 bytes
+  - ID: 134
+  - Idade: 68
+  - Usuario (7): DCAMARA
+
+Registro em 13937 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): MIGUEL SILVA
+  - Lixo: 0 bytes
+  - ID: 190
+  - Idade: 96
+  - Usuario (11): MIGUELSILVA
+
+Registro em 13981 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (21): ANTHONY GABRIEL PIRES
+  - Lixo: 0 bytes
+  - ID: 147
+  - Idade: 86
+  - Usuario (12): ANTHONYPIRES
+
+Registro em 14035 | Tamanho Declarado: 51 | Removido: '0'
+  - Nome (18): AGATHA ALBUQUERQUE
+  - Lixo: 0 bytes
+  - ID: 380
+  - Idade: 36
+  - Usuario (17): AGATHAALBUQUERQUE
+
+Registro em 14091 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (14): BENICIO FARIAS
+  - Lixo: 0 bytes
+  - ID: 18
+  - Idade: 57
+  - Usuario (7): BFARIAS
+
+Registro em 14133 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (23): MARIA CLARA CASA GRANDE
+  - Lixo: 0 bytes
+  - ID: 370
+  - Idade: 45
+  - Usuario (7): MGRANDE
+
+Registro em 14184 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (14): DOM MONTENEGRO
+  - Lixo: 0 bytes
+  - ID: 186
+  - Idade: 27
+  - Usuario (11): DMONTENEGRO
+
+Registro em 14230 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (16): BARBARA CALDEIRA
+  - Lixo: 0 bytes
+  - ID: 275
+  - Idade: 76
+  - Usuario (9): BARBARA84
+
+Registro em 14276 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 465
+  - Idade: 75
+  - Usuario (5): YDIAS
+
+Registro em 14302 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (17): EMANUELLA MOREIRA
+  - Lixo: 0 bytes
+  - ID: 214
+  - Idade: 88
+  - Usuario (8): EMOREIRA
+
+Registro em 14348 | Tamanho Declarado: 28 | Removido: '0'
+  - Nome (8): DOM RIOS
+  - Lixo: 0 bytes
+  - ID: 340
+  - Idade: 48
+  - Usuario (4): DOM4
+
+Registro em 14381 | Tamanho Declarado: 22 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 433
+  - Idade: -1
+  - Usuario (6): ENZO29
+
+Registro em 14408 | Tamanho Declarado: 22 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 331
+  - Idade: 37
+  - Usuario (6): ELOA27
+
+Registro em 14435 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (15): DOM VASCONCELOS
+  - Lixo: 0 bytes
+  - ID: 402
+  - Idade: 50
+  - Usuario (12): DVASCONCELOS
+
+Registro em 14483 | Tamanho Declarado: 31 | Removido: '0'
+  - Nome (10): JADE SALES
+  - Lixo: 0 bytes
+  - ID: 466
+  - Idade: 87
+  - Usuario (5): JADE5
+
+Registro em 14519 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): ANTONIO PINTO
+  - Lixo: 0 bytes
+  - ID: 390
+  - Idade: 82
+  - Usuario (8): ANTONIO5
+
+Registro em 14561 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): LIAM NOVAIS
+  - Lixo: 0 bytes
+  - ID: 92
+  - Idade: 44
+  - Usuario (10): LIAMNOVAIS
+
+Registro em 14603 | Tamanho Declarado: 31 | Removido: '0'
+  - Nome (9): RAEL DIAS
+  - Lixo: 0 bytes
+  - ID: 105
+  - Idade: 65
+  - Usuario (6): RAEL10
+
+Registro em 14639 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (18): MARIA LUIZA DA LUZ
+  - Lixo: 0 bytes
+  - ID: 243
+  - Idade: -1
+  - Usuario (7): MARIA58
+
+Registro em 14685 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (15): ANA JULIA ABREU
+  - Lixo: 0 bytes
+  - ID: 127
+  - Idade: -1
+  - Usuario (8): ANAABREU
+
+Registro em 14729 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): BENJAMIM NOVAIS
+  - Lixo: 0 bytes
+  - ID: 91
+  - Idade: 49
+  - Usuario (14): BENJAMIMNOVAIS
+
+Registro em 14779 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (9): ANA SALES
+  - Lixo: 0 bytes
+  - ID: 397
+  - Idade: 19
+  - Usuario (8): ANASALES
+
+Registro em 14817 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 315
+  - Idade: 73
+  - Usuario (5): JOAO7
+
+Registro em 14843 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): ANA LIZ GOMES
+  - Lixo: 0 bytes
+  - ID: 106
+  - Idade: 83
+  - Usuario (6): AGOMES
+
+Registro em 14883 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (20): JOAO FELIPE CASSIANO
+  - Lixo: 0 bytes
+  - ID: 5
+  - Idade: 40
+  - Usuario (5): JOAO8
+
+Registro em 14929 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 385
+  - Idade: 94
+  - Usuario (7): MSANTOS
+
+Registro em 14957 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (13): FELIPE DA PAZ
+  - Lixo: 0 bytes
+  - ID: 187
+  - Idade: 38
+  - Usuario (9): FELIPEPAZ
+
+Registro em 15000 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): MARIA BORGES
+  - Lixo: 0 bytes
+  - ID: 121
+  - Idade: 38
+  - Usuario (11): MARIABORGES
+
+Registro em 15044 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 101
+  - Idade: 19
+  - Usuario (7): HCAMARA
+
+Registro em 15072 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): AGATHA DA CUNHA
+  - Lixo: 0 bytes
+  - ID: 456
+  - Idade: 53
+  - Usuario (8): AGATHA92
+
+Registro em 15116 | Tamanho Declarado: 42 | Removido: '1'
+  - Nome (20): ENZO GABRIEL CORREIA
+  - Lixo: 0 bytes
+  - ID: 130
+  - Idade: -1
+  - Usuario (6): ENZO33
+
+Registro em 15163 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (12): LORENA RAMOS
+  - Lixo: 0 bytes
+  - ID: 114
+  - Idade: 55
+  - Usuario (8): LORENA90
+
+Registro em 15204 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): PEDRO CAMARGO
+  - Lixo: 0 bytes
+  - ID: 3
+  - Idade: 74
+  - Usuario (6): PEDRO7
+
+Registro em 15244 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (19): ANA CECILIA MOREIRA
+  - Lixo: 0 bytes
+  - ID: 29
+  - Idade: 44
+  - Usuario (8): AMOREIRA
+
+Registro em 15292 | Tamanho Declarado: 29 | Removido: '1'
+  - Nome (8): IAN LEAO
+  - Lixo: 0 bytes
+  - ID: 281
+  - Idade: -1
+  - Usuario (5): IAN26
+
+Registro em 15326 | Tamanho Declarado: 47 | Removido: '0'
+  - Nome (19): JOAO LUCAS CARVALHO
+  - Lixo: 0 bytes
+  - ID: 158
+  - Idade: 47
+  - Usuario (12): JOAOCARVALHO
+
+Registro em 15378 | Tamanho Declarado: 32 | Removido: '0'
+  - Nome (11): DOM PACHECO
+  - Lixo: 0 bytes
+  - ID: 151
+  - Idade: 87
+  - Usuario (5): DOM43
+
+Registro em 15415 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (11): LUISA ROCHA
+  - Lixo: 0 bytes
+  - ID: 409
+  - Idade: 36
+  - Usuario (7): LUISA89
+
+Registro em 15454 | Tamanho Declarado: 23 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 500
+  - Idade: -1
+  - Usuario (7): CLARA83
+
+Registro em 15482 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (13): JADE TEIXEIRA
+  - Lixo: 0 bytes
+  - ID: 334
+  - Idade: 100
+  - Usuario (5): JADE8
+
+Registro em 15521 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (14): HADASSA FOGACA
+  - Lixo: 0 bytes
+  - ID: 313
+  - Idade: 28
+  - Usuario (9): HADASSA37
+
+Registro em 15565 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): LORENA GARCIA
+  - Lixo: 0 bytes
+  - ID: 199
+  - Idade: 55
+  - Usuario (7): LGARCIA
+
+Registro em 15606 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): VICENTE PACHECO
+  - Lixo: 0 bytes
+  - ID: 287
+  - Idade: 27
+  - Usuario (9): VICENTE93
+
+Registro em 15651 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): ALLANA LOPES
+  - Lixo: 0 bytes
+  - ID: 322
+  - Idade: 44
+  - Usuario (11): ALLANALOPES
+
+Registro em 15695 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): LARISSA MACEDO
+  - Lixo: 0 bytes
+  - ID: 262
+  - Idade: 69
+  - Usuario (13): LARISSAMACEDO
+
+Registro em 15743 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): BRYAN COSTELA
+  - Lixo: 0 bytes
+  - ID: 436
+  - Idade: 38
+  - Usuario (6): BRYAN7
+
+Registro em 15783 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (11): AGATHA LIMA
+  - Lixo: 0 bytes
+  - ID: 354
+  - Idade: 50
+  - Usuario (8): AGATHA43
+
+Registro em 15823 | Tamanho Declarado: 32 | Removido: '1'
+  - Nome (12): LIZ CASSIANO
+  - Lixo: 0 bytes
+  - ID: 59
+  - Idade: -1
+  - Usuario (4): LIZ8
+
+Registro em 15860 | Tamanho Declarado: 23 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 408
+  - Idade: -1
+  - Usuario (7): DANTE70
+
+Registro em 15888 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): YASMIN OLIVEIRA
+  - Lixo: 0 bytes
+  - ID: 285
+  - Idade: 27
+  - Usuario (8): YASMIN12
+
+Registro em 15932 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): JUAN PIMENTA
+  - Lixo: 0 bytes
+  - ID: 326
+  - Idade: 39
+  - Usuario (6): JUAN47
+
+Registro em 15971 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (13): ALLANA GARCIA
+  - Lixo: 0 bytes
+  - ID: 336
+  - Idade: -1
+  - Usuario (7): AGARCIA
+
+Registro em 16012 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (12): ERICK CIRINO
+  - Lixo: 0 bytes
+  - ID: 337
+  - Idade: -1
+  - Usuario (7): ERICK58
+
+Registro em 16052 | Tamanho Declarado: 49 | Removido: '1'
+  - Nome (20): MARIA JULIA FERREIRA
+  - Lixo: 0 bytes
+  - ID: 445
+  - Idade: -1
+  - Usuario (13): MARIAFERREIRA
+
+Registro em 16106 | Tamanho Declarado: 31 | Removido: '0'
+  - Nome (10): CAUA VIANA
+  - Lixo: 0 bytes
+  - ID: 184
+  - Idade: 38
+  - Usuario (5): CAUA5
+
+Registro em 16142 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (16): ISABELA DA COSTA
+  - Lixo: 0 bytes
+  - ID: 237
+  - Idade: 44
+  - Usuario (8): ISABELA5
+
+Registro em 16187 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (17): MARIA LUISA COSTA
+  - Lixo: 0 bytes
+  - ID: 195
+  - Idade: 40
+  - Usuario (10): MARIACOSTA
+
+Registro em 16235 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (14): CECILIA DA LUZ
+  - Lixo: 0 bytes
+  - ID: 461
+  - Idade: -1
+  - Usuario (8): CECILIA3
+
+Registro em 16278 | Tamanho Declarado: 48 | Removido: '0'
+  - Nome (21): MARIA FERNANDA VARGAS
+  - Lixo: 0 bytes
+  - ID: 60
+  - Idade: 89
+  - Usuario (11): MARIAVARGAS
+
+Registro em 16331 | Tamanho Declarado: 27 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 209
+  - Idade: 30
+  - Usuario (11): YAGOMACHADO
+
+Registro em 16363 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): LIAM CAMPOS
+  - Lixo: 0 bytes
+  - ID: 51
+  - Idade: 23
+  - Usuario (10): LIAMCAMPOS
+
+Registro em 16405 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (13): THALES CAMARA
+  - Lixo: 0 bytes
+  - ID: 73
+  - Idade: 69
+  - Usuario (12): THALESCAMARA
+
+Registro em 16451 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (15): KAMILLY AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 309
+  - Idade: -1
+  - Usuario (8): KAZEVEDO
+
+Registro em 16495 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (14): CALEBE CORREIA
+  - Lixo: 0 bytes
+  - ID: 360
+  - Idade: -1
+  - Usuario (7): CALEBE7
+
+Registro em 16537 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 491
+  - Idade: 93
+  - Usuario (7): ELOAH47
+
+Registro em 16565 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): CAMILA MONTEIRO
+  - Lixo: 0 bytes
+  - ID: 129
+  - Idade: 56
+  - Usuario (8): CAMILA43
+
+Registro em 16609 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (21): ANA VITORIA APARECIDA
+  - Lixo: 0 bytes
+  - ID: 341
+  - Idade: 39
+  - Usuario (5): ANA63
+
+Registro em 16656 | Tamanho Declarado: 24 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 407
+  - Idade: 59
+  - Usuario (8): SABRINA7
+
+Registro em 16685 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (23): MARIA EDUARDA DAS NEVES
+  - Lixo: 0 bytes
+  - ID: 185
+  - Idade: 98
+  - Usuario (6): MARIA5
+
+Registro em 16735 | Tamanho Declarado: 22 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 17
+  - Idade: -1
+  - Usuario (6): LIVIA4
+
+Registro em 16762 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (17): JOAO FELIPE CUNHA
+  - Lixo: 0 bytes
+  - ID: 432
+  - Idade: 35
+  - Usuario (5): JOAO5
+
+Registro em 16805 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): LARISSA CASTRO
+  - Lixo: 0 bytes
+  - ID: 361
+  - Idade: 36
+  - Usuario (13): LARISSACASTRO
+
+Registro em 16853 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): BENICIO AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 176
+  - Idade: 89
+  - Usuario (8): BENICIO7
+
+Registro em 16897 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): JULIA CALDEIRA
+  - Lixo: 0 bytes
+  - ID: 201
+  - Idade: 86
+  - Usuario (13): JULIACALDEIRA
+
+Registro em 16945 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): MAITE ANDRADE
+  - Lixo: 0 bytes
+  - ID: 142
+  - Idade: 88
+  - Usuario (8): MANDRADE
+
+Registro em 16987 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (11): PEDRO SOUSA
+  - Lixo: 0 bytes
+  - ID: 464
+  - Idade: 62
+  - Usuario (7): PEDRO41
+
+Registro em 17026 | Tamanho Declarado: 31 | Removido: '1'
+  - Nome (11): THEO DA LUZ
+  - Lixo: 0 bytes
+  - ID: 227
+  - Idade: -1
+  - Usuario (4): TLUZ
+
+Registro em 17062 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): MATHEUS PACHECO
+  - Lixo: 0 bytes
+  - ID: 479
+  - Idade: 85
+  - Usuario (9): MATHEUS19
+
+Registro em 17107 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (18): ALEXIA VASCONCELOS
+  - Lixo: 0 bytes
+  - ID: 161
+  - Idade: 44
+  - Usuario (8): ALEXIA11
+
+Registro em 17154 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): VICENTE MOREIRA
+  - Lixo: 0 bytes
+  - ID: 246
+  - Idade: 27
+  - Usuario (14): VICENTEMOREIRA
+
+Registro em 17204 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (13): BRYAN SAMPAIO
+  - Lixo: 0 bytes
+  - ID: 487
+  - Idade: 55
+  - Usuario (13): BRYANSAMPAIO1
+
+Registro em 17251 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (16): MARCELO FERREIRA
+  - Lixo: 0 bytes
+  - ID: 294
+  - Idade: -1
+  - Usuario (9): MARCELO21
+
+Registro em 17297 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (18): VALENTINA DA ROCHA
+  - Lixo: 0 bytes
+  - ID: 367
+  - Idade: 65
+  - Usuario (6): VROCHA
+
+Registro em 17342 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (15): MARIA LIZ LOPES
+  - Lixo: 0 bytes
+  - ID: 109
+  - Idade: 91
+  - Usuario (10): MARIALOPES
+
+Registro em 17388 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): VICENTE REZENDE
+  - Lixo: 0 bytes
+  - ID: 413
+  - Idade: 96
+  - Usuario (14): VICENTEREZENDE
+
+Registro em 17438 | Tamanho Declarado: 51 | Removido: '1'
+  - Nome (22): ANTHONY GABRIEL VIEIRA
+  - Lixo: 0 bytes
+  - ID: 67
+  - Idade: -1
+  - Usuario (13): ANTHONYVIEIRA
+
+Registro em 17494 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): RAEL GONCALVES
+  - Lixo: 0 bytes
+  - ID: 300
+  - Idade: 76
+  - Usuario (13): RAELGONCALVES
+
+Registro em 17542 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): BARBARA SALES
+  - Lixo: 0 bytes
+  - ID: 139
+  - Idade: 68
+  - Usuario (8): BARBARA5
+
+Registro em 17584 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (11): LUAN VARGAS
+  - Lixo: 0 bytes
+  - ID: 323
+  - Idade: 78
+  - Usuario (7): LVARGAS
+
+Registro em 17623 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): KAIQUE PACHECO
+  - Lixo: 0 bytes
+  - ID: 329
+  - Idade: 54
+  - Usuario (8): KPACHECO
+
+Registro em 17666 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (14): ESTER CALDEIRA
+  - Lixo: 0 bytes
+  - ID: 232
+  - Idade: 37
+  - Usuario (9): ECALDEIRA
+
+Registro em 17710 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 446
+  - Idade: 24
+  - Usuario (7): VITOR94
+
+Registro em 17738 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 100
+  - Idade: 76
+  - Usuario (10): RFERNANDES
+
+Registro em 17769 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (13): CECILIA PINTO
+  - Lixo: 0 bytes
+  - ID: 115
+  - Idade: 84
+  - Usuario (9): CECILIA22
+
+Registro em 17812 | Tamanho Declarado: 28 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 492
+  - Idade: -1
+  - Usuario (12): OTAVIOGUERRA
+
+Registro em 17845 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 238
+  - Idade: 78
+  - Usuario (7): ENRICO5
+
+Registro em 17873 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (17): JOSE PEDRO ARAGAO
+  - Lixo: 0 bytes
+  - ID: 296
+  - Idade: 38
+  - Usuario (7): JARAGAO
+
+Registro em 17918 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (16): ANA JULIA DA LUZ
+  - Lixo: 0 bytes
+  - ID: 496
+  - Idade: 20
+  - Usuario (4): ALUZ
+
+Registro em 17959 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (14): JULIANA MACEDO
+  - Lixo: 0 bytes
+  - ID: 378
+  - Idade: 60
+  - Usuario (9): JULIANA47
+
+Registro em 18003 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (15): ANA LIVIA MOURA
+  - Lixo: 0 bytes
+  - ID: 435
+  - Idade: 47
+  - Usuario (5): ANA66
+
+Registro em 18044 | Tamanho Declarado: 37 | Removido: '1'
+  - Nome (14): EMANUEL CIRINO
+  - Lixo: 0 bytes
+  - ID: 64
+  - Idade: -1
+  - Usuario (7): ECIRINO
+
+Registro em 18086 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): ESTER MOREIRA
+  - Lixo: 0 bytes
+  - ID: 497
+  - Idade: 63
+  - Usuario (7): ESTER64
+
+Registro em 18127 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (15): CALEBE MENDONCA
+  - Lixo: 0 bytes
+  - ID: 160
+  - Idade: -1
+  - Usuario (7): CALEBE8
+
+Registro em 18170 | Tamanho Declarado: 40 | Removido: '1'
+  - Nome (19): LUIZ MIGUEL DA CRUZ
+  - Lixo: 0 bytes
+  - ID: 453
+  - Idade: -1
+  - Usuario (5): LUIZ4
+
+Registro em 18215 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): RENAN GONCALVES
+  - Lixo: 0 bytes
+  - ID: 219
+  - Idade: 38
+  - Usuario (14): RENANGONCALVES
+
+Registro em 18265 | Tamanho Declarado: 27 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 137
+  - Idade: 33
+  - Usuario (11): JULIAMENDES
+
+Registro em 18297 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): EMANUEL MORAES
+  - Lixo: 0 bytes
+  - ID: 484
+  - Idade: 24
+  - Usuario (8): EMANUEL6
+
+Registro em 18340 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (11): ISAAC COSTA
+  - Lixo: 0 bytes
+  - ID: 489
+  - Idade: 42
+  - Usuario (6): ISAAC5
+
+Registro em 18378 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (13): LEVI CARVALHO
+  - Lixo: 0 bytes
+  - ID: 480
+  - Idade: 90
+  - Usuario (6): LEVI82
+
+Registro em 18418 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (12): YASMIN PINTO
+  - Lixo: 0 bytes
+  - ID: 369
+  - Idade: 73
+  - Usuario (8): YASMIN10
+
+Registro em 18459 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (19): MARIA FLOR DA ROCHA
+  - Lixo: 0 bytes
+  - ID: 152
+  - Idade: 86
+  - Usuario (10): MARIAROCHA
+
+Registro em 18509 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): DANILO PIMENTA
+  - Lixo: 0 bytes
+  - ID: 359
+  - Idade: 48
+  - Usuario (13): DANILOPIMENTA
+
+Registro em 18557 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (15): CLARICE PEIXOTO
+  - Lixo: 0 bytes
+  - ID: 141
+  - Idade: 40
+  - Usuario (8): CPEIXOTO
+
+Registro em 18601 | Tamanho Declarado: 40 | Removido: '0'
+  - Nome (15): LAVINIA MOREIRA
+  - Lixo: 0 bytes
+  - ID: 342
+  - Idade: 100
+  - Usuario (9): LAVINIA34
+
+Registro em 18646 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): ANTONY CIRINO
+  - Lixo: 0 bytes
+  - ID: 403
+  - Idade: 45
+  - Usuario (7): ANTONY6
+
+Registro em 18687 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (12): YURI BARBOSA
+  - Lixo: 0 bytes
+  - ID: 488
+  - Idade: 49
+  - Usuario (6): YURI40
+
+Registro em 18726 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): ASAFE CUNHA
+  - Lixo: 0 bytes
+  - ID: 16
+  - Idade: 19
+  - Usuario (10): ASAFECUNHA
+
+Registro em 18768 | Tamanho Declarado: 41 | Removido: '1'
+  - Nome (13): MATHEUS ABREU
+  - Lixo: 0 bytes
+  - ID: 448
+  - Idade: -1
+  - Usuario (12): MATHEUSABREU
+
+Registro em 18814 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): FELIPE GUERRA
+  - Lixo: 0 bytes
+  - ID: 48
+  - Idade: 23
+  - Usuario (7): FGUERRA
+
+Registro em 18855 | Tamanho Declarado: 32 | Removido: '0'
+  - Nome (10): NINA CUNHA
+  - Lixo: 0 bytes
+  - ID: 418
+  - Idade: 18
+  - Usuario (6): NINA18
+
+Registro em 18892 | Tamanho Declarado: 45 | Removido: '1'
+  - Nome (15): NOAH CAVALCANTI
+  - Lixo: 0 bytes
+  - ID: 424
+  - Idade: -1
+  - Usuario (14): NOAHCAVALCANTI
+
+Registro em 18942 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): DANTE PEIXOTO
+  - Lixo: 0 bytes
+  - ID: 149
+  - Idade: 52
+  - Usuario (7): DANTE68
+
+Registro em 18983 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (20): HENRY GABRIEL NOVAES
+  - Lixo: 0 bytes
+  - ID: 272
+  - Idade: 31
+  - Usuario (7): HENRY18
+
+Registro em 19031 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (16): MANUELLA DA CRUZ
+  - Lixo: 0 bytes
+  - ID: 157
+  - Idade: 81
+  - Usuario (10): MANUELLA11
+
+Registro em 19078 | Tamanho Declarado: 23 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 116
+  - Idade: 19
+  - Usuario (7): JOAOLUZ
+
+Registro em 19106 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (12): CAMILA COSTA
+  - Lixo: 0 bytes
+  - ID: 391
+  - Idade: 31
+  - Usuario (11): CAMILACOSTA
+
+Registro em 19150 | Tamanho Declarado: 46 | Removido: '0'
+  - Nome (18): MARIA LAURA PASTOR
+  - Lixo: 0 bytes
+  - ID: 394
+  - Idade: 63
+  - Usuario (12): MARIAPASTOR1
+
+Registro em 19201 | Tamanho Declarado: 34 | Removido: '1'
+  - Nome (12): YAGO AZEVEDO
+  - Lixo: 0 bytes
+  - ID: 110
+  - Idade: -1
+  - Usuario (6): YAGO51
+
+Registro em 19240 | Tamanho Declarado: 43 | Removido: '1'
+  - Nome (17): EMANUELLY PEIXOTO
+  - Lixo: 0 bytes
+  - ID: 66
+  - Idade: -1
+  - Usuario (10): EMANUELLY7
+
+Registro em 19288 | Tamanho Declarado: 23 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 295
+  - Idade: -1
+  - Usuario (7): ESTHER6
+
+Registro em 19316 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (17): ANA VITORIA VIANA
+  - Lixo: 0 bytes
+  - ID: 46
+  - Idade: 54
+  - Usuario (8): ANAVIANA
+
+Registro em 19362 | Tamanho Declarado: 25 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 198
+  - Idade: 82
+  - Usuario (9): DCASSIANO
+
+Registro em 19392 | Tamanho Declarado: 33 | Removido: '0'
+  - Nome (12): THEO DA ROSA
+  - Lixo: 0 bytes
+  - ID: 404
+  - Idade: 47
+  - Usuario (5): THEO4
+
+Registro em 19430 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (13): LUANA PEIXOTO
+  - Lixo: 0 bytes
+  - ID: 356
+  - Idade: 54
+  - Usuario (7): LUANA86
+
+Registro em 19471 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): RAVI FARIAS
+  - Lixo: 0 bytes
+  - ID: 260
+  - Idade: 76
+  - Usuario (10): RAVIFARIAS
+
+Registro em 19513 | Tamanho Declarado: 34 | Removido: '0'
+  - Nome (13): LARA SILVEIRA
+  - Lixo: 0 bytes
+  - ID: 412
+  - Idade: 100
+  - Usuario (5): LARA8
+
+Registro em 19552 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (20): CARLOS EDUARDO COSTA
+  - Lixo: 0 bytes
+  - ID: 93
+  - Idade: 57
+  - Usuario (8): CARLOS83
+
+Registro em 19601 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (13): ARTHUR GARCIA
+  - Lixo: 0 bytes
+  - ID: 364
+  - Idade: 32
+  - Usuario (8): ARTHUR53
+
+Registro em 19643 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (6): DOM SA
+  - Lixo: 0 bytes
+  - ID: 420
+  - Idade: 79
+  - Usuario (4): DOM2
+
+Registro em 19674 | Tamanho Declarado: 21 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 383
+  - Idade: 47
+  - Usuario (5): RYAN2
+
+Registro em 19700 | Tamanho Declarado: 27 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 35
+  - Idade: -1
+  - Usuario (11): LUANABARROS
+
+Registro em 19732 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): HEITOR DA MOTA
+  - Lixo: 0 bytes
+  - ID: 276
+  - Idade: 95
+  - Usuario (8): HEITOR82
+
+Registro em 19775 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (14): KAMILLY CAMARA
+  - Lixo: 0 bytes
+  - ID: 180
+  - Idade: -1
+  - Usuario (8): KAMILLY6
+
+Registro em 19818 | Tamanho Declarado: 48 | Removido: '1'
+  - Nome (20): MARIA HELENA MACHADO
+  - Lixo: 0 bytes
+  - ID: 135
+  - Idade: -1
+  - Usuario (12): MARIAMACHADO
+
+Registro em 19871 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): MURILO CAMARGO
+  - Lixo: 0 bytes
+  - ID: 425
+  - Idade: 83
+  - Usuario (8): MURILO38
+
+Registro em 19914 | Tamanho Declarado: 36 | Removido: '0'
+  - Nome (14): BENJAMIM SILVA
+  - Lixo: 0 bytes
+  - ID: 163
+  - Idade: 27
+  - Usuario (6): BSILVA
+
+Registro em 19955 | Tamanho Declarado: 41 | Removido: '0'
+  - Nome (19): ENZO GABRIEL DA PAZ
+  - Lixo: 0 bytes
+  - ID: 222
+  - Idade: 26
+  - Usuario (6): ENZO93
+
+Registro em 20001 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (11): ANA PEREIRA
+  - Lixo: 0 bytes
+  - ID: 399
+  - Idade: 77
+  - Usuario (10): ANAPEREIRA
+
+Registro em 20043 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (16): MARIA LUIZA DIAS
+  - Lixo: 0 bytes
+  - ID: 174
+  - Idade: -1
+  - Usuario (6): MARIA4
+
+Registro em 20086 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (17): MARIA LUISA SALES
+  - Lixo: 0 bytes
+  - ID: 439
+  - Idade: 74
+  - Usuario (6): MSALES
+
+Registro em 20130 | Tamanho Declarado: 44 | Removido: '0'
+  - Nome (21): MARIA FERNANDA VARGAS
+  - Lixo: 0 bytes
+  - ID: 395
+  - Idade: 100
+  - Usuario (7): MVARGAS
+
+Registro em 20179 | Tamanho Declarado: 35 | Removido: '0'
+  - Nome (12): LUARA CASTRO
+  - Lixo: 0 bytes
+  - ID: 39
+  - Idade: 29
+  - Usuario (7): LUARA66
+
+Registro em 20219 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (15): FELIPE SIQUEIRA
+  - Lixo: 0 bytes
+  - ID: 113
+  - Idade: 84
+  - Usuario (14): FELIPESIQUEIRA
+
+Registro em 20269 | Tamanho Declarado: 36 | Removido: '1'
+  - Nome (10): JUAN CUNHA
+  - Lixo: 0 bytes
+  - ID: 343
+  - Idade: -1
+  - Usuario (10): JUANCUNHA1
+
+Registro em 20310 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (21): FRANCISCO ALBUQUERQUE
+  - Lixo: 0 bytes
+  - ID: 498
+  - Idade: 50
+  - Usuario (12): FALBUQUERQUE
+
+Registro em 20364 | Tamanho Declarado: 27 | Removido: '1'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 123
+  - Idade: -1
+  - Usuario (11): ANAMENDONCA
+
+Registro em 20396 | Tamanho Declarado: 26 | Removido: '0'
+  - Nome (0): 
+  - Lixo: 0 bytes
+  - ID: 13
+  - Idade: 33
+  - Usuario (10): MANUELLASA
+
+Registro em 20427 | Tamanho Declarado: 43 | Removido: '0'
+  - Nome (14): CECILIA ARAUJO
+  - Lixo: 0 bytes
+  - ID: 256
+  - Idade: 77
+  - Usuario (13): CECILIAARAUJO
+
+Registro em 20475 | Tamanho Declarado: 37 | Removido: '0'
+  - Nome (15): ANNA LIZ MACEDO
+  - Lixo: 0 bytes
+  - ID: 495
+  - Idade: 47
+  - Usuario (6): ANNA33
+
+Registro em 20517 | Tamanho Declarado: 48 | Removido: '0'
+  - Nome (24): ANTHONY GABRIEL CASSIANO
+  - Lixo: 0 bytes
+  - ID: 162
+  - Idade: 52
+  - Usuario (8): ANTHONY8
+
+Registro em 20570 | Tamanho Declarado: 39 | Removido: '0'
+  - Nome (14): AUGUSTO DA LUZ
+  - Lixo: 0 bytes
+  - ID: 320
+  - Idade: 99
+  - Usuario (9): AUGUSTO87
+
+Registro em 20614 | Tamanho Declarado: 39 | Removido: '1'
+  - Nome (18): JOSE MIGUEL CASTRO
+  - Lixo: 0 bytes
+  - ID: 71
+  - Idade: -1
+  - Usuario (5): JOSE6
+
+Registro em 20658 | Tamanho Declarado: 45 | Removido: '0'
+  - Nome (19): STELLA DA CONCEICAO
+  - Lixo: 0 bytes
+  - ID: 136
+  - Idade: 89
+  - Usuario (10): SCONCEICAO
+
+Registro em 20708 | Tamanho Declarado: 38 | Removido: '1'
+  - Nome (14): AUGUSTO NOVAES
+  - Lixo: 0 bytes
+  - ID: 266
+  - Idade: -1
+  - Usuario (8): AUGUSTO6
+
+Registro em 20751 | Tamanho Declarado: 35 | Removido: '1'
+  - Nome (10): SARA SALES
+  - Lixo: 0 bytes
+  - ID: 235
+  - Idade: -1
+  - Usuario (9): SARASALES
+
+Registro em 20791 | Tamanho Declarado: 49 | Removido: '0'
+  - Nome (23): SAMANTHA PEREIRA SANTOS
+  - Lixo: 0 bytes
+  - ID: 625
+  - Idade: 20
+  - Usuario (10): SAMANTHAPS
+
+Registro em 20845 | Tamanho Declarado: 42 | Removido: '0'
+  - Nome (20): VITORIA PRADO CAMPOS
+  - Lixo: 0 bytes
+  - ID: 645
+  - Idade: -1
+  - Usuario (6): VIVICA
+

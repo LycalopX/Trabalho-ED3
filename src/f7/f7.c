@@ -85,8 +85,6 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
     {
         if (resultadosEmBuscas[i].nRegistros == 0 || resultadosEmBuscas[i].update.valor == NULL)
         {
-            // Libera campos alocados mesmo quando não há registros para processar
-            liberar_resultado_busca(&resultadosEmBuscas[i]);
             continue;
         }
 
@@ -107,8 +105,6 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
                                         &atualizacoes[indexAtualizacao].idPessoaNovo);
             }
 
-            // Libera campos Parametro
-            liberar_resultado_busca(&resultadosEmBuscas[i]);
             nAtualizacoes += j;
         }
         // Indice da regra = 1
@@ -153,14 +149,7 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
 
             nAtualizacoes += j;
         }
-        else
-        {
-            // Campo de update não reconhecido - libera memória sem processar
-        }
-
-        liberar_resultado_busca(&resultadosEmBuscas[i]);
     }
-    free(resultadosEmBuscas);
 
     return nAtualizacoes;
 }
@@ -346,6 +335,32 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
 
     // Cria objetos de atualização e preenche o array.
     int nAtualizacoes = processar_atualizacoes_de_busca(buscas, resultadosEmBuscas, atualizacoes);
+    
+    // Libera apenas os campos Parametro e containers, mantendo os RegistroPessoa
+    for (int i = 0; i < buscas; i++)
+    {
+        if (resultadosEmBuscas[i].registrosBusca != NULL)
+        {
+            for (int j = 0; j < resultadosEmBuscas[i].nRegistros; j++)
+            {
+                // Libera apenas o wrapper RegistroBuscaPessoa, não o registro interno
+                if (resultadosEmBuscas[i].registrosBusca[j] != NULL)
+                {
+                    free(resultadosEmBuscas[i].registrosBusca[j]);
+                }
+            }
+            free(resultadosEmBuscas[i].registrosBusca);
+        }
+        if (resultadosEmBuscas[i].busca.campo != NULL)
+            free(resultadosEmBuscas[i].busca.campo);
+        if (resultadosEmBuscas[i].busca.valor != NULL)
+            free(resultadosEmBuscas[i].busca.valor);
+        if (resultadosEmBuscas[i].update.campo != NULL)
+            free(resultadosEmBuscas[i].update.campo);
+        if (resultadosEmBuscas[i].update.valor != NULL)
+            free(resultadosEmBuscas[i].update.valor);
+    }
+    free(resultadosEmBuscas);
 
     // 4. Unificação: Mescla múltiplas atualizações para o mesmo registro em uma única tarefa.
     qsort(atualizacoes, nAtualizacoes, sizeof(Atualizacao), comparar_atualizacao_por_id);
@@ -391,6 +406,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     }
     free(atualizacoes);
 
-    imprimir_registros_raw_em_arquivo(fp, "./debug/output_f7.txt");
+    imprimir_registros_raw_em_arquivo(fp, "output_f7.txt");
     return 0;
 }
