@@ -50,9 +50,6 @@ static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *
         return 0;
     }
 
-    // Calcula o novo tamanho do registro para determinar a estratégia de atualização.
-    int old_record_disk_size = atualizacao->registro->tamanhoRegistro;
-
     // Update the in-memory record first to calculate the new size
     if (*campo_registro_atualizacao != NULL)
     {
@@ -61,19 +58,6 @@ static int atualizar_campo_string(Atualizacao *atualizacao, Parametro *u, char *
     *campo_registro_atualizacao = strdup(new_string);
     *tamanho_campo = strlen(new_string);
 
-    int new_compact_size = calcula_tamanho_registro_pessoa(atualizacao->registro);
-
-    // Se o novo registro for maior que o espaço antigo, ele precisará ser movido.
-    if (new_compact_size > old_record_disk_size)
-    {
-        atualizacao->flagNovoByteOffset = '1'; // Sinaliza remoção e inserção.
-        atualizacao->registro->tamanhoRegistro = new_compact_size;
-    }
-    else
-    {
-        // Se couber, mantém o tamanho original para preencher com lixo.
-        atualizacao->registro->tamanhoRegistro = old_record_disk_size;
-    }
     return 0;
 }
 
@@ -154,11 +138,29 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
     return nAtualizacoes;
 }
 
-// Unifica múltiplas atualizações para o mesmo registro em uma única tarefa.
 static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
 {
     if (*nRegsEncontrados <= 1)
+    {
+        // Mesmo com um único registro, precisamos verificar se ele precisa ser realocado
+        if (*nRegsEncontrados == 1)
+        {
+            int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[0].registro);
+            int old_record_disk_size = atualizacoes[0].registro->tamanhoRegistro;
+
+            if (new_compact_size > old_record_disk_size)
+            {
+                atualizacoes[0].flagNovoByteOffset = '1'; // Sinaliza remoção e inserção
+                atualizacoes[0].registro->tamanhoRegistro = new_compact_size;
+            }
+            else
+            {
+                atualizacoes[0].flagNovoByteOffset = '0';
+                atualizacoes[0].registro->tamanhoRegistro = old_record_disk_size;
+            }
+        }
         return;
+    }
 
     int write_idx = 0;
     for (int read_idx = 1; read_idx < (*nRegsEncontrados); read_idx++)
@@ -169,14 +171,27 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
             continue;
         }
 
-        // Se a tarefa de leitura for para um registro diferente da tarefa de escrita,
-        // move o ponteiro de escrita e copia a tarefa.
         if (atualizacoes[read_idx].registro->idPessoa != atualizacoes[write_idx].registro->idPessoa)
         {
+            // Antes de mover para o próximo registro, calcule o tamanho do registro de `write_idx`
+            int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[write_idx].registro);
+            int old_record_disk_size = atualizacoes[write_idx].registro->tamanhoRegistro;
+
+            if (new_compact_size > old_record_disk_size)
+            {
+                atualizacoes[write_idx].flagNovoByteOffset = '1';
+                atualizacoes[write_idx].registro->tamanhoRegistro = new_compact_size;
+            }
+            else
+            {
+                atualizacoes[write_idx].flagNovoByteOffset = '0';
+                atualizacoes[write_idx].registro->tamanhoRegistro = old_record_disk_size;
+            }
+
             write_idx++;
             atualizacoes[write_idx] = atualizacoes[read_idx];
         }
-        else // Se for para o mesmo registro, mescla as atualizações.
+        else
         {
             switch (atualizacoes[read_idx].indiceDaRegra)
             {
@@ -198,14 +213,25 @@ static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
                 atualizacoes[write_idx].registro->tamanhoNomeUsuario = atualizacoes[read_idx].registro->tamanhoNomeUsuario;
                 break;
             }
-
-            if (atualizacoes[read_idx].flagNovoByteOffset == '1' || atualizacoes[write_idx].flagNovoByteOffset == '1')
-            {
-                atualizacoes[write_idx].flagNovoByteOffset = '1';
-            }
             destroi_registro_pessoa(atualizacoes[read_idx].registro);
         }
     }
+
+    // Calcula o tamanho para o último (ou único) registro unificado
+    int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[write_idx].registro);
+    int old_record_disk_size = atualizacoes[write_idx].registro->tamanhoRegistro;
+
+    if (new_compact_size > old_record_disk_size)
+    {
+        atualizacoes[write_idx].flagNovoByteOffset = '1';
+        atualizacoes[write_idx].registro->tamanhoRegistro = new_compact_size;
+    }
+    else
+    {
+        atualizacoes[write_idx].flagNovoByteOffset = '0';
+        atualizacoes[write_idx].registro->tamanhoRegistro = old_record_disk_size;
+    }
+
     *nRegsEncontrados = write_idx + 1;
 }
 
@@ -336,7 +362,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
 
     // Cria objetos de atualização e preenche o array.
     int nAtualizacoes = processar_atualizacoes_de_busca(buscas, resultadosEmBuscas, atualizacoes);
-    
+
     // Libera apenas os campos Parametro e containers, mantendo os RegistroPessoa
     for (int i = 0; i < buscas; i++)
     {

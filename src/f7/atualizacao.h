@@ -17,6 +17,7 @@ void inicializa_atualizacao(Atualizacao *atualizacao, RegistroPessoa *registro, 
     atualizacao->flagNovoByteOffset = '0';
     atualizacao->idPessoaNovo = -1;
     atualizacao->indiceDaRegra = indiceDaRegra;
+    
 }
 
 int comparar_atualizacao_por_id(const void *a, const void *b)
