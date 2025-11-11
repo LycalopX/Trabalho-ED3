@@ -160,12 +160,12 @@ void liberar_resultados_busca_inteira(ResultadoBuscaPessoa *resultados, int nBus
 
     for (int i = 0; i < nBuscas; i++)
     {
-        liberar_resultados_busca(&resultados[i]);
+        liberar_resultado_busca(&resultados[i]);
     }
     free(resultados);
 }
 
-void liberar_resultados_busca(ResultadoBuscaPessoa *resultado)
+void liberar_resultado_busca(ResultadoBuscaPessoa *resultado)
 {
     if (resultado->registrosBusca != NULL)
     {

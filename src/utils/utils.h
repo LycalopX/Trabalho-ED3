@@ -71,7 +71,17 @@ void realloc_golden(void **ptr, size_t* p_current_capacity, size_t elem_size);
  * @param resultados O array de ponteiros para ResultadoBuscaPessoa a ser liberado.
  * @param nBuscas O número de elementos no array.
  */
-void liberar_resultados_busca(ResultadoBuscaPessoa *resultados, int nBuscas);
+void liberar_resultados_busca_inteira(ResultadoBuscaPessoa *resultados, int nBuscas);
+
+/**
+ * @brief Libera a memória de um único ResultadoBuscaPessoa, incluindo todas as subestruturas.
+ *
+ * Percorre o ResultadoBuscaPessoa e libera toda a memória alocada
+ * dinamicamente para os registros, parâmetros de busca e atualização.
+ *
+ * @param resultado Ponteiro para o ResultadoBuscaPessoa a ser liberado.
+ */
+void liberar_resultado_busca(ResultadoBuscaPessoa *resultado);
 
 // --- Funções de Debug ---
 

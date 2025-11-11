@@ -29,7 +29,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, in
     RegistroBuscaPessoa **resultados = malloc(nRegsEncontrados * sizeof(RegistroBuscaPessoa *));
     if (resultados == NULL) {
         // Lidar com falha de alocação.
-        liberar_resultados_busca(resultadosEmBuscas, buscas);
+        liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         return;
     }
 
