@@ -73,13 +73,15 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
     fread(&reg->tamanhoNomePessoa, sizeof(int), 1, fp);
     if (reg->tamanhoNomePessoa > 0)
     {
-        reg->nomePessoa = malloc(reg->tamanhoNomePessoa);
+        // Aloca espaço extra para o terminador nulo
+        reg->nomePessoa = malloc(reg->tamanhoNomePessoa + 1);
         if (reg->nomePessoa == NULL)
         {
             free(reg);
             return 1;
         }
         fread(reg->nomePessoa, reg->tamanhoNomePessoa, 1, fp);
+        reg->nomePessoa[reg->tamanhoNomePessoa] = '\0'; // Adiciona terminador nulo
     }
     else
     {
@@ -88,7 +90,8 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
 
     // Lê o campo nomeUsuario (tamanho variável).
     fread(&reg->tamanhoNomeUsuario, sizeof(int), 1, fp);
-    reg->nomeUsuario = malloc(reg->tamanhoNomeUsuario);
+    // Aloca espaço extra para o terminador nulo
+    reg->nomeUsuario = malloc(reg->tamanhoNomeUsuario + 1);
     if (reg->nomeUsuario == NULL)
     {
         if (reg->nomePessoa != NULL)
@@ -97,6 +100,7 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
         return 1;
     }
     fread(reg->nomeUsuario, reg->tamanhoNomeUsuario, 1, fp);
+    reg->nomeUsuario[reg->tamanhoNomeUsuario] = '\0'; // Adiciona terminador nulo
 
     // Calcula o total de bytes lidos para os campos de dados do registro.
     int bytes_lidos = sizeof(reg->idPessoa) +

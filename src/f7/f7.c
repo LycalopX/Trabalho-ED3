@@ -308,7 +308,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
 int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int buscas)
 {
-    imprimir_registros_raw_em_arquivo(fp, "./debug/input_f7.txt");
+    // imprimir_registros_raw_em_arquivo(fp, "./debug/input_f7.txt");
     // 1. Busca: Encontra todos os registros que correspondem aos critérios de busca e atualização.
     int nRegsEncontrados = 0;
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 1);
@@ -317,6 +317,20 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
         liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         printf("Nenhum registro encontrado.\n");
         return 0;
+    }
+
+    // [DEBUG]
+    for(int i = 0; i < buscas; i++) {
+        printf("Busca %d: %d registros encontrados.\n", i + 1, resultadosEmBuscas[i].nRegistros);
+        for(int j = 0; j < resultadosEmBuscas[i].nRegistros; j++) {
+            RegistroPessoa *reg = resultadosEmBuscas[i].registrosBusca[j]->registro;
+            printf("  Registro %d: idPessoa=%d, idadePessoa=%d, nomePessoa=\"%s\", nomeUsuario=\"%s\"\n",
+                   j + 1,
+                   reg->idPessoa,
+                   reg->idadePessoa,
+                   reg->nomePessoa != NULL ? reg->nomePessoa : "NULO",
+                   reg->nomeUsuario != NULL ? reg->nomeUsuario : "NULO");
+        }
     }
 
     // 2. Preparação: Marca os arquivos como instáveis ('0').
@@ -367,6 +381,19 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     // 4. Unificação: Mescla múltiplas atualizações para o mesmo registro em uma única tarefa.
     qsort(atualizacoes, nAtualizacoes, sizeof(Atualizacao), comparar_atualizacao_por_id);
     unificarResultados(atualizacoes, &nAtualizacoes);
+    
+    // [DEBUG]
+    for(int i = 0; i < nAtualizacoes; i++) {
+        RegistroPessoa *reg = atualizacoes[i].registro;
+        printf("Atualizacao %d: idPessoa=%d, idadePessoa=%d, nomePessoa=\"%s\", nomeUsuario=\"%s\", ByteOffset=%lld, flagNovoByteOffset=%c\n",
+               i + 1,
+               reg->idPessoa,
+               reg->idadePessoa,
+               reg->nomePessoa != NULL ? reg->nomePessoa : "NULO",
+               reg->nomeUsuario != NULL ? reg->nomeUsuario : "NULO",
+               atualizacoes[i].ByteOffset,
+               atualizacoes[i].flagNovoByteOffset);
+    }
 
     // 5. Execução: Aplica as tarefas de atualização ao arquivo de dados e ao índice em memória.
     RegistroIndice **indice_em_memoria = carregar_indice_inteiro(fpIndice, cabPessoa.quantidadePessoas);
@@ -409,6 +436,6 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
     }
     free(atualizacoes);
 
-    imprimir_registros_raw_em_arquivo(fp, "./debug/output_f7.txt");
+    // imprimir_registros_raw_em_arquivo(fp, "output_f7.txt");
     return 0;
 }
