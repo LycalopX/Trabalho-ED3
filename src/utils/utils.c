@@ -63,14 +63,16 @@ void scan_quote_string(char *str)
         getchar(); // ignorar aspas fechando
     }
     else if (R != EOF)
-    { 
+    {
         int i = 0;
         str[i++] = R;
-        while((R = getchar()) != EOF && !isspace(R)) {
+        while ((R = getchar()) != EOF && !isspace(R))
+        {
             str[i++] = R;
         }
         str[i] = '\0';
-        if(R != EOF) ungetc(R, stdin);
+        if (R != EOF)
+            ungetc(R, stdin);
     }
     else
     { // EOF
@@ -85,8 +87,10 @@ int comparar_registros_busca_offset(const void *a, const void *b)
     RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
     RegistroBuscaPessoa *regB = *(RegistroBuscaPessoa **)b;
 
-    if (regA->ByteOffset < regB->ByteOffset) return -1;
-    if (regA->ByteOffset > regB->ByteOffset) return 1;
+    if (regA->ByteOffset < regB->ByteOffset)
+        return -1;
+    if (regA->ByteOffset > regB->ByteOffset)
+        return 1;
     return 0;
 }
 
@@ -149,35 +153,40 @@ void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
     *p_current_capacity = new_capacity;
 }
 
-void liberar_resultados_busca(ResultadoBuscaPessoa *resultados, int nBuscas)
+void liberar_resultados_busca_inteira(ResultadoBuscaPessoa *resultados, int nBuscas)
 {
     if (resultados == NULL)
         return;
 
     for (int i = 0; i < nBuscas; i++)
     {
-        if (resultados[i].registrosBusca != NULL)
-        {
-            for (int j = 0; j < resultados[i].nRegistros; j++)
-            {
-                if (resultados[i].registrosBusca[j] != NULL)
-                {
-                    destroi_registro_pessoa(resultados[i].registrosBusca[j]->registro);
-                    free(resultados[i].registrosBusca[j]);
-                }
-            }
-            free(resultados[i].registrosBusca);
-        }
-        if (resultados[i].busca.campo != NULL)
-            free(resultados[i].busca.campo);
-        if (resultados[i].busca.valor != NULL)
-            free(resultados[i].busca.valor);
-        if (resultados[i].update.campo != NULL)
-            free(resultados[i].update.campo);
-        if (resultados[i].update.valor != NULL)
-            free(resultados[i].update.valor);
+        liberar_resultados_busca(&resultados[i]);
     }
     free(resultados);
+}
+
+void liberar_resultados_busca(ResultadoBuscaPessoa *resultado)
+{
+    if (resultado->registrosBusca != NULL)
+    {
+        for (int j = 0; j < resultado->nRegistros; j++)
+        {
+            if (resultado->registrosBusca[j] != NULL)
+            {
+                destroi_registro_pessoa(resultado->registrosBusca[j]->registro);
+                free(resultado->registrosBusca[j]);
+            }
+        }
+        free(resultado->registrosBusca);
+    }
+    if (resultado->busca.campo != NULL)
+        free(resultado->busca.campo);
+    if (resultado->busca.valor != NULL)
+        free(resultado->busca.valor);
+    if (resultado->update.campo != NULL)
+        free(resultado->update.campo);
+    if (resultado->update.valor != NULL)
+        free(resultado->update.valor);
 }
 
 // DEBUG
@@ -233,7 +242,6 @@ void imprimir_registros_raw(FILE *fp)
         printf("  - ID: %d\n", reg->idPessoa);
         printf("  - Idade: %d\n", reg->idadePessoa);
 
-
         printf("  - Usuario (%d): ", reg->tamanhoNomeUsuario);
         fwrite(reg->nomeUsuario, 1, reg->tamanhoNomeUsuario, stdout);
 
@@ -286,7 +294,7 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
         }
 
         fprintf(output_fp, "Registro em %ld | Tamanho Declarado: %d | Removido: '%c'\n",
-               currentPos, reg->tamanhoRegistro, reg->removido);
+                currentPos, reg->tamanhoRegistro, reg->removido);
 
         // Calcula o tamanho real dos dados lidos para este registro
         long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +

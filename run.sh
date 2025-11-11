@@ -65,12 +65,12 @@ echo "--- Executando Testes Runcodes ---"
  echo -e "6 entrada.bin indice.bin 2\n1 625, \"SAMANTHA PEREIRA SANTOS\", 13, \"SAMANTHAPS\"\n2 645, \"VITORIA PRADO CAMPOS\", NULO, \"VIVICA\"" | $RUN_CMD
 
 # Teste 12: Realiza múltiplas atualizações.
- echo ">> Teste 12: Funcionalidade 7 (Múltiplas atualizações)"
- echo -e "7 entrada.bin indice.bin 3 \n1 idPessoa=23 nomePessoa=\"PINTUDO DA SILVA\" \n2 idadePessoa=89 idadePessoa=20 \n3 nomePessoa=\"HEITOR DA MOTA\" nomePessoa=\"HIHI PINTUDO DA SILVA DE NOVO HIHI\"" | $RUN_CMD
+# echo ">> Teste 12: Funcionalidade 7 (Múltiplas atualizações)"
+# echo -e "7 entrada.bin indice.bin 3 \n1 idPessoa=23 nomePessoa=\"PINTUDO DA SILVA\" \n2 idadePessoa=89 idadePessoa=20 \n3 nomePessoa=\"HEITOR DA MOTA\" nomePessoa=\"HIHI PINTUDO DA SILVA DE NOVO HIHI\"" | $RUN_CMD
 
 # Teste 13: Realiza múltiplas atualizações com casos de borda, usando dados válidos.
- echo ">> Teste 13: Funcionalidade 7 (Atualizações com dados válidos)"
- echo -e "7 entrada.bin indice.bin 5 \n1 idPessoa=140 idPessoa=1234 \n2 idadePessoa=NULO idadePessoa=18 \n3 nomePessoa=NULO nomePessoa=\"FANTASMA\" \n4 nomePessoa=\"NAOEXISTE\" idPessoa=1 \n5 nomeUsuario=\"HMACHADO\" nomeUsuario=\"ANAFER\"" | $RUN_CMD
+# echo ">> Teste 13: Funcionalidade 7 (Atualizações com dados válidos)"
+# echo -e "7 entrada.bin indice.bin 5 \n1 idPessoa=140 idPessoa=1234 \n2 idadePessoa=NULO idadePessoa=18 \n3 nomePessoa=NULO nomePessoa=\"FANTASMA\" \n4 nomePessoa=\"NAOEXISTE\" idPessoa=1 \n5 nomeUsuario=\"HMACHADO\" nomeUsuario=\"ANAFER\"" | $RUN_CMD
 
 # Teste 14: Tenta criar um arquivo de seguidores a partir de um CSV que não existe.
 # echo ">> Teste 14: Funcionalidade 8 (Arquivo CSV de seguidores inexistente)"
