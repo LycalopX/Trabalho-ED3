@@ -140,99 +140,74 @@ static int processar_atualizacoes_de_busca(int buscas, ResultadoBuscaPessoa *res
 
 static void unificarResultados(Atualizacao *atualizacoes, int *nRegsEncontrados)
 {
-    if (*nRegsEncontrados <= 1)
-    {
-        // Mesmo com um único registro, precisamos verificar se ele precisa ser realocado
-        if (*nRegsEncontrados == 1)
-        {
-            int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[0].registro);
-            int old_record_disk_size = atualizacoes[0].registro->tamanhoRegistro;
-
-            if (new_compact_size > old_record_disk_size)
-            {
-                atualizacoes[0].flagNovoByteOffset = '1'; // Sinaliza remoção e inserção
-                atualizacoes[0].registro->tamanhoRegistro = new_compact_size;
-            }
-            else
-            {
-                atualizacoes[0].flagNovoByteOffset = '0';
-                atualizacoes[0].registro->tamanhoRegistro = old_record_disk_size;
-            }
-        }
+    if (*nRegsEncontrados == 0)
         return;
-    }
 
+    // Etapa 1: Unificar atualizações para o mesmo registro
     int write_idx = 0;
-    for (int read_idx = 1; read_idx < (*nRegsEncontrados); read_idx++)
+    if (*nRegsEncontrados > 1)
     {
-        if (atualizacoes[read_idx].ByteOffset == -1)
+        for (int read_idx = 1; read_idx < (*nRegsEncontrados); read_idx++)
         {
-            destroi_registro_pessoa(atualizacoes[read_idx].registro);
-            continue;
-        }
-
-        if (atualizacoes[read_idx].registro->idPessoa != atualizacoes[write_idx].registro->idPessoa)
-        {
-            // Antes de mover para o próximo registro, calcule o tamanho do registro de `write_idx`
-            int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[write_idx].registro);
-            int old_record_disk_size = atualizacoes[write_idx].registro->tamanhoRegistro;
-
-            if (new_compact_size > old_record_disk_size)
+            if (atualizacoes[read_idx].ByteOffset == -1)
             {
-                atualizacoes[write_idx].flagNovoByteOffset = '1';
-                atualizacoes[write_idx].registro->tamanhoRegistro = new_compact_size;
+                destroi_registro_pessoa(atualizacoes[read_idx].registro);
+                continue;
+            }
+
+            if (atualizacoes[read_idx].idOriginal != atualizacoes[write_idx].idOriginal)
+            {
+                write_idx++;
+                if (write_idx != read_idx)
+                {
+                    atualizacoes[write_idx] = atualizacoes[read_idx];
+                }
             }
             else
             {
-                atualizacoes[write_idx].flagNovoByteOffset = '0';
-                atualizacoes[write_idx].registro->tamanhoRegistro = old_record_disk_size;
+                switch (atualizacoes[read_idx].indiceDaRegra)
+                {
+                case 0: // ID
+                    atualizacoes[write_idx].idPessoaNovo = atualizacoes[read_idx].idPessoaNovo;
+                    break;
+                case 1: // Idade
+                    atualizacoes[write_idx].registro->idadePessoa = atualizacoes[read_idx].registro->idadePessoa;
+                    break;
+                case 2: // Nome
+                    if (atualizacoes[write_idx].registro->nomePessoa)
+                        free(atualizacoes[write_idx].registro->nomePessoa);
+                    atualizacoes[write_idx].registro->nomePessoa = strdup(atualizacoes[read_idx].registro->nomePessoa);
+                    atualizacoes[write_idx].registro->tamanhoNomePessoa = atualizacoes[read_idx].registro->tamanhoNomePessoa;
+                    break;
+                case 3: // Usuario
+                    if (atualizacoes[write_idx].registro->nomeUsuario)
+                        free(atualizacoes[write_idx].registro->nomeUsuario);
+                    atualizacoes[write_idx].registro->nomeUsuario = strdup(atualizacoes[read_idx].registro->nomeUsuario);
+                    atualizacoes[write_idx].registro->tamanhoNomeUsuario = atualizacoes[read_idx].registro->tamanhoNomeUsuario;
+                    break;
+                }
+                destroi_registro_pessoa(atualizacoes[read_idx].registro);
             }
+        }
+    }
+    *nRegsEncontrados = write_idx + 1;
 
-            write_idx++;
-            atualizacoes[write_idx] = atualizacoes[read_idx];
+    // Etapa 2: Calcular o tamanho final e definir a flag para todos os registros unificados
+    for (int i = 0; i < *nRegsEncontrados; i++)
+    {
+        int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[i].registro);
+
+        if (new_compact_size > atualizacoes[i].tamanhoRegistroOriginal)
+        {
+            atualizacoes[i].flagNovoByteOffset = '1';
+            atualizacoes[i].registro->tamanhoRegistro = new_compact_size;
         }
         else
         {
-            switch (atualizacoes[read_idx].indiceDaRegra)
-            {
-            case 0: // ID
-                atualizacoes[write_idx].registro->idPessoa = atualizacoes[read_idx].registro->idPessoa;
-                atualizacoes[write_idx].idPessoaNovo = atualizacoes[read_idx].registro->idPessoa;
-                break;
-            case 1: // Idade
-                atualizacoes[write_idx].registro->idadePessoa = atualizacoes[read_idx].registro->idadePessoa;
-                break;
-            case 2: // Nome
-                free(atualizacoes[write_idx].registro->nomePessoa);
-                atualizacoes[write_idx].registro->nomePessoa = strdup(atualizacoes[read_idx].registro->nomePessoa);
-                atualizacoes[write_idx].registro->tamanhoNomePessoa = atualizacoes[read_idx].registro->tamanhoNomePessoa;
-                break;
-            case 3:
-                free(atualizacoes[write_idx].registro->nomeUsuario);
-                atualizacoes[write_idx].registro->nomeUsuario = strdup(atualizacoes[read_idx].registro->nomeUsuario);
-                atualizacoes[write_idx].registro->tamanhoNomeUsuario = atualizacoes[read_idx].registro->tamanhoNomeUsuario;
-                break;
-            }
-            destroi_registro_pessoa(atualizacoes[read_idx].registro);
+            atualizacoes[i].flagNovoByteOffset = '0';
+            atualizacoes[i].registro->tamanhoRegistro = atualizacoes[i].tamanhoRegistroOriginal;
         }
     }
-
-    // Calcula o tamanho para o último (ou único) registro unificado
-    int new_compact_size = calcula_tamanho_registro_pessoa(atualizacoes[write_idx].registro);
-    int old_record_disk_size = atualizacoes[write_idx].registro->tamanhoRegistro;
-
-    if (new_compact_size > old_record_disk_size)
-    {
-        atualizacoes[write_idx].flagNovoByteOffset = '1';
-        atualizacoes[write_idx].registro->tamanhoRegistro = new_compact_size;
-    }
-    else
-    {
-        atualizacoes[write_idx].flagNovoByteOffset = '0';
-        atualizacoes[write_idx].registro->tamanhoRegistro = old_record_disk_size;
-    }
-
-    *nRegsEncontrados = write_idx + 1;
 }
 
 static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_memoria, Atualizacao *atualizacoes,
@@ -417,6 +392,7 @@ int funcionalidade7(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int
 
     // 6. Finalização do Índice: Reordena o índice em memória por ID e o reescreve no disco.
     qsort(indice_em_memoria, cabPessoa.quantidadePessoas, sizeof(RegistroIndice *), comparar_indices_id);
+
     // NOTA: reescrever_arquivo_indice já libera indice_em_memoria e seus elementos internamente
     reescrever_arquivo_indice(nomeArquivoIndice, indice_em_memoria, cabPessoa.quantidadePessoas);
 

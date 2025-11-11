@@ -3,6 +3,8 @@
 
 typedef struct {
     RegistroPessoa *registro;
+    int idOriginal;
+    int tamanhoRegistroOriginal;
 
     long long ByteOffset;
     char flagNovoByteOffset;
@@ -13,6 +15,8 @@ typedef struct {
 
 void inicializa_atualizacao(Atualizacao *atualizacao, RegistroPessoa *registro, long long byteOffset, int indiceDaRegra) {
     atualizacao->registro = registro;
+    atualizacao->idOriginal = registro->idPessoa;
+    atualizacao->tamanhoRegistroOriginal = registro->tamanhoRegistro;
     atualizacao->ByteOffset = byteOffset;
     atualizacao->flagNovoByteOffset = '0';
     atualizacao->idPessoaNovo = -1;
@@ -25,7 +29,7 @@ int comparar_atualizacao_por_id(const void *a, const void *b)
     Atualizacao *tarefaA = (Atualizacao *)a;
     Atualizacao *tarefaB = (Atualizacao *)b;
 
-    return (tarefaA->registro->idPessoa - tarefaB->registro->idPessoa);
+    return (tarefaA->idOriginal - tarefaB->idOriginal);
 }
 
 int comparar_atualizacao_por_byteoffset(const void *a, const void *b)
