@@ -266,7 +266,7 @@ static int aplicar_atualizacoes_de_busca(FILE *fp, RegistroIndice **indice_em_me
 
             if (atualizacoes[i].indiceDaRegra == 0)
             {
-                (*p_encontrado_ptr)->idPessoa = reg_atualizado->idPessoa;
+                (*p_encontrado_ptr)->idPessoa = atualizacoes[i].idPessoaNovo;
             }
             reg_atualizado->idPessoa = atualizacoes[i].idPessoaNovo;
         }
