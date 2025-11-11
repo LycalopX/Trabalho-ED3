@@ -8,6 +8,7 @@ typedef struct {
     char flagNovoByteOffset;
     int idPessoaNovo;
     int indiceDaRegra;
+
 } Atualizacao;
 
 void inicializa_atualizacao(Atualizacao *atualizacao, RegistroPessoa *registro, long long byteOffset, int indiceDaRegra) {
