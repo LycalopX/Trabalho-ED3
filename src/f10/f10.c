@@ -140,7 +140,7 @@ int funcionalidade10(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegueOrdenado, int 
 
     // Carrega os registros
     int numeroRegistrosSegue = cabecalho->quantidadePessoas;
-    //printf("Número de RegistroSegue carregados: %d\n", numeroRegistrosSegue); // [DEBUG]
+    
     RegistroSegue **registrosSegue = carregar_todos_registros_segue(fpSegueOrdenado, numeroRegistrosSegue);
     if(registrosSegue == NULL) 
     {
@@ -151,13 +151,10 @@ int funcionalidade10(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegueOrdenado, int 
     // Realiza a junção com segueOrdenado
     if (resultadosEmBuscas != NULL)
     {
-        //printf("Realizando junção com segueOrdenado...\n"); // [DEBUG]
         for (int i = 0; i < buscas; i++)
         {
-            //printf("(%d) Resultados da busca %d:\n", resultadosEmBuscas[i].nRegistros, i + 1); // [DEBUG]
             for (int j = 0; j < resultadosEmBuscas[i].nRegistros; j++)
             {
-                //printf(" - Registro %d:\n", j + 1); // [DEBUG]
                 // Registro da pessoa
                 RegistroBuscaPessoa *registroBusca = resultadosEmBuscas[i].registrosBusca[j];
                 RegistroPessoa *pessoa = registroBusca->registro;

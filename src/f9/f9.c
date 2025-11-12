@@ -55,9 +55,6 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
         return 1; // Falha ao ler o cabeçalho
     }
 
-    // DEBUG: printa o cabeçalho lido
-    //printf("Cabeçalho lido:\n - Status: %c\n - Quantidade Pessoas: %u\n - Próximo RRN: %u\n\n", cabecalho->status, cabecalho->quantidadePessoas, cabecalho->proxRRN);
-
     // Aloca memória para os registros
     RegistroSegue *registros = malloc(cabecalho->quantidadePessoas * sizeof(RegistroSegue));
     if (registros == NULL) {
@@ -72,10 +69,6 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
             i--; // Decrementa i para compensar o registro removido
             continue;
         }
-        
-        // DEBUG: printa o registro lido
-        //imprime_registro_segue(&registros[i]);
-        //printf("\n");
     }
 
     // Ordena os registros usando qsort (biblioteca C) e a função de comparação
@@ -92,7 +85,6 @@ int funcionalidade9(FILE *fp, FILE *fpDestino) {
     // Escreve os registros ordenados no arquivo de destino
     for (int i = 0; i < cabecalho->quantidadePessoas; i++) 
     {
-        //imprime_registro_segue(&registros[i]); // DEBUG: printa o registro escrito
         escreve_registro_segue(fpDestino, &registros[i]);
     }
 

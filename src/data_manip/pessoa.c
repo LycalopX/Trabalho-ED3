@@ -288,24 +288,12 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
 // Insere um array de registros de pessoa no arquivo de dados, respeitando os byte offsets.
 void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) {
 
-    fprintf(stdout, "DEBUG inserir_pessoas: nInsercoes=%d\n", nInsercoes);
-    fflush(stdout);
-
     fseek(fp, 17, SEEK_SET);
     long long byteOffset = 17;
 
     for (int i = 0; i < nInsercoes; i++)
     {
         // propriedades do registro
-        
-        fprintf(stdout, "DEBUG Inserindo registro ID=%d no byte offset %lld, nomePessoa='%s', nomeUsuario='%s'\n", 
-                registros[i]->registro->idPessoa, 
-                registros[i]->ByteOffset,
-                registros[i]->registro->nomePessoa ? registros[i]->registro->nomePessoa : "NULL",
-                registros[i]->registro->nomeUsuario ? registros[i]->registro->nomeUsuario : "NULL");
-        fflush(stdout);
-            
-
 
         long long diffByteOffset = registros[i]->ByteOffset - byteOffset;
         fseek(fp, diffByteOffset, SEEK_CUR);

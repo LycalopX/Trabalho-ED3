@@ -1,6 +1,6 @@
 Cabeçalho:
-  - Próximo Byte Offset: 23645
-  - Quantidade Removidos: 166
+  - Próximo Byte Offset: 20892
+  - Quantidade Removidos: 93
   - Quantidade Pessoas: 409
 Status: 1
 
@@ -32,7 +32,7 @@ Registro em 158 | Tamanho Declarado: 33 | Removido: '0'
   - Idade: 39
   - Usuario (4): ANA5
 
-Registro em 196 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 196 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 197
@@ -95,7 +95,7 @@ Registro em 505 | Tamanho Declarado: 42 | Removido: '0'
   - Idade: 64
   - Usuario (8): JALMEIDA
 
-Registro em 552 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 552 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 293
@@ -109,7 +109,7 @@ Registro em 582 | Tamanho Declarado: 39 | Removido: '1'
   - Idade: -1
   - Usuario (11): ALANAARAUJO
 
-Registro em 626 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 626 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 444
@@ -123,7 +123,7 @@ Registro em 654 | Tamanho Declarado: 44 | Removido: '0'
   - Idade: 90
   - Usuario (11): LUCCAGRANDE
 
-Registro em 703 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 703 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 72
@@ -144,14 +144,14 @@ Registro em 776 | Tamanho Declarado: 49 | Removido: '0'
   - Idade: 87
   - Usuario (12): LUCASCARDOSO
 
-Registro em 830 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 830 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 153
   - Idade: 59
   - Usuario (9): BRENOMATA
 
-Registro em 860 | Tamanho Declarado: 24 | Removido: '1'
+Registro em 860 | Tamanho Declarado: 24 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 251
@@ -270,7 +270,7 @@ Registro em 1519 | Tamanho Declarado: 45 | Removido: '0'
   - Idade: 55
   - Usuario (11): ANACASSIANO
 
-Registro em 1569 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 1569 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 128
@@ -319,7 +319,7 @@ Registro em 1820 | Tamanho Declarado: 40 | Removido: '0'
   - Idade: 97
   - Usuario (5): MCRUZ
 
-Registro em 1865 | Tamanho Declarado: 27 | Removido: '1'
+Registro em 1865 | Tamanho Declarado: 27 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 179
@@ -340,7 +340,7 @@ Registro em 1941 | Tamanho Declarado: 39 | Removido: '0'
   - Idade: 76
   - Usuario (5): JOAO6
 
-Registro em 1985 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 1985 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 382
@@ -452,7 +452,7 @@ Registro em 2601 | Tamanho Declarado: 46 | Removido: '0'
   - Idade: 36
   - Usuario (11): MARIAROCHA1
 
-Registro em 2652 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 2652 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 330
@@ -606,7 +606,7 @@ Registro em 3595 | Tamanho Declarado: 40 | Removido: '0'
   - Idade: 42
   - Usuario (7): ANALIMA
 
-Registro em 3640 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 3640 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 217
@@ -627,7 +627,7 @@ Registro em 3716 | Tamanho Declarado: 43 | Removido: '0'
   - Idade: 39
   - Usuario (13): NATALIAVIEIRA
 
-Registro em 3764 | Tamanho Declarado: 24 | Removido: '1'
+Registro em 3764 | Tamanho Declarado: 24 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 332
@@ -662,7 +662,7 @@ Registro em 3927 | Tamanho Declarado: 46 | Removido: '0'
   - Idade: 18
   - Usuario (8): ARTHUR44
 
-Registro em 3978 | Tamanho Declarado: 26 | Removido: '1'
+Registro em 3978 | Tamanho Declarado: 26 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 112
@@ -718,7 +718,7 @@ Registro em 4251 | Tamanho Declarado: 33 | Removido: '1'
   - Idade: -1
   - Usuario (6): LUNA40
 
-Registro em 4289 | Tamanho Declarado: 27 | Removido: '1'
+Registro em 4289 | Tamanho Declarado: 27 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 392
@@ -732,7 +732,7 @@ Registro em 4321 | Tamanho Declarado: 35 | Removido: '0'
   - Idade: 59
   - Usuario (7): CLARA81
 
-Registro em 4361 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 4361 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 371
@@ -865,7 +865,7 @@ Registro em 5156 | Tamanho Declarado: 43 | Removido: '1'
   - Idade: -1
   - Usuario (13): JOAQUIMFOGACA
 
-Registro em 5204 | Tamanho Declarado: 27 | Removido: '1'
+Registro em 5204 | Tamanho Declarado: 27 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 288
@@ -879,7 +879,7 @@ Registro em 5236 | Tamanho Declarado: 37 | Removido: '0'
   - Idade: 77
   - Usuario (10): NINACASTRO
 
-Registro em 5278 | Tamanho Declarado: 24 | Removido: '1'
+Registro em 5278 | Tamanho Declarado: 24 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 440
@@ -900,7 +900,7 @@ Registro em 5352 | Tamanho Declarado: 46 | Removido: '1'
   - Idade: -1
   - Usuario (7): MARCOS7
 
-Registro em 5403 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 5403 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 257
@@ -970,7 +970,7 @@ Registro em 5781 | Tamanho Declarado: 40 | Removido: '1'
   - Idade: -1
   - Usuario (7): RHAVI11
 
-Registro em 5826 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 5826 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 205
@@ -984,7 +984,7 @@ Registro em 5853 | Tamanho Declarado: 42 | Removido: '0'
   - Idade: 69
   - Usuario (9): JOSEGOMES
 
-Registro em 5900 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 5900 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 499
@@ -998,7 +998,7 @@ Registro em 5928 | Tamanho Declarado: 36 | Removido: '0'
   - Idade: 56
   - Usuario (7): MARIAH6
 
-Registro em 5969 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 5969 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 314
@@ -1026,7 +1026,7 @@ Registro em 6090 | Tamanho Declarado: 35 | Removido: '1'
   - Idade: -1
   - Usuario (7): LUCCA11
 
-Registro em 6130 | Tamanho Declarado: 27 | Removido: '1'
+Registro em 6130 | Tamanho Declarado: 27 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 429
@@ -1082,7 +1082,7 @@ Registro em 6389 | Tamanho Declarado: 49 | Removido: '0'
   - Idade: 43
   - Usuario (13): MARIAOLIVEIRA
 
-Registro em 6443 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 6443 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 84
@@ -1110,14 +1110,14 @@ Registro em 6571 | Tamanho Declarado: 43 | Removido: '0'
   - Idade: 90
   - Usuario (7): PEDRO22
 
-Registro em 6619 | Tamanho Declarado: 20 | Removido: '1'
+Registro em 6619 | Tamanho Declarado: 20 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 87
   - Idade: 94
   - Usuario (4): IAN7
 
-Registro em 6644 | Tamanho Declarado: 28 | Removido: '1'
+Registro em 6644 | Tamanho Declarado: 28 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 428
@@ -1138,7 +1138,7 @@ Registro em 6725 | Tamanho Declarado: 35 | Removido: '0'
   - Idade: 54
   - Usuario (7): MARAUJO
 
-Registro em 6765 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 6765 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 96
@@ -1152,7 +1152,7 @@ Registro em 6793 | Tamanho Declarado: 42 | Removido: '0'
   - Idade: 51
   - Usuario (9): JOSECUNHA
 
-Registro em 6840 | Tamanho Declarado: 31 | Removido: '1'
+Registro em 6840 | Tamanho Declarado: 31 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 286
@@ -1194,7 +1194,7 @@ Registro em 7045 | Tamanho Declarado: 34 | Removido: '0'
   - Idade: 81
   - Usuario (5): RAVI8
 
-Registro em 7084 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 7084 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 411
@@ -1215,7 +1215,7 @@ Registro em 7146 | Tamanho Declarado: 47 | Removido: '0'
   - Idade: 74
   - Usuario (15): EMANUELLYGUERRA
 
-Registro em 7198 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 7198 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 89
@@ -1313,7 +1313,7 @@ Registro em 7746 | Tamanho Declarado: 49 | Removido: '0'
   - Idade: 84
   - Usuario (11): MCAVALCANTI
 
-Registro em 7800 | Tamanho Declarado: 31 | Removido: '1'
+Registro em 7800 | Tamanho Declarado: 31 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 68
@@ -1376,7 +1376,7 @@ Registro em 8147 | Tamanho Declarado: 44 | Removido: '0'
   - Idade: 30
   - Usuario (11): MARIASALES1
 
-Registro em 8196 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 8196 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 225
@@ -1397,7 +1397,7 @@ Registro em 8265 | Tamanho Declarado: 41 | Removido: '0'
   - Idade: 93
   - Usuario (12): CALEBECIRINO
 
-Registro em 8311 | Tamanho Declarado: 29 | Removido: '1'
+Registro em 8311 | Tamanho Declarado: 29 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 283
@@ -1439,7 +1439,7 @@ Registro em 8524 | Tamanho Declarado: 40 | Removido: '0'
   - Idade: 80
   - Usuario (9): HMENDONCA
 
-Registro em 8569 | Tamanho Declarado: 24 | Removido: '1'
+Registro em 8569 | Tamanho Declarado: 24 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 467
@@ -1467,7 +1467,7 @@ Registro em 8668 | Tamanho Declarado: 39 | Removido: '0'
   - Idade: 53
   - Usuario (7): AGUERRA
 
-Registro em 8712 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 8712 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 490
@@ -1614,7 +1614,7 @@ Registro em 9567 | Tamanho Declarado: 34 | Removido: '0'
   - Idade: 72
   - Usuario (6): MSILVA
 
-Registro em 9606 | Tamanho Declarado: 30 | Removido: '1'
+Registro em 9606 | Tamanho Declarado: 30 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 328
@@ -1635,7 +1635,7 @@ Registro em 9679 | Tamanho Declarado: 33 | Removido: '0'
   - Idade: 43
   - Usuario (6): SARA72
 
-Registro em 9717 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 9717 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 289
@@ -1684,7 +1684,7 @@ Registro em 9969 | Tamanho Declarado: 36 | Removido: '1'
   - Idade: -1
   - Usuario (7): ARTHUR3
 
-Registro em 10010 | Tamanho Declarado: 26 | Removido: '1'
+Registro em 10010 | Tamanho Declarado: 26 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 292
@@ -1733,14 +1733,14 @@ Registro em 10268 | Tamanho Declarado: 41 | Removido: '0'
   - Idade: 87
   - Usuario (7): MARIA60
 
-Registro em 10314 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 10314 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 278
   - Idade: 61
   - Usuario (9): SABRINA71
 
-Registro em 10344 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 10344 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 119
@@ -1845,7 +1845,7 @@ Registro em 10930 | Tamanho Declarado: 40 | Removido: '1'
   - Idade: -1
   - Usuario (6): MARIA6
 
-Registro em 10975 | Tamanho Declarado: 31 | Removido: '1'
+Registro em 10975 | Tamanho Declarado: 31 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 333
@@ -1859,7 +1859,7 @@ Registro em 11011 | Tamanho Declarado: 45 | Removido: '0'
   - Idade: 50
   - Usuario (7): MARIA44
 
-Registro em 11061 | Tamanho Declarado: 28 | Removido: '1'
+Registro em 11061 | Tamanho Declarado: 28 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 449
@@ -1880,7 +1880,7 @@ Registro em 11141 | Tamanho Declarado: 36 | Removido: '0'
   - Idade: 69
   - Usuario (6): ESTER8
 
-Registro em 11182 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 11182 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 350
@@ -1957,7 +1957,7 @@ Registro em 11639 | Tamanho Declarado: 35 | Removido: '1'
   - Idade: -1
   - Usuario (7): BRUNA62
 
-Registro em 11679 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 11679 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 396
@@ -1978,14 +1978,14 @@ Registro em 11750 | Tamanho Declarado: 33 | Removido: '0'
   - Idade: 64
   - Usuario (8): LIAMLEAO
 
-Registro em 11788 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 11788 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 77
   - Idade: 37
   - Usuario (5): SARA5
 
-Registro em 11814 | Tamanho Declarado: 26 | Removido: '1'
+Registro em 11814 | Tamanho Declarado: 26 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 10
@@ -1999,7 +1999,7 @@ Registro em 11845 | Tamanho Declarado: 22 | Removido: '1'
   - Idade: -1
   - Usuario (6): VITOR9
 
-Registro em 11872 | Tamanho Declarado: 32 | Removido: '1'
+Registro em 11872 | Tamanho Declarado: 32 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 431
@@ -2055,7 +2055,7 @@ Registro em 12181 | Tamanho Declarado: 43 | Removido: '0'
   - Idade: 74
   - Usuario (13): CATARINAALVES
 
-Registro em 12229 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 12229 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 14
@@ -2125,14 +2125,14 @@ Registro em 12600 | Tamanho Declarado: 36 | Removido: '0'
   - Idade: 38
   - Usuario (5): RCRUZ
 
-Registro em 12641 | Tamanho Declarado: 20 | Removido: '1'
+Registro em 12641 | Tamanho Declarado: 20 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 458
   - Idade: 20
   - Usuario (4): LEO7
 
-Registro em 12666 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 12666 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 166
@@ -2160,7 +2160,7 @@ Registro em 12780 | Tamanho Declarado: 30 | Removido: '1'
   - Idade: -1
   - Usuario (5): NLIMA
 
-Registro em 12815 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 12815 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 443
@@ -2174,7 +2174,7 @@ Registro em 12843 | Tamanho Declarado: 39 | Removido: '0'
   - Idade: 78
   - Usuario (11): JULIAFARIAS
 
-Registro em 12887 | Tamanho Declarado: 20 | Removido: '1'
+Registro em 12887 | Tamanho Declarado: 20 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 193
@@ -2188,7 +2188,7 @@ Registro em 12912 | Tamanho Declarado: 37 | Removido: '1'
   - Idade: -1
   - Usuario (8): MELINA36
 
-Registro em 12954 | Tamanho Declarado: 26 | Removido: '1'
+Registro em 12954 | Tamanho Declarado: 26 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 423
@@ -2251,14 +2251,14 @@ Registro em 13297 | Tamanho Declarado: 40 | Removido: '0'
   - Idade: 65
   - Usuario (9): CLARICE71
 
-Registro em 13342 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 13342 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 242
   - Idade: 23
   - Usuario (5): ISIS6
 
-Registro em 13368 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 13368 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 253
@@ -2279,7 +2279,7 @@ Registro em 13429 | Tamanho Declarado: 46 | Removido: '0'
   - Idade: 86
   - Usuario (10): LUIZFOGACA
 
-Registro em 13480 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 13480 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 122
@@ -2300,7 +2300,7 @@ Registro em 13556 | Tamanho Declarado: 40 | Removido: '0'
   - Idade: 85
   - Usuario (6): APINTO
 
-Registro em 13601 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 13601 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 23
@@ -2405,7 +2405,7 @@ Registro em 14230 | Tamanho Declarado: 41 | Removido: '0'
   - Idade: 76
   - Usuario (9): BARBARA84
 
-Registro em 14276 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 14276 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 465
@@ -2433,7 +2433,7 @@ Registro em 14381 | Tamanho Declarado: 22 | Removido: '1'
   - Idade: -1
   - Usuario (6): ENZO29
 
-Registro em 14408 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 14408 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 331
@@ -2503,7 +2503,7 @@ Registro em 14779 | Tamanho Declarado: 33 | Removido: '0'
   - Idade: 19
   - Usuario (8): ANASALES
 
-Registro em 14817 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 14817 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 315
@@ -2524,7 +2524,7 @@ Registro em 14883 | Tamanho Declarado: 41 | Removido: '0'
   - Idade: 40
   - Usuario (5): JOAO8
 
-Registro em 14929 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 14929 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 385
@@ -2545,7 +2545,7 @@ Registro em 15000 | Tamanho Declarado: 39 | Removido: '0'
   - Idade: 38
   - Usuario (11): MARIABORGES
 
-Registro em 15044 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 15044 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 101
@@ -2762,7 +2762,7 @@ Registro em 16278 | Tamanho Declarado: 48 | Removido: '0'
   - Idade: 20
   - Usuario (11): MARIAVARGAS
 
-Registro em 16331 | Tamanho Declarado: 27 | Removido: '1'
+Registro em 16331 | Tamanho Declarado: 27 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 209
@@ -2797,7 +2797,7 @@ Registro em 16495 | Tamanho Declarado: 37 | Removido: '1'
   - Idade: -1
   - Usuario (7): CALEBE7
 
-Registro em 16537 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 16537 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 491
@@ -2818,7 +2818,7 @@ Registro em 16609 | Tamanho Declarado: 42 | Removido: '0'
   - Idade: 39
   - Usuario (5): ANA63
 
-Registro em 16656 | Tamanho Declarado: 24 | Removido: '1'
+Registro em 16656 | Tamanho Declarado: 24 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 407
@@ -2986,14 +2986,14 @@ Registro em 17666 | Tamanho Declarado: 39 | Removido: '0'
   - Idade: 37
   - Usuario (9): ECALDEIRA
 
-Registro em 17710 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 17710 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 446
   - Idade: 24
   - Usuario (7): VITOR94
 
-Registro em 17738 | Tamanho Declarado: 26 | Removido: '1'
+Registro em 17738 | Tamanho Declarado: 26 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 100
@@ -3014,7 +3014,7 @@ Registro em 17812 | Tamanho Declarado: 28 | Removido: '1'
   - Idade: -1
   - Usuario (12): OTAVIOGUERRA
 
-Registro em 17845 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 17845 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 238
@@ -3084,7 +3084,7 @@ Registro em 18215 | Tamanho Declarado: 45 | Removido: '0'
   - Idade: 38
   - Usuario (14): RENANGONCALVES
 
-Registro em 18265 | Tamanho Declarado: 27 | Removido: '1'
+Registro em 18265 | Tamanho Declarado: 27 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 137
@@ -3217,7 +3217,7 @@ Registro em 19031 | Tamanho Declarado: 42 | Removido: '0'
   - Idade: 81
   - Usuario (10): MANUELLA11
 
-Registro em 19078 | Tamanho Declarado: 23 | Removido: '1'
+Registro em 19078 | Tamanho Declarado: 23 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 116
@@ -3266,7 +3266,7 @@ Registro em 19316 | Tamanho Declarado: 41 | Removido: '0'
   - Idade: 54
   - Usuario (8): ANAVIANA
 
-Registro em 19362 | Tamanho Declarado: 25 | Removido: '1'
+Registro em 19362 | Tamanho Declarado: 25 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 198
@@ -3322,7 +3322,7 @@ Registro em 19643 | Tamanho Declarado: 26 | Removido: '0'
   - Idade: 79
   - Usuario (4): DOM2
 
-Registro em 19674 | Tamanho Declarado: 21 | Removido: '1'
+Registro em 19674 | Tamanho Declarado: 21 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 383
@@ -3336,8 +3336,8 @@ Registro em 19700 | Tamanho Declarado: 27 | Removido: '1'
   - Idade: -1
   - Usuario (11): LUANABARROS
 
-Registro em 19732 | Tamanho Declarado: 38 | Removido: '1'
-  - Nome (14): HEITOR DA MOTA
+Registro em 19732 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): HIHI PINTUDO D
   - Lixo: 0 bytes
   - ID: 276
   - Idade: 95
@@ -3441,7 +3441,7 @@ Registro em 20364 | Tamanho Declarado: 27 | Removido: '1'
   - Idade: -1
   - Usuario (11): ANAMENDONCA
 
-Registro em 20396 | Tamanho Declarado: 26 | Removido: '1'
+Registro em 20396 | Tamanho Declarado: 26 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 13
@@ -3517,515 +3517,4 @@ Registro em 20845 | Tamanho Declarado: 42 | Removido: '0'
   - ID: 645
   - Idade: 18
   - Usuario (6): VIVICA
-
-Registro em 20892 | Tamanho Declarado: 38 | Removido: '0'
-  - Nome (16): PINTUDO DA SILVA
-  - Lixo: 0 bytes
-  - ID: 23
-  - Idade: 36
-  - Usuario (6): JOAO10
-
-Registro em 20935 | Tamanho Declarado: 58 | Removido: '0'
-  - Nome (34): HIHI PINTUDO DA SILVA DE NOVO HIHI
-  - Lixo: 0 bytes
-  - ID: 276
-  - Idade: 95
-  - Usuario (8): HEITOR82
-
-Registro em 20998 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 197
-  - Idade: 81
-  - Usuario (9): AFERREIRA
-
-Registro em 21036 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 293
-  - Idade: 97
-  - Usuario (9): NATALIA84
-
-Registro em 21074 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 444
-  - Idade: 42
-  - Usuario (7): REBECA6
-
-Registro em 21110 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 72
-  - Idade: 67
-  - Usuario (6): JROCHA
-
-Registro em 21145 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 153
-  - Idade: 59
-  - Usuario (9): BRENOMATA
-
-Registro em 21183 | Tamanho Declarado: 32 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 251
-  - Idade: 51
-  - Usuario (8): HELOISA5
-
-Registro em 21220 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 128
-  - Idade: 90
-  - Usuario (7): RARAGAO
-
-Registro em 21256 | Tamanho Declarado: 35 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 179
-  - Idade: 79
-  - Usuario (11): JOAOMARQUES
-
-Registro em 21296 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 382
-  - Idade: 60
-  - Usuario (9): NATALIA32
-
-Registro em 21334 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 330
-  - Idade: 71
-  - Usuario (6): ACUNHA
-
-Registro em 21369 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 217
-  - Idade: 64
-  - Usuario (7): ISABEL7
-
-Registro em 21405 | Tamanho Declarado: 32 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 332
-  - Idade: 23
-  - Usuario (8): MATTEO40
-
-Registro em 21442 | Tamanho Declarado: 34 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 112
-  - Idade: 42
-  - Usuario (10): ANACOSTELA
-
-Registro em 21481 | Tamanho Declarado: 35 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 392
-  - Idade: 71
-  - Usuario (11): ANAPEREIRA1
-
-Registro em 21521 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 371
-  - Idade: 67
-  - Usuario (7): BENTO23
-
-Registro em 21557 | Tamanho Declarado: 35 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 288
-  - Idade: 33
-  - Usuario (11): NATHANNEVES
-
-Registro em 21597 | Tamanho Declarado: 32 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 440
-  - Idade: 69
-  - Usuario (8): EVELYN68
-
-Registro em 21634 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 257
-  - Idade: 33
-  - Usuario (5): ANA59
-
-Registro em 21668 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 205
-  - Idade: 27
-  - Usuario (6): MARIA7
-
-Registro em 21703 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 499
-  - Idade: 19
-  - Usuario (7): KAIQUE6
-
-Registro em 21739 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 314
-  - Idade: 32
-  - Usuario (9): ANAFARIAS
-
-Registro em 21777 | Tamanho Declarado: 35 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 429
-  - Idade: 20
-  - Usuario (11): NICOLECOSTA
-
-Registro em 21817 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 84
-  - Idade: 59
-  - Usuario (7): ACAMPOS
-
-Registro em 21853 | Tamanho Declarado: 28 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 87
-  - Idade: 94
-  - Usuario (4): IAN7
-
-Registro em 21886 | Tamanho Declarado: 36 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 428
-  - Idade: 74
-  - Usuario (12): ENZOMOREIRA1
-
-Registro em 21927 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 96
-  - Idade: 61
-  - Usuario (7): MARIA59
-
-Registro em 21963 | Tamanho Declarado: 39 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 286
-  - Idade: 76
-  - Usuario (15): EMILLYFERNANDES
-
-Registro em 22007 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 411
-  - Idade: 38
-  - Usuario (7): NICOLE7
-
-Registro em 22043 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 89
-  - Idade: 46
-  - Usuario (6): DSALES
-
-Registro em 22078 | Tamanho Declarado: 39 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 68
-  - Idade: 27
-  - Usuario (15): YURIALBUQUERQUE
-
-Registro em 22122 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 225
-  - Idade: 56
-  - Usuario (9): MANUELLA6
-
-Registro em 22160 | Tamanho Declarado: 37 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 283
-  - Idade: 100
-  - Usuario (13): LAVINIACAMPOS
-
-Registro em 22202 | Tamanho Declarado: 32 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 467
-  - Idade: 40
-  - Usuario (8): MCAMARGO
-
-Registro em 22239 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 490
-  - Idade: 78
-  - Usuario (6): ISILVA
-
-Registro em 22274 | Tamanho Declarado: 38 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 328
-  - Idade: 18
-  - Usuario (14): RODRIGOMARTINS
-
-Registro em 22317 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 289
-  - Idade: 24
-  - Usuario (7): MVIEIRA
-
-Registro em 22353 | Tamanho Declarado: 34 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 292
-  - Idade: 53
-  - Usuario (10): FERNANDA11
-
-Registro em 22392 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 278
-  - Idade: 61
-  - Usuario (9): SABRINA71
-
-Registro em 22430 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 119
-  - Idade: 65
-  - Usuario (5): LUIZ7
-
-Registro em 22464 | Tamanho Declarado: 39 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 333
-  - Idade: 67
-  - Usuario (15): MANUELLAVIEIRA1
-
-Registro em 22508 | Tamanho Declarado: 36 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 449
-  - Idade: 72
-  - Usuario (12): THALESMORAES
-
-Registro em 22549 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 350
-  - Idade: 53
-  - Usuario (7): AMANDA6
-
-Registro em 22585 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 396
-  - Idade: 93
-  - Usuario (6): PAULO8
-
-Registro em 22620 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 77
-  - Idade: 37
-  - Usuario (5): SARA5
-
-Registro em 22654 | Tamanho Declarado: 34 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 10
-  - Idade: 51
-  - Usuario (10): BRYANLOPES
-
-Registro em 22693 | Tamanho Declarado: 40 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 431
-  - Idade: 24
-  - Usuario (16): MATHIASAPARECIDA
-
-Registro em 22738 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 14
-  - Idade: 86
-  - Usuario (9): RAFAELA74
-
-Registro em 22776 | Tamanho Declarado: 28 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 458
-  - Idade: 20
-  - Usuario (4): LEO7
-
-Registro em 22809 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 166
-  - Idade: 95
-  - Usuario (9): MATHIAS77
-
-Registro em 22847 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 443
-  - Idade: 22
-  - Usuario (7): SOFIA40
-
-Registro em 22883 | Tamanho Declarado: 28 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 193
-  - Idade: 50
-  - Usuario (4): LLUZ
-
-Registro em 22916 | Tamanho Declarado: 34 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 423
-  - Idade: 67
-  - Usuario (10): DAVINUNES1
-
-Registro em 22955 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 242
-  - Idade: 23
-  - Usuario (5): ISIS6
-
-Registro em 22989 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 253
-  - Idade: 44
-  - Usuario (5): LIAM6
-
-Registro em 23023 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 122
-  - Idade: 95
-  - Usuario (7): JOSUE69
-
-Registro em 23059 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 465
-  - Idade: 75
-  - Usuario (5): YDIAS
-
-Registro em 23093 | Tamanho Declarado: 30 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 331
-  - Idade: 37
-  - Usuario (6): ELOA27
-
-Registro em 23128 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 315
-  - Idade: 73
-  - Usuario (5): JOAO7
-
-Registro em 23162 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 385
-  - Idade: 94
-  - Usuario (7): MSANTOS
-
-Registro em 23198 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 101
-  - Idade: 19
-  - Usuario (7): HCAMARA
-
-Registro em 23234 | Tamanho Declarado: 35 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 209
-  - Idade: 30
-  - Usuario (11): YAGOMACHADO
-
-Registro em 23274 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 491
-  - Idade: 93
-  - Usuario (7): ELOAH47
-
-Registro em 23310 | Tamanho Declarado: 32 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 407
-  - Idade: 59
-  - Usuario (8): SABRINA7
-
-Registro em 23347 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 446
-  - Idade: 24
-  - Usuario (7): VITOR94
-
-Registro em 23383 | Tamanho Declarado: 34 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 100
-  - Idade: 76
-  - Usuario (10): RFERNANDES
-
-Registro em 23422 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 238
-  - Idade: 78
-  - Usuario (7): ENRICO5
-
-Registro em 23458 | Tamanho Declarado: 35 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 137
-  - Idade: 33
-  - Usuario (11): JULIAMENDES
-
-Registro em 23498 | Tamanho Declarado: 31 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 116
-  - Idade: 19
-  - Usuario (7): JOAOLUZ
-
-Registro em 23534 | Tamanho Declarado: 33 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 198
-  - Idade: 82
-  - Usuario (9): DCASSIANO
-
-Registro em 23572 | Tamanho Declarado: 29 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 383
-  - Idade: 47
-  - Usuario (5): RYAN2
-
-Registro em 23606 | Tamanho Declarado: 34 | Removido: '0'
-  - Nome (8): FANTASMA
-  - Lixo: 0 bytes
-  - ID: 13
-  - Idade: 33
-  - Usuario (10): MANUELLASA
 

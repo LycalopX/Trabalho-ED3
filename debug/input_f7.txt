@@ -1,6 +1,6 @@
 Cabeçalho:
-  - Próximo Byte Offset: 20998
-  - Quantidade Removidos: 95
+  - Próximo Byte Offset: 20892
+  - Quantidade Removidos: 93
   - Quantidade Pessoas: 409
 Status: 1
 
@@ -2300,7 +2300,7 @@ Registro em 13556 | Tamanho Declarado: 40 | Removido: '0'
   - Idade: 85
   - Usuario (6): APINTO
 
-Registro em 13601 | Tamanho Declarado: 22 | Removido: '1'
+Registro em 13601 | Tamanho Declarado: 22 | Removido: '0'
   - Nome (0): 
   - Lixo: 0 bytes
   - ID: 23
@@ -3336,8 +3336,8 @@ Registro em 19700 | Tamanho Declarado: 27 | Removido: '1'
   - Idade: -1
   - Usuario (11): LUANABARROS
 
-Registro em 19732 | Tamanho Declarado: 38 | Removido: '1'
-  - Nome (14): HEITOR DA MOTA
+Registro em 19732 | Tamanho Declarado: 38 | Removido: '0'
+  - Nome (14): HIHI PINTUDO D
   - Lixo: 0 bytes
   - ID: 276
   - Idade: 95
@@ -3517,18 +3517,4 @@ Registro em 20845 | Tamanho Declarado: 42 | Removido: '0'
   - ID: 645
   - Idade: -1
   - Usuario (6): VIVICA
-
-Registro em 20892 | Tamanho Declarado: 38 | Removido: '0'
-  - Nome (16): PINTUDO DA SILVA
-  - Lixo: 0 bytes
-  - ID: 23
-  - Idade: 36
-  - Usuario (6): JOAO10
-
-Registro em 20935 | Tamanho Declarado: 58 | Removido: '0'
-  - Nome (34): HIHI PINTUDO DA SILVA DE NOVO HIHI
-  - Lixo: 0 bytes
-  - ID: 276
-  - Idade: 95
-  - Usuario (8): HEITOR82
 
