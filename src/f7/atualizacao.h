@@ -14,7 +14,7 @@ typedef struct {
 } Atualizacao;
 
 void inicializa_atualizacao(Atualizacao *atualizacao, RegistroPessoa *registro, long long byteOffset, int indiceDaRegra) {
-    atualizacao->registro = registro;
+    atualizacao->registro = copia_registro_pessoa(registro);
     atualizacao->idOriginal = registro->idPessoa;
     atualizacao->tamanhoRegistroOriginal = registro->tamanhoRegistro;
     atualizacao->ByteOffset = byteOffset;

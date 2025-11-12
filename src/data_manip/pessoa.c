@@ -160,6 +160,63 @@ void destroi_registro_pessoa(RegistroPessoa *reg)
     free(reg);
 }
 
+// Cria uma cópia profunda de um registro de pessoa.
+RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
+{
+    if (reg == NULL)
+        return NULL;
+
+    RegistroPessoa *copia = malloc(sizeof(RegistroPessoa));
+    if (copia == NULL)
+        return NULL;
+
+    // Copia campos primitivos
+    copia->removido = reg->removido;
+    copia->tamanhoRegistro = reg->tamanhoRegistro;
+    copia->idPessoa = reg->idPessoa;
+    copia->idadePessoa = reg->idadePessoa;
+    copia->tamanhoNomePessoa = reg->tamanhoNomePessoa;
+    copia->tamanhoNomeUsuario = reg->tamanhoNomeUsuario;
+
+    // Copia nomePessoa
+    if (reg->nomePessoa != NULL && reg->tamanhoNomePessoa > 0)
+    {
+        copia->nomePessoa = malloc(reg->tamanhoNomePessoa + 1);
+        if (copia->nomePessoa == NULL)
+        {
+            free(copia);
+            return NULL;
+        }
+        memcpy(copia->nomePessoa, reg->nomePessoa, reg->tamanhoNomePessoa);
+        copia->nomePessoa[reg->tamanhoNomePessoa] = '\0';
+    }
+    else
+    {
+        copia->nomePessoa = NULL;
+    }
+
+    // Copia nomeUsuario
+    if (reg->nomeUsuario != NULL && reg->tamanhoNomeUsuario > 0)
+    {
+        copia->nomeUsuario = malloc(reg->tamanhoNomeUsuario + 1);
+        if (copia->nomeUsuario == NULL)
+        {
+            if (copia->nomePessoa != NULL)
+                free(copia->nomePessoa);
+            free(copia);
+            return NULL;
+        }
+        memcpy(copia->nomeUsuario, reg->nomeUsuario, reg->tamanhoNomeUsuario);
+        copia->nomeUsuario[reg->tamanhoNomeUsuario] = '\0';
+    }
+    else
+    {
+        copia->nomeUsuario = NULL;
+    }
+
+    return copia;
+}
+
 // Escreve um registro de pessoa no arquivo, campo por campo.
 int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
 {
@@ -231,6 +288,9 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
 // Insere um array de registros de pessoa no arquivo de dados, respeitando os byte offsets.
 void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) {
 
+    fprintf(stdout, "DEBUG inserir_pessoas: nInsercoes=%d\n", nInsercoes);
+    fflush(stdout);
+
     fseek(fp, 17, SEEK_SET);
     long long byteOffset = 17;
 
@@ -238,16 +298,12 @@ void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) 
     {
         // propriedades do registro
         
-        /*
-        printf("Inserindo registro com id %d no byte offset %lld\n", registros[i]->registro->idPessoa, byteOffset);
-        printf("  - Tamanho Registro: %d\n", registros[i]->registro->tamanhoRegistro);
-        printf("  - Idade Pessoa: %d\n", registros[i]->registro->idadePessoa);
-        printf("  - Tamanho Nome Pessoa: %d\n", registros[i]->registro->tamanhoNomePessoa);
-        printf("  - Nome Pessoa: %s\n", registros[i]->registro->nomePessoa ? registros[i]->registro->nomePessoa : "NULL");
-        printf("  - Tamanho Nome Usuario: %d\n", registros[i]->registro->tamanhoNomeUsuario);
-        printf("  - Nome Usuario: %s\n", registros[i]->registro->nomeUsuario ? registros[i]->registro->nomeUsuario : "NULL");
-        printf(" --- \n");
-        */
+        fprintf(stdout, "DEBUG Inserindo registro ID=%d no byte offset %lld, nomePessoa='%s', nomeUsuario='%s'\n", 
+                registros[i]->registro->idPessoa, 
+                registros[i]->ByteOffset,
+                registros[i]->registro->nomePessoa ? registros[i]->registro->nomePessoa : "NULL",
+                registros[i]->registro->nomeUsuario ? registros[i]->registro->nomeUsuario : "NULL");
+        fflush(stdout);
             
 
 

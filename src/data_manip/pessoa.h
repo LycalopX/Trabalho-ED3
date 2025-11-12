@@ -52,6 +52,13 @@ RegistroPessoa* cria_registro_pessoa(int idPessoa, char nomePessoa[200], int ida
 void destroi_registro_pessoa(RegistroPessoa* reg);
 
 /**
+ * @brief Cria uma cópia profunda de um registro de pessoa.
+ * @param reg Ponteiro para o registro a ser copiado.
+ * @return Ponteiro para a cópia do registro, ou NULL em caso de falha.
+ */
+RegistroPessoa* copia_registro_pessoa(RegistroPessoa* reg);
+
+/**
  * @brief Escreve um registro de pessoa no arquivo.
  * @param fp Ponteiro para o arquivo.
  * @param reg Ponteiro para o registro com os dados a serem escritos.
