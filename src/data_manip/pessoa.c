@@ -217,6 +217,12 @@ RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
     return copia;
 }
 
+void escreve_string_char_por_char(FILE *fp, const char *str, int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        fputc(str[i], fp);
+    }
+}
+
 // Escreve um registro de pessoa no arquivo, campo por campo.
 int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
 {
@@ -237,15 +243,13 @@ int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
     // Escreve o nome da pessoa se não for nulo.
     if (reg->tamanhoNomePessoa > 0)
     {
-        if (fwrite(reg->nomePessoa, reg->tamanhoNomePessoa, 1, fp) < 1)
-            return 1;
+        escreve_string_char_por_char(fp, reg->nomePessoa, reg->tamanhoNomePessoa);
     }
 
     if (fwrite(&reg->tamanhoNomeUsuario, sizeof(int), 1, fp) < 1)
         return 1;
 
-    if (fwrite(reg->nomeUsuario, reg->tamanhoNomeUsuario, 1, fp) < 1)
-        return 1;
+    escreve_string_char_por_char(fp, reg->nomeUsuario, reg->tamanhoNomeUsuario);
 
     return 0;
 }

@@ -58,7 +58,7 @@ int main()
         scanf("%s %s %s", nomeArquivoCSV, nomeArquivoDados, nomeArquivoIndice);
 
         FILE *fp_csv = fopen(nomeArquivoCSV, "r");
-        FILE *fp_data = fopen(nomeArquivoDados, "wb+");
+        FILE *fp_data = fopen(nomeArquivoDados, "wb");
         FILE *fp_index = fopen(nomeArquivoIndice, "rb+");
 
         if (fp_csv == NULL || fp_data == NULL || fp_index == NULL)

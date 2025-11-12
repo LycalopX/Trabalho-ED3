@@ -18,7 +18,7 @@ void funcionalidade1(FILE *fp)
 
     // Posiciona o cursor no início do arquivo e escreve o cabeçalho.
     fseek(fp, 0, SEEK_SET);
-    if (fwrite(&cab, sizeof(CabecalhoIndice), 1, fp) < 1)
+    if (fwrite(&cab.status, sizeof(char), 1, fp) < 1 || fwrite(&cab.lixo, sizeof(char), 11, fp) < 1)
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
         return;
