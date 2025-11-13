@@ -176,6 +176,7 @@ int main()
         funcionalidade5(fp, fpIndice, nomeArquivoIndice, buscas);
 
         fclose(fp);
+        fclose(fpIndice);
 
         binarioNaTela(nomeArquivoDeRegistro);
         binarioNaTela(nomeArquivoIndice);
@@ -207,6 +208,7 @@ int main()
         funcionalidade6(fp, fpIndice, nomeArquivoIndice, buscas);
 
         fclose(fp);
+        fclose(fpIndice);
 
         binarioNaTela(nomeArquivoDeRegistro);
         binarioNaTela(nomeArquivoIndice);
@@ -238,6 +240,7 @@ int main()
         funcionalidade7(fp, fpIndice, nomeArquivoIndice, buscas);
 
         fclose(fp);
+        fclose(fpIndice);
 
         binarioNaTela(nomeArquivoDeRegistro);
         binarioNaTela(nomeArquivoIndice);
