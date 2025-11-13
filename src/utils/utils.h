@@ -2,7 +2,7 @@
 #define UTILS_H
 
 #include <stdio.h>
-#include <stddef.h> // Para size_t
+#include <stddef.h> 
 #include "../arquivos.h"
 
 /**
@@ -27,7 +27,6 @@ void binarioNaTela(char *nomeArquivoBinario);
  */
 void scan_quote_string(char *str);
 
-// --- Funções de Comparação para Busca e Ordenação ---
 
 /**
  * @brief Função de comparação para qsort, ordenando registros de busca por ByteOffset.
@@ -45,7 +44,6 @@ int comparar_registros_busca_offset(const void *a, const void *b);
  */
 int comparar_registros_busca_id(const void *a, const void *b);
 
-// --- Gerenciamento de Array Expandível ---
 
 /**
  * @brief Realoca um array genérico para uma nova capacidade baseada na razão áurea.
@@ -83,7 +81,6 @@ void liberar_resultados_busca_inteira(ResultadoBuscaPessoa *resultados, int nBus
  */
 void liberar_resultado_busca(ResultadoBuscaPessoa *resultado);
 
-// --- Funções de Debug ---
 
 /**
  * @brief Imprime todos os registros de um arquivo de dados de pessoa, incluindo os removidos, na saída padrão.

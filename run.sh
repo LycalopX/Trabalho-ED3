@@ -93,3 +93,7 @@ echo "--- Executando Testes Runcodes ---"
 # echo -e "10 entrada.bin indice.bin segueOrdenado.bin 2\n1 idPessoa=333\n2 idadePessoa=21" | $RUN_CMD
 
 echo "--- Fim dos Testes ---"
+
+# silenciosamente
+make clean &> /dev/null
+make zip &> /dev/null

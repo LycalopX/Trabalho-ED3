@@ -6,17 +6,14 @@
 #include "../utils/utils.h"
 #include "f1.h"
 
-// Implementa a funcionalidade 1: Criação de um arquivo de índice primário.
+// Implementa a funcionalidade 1, responsável pela criação de um arquivo de índice primário.
 void funcionalidade1(FILE *fp)
 {
-    // Inicializa a estrutura do cabeçalho do índice.
-    // O status é definido como '1' (consistente) pois a criação do cabeçalho é uma operação atômica.
-    // O restante do cabeçalho é preenchido com caracteres '$' conforme especificado.
+
     CabecalhoIndice cab;
     cab.status = '1';
     memset(cab.lixo, '$', sizeof(cab.lixo));
 
-    // Posiciona o cursor no início do arquivo e escreve o cabeçalho.
     fseek(fp, 0, SEEK_SET);
     if (fwrite(&cab.status, sizeof(char), 1, fp) < 1 || fwrite(&cab.lixo, sizeof(char), 11, fp) < 1)
     {
@@ -24,6 +21,5 @@ void funcionalidade1(FILE *fp)
         return;
     }
 
-    // Garante que o cabeçalho seja gravado no disco imediatamente.
     fflush(fp);
 }

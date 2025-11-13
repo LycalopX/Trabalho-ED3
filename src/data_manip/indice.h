@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "../arquivos.h" // Corrigido para refletir a estrutura de pastas
 
-// FUNÇÕES STRUCT INDICE
+
 /**
  * @brief Lê o registro de cabeçalho do arquivo de índice.
  * Posiciona o cursor no início do arquivo e lê os campos 'status' e 'lixo'
@@ -69,10 +69,10 @@ void destroi_registro_indice(RegistroIndice *reg);
 int comparar_bsearch_indice(const void *key, const void *elem);
 
 /**
- * @brief Função de comparação para qsort, ordenando registros de busca por ByteOffset.
+ * @brief Função de comparação para qsort, ordenando registros de índice por idPessoa.
  * @param a Ponteiro para o primeiro elemento a ser comparado.
  * @param b Ponteiro para o segundo elemento a ser comparado.
- * @return Retorna -1 se a < b, 1 se a > b,
+ * @return Retorna a diferença entre os IDs, resultando em ordem crescente.
  */
 int comparar_indices_id(const void *a, const void *b);
 

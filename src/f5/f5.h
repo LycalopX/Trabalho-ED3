@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /**
- * @brief Remove logicamente registros de um arquivo de dados com base em critérios de busca.
+ * @brief Implementa a funcionalidade 5: remove logicamente registros de um arquivo de dados com base em critérios de busca.
  * 
  * @param fp Ponteiro para o arquivo de dados de pessoas.
  * @param fpIndice Ponteiro para o arquivo de índice.

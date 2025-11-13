@@ -9,26 +9,27 @@
 #include "f5.h"
 #include "../f4/f4.h"
 
+// Implementa a funcionalidade 5: remove logicamente registros de pessoa do arquivo de dados
+// e atualiza o arquivo de índice.
 void funcionalidade5(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, int buscas)
 {
-    // 1. Encontrar todos os registros que correspondem aos critérios de busca.
-    // A funcionalidade 4 é reutilizada aqui para realizar as buscas.
+    // Encontra todos os registros que correspondem aos critérios de busca.
     int nRegsEncontrados = 0;
     ResultadoBuscaPessoa *resultadosEmBuscas = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 1, 0);
 
-    // Se não houver resultados, não há nada a fazer.
-    if (nRegsEncontrados == 0) {
-        // Libera a memória alocada pela busca, se houver.
-        if (resultadosEmBuscas != NULL) free(resultadosEmBuscas);
+    if (nRegsEncontrados == 0)
+    {
+
+        if (resultadosEmBuscas != NULL)
+            free(resultadosEmBuscas);
         return;
     }
 
-    // 2. Unificar os resultados em um único array.
-    // Como múltiplas buscas podem retornar o mesmo registro, eles são coletados
-    // em um único array para processamento.
+    // Unifica os resultados de múltiplas buscas em um único array.
     RegistroBuscaPessoa **resultados = malloc(nRegsEncontrados * sizeof(RegistroBuscaPessoa *));
-    if (resultados == NULL) {
-        // Lidar com falha de alocação.
+    if (resultados == NULL)
+    {
+
         liberar_resultados_busca_inteira(resultadosEmBuscas, buscas);
         return;
     }
@@ -40,20 +41,19 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, in
         {
             resultados[index++] = resultadosEmBuscas[i].registrosBusca[j];
         }
-        // Libera estruturas internas da busca que não são mais necessárias.
+
         free(resultadosEmBuscas[i].registrosBusca);
         free(resultadosEmBuscas[i].busca.campo);
         free(resultadosEmBuscas[i].busca.valor);
     }
     free(resultadosEmBuscas);
 
-    // 3. Remover registros duplicados da lista de resultados.
-    // Os resultados são ordenados por byte offset para agrupar duplicatas.
+    // Remove registros duplicados da lista de resultados, ordenando por byte offset.
     qsort(resultados, nRegsEncontrados, sizeof(RegistroBuscaPessoa *), comparar_registros_busca_offset);
 
     if (nRegsEncontrados > 0)
     {
-        // Itera sobre o array ordenado e move apenas os registros únicos para o início.
+
         int write_idx = 1;
         for (int read_idx = 1; read_idx < nRegsEncontrados; read_idx++)
         {
@@ -64,16 +64,15 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, in
             }
             else
             {
-                // Libera a memória do registro duplicado que será descartado.
+
                 destroi_registro_pessoa(resultados[read_idx]->registro);
                 free(resultados[read_idx]);
             }
         }
-        nRegsEncontrados = write_idx; // Atualiza a contagem para o número de registros únicos.
+        nRegsEncontrados = write_idx;
     }
 
-    // 4. Preparar arquivos para escrita.
-    // O status de ambos os arquivos é definido como '0' (instável) antes de iniciar as modificações.
+    // Prepara os arquivos para modificação, marcando-os como instáveis.
     fseek(fp, 0, 0);
     CabecalhoPessoa cabPessoa;
     le_cabecalho_pessoa(fp, &cabPessoa);
@@ -88,17 +87,14 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, in
         return;
     }
 
-    // 5. Marcar registros como removidos.
-    // Itera sobre os registros a serem removidos, marcando-os no arquivo de dados
-    // e invalidando suas entradas correspondentes no array de índice em memória.
+    // Marca os registros encontrados como removidos no arquivo de dados
+    // e invalida suas entradas no índice em memória.
     remover_pessoas_e_indices(resultados, indices, &cabPessoa, nRegsEncontrados, fp, 0);
 
-    // 6. Reescrever o arquivo de índice.
-    // A função `reescrever_arquivo_indice` usa o array de índice modificado em memória
-    // para criar um novo arquivo de índice, agora sem as entradas dos registros removidos.
+    // Reescreve o arquivo de índice com as entradas atualizadas.
     reescrever_arquivo_indice(nomeArquivoIndice, indices, cabPessoa.quantidadePessoas);
 
-    // 7. Liberar a memória dos resultados da busca.
+    // Libera a memória alocada para os resultados da busca.
     for (int i = 0; i < nRegsEncontrados; i++)
     {
         destroi_registro_pessoa(resultados[i]->registro);
@@ -106,9 +102,7 @@ void funcionalidade5(FILE *fp, FILE *fpIndice, const char *nomeArquivoIndice, in
     }
     free(resultados);
 
-    // 8. Atualizar o cabeçalho do arquivo de dados e finalizar.
-    // O cabeçalho é atualizado com as novas contagens de registros e o status é
-    // definido de volta para '1' (estável).
+    // Atualiza o cabeçalho do arquivo de dados com as novas contagens e status.
     fflush(fp);
     fseek(fp, 0, SEEK_SET);
 

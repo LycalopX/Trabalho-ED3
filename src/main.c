@@ -1,12 +1,12 @@
 // Alexandre Brenner Weber - 15436911
 // André Luis Santos Messias - 15493857
 
-// Bibliotecas padrão
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Includes locais
+
 #include "arquivos.h"
 #include "utils/utils.h"
 #include "data_manip/pessoa.h"
@@ -24,6 +24,7 @@
 void binarioNaTela(char *nomeArquivoBinario);
 void scan_quote_string(char *str);
 
+// Função principal do programa, responsável por gerenciar as funcionalidades.
 int main()
 {
     setbuf(stdout, NULL);
@@ -31,6 +32,7 @@ int main()
     int funcionalidade;
     scanf("%d", &funcionalidade);
 
+    // Seleciona a funcionalidade a ser executada com base na entrada do usuário.
     switch (funcionalidade)
     {
     case 1:
@@ -128,7 +130,7 @@ int main()
         int nRegsEncontrados = 0;
         ResultadoBuscaPessoa *resultados = funcionalidade4(fp, fpIndice, buscas, &nRegsEncontrados, 0, 0);
 
-        // Imprime os resultados e libera a memória
+        
         if (resultados != NULL)
         {
             for (int i = 0; i < buscas; i++)
@@ -136,12 +138,12 @@ int main()
                 for (int j = 0; j < resultados[i].nRegistros; j++)
                 {
                     imprime_registro_pessoa(resultados[i].registrosBusca[j]->registro);
-                    // Libera a memória em camadas: primeiro o registro interno, depois a struct que o continha.
+                    
                     destroi_registro_pessoa(resultados[i].registrosBusca[j]->registro);
                 }
                 free(resultados[i].registrosBusca);
             }
-            free(resultados); // Libera o array de ponteiros
+            free(resultados); 
         }
 
         fclose(fp);

@@ -13,10 +13,12 @@
 Parametro *cria_busca(char *campo, char *valor);
 
 /**
- * @brief Lê uma busca da entrada padrão, incluindo o número da busca (que é descartado).
+ * @brief Lê um critério de busca da entrada padrão, tratando o número da busca.
+ * @param updates Se não for NULL, armazena os valores lidos para atualizações (usado na funcionalidade 7).
+ * @param i Índice da busca atual.
  * @return Um ponteiro para a estrutura de busca criada, ou NULL em caso de falha.
  */
-Parametro *scanf_busca_corrigido();
+Parametro *scanf_busca(Parametro **updates, int i);
 
 /**
  * @brief Libera a memória alocada para uma estrutura de busca.
@@ -33,7 +35,7 @@ void destroi_busca(Parametro *busca);
  * @param buscas Número de buscas a serem realizadas.
  * @param nRegsEncontrados Ponteiro para um inteiro onde será armazenado o número total de registros encontrados.
  * @param silent Se 1, suprime as mensagens de erro como "Registro inexistente.".
- * @param updates Se não for NULL, armazena os valores lidos para atualizações (usado na funcionalidade 7).
+ * @param updateBool Se 1, indica que a busca está sendo feita para uma operação de atualização (funcionalidade 7).
  * @return Um array dinâmico de ponteiros para ResultadoBuscaPessoa, contendo os resultados das buscas.
  */
 ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados, int silent, int updateBool);

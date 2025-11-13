@@ -1,6 +1,7 @@
 
 #include "../arquivos.h"
 
+// Estrutura que representa uma tarefa de atualização de registro.
 typedef struct {
     RegistroPessoa *registro;
     int idOriginal;
@@ -13,6 +14,7 @@ typedef struct {
 
 } Atualizacao;
 
+// Inicializa uma struct Atualizacao com os dados de um registro e seu offset.
 void inicializa_atualizacao(Atualizacao *atualizacao, RegistroPessoa *registro, long long byteOffset, int indiceDaRegra) {
     atualizacao->registro = copia_registro_pessoa(registro);
     atualizacao->idOriginal = registro->idPessoa;
@@ -24,6 +26,7 @@ void inicializa_atualizacao(Atualizacao *atualizacao, RegistroPessoa *registro, 
     
 }
 
+// Função de comparação para qsort, utilizada para ordenar atualizações por ID original.
 int comparar_atualizacao_por_id(const void *a, const void *b)
 {
     Atualizacao *tarefaA = (Atualizacao *)a;
@@ -32,6 +35,7 @@ int comparar_atualizacao_por_id(const void *a, const void *b)
     return (tarefaA->idOriginal - tarefaB->idOriginal);
 }
 
+// Função de comparação para qsort, utilizada para ordenar atualizações por byte offset.
 int comparar_atualizacao_por_byteoffset(const void *a, const void *b)
 {
     Atualizacao *tarefaA = (Atualizacao *)a;

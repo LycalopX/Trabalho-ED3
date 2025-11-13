@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /**
- * @brief Insere novos registros no arquivo de dados e atualiza o arquivo de índice.
+ * @brief Implementa a funcionalidade 6: insere novos registros no arquivo de dados e atualiza o arquivo de índice.
  * 
  * @param fp Ponteiro para o arquivo de dados de pessoas.
  * @param fpIndice Ponteiro para o arquivo de índice.

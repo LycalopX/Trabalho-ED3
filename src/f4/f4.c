@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h> // Necessário para a função isspace
+#include <ctype.h>
 
 #include "f4.h"
 #include "../arquivos.h"
@@ -10,6 +10,7 @@
 #include "../data_manip/pessoa.h"
 #include "../data_manip/indice.h"
 
+// Aloca e inicializa uma nova struct Parametro para representar um critério de busca.
 Parametro *cria_busca(char *campo, char *valor)
 {
     Parametro *busca = malloc(sizeof(Parametro));
@@ -24,9 +25,10 @@ Parametro *cria_busca(char *campo, char *valor)
 }
 
 /**
- * @brief Lê uma busca da entrada padrão, tratando o número da busca.
- * @return Um ponteiro para a estrutura de busca criada, ou NULL em caso de falha.
+ * @brief Lê um critério de busca da entrada padrão.
  * @param updates Se não for NULL, armazena os valores lidos para atualizações (usado na funcionalidade 7).
+ * @param i Índice da busca atual.
+ * @return Um ponteiro para a estrutura de busca criada, ou NULL em caso de falha.
  */
 Parametro *scanf_busca(Parametro **updates, int i)
 {
@@ -34,39 +36,33 @@ Parametro *scanf_busca(Parametro **updates, int i)
     char valor[100];
     int numero_busca;
 
-    // 1. Lê e descarta o número que vem antes da busca.
     if (scanf("%d", &numero_busca) != 1)
     {
         return NULL;
     }
 
-
-    // 2. Lê o nome do campo até o caractere '='. O espaço no início é importante!
     if (scanf(" %[^=]", campo) != 1)
     {
-        return NULL; // Falha ao ler o campo
+        return NULL;
     }
 
+    getchar();
+    scan_quote_string(valor);
 
-    getchar(); // Consumes '='
-    scan_quote_string(valor); // Reads the value
-
-    // Caso haja update
     if (updates != NULL)
     {
         char campo2[100];
         char valor2[100];
 
-        // Remover espaço antes do campo
-        getchar(); // This is the problematic one, it consumes the newline after the first value.
+        getchar();
 
         if (scanf(" %[^=]", campo2) != 1)
         {
-            return NULL; // Falha ao ler o campo
+            return NULL;
         }
 
-        getchar(); // Consumes '='
-        scan_quote_string(valor2); // Reads the value
+        getchar();
+        scan_quote_string(valor2);
 
         updates[i] = cria_busca(campo2, valor2);
     }
@@ -74,6 +70,7 @@ Parametro *scanf_busca(Parametro **updates, int i)
     return cria_busca(campo, valor);
 }
 
+// Libera a memória alocada para uma struct Parametro.
 void destroi_busca(Parametro *busca)
 {
     if (busca != NULL)
@@ -84,6 +81,7 @@ void destroi_busca(Parametro *busca)
     }
 }
 
+// Verifica se o nome de um campo é válido para busca.
 int campo_valido(char *campo)
 {
     if (strcmp(campo, CAMPO_ID) == 0 || strcmp(campo, CAMPO_IDADE) == 0 || strcmp(campo, CAMPO_NOME) == 0 || strcmp(campo, CAMPO_USUARIO) == 0)
@@ -94,9 +92,10 @@ int campo_valido(char *campo)
     return 0;
 }
 
+// Implementa a funcionalidade 4: realiza buscas por registros de pessoa no arquivo de dados.
+// Pode ser utilizada de forma silenciosa ou para preparar dados para atualizações.
 ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int *nRegsEncontrados, int silent, int updateBool)
 {
-    // Caso tenhamos updates (ela é diferente de NULL), estamos rodando para a funcionalidade 7
 
     char *falha_ao_processar_arquivo = FALHA_AO_PROCESSAR_ARQUIVO;
 
@@ -198,7 +197,7 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
         if (!regs)
         {
             printf(FALHA_AO_ALOCAR);
-            continue; // Skip this search
+            continue;
         }
 
         if (strcmp(b->campo, CAMPO_ID) == 0)
@@ -323,17 +322,15 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
             {
                 printf("Registro inexistente.\n");
             }
-            free(regs); // Libera se não encontrou nada
+            free(regs);
         }
         else
         {
             resultadoBusca[i].registrosBusca = regs;
         }
         (*nRegsEncontrados) += encontradosNestaBusca;
-
     }
 
-    // Libera memória interna que não será retornada
     for (int i = 0; i < buscas; i++)
     {
         destroi_busca(buscasArray[i]);

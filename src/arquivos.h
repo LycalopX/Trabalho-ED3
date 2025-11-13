@@ -1,14 +1,16 @@
 #ifndef ARQUIVOS_H
 #define ARQUIVOS_H
 
-// Estrutura para representar um parametro a ser modificado/avaliado
+
+// Estrutura genérica para representar pares de campo/valor em buscas e atualizações.
 typedef struct {
     char *campo;
     char *valor;
 } 
 Parametro;
 
-// Cabeçalho do arquivo de dados 'pessoa.bin'
+
+// Representa o cabeçalho do arquivo de dados 'pessoa.bin'.
 typedef struct
 {
     char status;
@@ -20,7 +22,8 @@ typedef struct
 } 
 CabecalhoPessoa;
 
-// Registro de dados de 'pessoa.bin'
+
+// Representa um registro de dados de 'pessoa.bin'.
 typedef struct
 {
     char removido;
@@ -36,7 +39,8 @@ typedef struct
 } 
 RegistroPessoa;
 
-// Registro de dados que guarda byteoffset também, para fins de busca
+
+// Estrutura auxiliar para buscas, associando um registro ao seu byte offset no arquivo.
 typedef struct {
 
     RegistroPessoa *registro;
@@ -44,7 +48,8 @@ typedef struct {
 } 
 RegistroBuscaPessoa;
 
-// Registro de dados retornado ao fazer busca dos dados de 'pessoa.bin'
+
+// Agrupa os resultados de uma operação de busca.
 typedef struct {
     RegistroBuscaPessoa **registrosBusca;
 
@@ -54,7 +59,8 @@ typedef struct {
 } 
 ResultadoBuscaPessoa;
 
-// Cabeçalho do arquivo de índice 'indexaPessoa.bin'
+
+// Representa o cabeçalho do arquivo de índice 'indexaPessoa.bin'.
 typedef struct
 {
     char status;
@@ -63,7 +69,8 @@ typedef struct
 } 
 CabecalhoIndice;
 
-// Registro de dados de 'indexaPessoa.bin'
+
+// Representa um registro de dados de 'indexaPessoa.bin'.
 typedef struct
 {
     int idPessoa;
@@ -72,7 +79,8 @@ typedef struct
 } 
 RegistroIndice;
 
-// Cabeçalho do arquivo de índice 'Segue.bin'
+
+// Representa o cabeçalho do arquivo de dados 'Segue.bin'.
 typedef struct
 {
     char status;
@@ -82,7 +90,8 @@ typedef struct
 } 
 CabecalhoSegue;
 
-// Registro de dados de 'Segue.bin'
+
+// Representa um registro de dados de 'Segue.bin'.
 typedef struct
 {
     char removido;
@@ -95,13 +104,15 @@ typedef struct
 } 
 RegistroSegue;
 
+// Constantes para representar valores nulos e status de registros.
 #define NULO_INTEIRO -1
 #define NULO_DATA "$$$$$$$$$$"
 #define NULO_CARACTERE '$'
 #define REGISTRO_SEGUE_REMOVIDO '1'
 #define REGISTRO_SEGUE_NAO_REMOVIDO '0'
-#define REGISTRO_SEGUE_TAMANHO 30 * sizeof(char) // Excluir os '\0' das datas
+#define REGISTRO_SEGUE_TAMANHO 30 * sizeof(char) 
 
+// Constantes para mapear nomes de campos e graus de amizade.
 #define AMIZADE_0 "celebridade"
 #define AMIZADE_1 "amiga de minha amiga"
 #define AMIZADE_2 "minha amiga"
@@ -110,6 +121,7 @@ RegistroSegue;
 #define CAMPO_NOME "nomePessoa"
 #define CAMPO_USUARIO "nomeUsuario"
 
+// Mensagens de erro padrão.
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
 

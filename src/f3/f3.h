@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /**
- * @brief Lê e exibe todos os registros válidos de um arquivo de dados.
+ * @brief Implementa a funcionalidade 3: lê e exibe todos os registros válidos de um arquivo de dados.
  * A função assume que o arquivo já está aberto em modo de leitura binária ("rb").
  * Percorre o arquivo e imprime cada registro não removido.
  * Não fecha o ponteiro de arquivo.

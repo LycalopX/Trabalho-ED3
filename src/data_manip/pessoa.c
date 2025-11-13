@@ -6,9 +6,6 @@
 #include "pessoa.h"
 #include "indice.h"
 
-// --- Funções de Manipulação de RegistroPessoa ---
-
-// Lê o cabeçalho do arquivo de dados de pessoas.
 int le_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
 {
     fseek(fp, 0, SEEK_SET);
@@ -22,10 +19,9 @@ int le_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
     if (fread(&cab->proxByteOffset, sizeof(long long), 1, fp) < 1)
         return 1;
 
-    return 0; // Sucesso.
+    return 0;
 }
 
-// Alterna o status do cabeçalho entre '0' e '1' e o reescreve no arquivo.
 void toggle_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
 {
     fseek(fp, 0, SEEK_SET);
@@ -35,7 +31,6 @@ void toggle_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
     return;
 }
 
-// Escreve o cabeçalho no arquivo de dados de pessoas.
 int escreve_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
 {
     fseek(fp, 0, SEEK_SET);
@@ -49,10 +44,12 @@ int escreve_cabecalho_pessoa(FILE *fp, CabecalhoPessoa *cab)
     if (fwrite(&cab->proxByteOffset, sizeof(long long), 1, fp) < 1)
         return 1;
 
-    return 0; // Sucesso.
+    return 0;
 }
 
-// Lê um registro de pessoa do arquivo, incluindo campos de tamanho variável.
+// Lê um registro de pessoa de tamanho variável do arquivo.
+// A função aloca memória para o registro e seus campos.
+// Ao final, avança o cursor do arquivo para pular o lixo (padding).
 int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
 {
     RegistroPessoa *reg = malloc(sizeof(RegistroPessoa));
@@ -69,11 +66,10 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
     fread(&reg->idPessoa, sizeof(int), 1, fp);
     fread(&reg->idadePessoa, sizeof(int), 1, fp);
 
-    // Lê o campo nomePessoa (tamanho variável).
     fread(&reg->tamanhoNomePessoa, sizeof(int), 1, fp);
     if (reg->tamanhoNomePessoa > 0)
     {
-        // Aloca espaço extra para o terminador nulo
+
         reg->nomePessoa = malloc(reg->tamanhoNomePessoa + 1);
         if (reg->nomePessoa == NULL)
         {
@@ -81,16 +77,15 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
             return 1;
         }
         fread(reg->nomePessoa, reg->tamanhoNomePessoa, 1, fp);
-        reg->nomePessoa[reg->tamanhoNomePessoa] = '\0'; // Adiciona terminador nulo
+        reg->nomePessoa[reg->tamanhoNomePessoa] = '\0';
     }
     else
     {
-        reg->nomePessoa = NULL; // Campo nulo.
+        reg->nomePessoa = NULL;
     }
 
-    // Lê o campo nomeUsuario (tamanho variável).
     fread(&reg->tamanhoNomeUsuario, sizeof(int), 1, fp);
-    // Aloca espaço extra para o terminador nulo
+
     reg->nomeUsuario = malloc(reg->tamanhoNomeUsuario + 1);
     if (reg->nomeUsuario == NULL)
     {
@@ -100,9 +95,8 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
         return 1;
     }
     fread(reg->nomeUsuario, reg->tamanhoNomeUsuario, 1, fp);
-    reg->nomeUsuario[reg->tamanhoNomeUsuario] = '\0'; // Adiciona terminador nulo
+    reg->nomeUsuario[reg->tamanhoNomeUsuario] = '\0';
 
-    // Calcula o total de bytes lidos para os campos de dados do registro.
     int bytes_lidos = sizeof(reg->idPessoa) +
                       sizeof(reg->idadePessoa) +
                       sizeof(reg->tamanhoNomePessoa) +
@@ -110,29 +104,27 @@ int le_registro_pessoa(FILE *fp, RegistroPessoa **reg_out)
                       sizeof(reg->tamanhoNomeUsuario) +
                       reg->tamanhoNomeUsuario;
 
-    // Calcula a quantidade de lixo (bytes de preenchimento) no final do registro.
     int lixo = reg->tamanhoRegistro - bytes_lidos;
     if (lixo > 0)
     {
-        fseek(fp, lixo, SEEK_CUR); // Pula os bytes de lixo.
+        fseek(fp, lixo, SEEK_CUR);
     }
 
     *reg_out = reg;
-    return 0; // Sucesso.
+    return 0;
 }
 
-// Constrói e aloca um novo registro de pessoa com os dados fornecidos.
+// Aloca e inicializa uma nova struct RegistroPessoa em memória.
 RegistroPessoa *cria_registro_pessoa(int idPessoa, char nomePessoa[200], int idade, char nomeUsuario[200])
 {
     RegistroPessoa *registroPessoa = malloc(sizeof(RegistroPessoa));
-    if (registroPessoa == NULL) return NULL; // Falha na alocação.
+    if (registroPessoa == NULL)
+        return NULL;
 
-    // Inicializa os campos fixos.
     registroPessoa->removido = '0';
     registroPessoa->idPessoa = idPessoa;
     registroPessoa->idadePessoa = idade;
 
-    // Aloca e copia os campos de string.
     registroPessoa->tamanhoNomePessoa = strlen(nomePessoa);
     registroPessoa->nomePessoa = malloc(registroPessoa->tamanhoNomePessoa);
     memcpy(registroPessoa->nomePessoa, nomePessoa, registroPessoa->tamanhoNomePessoa);
@@ -141,13 +133,11 @@ RegistroPessoa *cria_registro_pessoa(int idPessoa, char nomePessoa[200], int ida
     registroPessoa->nomeUsuario = malloc(registroPessoa->tamanhoNomeUsuario);
     memcpy(registroPessoa->nomeUsuario, nomeUsuario, registroPessoa->tamanhoNomeUsuario);
 
-    // Calcula o tamanho total do registro.
     registroPessoa->tamanhoRegistro = calcula_tamanho_registro_pessoa(registroPessoa);
 
     return registroPessoa;
 }
 
-// Libera toda a memória alocada dinamicamente para um registro de pessoa.
 void destroi_registro_pessoa(RegistroPessoa *reg)
 {
     if (reg == NULL)
@@ -160,7 +150,7 @@ void destroi_registro_pessoa(RegistroPessoa *reg)
     free(reg);
 }
 
-// Cria uma cópia profunda de um registro de pessoa.
+// Cria uma cópia profunda (deep copy) de um RegistroPessoa.
 RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
 {
     if (reg == NULL)
@@ -170,7 +160,6 @@ RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
     if (copia == NULL)
         return NULL;
 
-    // Copia campos primitivos
     copia->removido = reg->removido;
     copia->tamanhoRegistro = reg->tamanhoRegistro;
     copia->idPessoa = reg->idPessoa;
@@ -178,7 +167,6 @@ RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
     copia->tamanhoNomePessoa = reg->tamanhoNomePessoa;
     copia->tamanhoNomeUsuario = reg->tamanhoNomeUsuario;
 
-    // Copia nomePessoa
     if (reg->nomePessoa != NULL && reg->tamanhoNomePessoa > 0)
     {
         copia->nomePessoa = malloc(reg->tamanhoNomePessoa + 1);
@@ -195,7 +183,6 @@ RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
         copia->nomePessoa = NULL;
     }
 
-    // Copia nomeUsuario
     if (reg->nomeUsuario != NULL && reg->tamanhoNomeUsuario > 0)
     {
         copia->nomeUsuario = malloc(reg->tamanhoNomeUsuario + 1);
@@ -217,13 +204,14 @@ RegistroPessoa *copia_registro_pessoa(RegistroPessoa *reg)
     return copia;
 }
 
-void escreve_string_char_por_char(FILE *fp, const char *str, int tamanho) {
-    for (int i = 0; i < tamanho; i++) {
+void escreve_string_char_por_char(FILE *fp, const char *str, int tamanho)
+{
+    for (int i = 0; i < tamanho; i++)
+    {
         fputc(str[i], fp);
     }
 }
 
-// Escreve um registro de pessoa no arquivo, campo por campo.
 int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
 {
     if (fwrite(&reg->removido, sizeof(char), 1, fp) < 1)
@@ -240,7 +228,6 @@ int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
     if (fwrite(&reg->tamanhoNomePessoa, sizeof(int), 1, fp) < 1)
         return 1;
 
-    // Escreve o nome da pessoa se não for nulo.
     if (reg->tamanhoNomePessoa > 0)
     {
         escreve_string_char_por_char(fp, reg->nomePessoa, reg->tamanhoNomePessoa);
@@ -254,7 +241,6 @@ int escreve_registro_pessoa(FILE *fp, RegistroPessoa *reg)
     return 0;
 }
 
-// Imprime os dados de um registro de pessoa na saída padrão, formatando valores nulos.
 int imprime_registro_pessoa(RegistroPessoa *reg)
 {
     if (reg == NULL)
@@ -289,38 +275,38 @@ int imprime_registro_pessoa(RegistroPessoa *reg)
     return 0;
 }
 
-// Insere um array de registros de pessoa no arquivo de dados, respeitando os byte offsets.
-void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes) {
+// Itera sobre uma lista de registros e os insere no arquivo de dados
+// nas posições corretas, de acordo com os byte offsets pré-calculados.
+void inserir_pessoas(FILE *fp, RegistroBuscaPessoa **registros, int nInsercoes)
+{
 
     fseek(fp, 17, SEEK_SET);
     long long byteOffset = 17;
 
     for (int i = 0; i < nInsercoes; i++)
     {
-        // propriedades do registro
 
         long long diffByteOffset = registros[i]->ByteOffset - byteOffset;
         fseek(fp, diffByteOffset, SEEK_CUR);
-        
-        // Escreve o registro no arquivo.
+
         escreve_registro_pessoa(fp, registros[i]->registro);
 
-        // Atualiza o byte offset atual.
         long long tamanho_real_escrito = sizeof(char) + sizeof(int) + registros[i]->registro->tamanhoRegistro;
         byteOffset += diffByteOffset + tamanho_real_escrito;
     }
 }
 
-// Calcula o tamanho total de um registro de pessoa no disco, incluindo campos de tamanho variável.
-int calcula_tamanho_registro_pessoa(RegistroPessoa *reg) {
+// Calcula o tamanho da porção de dados de um registro,
+// que corresponde ao tamanho total menos os campos de controle 'removido' e 'tamanhoRegistro'.
+int calcula_tamanho_registro_pessoa(RegistroPessoa *reg)
+{
     if (reg == NULL)
         return 0;
 
-    // Soma os tamanhos dos campos fixos e variáveis.
-    return sizeof(int) + // idPessoa
-           sizeof(int) + // idadePessoa
-           sizeof(int) + // tamanhoNomePessoa
+    return sizeof(int) +
+           sizeof(int) +
+           sizeof(int) +
            reg->tamanhoNomePessoa +
-           sizeof(int) + // tamanhoNomeUsuario
+           sizeof(int) +
            reg->tamanhoNomeUsuario;
 }

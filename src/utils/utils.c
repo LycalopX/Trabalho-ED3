@@ -1,5 +1,5 @@
-#include <stddef.h> // Para size_t
-#include <stdint.h> // Para SIZE_MAX (para checagem de overflow)
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,6 +11,7 @@
 
 #define GOLDEN_RATIO 1.61803398875
 
+// Calcula e imprime um checksum do arquivo binário na tela.
 void binarioNaTela(char *nomeArquivoBinario)
 {
 
@@ -39,28 +40,29 @@ void binarioNaTela(char *nomeArquivoBinario)
     fclose(fs);
 }
 
+// Lê uma string da entrada padrão, tratando aspas e valores nulos.
 void scan_quote_string(char *str)
 {
 
     char R;
 
     while ((R = getchar()) != EOF && isspace(R))
-        ; // ignorar espaços, \r, \n...
+        ;
 
     if (R == 'N' || R == 'n')
-    { // campo NULO
+    {
         getchar();
         getchar();
-        getchar();       // ignorar o "ULO" de NULO.
-        strcpy(str, ""); // copia string vazia
+        getchar();
+        strcpy(str, "");
     }
     else if (R == '\"')
     {
         if (scanf("%[^\"]", str) != 1)
-        { // ler até o fechamento das aspas
+        {
             strcpy(str, "");
         }
-        getchar(); // ignorar aspas fechando
+        getchar();
     }
     else if (R != EOF)
     {
@@ -75,13 +77,12 @@ void scan_quote_string(char *str)
             ungetc(R, stdin);
     }
     else
-    { // EOF
+    {
         strcpy(str, "");
     }
 }
 
-// FUNÇÕES DE COMPARAÇÃO PARA BUSCA
-
+// Função de comparação para qsort, utilizada para ordenar registros de busca por byte offset.
 int comparar_registros_busca_offset(const void *a, const void *b)
 {
     RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
@@ -94,6 +95,7 @@ int comparar_registros_busca_offset(const void *a, const void *b)
     return 0;
 }
 
+// Função de comparação para qsort, utilizada para ordenar registros de busca por ID.
 int comparar_registros_busca_id(const void *a, const void *b)
 {
     RegistroBuscaPessoa *regA = *(RegistroBuscaPessoa **)a;
@@ -101,58 +103,48 @@ int comparar_registros_busca_id(const void *a, const void *b)
     return regA->registro->idPessoa - regB->registro->idPessoa;
 }
 
-// GERENCIAMENTO DE ARRAY EXPANDÍVEL
-
+// Realoca um array dinâmico, aumentando sua capacidade usando a proporção áurea.
 void realloc_golden(void **ptr, size_t *p_current_capacity, size_t elem_size)
 {
 
-    // 1. Calcular a nova capacidade
     size_t new_capacity;
     if (*p_current_capacity == 0)
     {
-        // Caso inicial: alocar pela primeira vez
+
         new_capacity = 10;
     }
     else
     {
-        // Arredonda para o inteiro mais próximo para garantir o crescimento
+
         new_capacity = (size_t)(*p_current_capacity * GOLDEN_RATIO + 0.5);
 
-        // Garantir que a capacidade realmente aumente (caso *p_current_capacity seja 1)
         if (new_capacity <= *p_current_capacity)
         {
             new_capacity = *p_current_capacity + 1;
         }
     }
 
-    // 2. Checagem de segurança contra overflow de multiplicação
-    // (new_capacity * elem_size) pode exceder o tamanho máximo de um size_t
     if (elem_size > 0 && new_capacity > SIZE_MAX / elem_size)
     {
         fprintf(stderr, "Erro: Overflow de alocação (tamanho solicitado excede SIZE_MAX).\n");
         return;
     }
 
-    // 3. Calcular o novo tamanho total em bytes
     size_t new_size_bytes = new_capacity * elem_size;
 
-    // 4. Chamar realloc. realloc lida corretamente com ptr == NULL.
     (*ptr) = realloc(*ptr, new_size_bytes);
 
-    // 5. Tratar o resultado
     if ((*ptr) == NULL)
     {
-        // Falha na alocação!
-        // O ponteiro original 'ptr' ainda é válido e não foi liberado.
-        // Não atualizamos *p_current_capacity.
+
         fprintf(stderr, "Erro: Falha ao realocar memória para %zu bytes.\n", new_size_bytes);
         return;
     }
 
-    // 6. Sucesso! Atualizar a capacidade e retornar o novo ponteiro.
     *p_current_capacity = new_capacity;
 }
 
+// Libera a memória alocada para um array de resultados de busca.
 void liberar_resultados_busca_inteira(ResultadoBuscaPessoa *resultados, int nBuscas)
 {
     if (resultados == NULL)
@@ -165,6 +157,7 @@ void liberar_resultados_busca_inteira(ResultadoBuscaPessoa *resultados, int nBus
     free(resultados);
 }
 
+// Libera a memória alocada para uma única struct ResultadoBuscaPessoa.
 void liberar_resultado_busca(ResultadoBuscaPessoa *resultado)
 {
     if (resultado->registrosBusca != NULL)
@@ -189,7 +182,7 @@ void liberar_resultado_busca(ResultadoBuscaPessoa *resultado)
         free(resultado->update.valor);
 }
 
-// DEBUG
+// Imprime o conteúdo raw de registros de pessoa na saída padrão para depuração.
 void imprimir_registros_raw(FILE *fp)
 {
     if (fp == NULL)
@@ -199,7 +192,7 @@ void imprimir_registros_raw(FILE *fp)
     }
 
     CabecalhoPessoa cabPessoa;
-    le_cabecalho_pessoa(fp, &cabPessoa); // Vamos imprimir o cabeçalho
+    le_cabecalho_pessoa(fp, &cabPessoa);
 
     printf("Cabeçalho:\n");
     printf("  - Próximo Byte Offset: %lld\n", cabPessoa.proxByteOffset);
@@ -213,17 +206,15 @@ void imprimir_registros_raw(FILE *fp)
         long currentPos = ftell(fp);
         RegistroPessoa *reg = NULL;
 
-        // Tenta ler o próximo registro
         if (le_registro_pessoa(fp, &reg) != 0)
         {
-            // Se a leitura falhar, pode ser o fim do arquivo.
+
             break;
         }
 
         printf("Registro em %ld | Tamanho Declarado: %d | Removido: '%c'\n",
                currentPos, reg->tamanhoRegistro, reg->removido);
 
-        // Calcula o tamanho real dos dados lidos para este registro
         long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +
                                  sizeof(reg->tamanhoNomePessoa) + reg->tamanhoNomePessoa +
                                  sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomeUsuario;
@@ -235,7 +226,6 @@ void imprimir_registros_raw(FILE *fp)
         }
         printf("\n");
 
-        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
         long lixo = reg->tamanhoRegistro - tamanho_real_lido;
         printf("  - Lixo: %ld bytes\n", lixo);
 
@@ -247,9 +237,6 @@ void imprimir_registros_raw(FILE *fp)
 
         printf("\n\n");
 
-        // O lixo já é pulado pela função le_registro_pessoa.
-        // Manter o fseek aqui causaria um pulo duplo.
-
         destroi_registro_pessoa(reg);
     }
 
@@ -257,6 +244,7 @@ void imprimir_registros_raw(FILE *fp)
     fflush(stdout);
 }
 
+// Imprime o conteúdo raw de registros de pessoa em um arquivo de saída para depuração.
 void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
 {
     if (fp == NULL)
@@ -273,7 +261,7 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
     }
 
     CabecalhoPessoa cabPessoa;
-    le_cabecalho_pessoa(fp, &cabPessoa); // Vamos imprimir o cabeçalho
+    le_cabecalho_pessoa(fp, &cabPessoa);
 
     fprintf(output_fp, "Cabeçalho:\n");
     fprintf(output_fp, "  - Próximo Byte Offset: %lld\n", cabPessoa.proxByteOffset);
@@ -286,17 +274,15 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
         long currentPos = ftell(fp);
         RegistroPessoa *reg = NULL;
 
-        // Tenta ler o próximo registro
         if (le_registro_pessoa(fp, &reg) != 0)
         {
-            // Se a leitura falhar, pode ser o fim do arquivo.
+
             break;
         }
 
         fprintf(output_fp, "Registro em %ld | Tamanho Declarado: %d | Removido: '%c'\n",
                 currentPos, reg->tamanhoRegistro, reg->removido);
 
-        // Calcula o tamanho real dos dados lidos para este registro
         long tamanho_real_lido = sizeof(reg->idPessoa) + sizeof(reg->idadePessoa) +
                                  sizeof(reg->tamanhoNomePessoa) + reg->tamanhoNomePessoa +
                                  sizeof(reg->tamanhoNomeUsuario) + reg->tamanhoNomeUsuario;
@@ -308,7 +294,6 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
         }
         fprintf(output_fp, "\n");
 
-        // O lixo é a diferença entre o tamanho declarado e o tamanho real dos campos variáveis + fixos
         long lixo = reg->tamanhoRegistro - tamanho_real_lido;
         fprintf(output_fp, "  - Lixo: %ld bytes\n", lixo);
 
@@ -320,35 +305,29 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida)
 
         fprintf(output_fp, "\n\n");
 
-        // O lixo já é pulado pela função le_registro_pessoa.
-        // Manter o fseek aqui causaria um pulo duplo.
-
         destroi_registro_pessoa(reg);
     }
 
     fflush(stdout);
 }
 
-// Só funciona quando resultados está ordenado pelo byteoffset do registro.
+// Marca registros de pessoa como removidos no arquivo de dados e atualiza o índice em memória.
 void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa *cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate)
 {
     long long nextByteOffset;
     long long previousByteOffset = 17;
 
-    // Escreve os resultados e libera a memória
     if (resultados != NULL)
     {
         for (int i = 0; i < nRegsEncontrados; i++)
         {
             nextByteOffset = resultados[i]->ByteOffset - previousByteOffset;
 
-            // Remover registro
             fseek(fp, nextByteOffset, SEEK_CUR);
 
             char removido = '1';
             fwrite(&removido, sizeof(char), 1, fp);
 
-            // Remover do indice
             int id_a_remover = resultados[i]->registro->idPessoa;
 
             RegistroIndice **p_encontrado_ptr = bsearch(&id_a_remover,
@@ -363,14 +342,14 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
             {
                 if (flagUpdate)
                 {
-                    // em vez de remover indice, atualizamos para apontar ao final do arquivo
+
                     (*p_encontrado_ptr)->byteOffset = cabPessoa->proxByteOffset;
                     resultados[i]->ByteOffset = cabPessoa->proxByteOffset;
                     cabPessoa->proxByteOffset += tamanho_real_escrito;
                 }
                 else
                 {
-                    (*p_encontrado_ptr)->byteOffset = -1; // Marca como removido no índice
+                    (*p_encontrado_ptr)->byteOffset = -1;
                 }
             }
 

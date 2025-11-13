@@ -8,7 +8,7 @@
 #include "../data_manip/pessoa.h"
 #include "f2.h"
 
-// Função de comparação, necessária para o qsort ordenar os índices por idPessoa.
+// Função de comparação para qsort, utilizada para ordenar registros de índice por idPessoa.
 int comparar_indices(const void *a, const void *b)
 {
     RegistroIndice *regA = (RegistroIndice *)a;
@@ -17,29 +17,27 @@ int comparar_indices(const void *a, const void *b)
     return (regA->idPessoa - regB->idPessoa);
 }
 
-// Função auxiliar para interpretar uma linha do CSV e preencher uma struct RegistroPessoa.
+// Interpreta uma linha do CSV e preenche uma struct RegistroPessoa.
 int parse_pessoa_csv_line(char *line, RegistroPessoa *reg)
 {
-    // Remove quebras de linha (\n ou \r) do final da string para evitar erros de parsing.
+
     line[strcspn(line, "\r\n")] = 0;
 
     char *p = line;
     char *virgula;
 
-    // 1. Lê o campo idPessoa.
-    virgula = strchr(p, ',');
-    if (virgula == NULL)
-        return 1; // Retorna erro se a linha for mal formatada.
-
-    *virgula = '\0'; // Substitui a vírgula por um terminador nulo para isolar o campo.
-    reg->idPessoa = atoi(p);
-    p = virgula + 1; // Avança o ponteiro para o início do próximo campo.
-
-    // 2. Lê o campo nomePessoa.
     virgula = strchr(p, ',');
     if (virgula == NULL)
         return 1;
-    if (p == virgula) // Verifica se o campo está vazio (ex: ",,").
+
+    *virgula = '\0';
+    reg->idPessoa = atoi(p);
+    p = virgula + 1;
+
+    virgula = strchr(p, ',');
+    if (virgula == NULL)
+        return 1;
+    if (p == virgula)
     {
         reg->tamanhoNomePessoa = 0;
         reg->nomePessoa = NULL;
@@ -53,11 +51,10 @@ int parse_pessoa_csv_line(char *line, RegistroPessoa *reg)
     }
     p = virgula + 1;
 
-    // 3. Lê o campo idadePessoa.
     virgula = strchr(p, ',');
     if (virgula == NULL)
         return 1;
-    if (p == virgula) // Se o campo for nulo, define a idade como -1.
+    if (p == virgula)
     {
         reg->idadePessoa = -1;
     }
@@ -68,8 +65,7 @@ int parse_pessoa_csv_line(char *line, RegistroPessoa *reg)
     }
     p = virgula + 1;
 
-    // 4. Lê o campo nomeUsuario (último campo da linha).
-    if (*p == '\0') // Verifica se o campo está vazio.
+    if (*p == '\0')
     {
         reg->tamanhoNomeUsuario = 0;
         reg->nomeUsuario = NULL;
@@ -81,12 +77,14 @@ int parse_pessoa_csv_line(char *line, RegistroPessoa *reg)
         memcpy(reg->nomeUsuario, p, reg->tamanhoNomeUsuario);
     }
 
-    return 0; // Retorna 0 em caso de sucesso.
+    return 0;
 }
 
+// Implementa a funcionalidade 2: lê um arquivo CSV, cria um arquivo de dados binário
+// e um arquivo de índice, preenchendo-os com os dados do CSV.
 void funcionalidade2(FILE *fp_csv, FILE *fp_data, FILE *fp_index, const char *nomeArquivoDados, const char *nomeArquivoIndice)
 {
-    // Declara e inicializa os cabeçalhos.
+
     CabecalhoPessoa data_header;
     CabecalhoIndice index_header;
 
@@ -102,9 +100,8 @@ void funcionalidade2(FILE *fp_csv, FILE *fp_data, FILE *fp_index, const char *no
     escreve_cabecalho_indice(fp_index, &index_header);
 
     char buffer[256];
-    fgets(buffer, sizeof(buffer), fp_csv); // Pula a primeira linha (cabeçalho) do ficheiro CSV.
+    fgets(buffer, sizeof(buffer), fp_csv);
 
-    // Posiciona o cursor no final do cabeçalho para garantir o início da escrita de dados.
     fseek(fp_data, 17, SEEK_SET);
 
     size_t regs_length = 100;
@@ -112,7 +109,6 @@ void funcionalidade2(FILE *fp_csv, FILE *fp_data, FILE *fp_index, const char *no
     int index = 0;
     long long byteOffset = ftell(fp_data);
 
-    // Itera sobre cada linha de dados do ficheiro CSV.
     while (fgets(buffer, sizeof(buffer), fp_csv))
     {
         if (regs_index == NULL)
