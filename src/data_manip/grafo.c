@@ -145,12 +145,16 @@ void imprimir_grafo(Grafo *grafo)
 
         while (a != NULL)
         {
-            printf("%s, %s, %s, %s, %c\n",
+            char grauAmizade[2];
+            grauAmizade[0] = a->grauAmizade;
+            grauAmizade[1] = '\0';
+
+            printf("%s, %s, %s, %s, %s\n",
                    v->nomeUsuario,
                    a->nomeUsuarioSeguido,
                    (strcmp(a->dataInicio, NULO_DATA) == 0) ? "NULO" : a->dataInicio,
                    (strcmp(a->dataFim, NULO_DATA) == 0) ? "NULO" : a->dataFim,
-                   (a->grauAmizade == NULO_CARACTERE) ? 'N' : a->grauAmizade); // Simplificado para char, ideal seria tratar "NULO"
+                   (a->grauAmizade == NULO_CARACTERE) ? "NULO" : grauAmizade);
             a = a->proxima;
         }
         printf("\n"); // Pula linha entre os grupos de um mesmo seguidor
