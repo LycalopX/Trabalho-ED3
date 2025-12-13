@@ -105,22 +105,35 @@ typedef struct
 RegistroSegue;
 
 
-// Representa uma aresta na lista de seguidos de um usuário.
-typedef struct Aresta {
+
+// Estrutura para representar uma aresta do grafo (uma pessoa que é seguida)
+typedef struct Aresta
+{
     char *nomeUsuarioSeguido;
     char dataInicio[11];
     char dataFim[11];
     char grauAmizade;
-    struct Aresta *proximo;
-} Aresta;
+    struct Aresta *proxima;
+} 
+Aresta;
 
 
-// Representa um vértice no grafo de usuários e seus seguidos.
-typedef struct Vertice {
+// Estrutura para representar um vértice do grafo (uma pessoa que segue)
+typedef struct Vertice
+{
     char *nomeUsuario;
-    Aresta *listaDeSeguidos;
-} Vertice;
+    Aresta *adjacentes; // Ponteiro para a lista de pessoas que este vértice segue
+} 
+Vertice;
 
+
+// Estrutura principal do Grafo
+typedef struct
+{
+    Vertice *vertices; // Vetor de vértices
+    int numVertices;
+} 
+Grafo;
 
 
 // Constantes para representar valores nulos e status de registros.
