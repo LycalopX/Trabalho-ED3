@@ -9,11 +9,6 @@
 #include "f10.h"
 
 #include "../f4/f4.h"
-#include "../data_manip/grafo.h"
-
-typedef struct ReturnF10 {
-
-} ReturnF10;
 
 // Carrega todos os registros de um arquivo 'segue' ordenado para a memória.
 // Lida com registros logicamente removidos, sobrescrevendo-os no array temporário.

@@ -20,6 +20,7 @@
 #include "f8/f8.h"
 #include "f9/f9.h"
 #include "f10/f10.h"
+#include "f11/f11.h"
 
 void binarioNaTela(char *nomeArquivoBinario);
 void scan_quote_string(char *str);
@@ -349,7 +350,7 @@ int main()
 
         int result = funcionalidade10(fp, fpIndice, fpSegue, buscas);
 
-        
+
 
         if(result != 0) {
             printf("Falha no processamento do arquivo. Erro: %d\n", result);
@@ -360,6 +361,46 @@ int main()
         fclose(fpSegue);
         break;
     }
+
+    case 11: {
+        char nomeArquivoDeRegistro[100];
+        char nomeArquivoIndice[100];
+        char nomeArquivoSegue[100];
+
+        scanf("%s %s %s", nomeArquivoDeRegistro, nomeArquivoIndice, nomeArquivoSegue);
+
+        FILE *fp = fopen(nomeArquivoDeRegistro, "rb+");
+        if (fp == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            break;
+        }
+
+        FILE *fpIndice = fopen(nomeArquivoIndice, "rb+");
+        if (fpIndice == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            fclose(fp);
+            break;
+        }
+
+        FILE *fpSegue = fopen(nomeArquivoSegue, "rb");
+        if (fpSegue == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            fclose(fp);
+            fclose(fpIndice);
+            break;
+        }
+
+        funcionalidade11(fp, fpIndice, fpSegue);
+
+        fclose(fp);
+        fclose(fpIndice);
+        fclose(fpSegue);
+        break;
+    }
+
     default:
     {
         printf("Funcionalidade inválida!\n");

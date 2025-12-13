@@ -274,23 +274,48 @@ static RegistroSegue **carregar_todos_registros_segue(FILE *fp, int *numRegistro
         *numRegistros = 0;
         return NULL;
     }
-    *numRegistros = cab.quantidadePessoas;
-    fseek(fp, 9, SEEK_SET);
+    
+    int total_records_in_file = cab.quantidadePessoas; 
+    fseek(fp, 9, SEEK_SET); // Skip header
 
-    RegistroSegue **registros = malloc((*numRegistros) * sizeof(RegistroSegue *));
-    if (registros == NULL)
-        return NULL;
+    RegistroSegue **registros_validos = malloc(total_records_in_file * sizeof(RegistroSegue *));
+    if (registros_validos == NULL) return NULL;
 
-    int count = 0;
-    while (count < *numRegistros)
-    {
-        registros[count] = malloc(sizeof(RegistroSegue));
-        if (le_registro_segue(fp, registros[count]) == 0)
-        {
-            count++;
+    int valid_records_count = 0; 
+
+    for (int i = 0; i < total_records_in_file; i++) {
+        RegistroSegue *temp_reg = malloc(sizeof(RegistroSegue));
+        if (temp_reg == NULL) {
+            for (int j = 0; j < valid_records_count; j++) free(registros_validos[j]);
+            free(registros_validos);
+            return NULL;
+        }
+
+        int result = le_registro_segue(fp, temp_reg);
+        
+        if (result == 0) { // Success, valid record
+            registros_validos[valid_records_count++] = temp_reg;
+        } else if (result == LE_REGISTRO_SEGUE_REMOVIDO) { // Removed record, skip
+            free(temp_reg); 
+        } else { // LE_REGISTRO_SEGUE_ERRO_LEITURA or other error
+            free(temp_reg); 
+            break; 
         }
     }
-    return registros;
+
+    if (valid_records_count == 0) {
+        free(registros_validos);
+        *numRegistros = 0;
+        return NULL; 
+    }
+    RegistroSegue **final_registros = realloc(registros_validos, valid_records_count * sizeof(RegistroSegue *));
+    if (final_registros == NULL) {
+        *numRegistros = valid_records_count;
+        return registros_validos; 
+    }
+    
+    *numRegistros = valid_records_count;
+    return final_registros;
 }
 
 static IdUsuarioMap *criar_mapa_id_usuario(FILE *fpPessoa, FILE *fpIndice, int *numPessoas)
@@ -305,13 +330,21 @@ static IdUsuarioMap *criar_mapa_id_usuario(FILE *fpPessoa, FILE *fpIndice, int *
     if (!indice)
         return NULL;
 
+    qsort(indice, *numPessoas, sizeof(RegistroIndice *), comparar_indices_id);
+
     IdUsuarioMap *mapa = malloc(*numPessoas * sizeof(IdUsuarioMap));
     if (!mapa)
         return NULL;
 
+        
+    fseek(fpPessoa, 0, SEEK_SET);
+    long long byteOffset = 0;
+
     for (int i = 0; i < *numPessoas; i++)
     {
-        fseek(fpPessoa, indice[i]->byteOffset, SEEK_SET);
+        long long diffByteOffset = indice[i]->byteOffset - byteOffset;
+        fseek(fpPessoa, diffByteOffset, SEEK_CUR);
+
         RegistroPessoa *p;
         if (le_registro_pessoa(fpPessoa, &p) == 0)
         {
@@ -320,6 +353,9 @@ static IdUsuarioMap *criar_mapa_id_usuario(FILE *fpPessoa, FILE *fpIndice, int *
             destroi_registro_pessoa(p);
         }
         destroi_registro_indice(indice[i]);
+        
+        long long tamanho_real_escrito = sizeof(char) + sizeof(int) + p->tamanhoRegistro;
+        byteOffset += diffByteOffset + tamanho_real_escrito;
     }
     free(indice);
 

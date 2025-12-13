@@ -156,5 +156,6 @@ Grafo;
 // Mensagens de erro padrão.
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
+#define FALHA_AO_EXECUTAR_FUNCIONALIDADE "Falha na execução da funcionalidade.\n"
 
 #endif

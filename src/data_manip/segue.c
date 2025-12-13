@@ -9,18 +9,18 @@ int le_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
     if (fp == NULL || cab == NULL)
         return 1;
 
-    fread(&cab->status, sizeof(char), 1, fp);
-    fread(&cab->quantidadePessoas, sizeof(int), 1, fp);
-    fread(&cab->proxRRN, sizeof(int), 1, fp);
+    if (fread(&cab->status, sizeof(char), 1, fp) != 1) return 1;
+    if (fread(&cab->quantidadePessoas, sizeof(int), 1, fp) != 1) return 1;
+    if (fread(&cab->proxRRN, sizeof(int), 1, fp) != 1) return 1;
     return 0;
 }
 
 int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
 {
 
-    fwrite(&cab->status, sizeof(char), 1, fp);
-    fwrite(&cab->quantidadePessoas, sizeof(unsigned), 1, fp);
-    fwrite(&cab->proxRRN, sizeof(unsigned), 1, fp);
+    if (fwrite(&cab->status, sizeof(char), 1, fp) != 1) return 1;
+    if (fwrite(&cab->quantidadePessoas, sizeof(unsigned), 1, fp) != 1) return 1;
+    if (fwrite(&cab->proxRRN, sizeof(unsigned), 1, fp) != 1) return 1;
 
     return 0;
 }
@@ -30,19 +30,26 @@ int escreve_cabecalho_segue(FILE *fp, CabecalhoSegue *cab)
 // registro e um código de status especial é retornado.
 int le_registro_segue(FILE *fp, RegistroSegue *reg_segue)
 {
-    fread(&reg_segue->removido, sizeof(char), 1, fp);
+    // Check fread return value to detect EOF
+    if (fread(&reg_segue->removido, sizeof(char), 1, fp) != 1) {
+        return LE_REGISTRO_SEGUE_ERRO_LEITURA; // Indicate error/EOF
+    }
 
     if (reg_segue->removido == REGISTRO_SEGUE_REMOVIDO)
     {
-        fp += REGISTRO_SEGUE_TAMANHO - 1;
+        fseek(fp, REGISTRO_SEGUE_TAMANHO - 1, SEEK_CUR);
         return LE_REGISTRO_SEGUE_REMOVIDO;
     }
 
-    fread(&reg_segue->idPessoaQueSegue, sizeof(int), 1, fp);
-    fread(&reg_segue->idPessoaQueESeguida, sizeof(int), 1, fp);
-    fread(reg_segue->dataInicioQueSegue, sizeof(char), 10, fp);
-    fread(reg_segue->dataFimQueSegue, sizeof(char), 10, fp);
-    fread(&reg_segue->grauAmizade, sizeof(char), 1, fp);
+    if (fread(&reg_segue->idPessoaQueSegue, sizeof(int), 1, fp) != 1) return LE_REGISTRO_SEGUE_ERRO_LEITURA;
+    if (fread(&reg_segue->idPessoaQueESeguida, sizeof(int), 1, fp) != 1) return LE_REGISTRO_SEGUE_ERRO_LEITURA;
+    if (fread(reg_segue->dataInicioQueSegue, sizeof(char), 10, fp) != 10) return LE_REGISTRO_SEGUE_ERRO_LEITURA;
+    reg_segue->dataInicioQueSegue[10] = '\0'; // Null-terminate the string
+
+    if (fread(reg_segue->dataFimQueSegue, sizeof(char), 10, fp) != 10) return LE_REGISTRO_SEGUE_ERRO_LEITURA;
+    reg_segue->dataFimQueSegue[10] = '\0'; // Null-terminate the string
+    
+    if (fread(&reg_segue->grauAmizade, sizeof(char), 1, fp) != 1) return LE_REGISTRO_SEGUE_ERRO_LEITURA;
 
     return 0;
 }
@@ -52,12 +59,12 @@ int escreve_registro_segue(FILE *fp, RegistroSegue *reg)
     if (reg == NULL)
         return 1;
 
-    fwrite(&reg->removido, sizeof(char), 1, fp);
-    fwrite(&reg->idPessoaQueSegue, sizeof(int), 1, fp);
-    fwrite(&reg->idPessoaQueESeguida, sizeof(int), 1, fp);
-    fwrite(reg->dataInicioQueSegue, sizeof(char), 10, fp);
-    fwrite(reg->dataFimQueSegue, sizeof(char), 10, fp);
-    fwrite(&reg->grauAmizade, sizeof(char), 1, fp);
+    if (fwrite(&reg->removido, sizeof(char), 1, fp) != 1) return 1;
+    if (fwrite(&reg->idPessoaQueSegue, sizeof(int), 1, fp) != 1) return 1;
+    if (fwrite(&reg->idPessoaQueESeguida, sizeof(int), 1, fp) != 1) return 1;
+    if (fwrite(reg->dataInicioQueSegue, sizeof(char), 10, fp) != 10) return 1;
+    if (fwrite(reg->dataFimQueSegue, sizeof(char), 10, fp) != 10) return 1;
+    if (fwrite(&reg->grauAmizade, sizeof(char), 1, fp) != 1) return 1;
 
     return 0;
 }
