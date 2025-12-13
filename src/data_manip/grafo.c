@@ -336,7 +336,6 @@ static IdUsuarioMap *criar_mapa_id_usuario(FILE *fpPessoa, FILE *fpIndice, int *
     if (!mapa)
         return NULL;
 
-        
     fseek(fpPessoa, 0, SEEK_SET);
     long long byteOffset = 0;
 
@@ -350,12 +349,13 @@ static IdUsuarioMap *criar_mapa_id_usuario(FILE *fpPessoa, FILE *fpIndice, int *
         {
             mapa[i].idPessoa = p->idPessoa;
             mapa[i].nomeUsuario = strdup(p->nomeUsuario);
-            destroi_registro_pessoa(p);
         }
-        destroi_registro_indice(indice[i]);
         
         long long tamanho_real_escrito = sizeof(char) + sizeof(int) + p->tamanhoRegistro;
         byteOffset += diffByteOffset + tamanho_real_escrito;
+
+        destroi_registro_indice(indice[i]);
+        destroi_registro_pessoa(p);
     }
     free(indice);
 
