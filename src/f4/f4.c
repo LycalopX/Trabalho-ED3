@@ -308,6 +308,11 @@ ResultadoBuscaPessoa *funcionalidade4(FILE *fp, FILE *fpIndice, int buscas, int 
 
                     (resultadoBusca[i].nRegistros)++;
                     encontradosNestaBusca++;
+
+                    if (strcmp(b->campo, CAMPO_USUARIO) == 0)
+                    {
+                        break;
+                    }
                 }
                 else
                 {
