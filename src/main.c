@@ -348,6 +348,9 @@ int main()
         }
 
         int result = funcionalidade10(fp, fpIndice, fpSegue, buscas);
+
+        
+
         if(result != 0) {
             printf("Falha no processamento do arquivo. Erro: %d\n", result);
         }

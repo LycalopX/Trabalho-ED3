@@ -104,6 +104,25 @@ typedef struct
 } 
 RegistroSegue;
 
+
+// Representa uma aresta na lista de seguidos de um usuário.
+typedef struct Aresta {
+    char *nomeUsuarioSeguido;
+    char dataInicio[11];
+    char dataFim[11];
+    char grauAmizade;
+    struct Aresta *proximo;
+} Aresta;
+
+
+// Representa um vértice no grafo de usuários e seus seguidos.
+typedef struct Vertice {
+    char *nomeUsuario;
+    Aresta *listaDeSeguidos;
+} Vertice;
+
+
+
 // Constantes para representar valores nulos e status de registros.
 #define NULO_INTEIRO -1
 #define NULO_DATA "$$$$$$$$$$"
