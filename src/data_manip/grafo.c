@@ -161,50 +161,56 @@ void imprimir_grafo(Grafo *grafo)
     }
 }
 
-Grafo *transpor_grafo(Grafo *grafoOriginal)
-{
-    if (!grafoOriginal)
-        return NULL;
+Grafo *transpor_grafo(Grafo *grafoOriginal) {
+    if (!grafoOriginal) return NULL;
 
-    // Passo 1: Coletar todos os nomes de usuários únicos (seguidores e seguidos)
-    // (Esta parte é complexa e requer lógica semelhante à de `criar_grafo` para identificar todos os nós)
+    // Alocar o grafo transposto
+    Grafo *grafoT = malloc(sizeof(Grafo));
+    if (!grafoT) return NULL; // Verificação 
 
-    printf("// Lógica de transposição a ser implementada.\n");
-    // 1.a. Iterar por grafoOriginal->vertices e arestas para coletar todos os nomes únicos em uma lista temporária.
-    // 1.b. Ordenar e remover duplicatas para obter a lista final de vértices para o novo grafo.
+    // Copiar o número de vértices e alocar o vetor de vértices
+    grafoT->numVertices = grafoOriginal->numVertices;
+    grafoT->vertices = malloc(sizeof(Vertice) * grafoOriginal->numVertices);
 
-    // Passo 2: Criar o novo grafo com os vértices identificados
-    Grafo *grafoTransposto = malloc(sizeof(Grafo));
-    // 2.a. Alocar `grafoTransposto->vertices` e preenchê-lo com os nomes únicos.
+    // Inicializamos todos os vértices sem arestas primeiro
+    for (int i = 0; i < grafoOriginal->numVertices; i++) {
+        grafoT->vertices[i].nomeUsuario = strdup(grafoOriginal->vertices[i].nomeUsuario);
+        grafoT->vertices[i].adjacentes = NULL;
+    }
 
-    // Passo 3: Inverter as arestas
-    for (int i = 0; i < grafoOriginal->numVertices; i++)
-    {
-        Vertice *u = &grafoOriginal->vertices[i];
-        Aresta *aresta = u->adjacentes;
-        while (aresta != NULL)
-        {
-            // Aresta original é: u -> v (aresta)
-            // No transposto, será: v -> u
+    // Inverter as Arestas
+    for (int i = 0; i < grafoOriginal->numVertices; i++) {
+        Vertice *u_orig = &grafoOriginal->vertices[i];
+        Aresta *arestaAtual = u_orig->adjacentes;
 
-            // Encontra o vértice `v` no grafo transposto
-            Vertice *v_transposto = encontrar_vertice_por_nome(grafoTransposto, aresta->nomeUsuarioSeguido);
+        // Percorremos a lista de quem U segue
+        while (arestaAtual != NULL) {
+            // Se U segue V, no transposto V segue U
+            
+            char *nomeV = arestaAtual->nomeUsuarioSeguido;
+            Vertice *v_transposto = encontrar_vertice_por_nome(grafoT, nomeV);
 
-            // Cria a nova aresta invertida
-            Aresta *arestaInvertida = malloc(sizeof(Aresta));
-            arestaInvertida->nomeUsuarioSeguido = strdup(u->nomeUsuario);
-            strcpy(arestaInvertida->dataInicio, aresta->dataInicio);
-            strcpy(arestaInvertida->dataFim, aresta->dataFim);
-            arestaInvertida->grauAmizade = aresta->grauAmizade;
+            if (v_transposto) {
+                // Criar nova aresta invertida
+                Aresta *novaAresta = malloc(sizeof(Aresta));
+                
+                // O destino agora é o U
+                novaAresta->nomeUsuarioSeguido = strdup(u_orig->nomeUsuario); 
+                
+                // Copiar os dados da aresta original
+                strcpy(novaAresta->dataInicio, arestaAtual->dataInicio);
+                strcpy(novaAresta->dataFim, arestaAtual->dataFim);
+                novaAresta->grauAmizade = arestaAtual->grauAmizade;
+                
+                // Inserir ordenado na lista de V
+                inserir_aresta_ordenada(v_transposto, novaAresta);
+            }
 
-            // Insere a aresta invertida na lista de adjacências de `v`
-            inserir_aresta_ordenada(v_transposto, arestaInvertida);
-
-            aresta = aresta->proxima;
+            arestaAtual = arestaAtual->proxima;
         }
     }
 
-    return grafoTransposto;
+    return grafoT;
 }
 
 void destruir_grafo(Grafo *grafo)
