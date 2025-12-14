@@ -104,6 +104,45 @@ typedef struct
 } 
 RegistroSegue;
 
+
+
+// Estrutura para representar uma aresta do grafo (uma pessoa que é seguida)
+typedef struct Aresta
+{
+    char *nomeUsuarioSeguido;
+    char dataInicio[11];
+    char dataFim[11];
+    char grauAmizade;
+    struct Aresta *proxima;
+} 
+Aresta;
+
+
+// Estrutura para representar um vértice do grafo (uma pessoa que segue)
+typedef struct Vertice
+{
+    char *nomeUsuario;
+    Aresta *adjacentes; // Ponteiro para a lista de pessoas que este vértice segue
+} 
+Vertice;
+
+
+// Estrutura principal do Grafo
+typedef struct
+{
+    Vertice *vertices; // Vetor de vértices
+    int numVertices;
+} 
+Grafo;
+
+typedef struct {
+    int visitado;
+    int distancia;
+    int indicePai; // Índice do vértice anterior no caminho (no grafo original, é o PRÓXIMO)
+    Aresta *arestaConectora; // Aresta que liga o Pai ao atual
+} DadosBFS;
+
+
 // Constantes para representar valores nulos e status de registros.
 #define NULO_INTEIRO -1
 #define NULO_DATA "$$$$$$$$$$"
@@ -124,5 +163,6 @@ RegistroSegue;
 // Mensagens de erro padrão.
 #define FALHA_AO_ALOCAR "Falha ao alocar memória.\n"
 #define FALHA_AO_PROCESSAR_ARQUIVO "Falha no processamento do arquivo.\n"
+#define FALHA_AO_EXECUTAR_FUNCIONALIDADE "Falha na execução da funcionalidade.\n"
 
 #endif

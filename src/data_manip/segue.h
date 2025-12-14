@@ -30,6 +30,8 @@ int le_registro_segue(FILE *fp, RegistroSegue *reg_segue);
 
 // Código de status retornado por le_registro_segue quando um registro logicamente removido é encontrado.
 #define LE_REGISTRO_SEGUE_REMOVIDO 1
+// Código de status retornado por le_registro_segue quando ocorre um erro de leitura (ex: EOF inesperado).
+#define LE_REGISTRO_SEGUE_ERRO_LEITURA 2
 
 /**
  * @brief Escreve um registro de relacionamento 'segue' no arquivo.
