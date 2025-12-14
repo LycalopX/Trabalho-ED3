@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "f12.h"
+#include "f13.h"
 #include "../data_manip/grafo.h"
 
-int funcionalidade12(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue)
+int funcionalidade13(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue, char *nomeCelebridade)
 {
     // Grafo
     Grafo *grafo = criar_grafo(fpPessoa, fpIndice, fpSegue);
@@ -24,8 +24,9 @@ int funcionalidade12(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue)
         return 1; // Indica falha na criação do grafo transposto
     }
 
-    // Finalização
-    imprimir_grafo(grafoTransposto);
+    // Encontrar caminhos curtos BFS e imprimir resultados
+    encontrar_caminhos_curtos_bfs(grafoTransposto, nomeCelebridade, grafo);
+    
     destruir_grafo(grafo);
     destruir_grafo(grafoTransposto);
     return 0; // Sucesso

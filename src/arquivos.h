@@ -135,6 +135,13 @@ typedef struct
 } 
 Grafo;
 
+typedef struct {
+    int visitado;
+    int distancia;
+    int indicePai; // Índice do vértice anterior no caminho (no grafo original, é o PRÓXIMO)
+    Aresta *arestaConectora; // Aresta que liga o Pai ao atual
+} DadosBFS;
+
 
 // Constantes para representar valores nulos e status de registros.
 #define NULO_INTEIRO -1

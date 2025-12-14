@@ -33,14 +33,11 @@ Grafo *transpor_grafo(Grafo *grafoOriginal);
 void destruir_grafo(Grafo *grafo);
 
 /**
- * @brief Encontra o caminho mais curto entre dois vértices usando BFS.
- * @param grafo O grafo onde a busca será feita.
- * @param nomeUsuarioOrigem O nome do usuário de onde o caminho começa.
- * @param nomeUsuarioDestino O nome do usuário onde o caminho termina.
- * @return (Definição de retorno pode variar, ex: uma lista de arestas ou o comprimento).
- *         Por enquanto, pode ser um placeholder.
+ * @brief Encontra e imprime os caminhos mais curtos no grafo transposto a partir de uma celebridade.
+ * @param grafoTransposto O grafo transposto.
+ * @param nomeCelebridade O nome da celebridade de onde os caminhos começam.
+ * @param grafoOriginal O grafo original (não transposto) para referência das arestas.
  */
-// A implementação exata do retorno do BFS dependerá da necessidade da F13 e F14
-void encontrar_caminho_mais_curto_bfs(Grafo *grafo, const char *nomeUsuarioOrigem, const char *nomeUsuarioDestino);
+void encontrar_caminhos_curtos_bfs(Grafo *grafoTransposto, char *nomeCelebridade, Grafo *grafoOriginal);
 
 #endif // GRAFO_H

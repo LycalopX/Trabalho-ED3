@@ -24,6 +24,8 @@ static int comparar_vertices_nome(const void *a, const void *b);
 static void inserir_aresta_ordenada(Vertice *vertice, Aresta *nova_aresta);
 static char *get_nomeUsuario_por_id(int idPessoa, IdUsuarioMap *mapa, int numPessoas);
 static Vertice *encontrar_vertice_por_nome(Grafo *grafo, const char *nomeUsuario);
+static void ordenar_indices_dos_vertices_por_nome(int *indices, int n, Grafo *grafo);
+static int obter_indice_vertice_por_nome(Grafo *grafo, const char *nome);
 
 Grafo *criar_grafo(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue)
 {
@@ -234,40 +236,134 @@ void destruir_grafo(Grafo *grafo)
     free(grafo);
 }
 
-void encontrar_caminho_mais_curto_bfs(Grafo *grafo, const char *nomeUsuarioOrigem, const char *nomeUsuarioDestino)
-{
-    printf("// Lógica de BFS a ser implementada.\n");
-    // 1. Encontrar os índices dos vértices de origem e destino no vetor `grafo->vertices`.
-    //    Se não encontrar, o caminho não existe.
+void encontrar_caminhos_curtos_bfs(Grafo *grafoTransposto, char *nomeCelebridade, Grafo *grafoOriginal) {
+    // Validações
+    if (!grafoTransposto || !nomeCelebridade) return;
 
-    // 2. Alocar e inicializar estruturas de controle para o BFS:
-    //    - int *distancia = malloc(grafo->numVertices * sizeof(int)); // inicializar com -1 (infinito)
-    //    - int *predecessor = malloc(grafo->numVertices * sizeof(int)); // inicializar com -1
-    //    - Fila *fila = criar_fila();
+    int n = grafoTransposto->numVertices;
+    
+    // Encontrar o índice da celebridade
+    int indiceCeleb = obter_indice_vertice_por_nome(grafoTransposto, nomeCelebridade);
 
-    // 3. Configurar o vértice de origem:
-    //    - distancia[indice_origem] = 0;
-    //    - enfileirar(fila, indice_origem);
+    // Celebridade não encontrada
+    if (indiceCeleb == -1) {
+        printf("Falha na execução da funcionalidade.\n");
+        return;
+    }
 
-    // 4. Loop principal do BFS: while (!fila_vazia(fila))
-    //    - vertice_atual = desenfileirar(fila);
-    //    - Para cada aresta na lista de adjacências de `vertice_atual`:
-    //        - Encontrar o índice do vértice vizinho.
-    //        - Se `distancia[vizinho]` for -1 (não visitado):
-    //            - distancia[vizinho] = distancia[vertice_atual] + 1;
-    //            - predecessor[vizinho] = vertice_atual;
-    //            - enfileirar(fila, vizinho);
+    // Inicializar estruturas da BFS
+    DadosBFS *info = calloc(n, sizeof(DadosBFS));
+    for(int i = 0; i < n; i++) {
+        info[i].distancia = -1; 
+        info[i].visitado = 0;
+        info[i].indicePai = -1;
+    }
 
-    // 5. Após o loop, verificar `distancia[indice_destino]`.
-    //    - Se for -1, não há caminho.
-    //    - Se houver, reconstruir o caminho de trás para frente usando o array `predecessor`.
+    // Fila para BFS
+    int *fila = malloc(sizeof(int) * n);
+    int inicio = 0;
+    int fim = 0;
 
-    // 6. Imprimir o caminho no formato exigido.
+    // Configurar o ponto de partida (Celebridade)
+    info[indiceCeleb].visitado = 1;
+    info[indiceCeleb].distancia = 0;
+    fila[fim] = indiceCeleb;
+    fim++;
 
-    // 7. Liberar a memória da fila, `distancia` e `predecessor`.
+    // Loop Principal da BFS
+    while (inicio < fim) {
+        int u_idx = fila[inicio];
+        inicio++; 
+        Vertice *u = &grafoTransposto->vertices[u_idx];
+
+        Aresta *aresta = u->adjacentes;
+        while (aresta != NULL) {
+            
+            // O relacionamento é ativo se dataFim for vazia OU se começar com '$'
+            int relacionamento_ativo = 1;
+            
+            // Se tem texto E esse texto NÃO é lixo, então acabou
+            if (strlen(aresta->dataFim) > 0 && aresta->dataFim[0] != '$') {
+                relacionamento_ativo = 0;
+            }
+
+            // Ignora este caminho pois a amizade acabou
+            if (relacionamento_ativo == 0) { 
+                aresta = aresta->proxima;
+                continue;
+            }
+
+            // Encontrar índice do vizinho (busca linear)
+            int v_idx = obter_indice_vertice_por_nome(grafoTransposto, aresta->nomeUsuarioSeguido);
+
+            if (v_idx != -1 && !info[v_idx].visitado) {
+                info[v_idx].visitado = 1;
+                info[v_idx].distancia = info[u_idx].distancia + 1;
+                info[v_idx].indicePai = u_idx; 
+                info[v_idx].arestaConectora = aresta; 
+                fila[fim++] = v_idx;
+            }
+            aresta = aresta->proxima;
+        }
+    }
+
+    // Preparar para imprimir ordenado
+    int *indicesOrdenados = malloc(sizeof(int) * n);
+    for(int i = 0; i < n; i++) indicesOrdenados[i] = i;
+    
+    ordenar_indices_dos_vertices_por_nome(indicesOrdenados, n, grafoTransposto);
+
+    // Exibir resultados
+    for (int k = 0; k < n; k++) {
+        int i = indicesOrdenados[k]; // Usa o índice após a ordenação
+
+        // Pula a própria celebridade
+        if (i == indiceCeleb) continue;
+
+        if (info[i].visitado != 0) {
+            // Reconstrução do caminho
+            int atual = i;
+            while (atual != indiceCeleb) {
+                int proximo = info[atual].indicePai;
+                Aresta *a = info[atual].arestaConectora;
+                
+                // Se for vazio ou lixo ($), imprime NULO
+                char *dtFim;
+                if (strlen(a->dataFim) == 0 || a->dataFim[0] == '$') {
+                    dtFim = "NULO";
+                } else {
+                    dtFim = a->dataFim;
+                }
+
+                char grauStr[10]; // Buffer para guardar o texto final
+                
+                // Se for '$' é NULO.
+                if (a->grauAmizade == '$') {
+                    strcpy(grauStr, "NULO");
+                } else {
+                    // Formatamos como caractere
+                    sprintf(grauStr, "%c", a->grauAmizade);
+                }
+                
+                // NomeQuemSegue, NomeSeguido, DataIni, DataFim, Grau
+                printf("%s, %s, %s, %s, %s\n", 
+                       grafoTransposto->vertices[atual].nomeUsuario, 
+                       grafoTransposto->vertices[proximo].nomeUsuario, 
+                       a->dataInicio,
+                       dtFim,
+                       grauStr);
+
+                atual = proximo;
+            }
+            printf("\n"); // Pula linha entre os caminhos
+        }
+    }
+
+    // Limpeza
+    free(indicesOrdenados);
+    free(info);
+    free(fila);
 }
-
-
 
 
 // --- Implementação das Funções Auxiliares ---
@@ -431,4 +527,31 @@ static Vertice *encontrar_vertice_por_nome(Grafo *grafo, const char *nomeUsuario
         }
     }
     return NULL; // Não encontrado
+}
+
+static void ordenar_indices_dos_vertices_por_nome(int *indices, int n, Grafo *g) {
+    for (int i = 0; i < n - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < n; j++) {
+            // Compara os nomes nos vértices apontados pelos índices
+            if (strcmp(g->vertices[indices[j]].nomeUsuario, g->vertices[indices[min_idx]].nomeUsuario) < 0) {
+                min_idx = j;
+            }
+        }
+        // Troca
+        int temp = indices[min_idx];
+        indices[min_idx] = indices[i];
+        indices[i] = temp;
+    }
+}
+
+static int obter_indice_vertice_por_nome(Grafo *g, const char *nome) {
+    if (!g || !nome) return -1;
+
+    for (int i = 0; i < g->numVertices; i++) {
+        if (strcmp(g->vertices[i].nomeUsuario, nome) == 0) {
+            return i;
+        }
+    }
+    return -1;
 }

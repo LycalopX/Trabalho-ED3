@@ -22,6 +22,7 @@
 #include "f10/f10.h"
 #include "f11/f11.h"
 #include "f12/f12.h"
+#include "f13/f13.h"
 
 void binarioNaTela(char *nomeArquivoBinario);
 void scan_quote_string(char *str);
@@ -434,6 +435,48 @@ int main()
         }
 
         funcionalidade12(fp, fpIndice, fpSegue);
+
+        fclose(fp);
+        fclose(fpIndice);
+        fclose(fpSegue);
+        break;
+    }
+
+    case 13: {
+        char nomeArquivoDeRegistro[100];
+        char nomeArquivoIndice[100];
+        char nomeArquivoSegue[100];
+
+        scanf("%s %s %s", nomeArquivoDeRegistro, nomeArquivoIndice, nomeArquivoSegue);
+
+        FILE *fp = fopen(nomeArquivoDeRegistro, "rb+");
+        if (fp == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            break;
+        }
+
+        FILE *fpIndice = fopen(nomeArquivoIndice, "rb+");
+        if (fpIndice == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            fclose(fp);
+            break;
+        }
+
+        FILE *fpSegue = fopen(nomeArquivoSegue, "rb");
+        if (fpSegue == NULL)
+        {
+            printf("Falha no processamento do arquivo.\n");
+            fclose(fp);
+            fclose(fpIndice);
+            break;
+        }
+
+        char nomeCelebridade[100];
+        scanf("%s", nomeCelebridade);
+
+        funcionalidade13(fp, fpIndice, fpSegue, nomeCelebridade);
 
         fclose(fp);
         fclose(fpIndice);
