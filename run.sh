@@ -19,13 +19,40 @@ make clean
 make
 
 echo "--- Executando Novos Testes ---"
-
 # Teste 1: Funcionalidade 11, caso 1
 echo ">> Teste 1: Funcionalidade 11 (p.bin, i.bin, so.bin)"
 cp testes/p.bin .
 cp testes/i.bin .
 cp testes/so.bin .
 echo -e "11 p.bin i.bin so.bin" | $RUN_CMD
+
+# Teste 4: Funcionalidade 12, caso 1
+echo ">> Teste 4: Funcionalidade 12 (p.bin, i.bin, so.bin)"
+cp testes/p.bin .
+cp testes/i.bin .
+cp testes/so.bin .
+echo -e "12 p.bin i.bin so.bin" | $RUN_CMD
+
+# Teste 6: Funcionalidade 13, caso 1
+echo ">> Teste 6: Funcionalidade 13 (pessoas1.bin, ... LUIZALVES1)"
+cp testes/pessoas1.bin .
+cp testes/indice1.bin .
+cp testes/segueOrd.bin .
+echo -e "13 pessoas1.bin indice1.bin segueOrd.bin LUIZALVES1" | $RUN_CMD
+
+# Teste 9: Funcionalidade 14, caso 1
+echo ">> Teste 9: Funcionalidade 14 (pessoas1.bin, ... MARIAARAGAO1)"
+cp testes/pessoas1.bin .
+cp testes/indice1.bin .
+cp testes/segueOrd.bin .
+echo -e "14 pessoas1.bin indice1.bin segueOrd.bin MARIAARAGAO1" | $RUN_CMD
+
+# Teste 10: Funcionalidade 14, caso 2
+echo ">> Teste 10: Funcionalidade 14 (pessoas2.bin, ... LIAMARAGAO)"
+cp testes/pessoas2.bin .
+cp testes/indice2.bin .
+cp testes/segueOrd.bin .
+echo -e "14 pessoas2.bin indice2.bin segueOrd.bin LIAMARAGAO" | $RUN_CMD
 
 
 echo "--- Fim dos Novos Testes ---"

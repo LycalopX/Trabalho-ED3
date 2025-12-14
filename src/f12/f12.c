@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "f12.h"
-#include "../data_manip/grafo.h"
+#include "../grafo/grafo.h"
 
 int funcionalidade12(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue)
 {

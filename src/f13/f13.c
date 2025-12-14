@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "f13.h"
-#include "../data_manip/grafo.h"
+#include "../grafo/grafo.h"
 
 int funcionalidade13(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue, char *nomeCelebridade)
 {
