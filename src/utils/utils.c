@@ -19,7 +19,7 @@ void binarioNaTela(char *nomeArquivoBinario)
     unsigned char *mb;
     size_t fl;
     FILE *fs;
-    if (nomeArquivoBinario == NULL || !(fs = fopen(nomeArquivoBinario, "rb")))
+    if (nomeArquivoBinario == NULL || !(fs = fopen(nomeArquivoBinario, "rb"))) 
     {
         fprintf(stderr, "ERRO AO ESCREVER O BINARIO NA TELA (função binarioNaTela): não foi possível abrir o arquivo que me passou para leitura. Ele existe e você tá passando o nome certo? Você lembrou de fechar ele com fclose depois de usar?\n");
         return;
@@ -360,4 +360,32 @@ void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice 
     {
         printf(FALHA_AO_PROCESSAR_ARQUIVO);
     }
+}
+
+// DD/MM/AAAA
+int datecmp(const char *date1, const char *date2)
+{
+    if (strcmp(date1, NULO_DATA) == 0 && strcmp(date2, NULO_DATA) == 0)
+        return 0;
+    if (strcmp(date1, NULO_DATA) == 0)
+        return 1;
+    if (strcmp(date2, NULO_DATA) == 0)
+        return -1;
+
+    int dia1, mes1, ano1;
+    int dia2, mes2, ano2;
+
+    sscanf(date1, "%d/%d/%d", &dia1, &mes1, &ano1);
+    sscanf(date2, "%d/%d/%d", &dia2, &mes2, &ano2);
+
+    if (ano1 < ano2) return -1;
+    if (ano1 > ano2) return 1;
+
+    if (mes1 < mes2) return -1;
+    if (mes1 > mes2) return 1;
+
+    if (dia1 < dia2) return -1;
+    if (dia1 > dia2) return 1;
+
+    return 0;
 }

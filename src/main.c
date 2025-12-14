@@ -517,9 +517,11 @@ int main()
         }
 
         char nomeUsuarioQueGerouFofoca[100];
-        scanf(" %99[^\n]", nomeUsuarioQueGerouFofoca);
+        scan_quote_string(nomeUsuarioQueGerouFofoca);
 
-        funcionalidade14(fp, fpIndice, fpSegue, nomeUsuarioQueGerouFofoca);
+        if (funcionalidade14(fp, fpIndice, fpSegue, nomeUsuarioQueGerouFofoca)) {
+            printf(FALHA_AO_EXECUTAR_FUNCIONALIDADE);
+        }
 
         fclose(fp);
         fclose(fpIndice);

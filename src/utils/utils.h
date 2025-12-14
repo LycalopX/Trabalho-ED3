@@ -118,4 +118,12 @@ void imprimir_registros_raw_em_arquivo(FILE *fp, char *nome_arquivo_saida);
  */
 void remover_pessoas_e_indices(RegistroBuscaPessoa **resultados, RegistroIndice **indices, CabecalhoPessoa *cabPessoa, int nRegsEncontrados, FILE *fp, int flagUpdate);
 
+/**
+ * @brief Compara duas datas no formato "DD/MM/AAAA".
+ * @param date1 Ponteiro para a primeira data como string.
+ * @param date2 Ponteiro para a segunda data como string.
+ * @return Retorna -1 se date1 < date2, 1 se date1 > date2, 0 se forem iguais.
+ */
+int datecmp(const char *date1, const char *date2);
+
 #endif

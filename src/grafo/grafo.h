@@ -33,6 +33,14 @@ Grafo *transpor_grafo(Grafo *grafoOriginal);
 void destruir_grafo(Grafo *grafo);
 
 /**
+ * @brief Encontra o comprimento do ciclo mais curto a partir de um nó inicial no grafo.
+ * @param g O grafo original.
+ * @param nomeInicio O nome do usuário que inicia o ciclo.
+ * @return Retorna o comprimento do ciclo mais curto, ou -1 se não houver ciclo ou erro.
+ */
+int encontrar_ciclo_mais_curto(Grafo *g, const char *nomeInicio);
+
+/**
  * @brief Encontra e imprime os caminhos mais curtos no grafo transposto a partir de uma celebridade.
  * @param grafoTransposto O grafo transposto.
  * @param nomeCelebridade O nome da celebridade de onde os caminhos começam.

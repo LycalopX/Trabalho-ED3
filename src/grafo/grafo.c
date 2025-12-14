@@ -6,6 +6,7 @@
 #include "../data_manip/pessoa.h"
 #include "../data_manip/indice.h"
 #include "../data_manip/segue.h"
+#include "../utils/utils.h"
 
 // Estrutura auxiliar para mapear idPessoa para nomeUsuario de forma eficiente
 typedef struct
@@ -26,6 +27,7 @@ static char *get_nomeUsuario_por_id(int idPessoa, IdUsuarioMap *mapa, int numPes
 static Vertice *encontrar_vertice_por_nome(Grafo *grafo, const char *nomeUsuario);
 static void ordenar_indices_dos_vertices_por_nome(int *indices, int n, Grafo *grafo);
 static int obter_indice_vertice_por_nome(Grafo *grafo, const char *nome);
+static int comparar_arestas(Aresta *a1, Aresta *a2);
 
 Grafo *criar_grafo(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue)
 {
@@ -241,6 +243,81 @@ void destruir_grafo(Grafo *grafo)
     }
     free(grafo->vertices);
     free(grafo);
+}
+
+int encontrar_ciclo_mais_curto(Grafo *g, const char *nomeInicio)
+{
+    if (!g || !nomeInicio)
+        return -1;
+
+    int n = g->numVertices;
+    int indiceInicio = obter_indice_vertice_por_nome(g, nomeInicio);
+
+    if (indiceInicio == -1)
+        return -1;
+
+    DadosBFS *info = calloc(n, sizeof(DadosBFS));
+    if (!info)
+        return -1;
+
+    for (int i = 0; i < n; i++)
+    {
+        info[i].distancia = -1;
+        info[i].visitado = 0;
+    }
+
+    int *fila = malloc(sizeof(int) * n);
+    if (!fila)
+    {
+        free(info);
+        return -1;
+    }
+
+    int inicio = 0;
+    int fim = 0;
+    info[indiceInicio].visitado = 1;
+    info[indiceInicio].distancia = 0;
+    fila[fim++] = indiceInicio;
+
+    int ciclo_encontrado = -1;
+    int ciclo_ja_foi_encontrado = 0; // Flag para parar o loop externo
+
+    while (inicio < fim)
+    {
+        int u_idx = fila[inicio++];
+        Vertice *u = &g->vertices[u_idx];
+        Aresta *aresta = u->adjacentes;
+
+        while (aresta != NULL)
+        {
+            int v_idx = obter_indice_vertice_por_nome(g, aresta->nomeUsuarioSeguido);
+            if (v_idx != -1)
+            {
+                if (v_idx == indiceInicio)
+                {
+                    ciclo_encontrado = info[u_idx].distancia + 1;
+                    ciclo_ja_foi_encontrado = 1; // Seta a flag
+                    break;                       // Sai do loop de arestas
+                }
+                if (!info[v_idx].visitado)
+                {
+                    info[v_idx].visitado = 1;
+                    info[v_idx].distancia = info[u_idx].distancia + 1;
+                    fila[fim++] = v_idx;
+                }
+            }
+            aresta = aresta->proxima;
+        }
+
+        if (ciclo_ja_foi_encontrado)
+        {
+            break; // Sai do loop da BFS
+        }
+    }
+
+    free(info);
+    free(fila);
+    return ciclo_encontrado;
 }
 
 void encontrar_caminhos_curtos_bfs(Grafo *grafoTransposto, char *nomeCelebridade, Grafo *grafoOriginal)
@@ -526,7 +603,7 @@ static int comparar_vertices_nome(const void *a, const void *b)
 static void inserir_aresta_ordenada(Vertice *vertice, Aresta *nova_aresta)
 {
     // Caso especial: a lista está vazia ou o novo nó deve ser o primeiro
-    if (vertice->adjacentes == NULL || strcmp(nova_aresta->nomeUsuarioSeguido, vertice->adjacentes->nomeUsuarioSeguido) < 0)
+    if (vertice->adjacentes == NULL || comparar_arestas(nova_aresta, vertice->adjacentes) < 0)
     {
         nova_aresta->proxima = vertice->adjacentes;
         vertice->adjacentes = nova_aresta;
@@ -535,7 +612,7 @@ static void inserir_aresta_ordenada(Vertice *vertice, Aresta *nova_aresta)
     {
         Aresta *atual = vertice->adjacentes;
         // Encontra o local correto para inserção
-        while (atual->proxima != NULL && strcmp(nova_aresta->nomeUsuarioSeguido, atual->proxima->nomeUsuarioSeguido) > 0)
+        while (atual->proxima != NULL && comparar_arestas(nova_aresta, atual->proxima) > 0)
         {
             atual = atual->proxima;
         }
@@ -564,8 +641,13 @@ static void ordenar_indices_dos_vertices_por_nome(int *indices, int n, Grafo *g)
         int min_idx = i;
         for (int j = i + 1; j < n; j++)
         {
+            Vertice vj = g->vertices[indices[j]];
+            Vertice vmin = g->vertices[indices[min_idx]];
+
+            int diff = strcmp(vj.nomeUsuario, vmin.nomeUsuario);
+
             // Compara os nomes nos vértices apontados pelos índices
-            if (strcmp(g->vertices[indices[j]].nomeUsuario, g->vertices[indices[min_idx]].nomeUsuario) < 0)
+            if (diff < 0)
             {
                 min_idx = j;
             }
@@ -590,4 +672,21 @@ static int obter_indice_vertice_por_nome(Grafo *g, const char *nome)
         }
     }
     return -1;
+}
+
+int comparar_arestas(Aresta *a1, Aresta *a2)
+{
+    int diff = strcmp(a1->nomeUsuarioSeguido, a2->nomeUsuarioSeguido);
+    if (diff != 0)
+        return diff;
+
+    diff = datecmp(a1->dataInicio, a2->dataInicio);
+    if (diff != 0)
+        return diff;
+
+    diff = datecmp(a1->dataFim, a2->dataFim);
+    if (diff != 0)
+        return diff;
+
+    return 0;
 }
