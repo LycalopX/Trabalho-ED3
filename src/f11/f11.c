@@ -10,7 +10,6 @@ int funcionalidade11(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue)
     Grafo *grafo = criar_grafo(fpPessoa, fpIndice, fpSegue);
     if (!grafo)
     {
-        printf(FALHA_AO_EXECUTAR_FUNCIONALIDADE);
         return 1; // Indica falha na criação do grafo
     }
 

@@ -5,46 +5,67 @@
 #include "../arquivos.h"
 
 /**
- * @brief Carrega os dados dos arquivos binários e monta o grafo em memória.
- * @param fpPessoa Ponteiro para o arquivo de dados de pessoas.
- * @param fpIndice Ponteiro para o arquivo de índice de pessoas.
+ * @brief Lê os dados dos arquivos binários e constrói a estrutura do grafo em memória.
+ * 
+ * A função carrega todos os usuários (vértices) e relacionamentos (arestas) dos arquivos
+ * fornecidos. Os vértices são identificados pelos nomes de usuário.
+ * 
+ * @param fpPessoa Ponteiro para o arquivo de dados de pessoas (para obter nomes e IDs).
+ * @param fpIndice Ponteiro para o arquivo de índice de pessoas (acesso rápido).
  * @param fpSegue Ponteiro para o arquivo de relacionamentos 'segue'.
- * @return Retorna um ponteiro para a estrutura Grafo criada, ou NULL em caso de falha.
+ * @return Retorna um ponteiro para a estrutura Grafo alocada ou NULL em caso de erro.
  */
 Grafo *criar_grafo(FILE *fpPessoa, FILE *fpIndice, FILE *fpSegue);
 
 /**
- * @brief Imprime o grafo no formato especificado (Funcionalidade 11).
+ * @brief Imprime o grafo (listas de adjacência) no formato especificado pela funcionalidade 11.
+ * 
+ * Para cada vértice, imprime suas arestas de saída (quem ele segue) com os detalhes
+ * (nome seguido, data inicio, data fim, grau de amizade).
+ * 
  * @param grafo Ponteiro para o grafo a ser impresso.
  */
 void imprimir_grafo(Grafo *grafo);
 
 /**
- * @brief Gera e retorna o grafo transposto de um grafo de entrada.
- * @param grafoOriginal O grafo que será transposto.
- * @return Retorna um ponteiro para o novo grafo transposto.
+ * @brief Cria a transposta do grafo fornecido (inverte a direção de todas as arestas).
+ * 
+ * Útil para algoritmos que precisam percorrer as relações "é seguido por" em vez de "segue".
+ * 
+ * @param grafoOriginal O grafo direcionado original.
+ * @return Retorna um novo grafo contendo a transposta do original ou NULL em caso de erro.
  */
 Grafo *transpor_grafo(Grafo *grafoOriginal);
 
 /**
- * @brief Libera toda a memória alocada para a estrutura do grafo.
- * @param grafo O grafo a ser destruído.
+ * @brief Libera toda a memória associada ao grafo.
+ * 
+ * Destrói vértices, arestas e a estrutura do grafo em si.
+ * 
+ * @param grafo Ponteiro para o grafo a ser destruído.
  */
 void destruir_grafo(Grafo *grafo);
 
 /**
- * @brief Encontra o comprimento do ciclo mais curto a partir de um nó inicial no grafo.
- * @param g O grafo original.
- * @param nomeInicio O nome do usuário que inicia o ciclo.
- * @return Retorna o comprimento do ciclo mais curto, ou -1 se não houver ciclo ou erro.
+ * @brief Encontra o comprimento do ciclo mais curto que começa e termina no usuário especificado.
+ * 
+ * Utiliza uma busca em largura (BFS) para encontrar o menor caminho de volta ao nó inicial.
+ * 
+ * @param g Ponteiro para o grafo.
+ * @param nomeInicio Nome do usuário onde o ciclo deve começar e terminar.
+ * @return O comprimento do ciclo (número de arestas) ou -1 se não houver ciclo.
  */
 int encontrar_ciclo_mais_curto(Grafo *g, const char *nomeInicio);
 
 /**
- * @brief Encontra e imprime os caminhos mais curtos no grafo transposto a partir de uma celebridade.
- * @param grafoTransposto O grafo transposto.
- * @param nomeCelebridade O nome da celebridade de onde os caminhos começam.
- * @param grafoOriginal O grafo original (não transposto) para referência das arestas.
+ * @brief Executa uma BFS no grafo transposto para encontrar caminhos de uma celebridade.
+ * 
+ * A partir de uma celebridade (no grafo transposto), encontra quem a segue (direta ou indiretamente)
+ * e imprime os caminhos.
+ * 
+ * @param grafoTransposto O grafo transposto (onde arestas apontam de 'seguido' para 'seguidor').
+ * @param nomeCelebridade O nome da celebridade (ponto de partida da BFS no transposto).
+ * @param grafoOriginal O grafo original (usado para recuperar atributos originais das arestas se necessário).
  */
 void encontrar_caminhos_curtos_bfs(Grafo *grafoTransposto, char *nomeCelebridade, Grafo *grafoOriginal);
 

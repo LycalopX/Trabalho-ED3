@@ -396,7 +396,9 @@ int main()
             break;
         }
 
-        funcionalidade11(fp, fpIndice, fpSegue);
+        if (funcionalidade11(fp, fpIndice, fpSegue) != 0) {
+             printf(FALHA_AO_EXECUTAR_FUNCIONALIDADE);
+        }
 
         fclose(fp);
         fclose(fpIndice);

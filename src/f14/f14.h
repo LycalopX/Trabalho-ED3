@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /**
- * @brief Recebe o nome de uma celebridade e imprime a lista de seguidores dessa celebridade.
+ * @brief Determina o comprimento do ciclo mais curto para que uma fofoca retorne à pessoa que a iniciou.
  * @param fpPessoa Ponteiro para o arquivo de dados de pessoas (pessoa.bin).
  * @param fpIndice Ponteiro para o arquivo de índice de pessoas (indexaPessoa.bin).
  * @param fpSegue Ponteiro para o arquivo de relacionamentos ordenados (segueOrdenado.bin).
